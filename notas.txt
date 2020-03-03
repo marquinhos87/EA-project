@@ -1,0 +1,8 @@
+Dependencia Maven para o hibernate
+
+<dependency>
+  <groupId>org.hibernate</groupId>
+  <artifactId>hibernate-agroal</artifactId>
+  <version>5.4.11.Final</version>
+  <type>pom</type>
+</dependency>
