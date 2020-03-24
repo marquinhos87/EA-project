@@ -18,9 +18,9 @@ Proposta 1
 		2 - Comprar um pack (plano de treino, de várias semanas) predefinido de um determinado personal trainer;
 		3 - Registar-se na aplicação;
 		4 - Atribuir classificação/comentários a personal trainer após efetuar um pack (plano) do mesmo.
-		5 - Conversa (chat) com personal trainer;
-		6 - Descarregar ficheiros dos personal trainers;
-		7 - Efetuar o pagamento dos packs;
+		5 - Conversa (chat) com personal trainer; X
+		6 - Descarregar ficheiros dos personal trainers; X
+		7 - Efetuar o pagamento dos packs; X
 		...
 		
 		Actor: personal trainer
