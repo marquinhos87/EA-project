@@ -34,18 +34,18 @@ Grupo 10
 			2 - Fazer login na aplicação.
 			3 - Editar dados biométricos.
 			4 - Procurar por Personal Trainer com filtros.
-			4 - Enviar formulário a Personal trainers.
-			5 - Avaliar Personal Trainer.
-			6 - Indicar realização do plano.
-			7 - Consultar perfis.
-			8 - Consultar Notificações.
+			5 - Enviar formulário a Personal trainers. (Formulário com os dados a enviar para o PT)
+			6 - Avaliar Personal Trainer.
+			7 - Indicar realização do plano.
+			8 - Consultar perfis PT.
+			9 - Consultar Notificações.
 
 		Ator: Personal Trainer
 			1 - Registar-se na aplicação.
 			2 - Fazer login na aplicação.
-			3 - Criação/edição de planos.
+			3 - Criação/edição de planos. (Gerir plano)
 			4 - Consultar dados biométricos dos clientes.
-			5 - Consultar perfis.
+			5 - Consultar perfis PT.
 
 
 	Mockups:
