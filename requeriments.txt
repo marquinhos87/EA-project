@@ -50,23 +50,23 @@ Grupo 10
 
 	Mockups:
 		Ator: Comum
-			1 - Login.
-			2 - Registo.
-			3 - Página de perfil.
-			4 - Homepage
-			5 - Visualizar plano (conjunto de workouts, dados biométricos). Ricardo
-			6 - Visualizar workout (conjunto de tarefas, dados biométricos). Ricardo
+			1 -       - Login.
+			2 - 	  - Registo.
+			3 -       - Visualizar plano (conjunto de workouts, dados biométricos). Ricardo
+			4 -       - Visualizar workout (conjunto de tarefas, dados biométricos). Ricardo
+			5         - Consultar o próprio perfil
 
 		Ator: Clientes
-			1 - Formulário. Marques
-			2 - Editar perfil (nome, sexo, email, dados biométricos). José
-			3 - Avaliar Personal Trainer. José
-			5 - Procurar Personal Trainer com filtro. José
-			6 - Consultar notificações. Marques
+			1 - 	  - Formulário. Marques
+			2 - FEITO - Editar perfil (nome, sexo, email, dados biométricos). José 
+			3 - 	  - Avaliar Personal Trainer. José
+			4 - FEITO - Procurar Personal Trainer com filtro. José
+			5 -       - Consultar notificações. Marques
+			6         - Consultar perfil do Personal Trainer
 		
 		Ator: Personal Trainer
-			1 - Criação/edição de planos. Ricardo
-			2 - Listar os Clientes do Personal Trainer.  
+			1 -       - Criação/edição de planos. Ricardo
+			2 - FEITO - Listar os Clientes do Personal Trainer.
 
 
 
