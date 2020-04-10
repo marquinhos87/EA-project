@@ -62,7 +62,7 @@ Grupo 10
 			3 - 	  - Avaliar Personal Trainer. Ricardo
 			4 - FEITO - Procurar Personal Trainer com filtro. José
 			5 - FEITO - Consultar notificações. Marques
-			6         - Consultar perfil do Personal Trainer. Marques
+			6 - FEITO - Consultar perfil do Personal Trainer. Marques
 		
 		Ator: Personal Trainer
 			1 -       - Criação/edição de planos. Todos
