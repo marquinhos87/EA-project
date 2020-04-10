@@ -11,17 +11,73 @@ Grupo 10
 		Actor: clientes
 	
 		1 - Registar-se na aplicação;
-		2 - Consultar perfil do personal trainer (classificações, comentários sobre os mesmos);
-		3 - Registar os dados biométricos entre outros;
-		4 - Consultar plano de treino;
-		5 - Indicar realização do plano (totalidade ou cada workout, checklist e notas);
-		6 - Atribuir classificação/comentários a personal trainer após completar x planos.
+		2 - Procurar por Personal Trainer com filtros.
+		3 - Consultar perfil do personal trainer (classificações, comentários sobre os mesmos);
+		4 - Registar os dados biométricos entre outros;
+		5 - Enviar formulário de inscrição a um Personal Trainer.
+		6 - Consultar plano de treino;
+		7 - Indicar realização do plano (totalidade ou cada workout, checklist e notas);
+		8 - Atribuir classificação/comentários a personal trainer após completar x planos.
+		9 - Consultar Notificações.
 		
 		Actor: personal trainer
 
 		1 - Registo na aplicação como personal trainer (onde será preciso um comprovativo do mesmo);
 		2 - Criação/edição de planos;
 		3 - Consultar os dados (dados biométricos) dos clientes;
+
+
+
+	Use cases:
+		Ator: Clientes
+			1 - Registar-se na aplicação.
+			2 - Fazer login na aplicação.
+			3 - Editar dados biométricos.
+			4 - Procurar por Personal Trainer com filtros.
+			4 - Enviar formulário a Personal trainers.
+			5 - Avaliar Personal Trainer.
+			6 - Indicar realização do plano.
+			7 - Consultar perfis.
+			8 - Consultar Notificações.
+
+		Ator: Personal Trainer
+			1 - Registar-se na aplicação.
+			2 - Fazer login na aplicação.
+			3 - Criação/edição de planos.
+			4 - Consultar dados biométricos dos clientes.
+			5 - Consultar perfis.
+
+
+	Mockups:
+		Ator: Comum
+			1 - Login.
+			2 - Registo.
+			3 - Página de perfil.
+			4 - Homepage
+			5 - Visualizar plano (conjunto de workouts, dados biométricos). Ricardo
+			6 - Visualizar workout (conjunto de tarefas, dados biométricos). Ricardo
+
+		Ator: Clientes
+			1 - Formulário. Marques
+			2 - Editar os dados biométricos. José
+			3 - Avaliar Personal Trainer. José
+			5 - Procurar Personal Trainer com filtro. José
+			6 - Consultar notificações. Marques
+		
+		Ator: Personal Trainer
+			1 - Criação/edição de planos. Ricardo
+			2 - Listar os Clientes do Personal Trainer.  
+
+
+
+
+
+
+
+
+
+
+
 
 
 
