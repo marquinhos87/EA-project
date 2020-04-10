@@ -59,7 +59,7 @@ Grupo 10
 
 		Ator: Clientes
 			1 - Formulário. Marques
-			2 - Editar os dados biométricos. José
+			2 - Editar perfil (nome, sexo, email, dados biométricos). José
 			3 - Avaliar Personal Trainer. José
 			5 - Procurar Personal Trainer com filtro. José
 			6 - Consultar notificações. Marques
