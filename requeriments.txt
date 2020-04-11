@@ -54,7 +54,7 @@ Grupo 10
 			2 - 	  - Registo.
 			3 - FEITO - Visualizar plano (conjunto de workouts, dados biométricos). Ricardo
 			4 - FEITO - Visualizar workout (conjunto de tarefas, dados biométricos). Ricardo
-			5         - Consultar o próprio perfil. 
+			5 -       - Consultar o próprio perfil. 
 
 		Ator: Clientes
 			1 - FEITO - Formulário. Marques
