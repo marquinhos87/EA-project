@@ -70,15 +70,11 @@ Grupo 10
 
 
 	Modelo de tarefas:
-					cliente-avaliar_personal_trainer.docx
+					pt-criar_plano.docx
 					cliente-consultar_plano.docx
 			FEITO   cliente-preencher_formulario.docx
 			FEITO   cliente-procurar_personal_trainer.docx
-					cliente-realizacao_plano.docx
-					editar_perfil.docx
-					pt-consultar_dados_biometricos.docx
-					pt-criar_plano.docx
-					pt-editar_plano.docx
+			FEITO	editar_perfil.docx
 
 
 
