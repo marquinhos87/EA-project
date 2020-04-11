@@ -69,6 +69,16 @@ Grupo 10
 			2 - FEITO - Listar os Clientes do Personal Trainer. José
 
 
+	Modelo de tarefas:
+					cliente-avaliar_personal_trainer.docx
+					cliente-consultar_plano.docx
+			FEITO   cliente-preencher_formulario.docx
+			FEITO   cliente-procurar_personal_trainer.docx
+					cliente-realizacao_plano.docx
+					editar_perfil.docx
+					pt-consultar_dados_biometricos.docx
+					pt-criar_plano.docx
+					pt-editar_plano.docx
 
 
 
