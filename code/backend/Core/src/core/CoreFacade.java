@@ -1,13 +1,35 @@
 package core;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class CoreFacade {
 
 	private static CoreFacade coreFacade;
 	private CoreFacadeBean coreFacadeBean;
 
-	public static CoreFacadeBean getInstance() {
-		// TODO - implement CoreFacade.getInstance
-		throw new UnsupportedOperationException();
+	private CoreFacade() {
+
+	}
+
+	private CoreFacadeBeanLocal lookupGymAtHomeBeanLocal() {
+		try {
+			Context c = new InitialContext();
+			return (CoreFacadeBeanLocal) c.lookup("java:global/Core/CoreFacadeBean!core.CoreBeanLocal");
+		} catch (NamingException ne) {
+			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+			throw new RuntimeException(ne);
+		}
+	}
+
+	public static CoreFacade getInstance() {
+		if (coreFacade == null) {
+			coreFacade = new CoreFacade();
+		}
+		return coreFacade;
 	}
 
 	/**

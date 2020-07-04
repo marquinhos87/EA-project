@@ -2,7 +2,7 @@ package backend;
 
 @javax.ejb.Stateless(name="GymAtHomeBean")
 @javax.ejb.Local(GymAtHomeBeanLocal.class)
-public class GymAtHomeBeanBean implements GymAtHomeBeanLocal {
+public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
 	/**
 	 * 

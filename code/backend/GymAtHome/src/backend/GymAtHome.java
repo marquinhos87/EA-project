@@ -1,13 +1,35 @@
 package backend;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class GymAtHome {
 
 	private static GymAtHome gymAtHome;
-	private GymAtHomeBean gymAtHomeBean;
+	private GymAtHomeBeanLocal gymAtHomeBean = lookupGymAtHomeBeanLocal();
+
+	private GymAtHome() {
+
+	}
+
+	private GymAtHomeBeanLocal lookupGymAtHomeBeanLocal() {
+		try {
+			Context c = new InitialContext();
+			return (GymAtHomeBeanLocal) c.lookup("java:global/GymAtHome/GymAtHomeBean!backend.GymAtHomeBeanLocal");
+		} catch (NamingException ne) {
+			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+			throw new RuntimeException(ne);
+		}
+	}
 
 	public static GymAtHome getInstance() {
-		// TODO - implement GymAtHome.getInstance
-		throw new UnsupportedOperationException();
+		if (gymAtHome == null) {
+			gymAtHome = new GymAtHome();
+		}
+		return gymAtHome;
 	}
 
 	/**
@@ -15,7 +37,8 @@ public class GymAtHome {
 	 * @param infoClientAsJSON
 	 */
 	public String createClient(String infoClientAsJSON) {
-
+		// TODO - implement GymAtHome.createClient
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -23,7 +46,8 @@ public class GymAtHome {
 	 * @param infoAsJSON
 	 */
 	public String loginClient(String infoAsJSON) {
-
+		// TODO - implement GymAtHome.loginClient
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -31,7 +55,8 @@ public class GymAtHome {
 	 * @param usernameAsJSON
 	 */
 	public String getClientProfile(String usernameAsJSON) {
-
+		// TODO - implement GymAtHome.getClientProfile
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -39,7 +64,8 @@ public class GymAtHome {
 	 * @param filtersAsJSON
 	 */
 	public String getPersonalTrainers(String filtersAsJSON) {
-
+		// TODO - implement GymAtHome.getPersonalTrainer
+		throw new UnsupportedOperationException();
 	}
 
 	/**

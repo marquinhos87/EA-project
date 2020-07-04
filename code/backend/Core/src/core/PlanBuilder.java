@@ -1,5 +1,7 @@
 package core;
 
+import core.data.Plan;
+
 public interface PlanBuilder {
 
 	void reset();

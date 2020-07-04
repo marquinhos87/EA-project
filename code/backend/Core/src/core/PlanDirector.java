@@ -1,5 +1,7 @@
 package core;
 
+import core.data.Plan;
+
 public class PlanDirector {
 
 	private PlanBuilder planBuilder;

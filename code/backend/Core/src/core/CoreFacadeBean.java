@@ -2,7 +2,7 @@ package core;
 
 @javax.ejb.Stateless(name="CoreFacadeBean")
 @javax.ejb.Local(CoreFacadeBeanLocal.class)
-public class CoreFacadeBeanBean implements CoreFacadeBeanLocal {
+public class CoreFacadeBean implements CoreFacadeBeanLocal {
 
 	private PlanDirector planDirector;
 
