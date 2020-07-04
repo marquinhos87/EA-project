@@ -37,8 +37,7 @@ public class GymAtHome {
 	 * @param infoClientAsJSON
 	 */
 	public String createClient(String infoClientAsJSON) {
-		// TODO - implement GymAtHome.createClient
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.createClient(infoClientAsJSON);
 	}
 
 	/**
@@ -46,8 +45,7 @@ public class GymAtHome {
 	 * @param infoAsJSON
 	 */
 	public String loginClient(String infoAsJSON) {
-		// TODO - implement GymAtHome.loginClient
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.loginClient(infoAsJSON);
 	}
 
 	/**
@@ -55,8 +53,7 @@ public class GymAtHome {
 	 * @param usernameAsJSON
 	 */
 	public String getClientProfile(String usernameAsJSON) {
-		// TODO - implement GymAtHome.getClientProfile
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.getClientProfile(usernameAsJSON);
 	}
 
 	/**
@@ -64,8 +61,7 @@ public class GymAtHome {
 	 * @param filtersAsJSON
 	 */
 	public String getPersonalTrainers(String filtersAsJSON) {
-		// TODO - implement GymAtHome.getPersonalTrainer
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.getPersonalTrainers(filtersAsJSON);
 	}
 
 	/**
@@ -73,8 +69,7 @@ public class GymAtHome {
 	 * @param infoPTAsJSON
 	 */
 	public String createPersonalTrainer(String infoPTAsJSON) {
-		// TODO - implement GymAtHome.createPersonalTrainer
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.createPersonalTrainer(infoPTAsJSON);
 	}
 
 	/**
@@ -82,8 +77,7 @@ public class GymAtHome {
 	 * @param infoAsJSON
 	 */
 	public String loginPersonalTrainer(String infoAsJSON) {
-		// TODO - implement GymAtHome.loginPersonalTrainer
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.loginPersonalTrainer(infoAsJSON);
 	}
 
 	/**
@@ -91,8 +85,7 @@ public class GymAtHome {
 	 * @param usernameAsJSON
 	 */
 	public String getPersonalTrainerProfile(String usernameAsJSON) {
-		// TODO - implement GymAtHome.getPersonalTrainerProfile
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.getPersonalTrainerProfile(usernameAsJSON);
 	}
 
 	/**
@@ -100,8 +93,7 @@ public class GymAtHome {
 	 * @param infoAsJSON
 	 */
 	public void editClientProfile(String infoAsJSON) {
-		// TODO - implement GymAtHome.editClientProfile
-		throw new UnsupportedOperationException();
+		gymAtHomeBean.editClientProfile(infoAsJSON);
 	}
 
 	/**
@@ -109,8 +101,7 @@ public class GymAtHome {
 	 * @param usernameAsJSON
 	 */
 	public void editPersonalTrainertProfile(String usernameAsJSON) {
-		// TODO - implement GymAtHome.editPersonalTrainertProfile
-		throw new UnsupportedOperationException();
+		gymAtHomeBean.editPersonalTrainertProfile(usernameAsJSON);
 	}
 
 	/**
@@ -118,8 +109,7 @@ public class GymAtHome {
 	 * @param usernameAndWeekAsJSON
 	 */
 	public String getPlan(String usernameAndWeekAsJSON) {
-		// TODO - implement GymAtHome.getPlan
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.getPlan(usernameAndWeekAsJSON);
 	}
 
 	/**
@@ -127,8 +117,7 @@ public class GymAtHome {
 	 * @param usernameAsJSON
 	 */
 	public String getBiometricData(String usernameAsJSON) {
-		// TODO - implement GymAtHome.getBiometricData
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.getBiometricData(usernameAsJSON);
 	}
 
 	/**
@@ -136,8 +125,7 @@ public class GymAtHome {
 	 * @param usernameAndClassificationAsJSON
 	 */
 	public String submitClassification(String usernameAndClassificationAsJSON) {
-		// TODO - implement GymAtHome.submitClassification
-		throw new UnsupportedOperationException();
+		return gymAtHomeBean.submitClassification(usernameAndClassificationAsJSON);
 	}
 
 	/**
@@ -145,17 +133,15 @@ public class GymAtHome {
 	 * @param usernameAndWorkoutIdAsJSON
 	 */
 	public void finishWorkout(String usernameAndWorkoutIdAsJSON) {
-		// TODO - implement GymAtHome.finishWorkout
-		throw new UnsupportedOperationException();
+		gymAtHomeBean.finishWorkout(usernameAndWorkoutIdAsJSON);
 	}
 
 	/**
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public void getPersonalTrainerClients(String usernameAsJSON) {
-		// TODO - implement GymAtHome.getPersonalTrainerClients
-		throw new UnsupportedOperationException();
+	public String getPersonalTrainerClients(String usernameAsJSON) {
+		return gymAtHomeBean.getPersonalTrainerClients(usernameAsJSON);
 	}
 
 	/**
@@ -163,8 +149,7 @@ public class GymAtHome {
 	 * @param requestInfoAsJSON
 	 */
 	public void submitRequest(String requestInfoAsJSON) {
-		// TODO - implement GymAtHome.submitRequest
-		throw new UnsupportedOperationException();
+		gymAtHomeBean.submitRequest(requestInfoAsJSON);
 	}
 
 	/**
@@ -172,8 +157,7 @@ public class GymAtHome {
 	 * @param weekAsJson
 	 */
 	public void createWeek(String weekAsJson) {
-		// TODO - implement GymAtHome.createWeek
-		throw new UnsupportedOperationException();
+		gymAtHomeBean.createWeek(weekAsJson);
 	}
 
 	/**
@@ -181,8 +165,7 @@ public class GymAtHome {
 	 * @param requestIdAndResponseAsJSON
 	 */
 	public void replyToRequest(String requestIdAndResponseAsJSON) {
-		// TODO - implement GymAtHome.replyToRequest
-		throw new UnsupportedOperationException();
+		gymAtHomeBean.replyToRequest(requestIdAndResponseAsJSON);
 	}
 
 }

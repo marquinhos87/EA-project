@@ -45,6 +45,6 @@ public class Http {
     printNotification(response.body());
     
     // get
-    HttpResponse<String> response = Http.post(client, url);
+    HttpResponse<String> response = Http.get(client, url);
     printNotification(response.body());
 */

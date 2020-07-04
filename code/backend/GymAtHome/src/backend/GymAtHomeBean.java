@@ -1,8 +1,14 @@
 package backend;
 
+import java.io.IOException;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+
 @javax.ejb.Stateless(name="GymAtHomeBean")
 @javax.ejb.Local(GymAtHomeBeanLocal.class)
 public class GymAtHomeBean implements GymAtHomeBeanLocal {
+
+	private HttpClient client;
 
 	/**
 	 * 
@@ -10,6 +16,15 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 	 */
 	public String createClient(String infoClientAsJSON) {
 		// TODO - implement GymAtHomeBean.createClient
+		String url = "";
+		String json = "{}";
+		try {
+			HttpResponse<String> response = Http.post(client, url, json);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		throw new UnsupportedOperationException();
 	}
 
@@ -46,6 +61,14 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 	 */
 	public String getClientProfile(String usernameAsJSON) {
 		// TODO - implement GymAtHomeBean.getClientProfile
+		String url = "";
+		try {
+			HttpResponse<String> response = Http.get(client, url);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		throw new UnsupportedOperationException();
 	}
 
@@ -125,7 +148,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public void getPersonalTrainerClients(String usernameAsJSON) {
+	public String getPersonalTrainerClients(String usernameAsJSON) {
 		// TODO - implement GymAtHomeBean.getPersonalTrainerClients
 		throw new UnsupportedOperationException();
 	}

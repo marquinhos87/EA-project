@@ -1,5 +1,7 @@
 package core;
 
+import beans.CoreFacadeBeanLocal;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -9,16 +11,16 @@ import java.util.logging.Logger;
 public class CoreFacade {
 
 	private static CoreFacade coreFacade;
-	private CoreFacadeBean coreFacadeBean;
+	private CoreFacadeBeanLocal coreFacadeBean = lookupCoreFacadeBeanLocal();
 
 	private CoreFacade() {
 
 	}
 
-	private CoreFacadeBeanLocal lookupGymAtHomeBeanLocal() {
+	private CoreFacadeBeanLocal lookupCoreFacadeBeanLocal() {
 		try {
 			Context c = new InitialContext();
-			return (CoreFacadeBeanLocal) c.lookup("java:global/Core/CoreFacadeBean!core.CoreBeanLocal");
+			return (CoreFacadeBeanLocal) c.lookup("java:global/Core/CoreFacadeBean!beans.CoreBeanLocal");
 		} catch (NamingException ne) {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
 			throw new RuntimeException(ne);
@@ -37,7 +39,7 @@ public class CoreFacade {
 	 * @param usernameAsJson
 	 */
 	public void createClient(String usernameAsJson) {
-		// TODO - implement CoreFacade.createClient
+		// TODO - implement core.CoreFacade.createClient
 		throw new UnsupportedOperationException();
 	}
 
@@ -46,7 +48,7 @@ public class CoreFacade {
 	 * @param usernameAsJson
 	 */
 	public void createPersonalTrainer(String usernameAsJson) {
-		// TODO - implement CoreFacade.createPersonalTrainer
+		// TODO - implement core.CoreFacade.createPersonalTrainer
 		throw new UnsupportedOperationException();
 	}
 
@@ -55,7 +57,7 @@ public class CoreFacade {
 	 * @param usernameAndTokenAsJson
 	 */
 	public void updateToken(String usernameAndTokenAsJson) {
-		// TODO - implement CoreFacade.updateToken
+		// TODO - implement core.CoreFacade.updateToken
 		throw new UnsupportedOperationException();
 	}
 
@@ -64,7 +66,7 @@ public class CoreFacade {
 	 * @param usernameAndWeekAsJSON
 	 */
 	public String getPlan(String usernameAndWeekAsJSON) {
-		// TODO - implement CoreFacade.getPlan
+		// TODO - implement core.CoreFacade.getPlan
 		throw new UnsupportedOperationException();
 	}
 
@@ -73,7 +75,7 @@ public class CoreFacade {
 	 * @param usernameAndWorkoutIdAsJSON
 	 */
 	public void finishWorkout(String usernameAndWorkoutIdAsJSON) {
-		// TODO - implement CoreFacade.finishWorkout
+		// TODO - implement core.CoreFacade.finishWorkout
 		throw new UnsupportedOperationException();
 	}
 
@@ -82,7 +84,7 @@ public class CoreFacade {
 	 * @param weekAsJson
 	 */
 	public void createWeek(String weekAsJson) {
-		// TODO - implement CoreFacade.createWeek
+		// TODO - implement core.CoreFacade.createWeek
 		throw new UnsupportedOperationException();
 	}
 

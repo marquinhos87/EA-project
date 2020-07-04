@@ -1,6 +1,6 @@
 package core;
 
-import core.data.Plan;
+import core.data.plan.Plan;
 
 public class PlanDirector {
 

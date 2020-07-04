@@ -85,7 +85,7 @@ public interface GymAtHomeBeanLocal {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	void getPersonalTrainerClients(String usernameAsJSON);
+	String getPersonalTrainerClients(String usernameAsJSON);
 
 	/**
 	 * 
