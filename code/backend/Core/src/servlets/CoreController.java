@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "CoreController", urlPatterns = "/Core")
+@WebServlet(name = "CoreController", urlPatterns = "/api/v1/GymAtHome/Core")
 public class CoreController extends HttpServlet {
 
     private CoreFacade coreFacade = CoreFacade.getInstance();

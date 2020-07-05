@@ -103,7 +103,7 @@ public class GymAtHome {
 	 * @param usernameAsJSON
 	 */
 	public void editPersonalTrainertProfile(String usernameAsJSON) {
-		gymAtHomeBean.editPersonalTrainertProfile(usernameAsJSON);
+		gymAtHomeBean.editPersonalTrainerProfile(usernameAsJSON);
 	}
 
 	/**

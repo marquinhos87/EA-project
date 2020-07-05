@@ -8,82 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ba9b596-4e4f-47ef-81cc-56d4c9b57494" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/artifacts/Core_ejb_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/artifacts/Core_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/libraries/EJB_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/libraries/orm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/Core.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/build.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/Diagramas.cfg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/Diagramas.erd.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/Client.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/PersonalTrainer.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/Plan.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/Serie.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/Task.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/Week.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/Workout.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/database.cfg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Core/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/GymAtHome_ejb_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/GymAtHome_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/EJB_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GymAtHome.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/clientservlets/ClientPlanServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/clientservlets/ClientRegisterServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/clientservlets/MakeRequestServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/clientservlets/MyProfileCServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/clientservlets/PersonalTrainerProfileServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/clientservlets/SearchPersonalTrainersServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/clientservlets/TaskServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/commonservlets/LoginServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/commonservlets/NotificationServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/personaltrainerservlets/ClientProfileServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/personaltrainerservlets/CreateWeekServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/personaltrainerservlets/MyProfilePTServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/personaltrainerservlets/MyRequestsServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/out/production/GymAtHomeFrontend/personaltrainerservlets/PersonalTrainerRegisterServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/out/production/Core/core/data/DiagramasPersistentManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/out/production/Core/core/data/DiagramasPersistentManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/out/production/Core/core/data/ORMConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/out/production/Core/core/data/ORMConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHome.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHome.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHomeBean.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHomeBeanLocal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_ejb_exploded.rar/backend/Http.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_ejb_exploded.rar/servlets/APIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/GymAtHome_ejb_exploded.rar/servlets/APIController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHome.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHome.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHomeBean.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHomeBeanLocal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/Http.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/servlets/APIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/servlets/APIController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GymAtHome/backend/GymAtHome.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GymAtHome/backend/GymAtHomeBean.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GymAtHome/backend/GymAtHomeBeanLocal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GymAtHome/backend/Http.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GymAtHome/servlets/APIController.class" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/kotlin_stdlib_1_3_72.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/okhttp_4_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/okio_2_6_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GymAtHome.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GymAtHome.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/GymAtHome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/GymAtHomeBean.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/Http.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/APIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,10 +43,11 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29988465" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
@@ -176,6 +109,8 @@
       <workItem from="1593904903420" duration="895000" />
       <workItem from="1593963933928" duration="1736000" />
       <workItem from="1593966435981" duration="48000" />
+      <workItem from="1593972189661" duration="1800000" />
+      <workItem from="1593980849853" duration="2397000" />
     </task>
     <servers />
   </component>
@@ -206,13 +141,13 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="958" height="379" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593965847704" />
-    <state x="208" y="23" width="1024" height="834" key="SettingsEditor" timestamp="1593965518322">
+    <state x="208" y="23" width="1024" height="834" key="SettingsEditor" timestamp="1593982384214">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="23" width="1024" height="834" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593965518322" />
-    <state x="508" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593964966703">
+    <state x="208" y="23" width="1024" height="834" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593982384214" />
+    <state x="508" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593980889455">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="508" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1593964966703" />
+    <state x="508" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1593980889455" />
   </component>
 </project>

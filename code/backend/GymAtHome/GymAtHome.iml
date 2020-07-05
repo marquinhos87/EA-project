@@ -28,5 +28,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="JBoss 16.0.0.Final" level="application_server_libraries" />
     <orderEntry type="library" name="EJB-3.2.2" level="project" />
+    <orderEntry type="library" name="kotlin-stdlib-1.3.72" level="project" />
+    <orderEntry type="library" name="okhttp-4.6.0" level="project" />
+    <orderEntry type="library" name="okio-2.6.0" level="project" />
   </component>
 </module>

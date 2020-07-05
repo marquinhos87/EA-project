@@ -7,7 +7,28 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="" />
+    <list default="true" id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_8_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/ClientAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/ClientDontExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/PersonalTrainerAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/PersonalTrainerDontExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/kotlin_stdlib_1_3_72.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/okhttp_4_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/okio_2_6_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/servlets/CoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/CoreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PersonalTrainer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PersonalTrainer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PersonalTrainer/PersonalTrainer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../PersonalTrainer/PersonalTrainer.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,12 +63,18 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29988465" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="exceptions" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="JBoss 16.0.0.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 16.0.0.Final" ALTERNATIVE_JRE_ENABLED="false">
@@ -112,6 +139,7 @@
       <workItem from="1593966589796" duration="193000" />
       <workItem from="1593966786347" duration="19000" />
       <workItem from="1593968255987" duration="1693000" />
+      <workItem from="1593984262356" duration="3049000" />
     </task>
     <servers />
   </component>
@@ -139,13 +167,13 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="958" height="238" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593966349099" />
-    <state x="208" y="23" key="SettingsEditor" timestamp="1593969159891">
+    <state x="208" y="23" key="SettingsEditor" timestamp="1593984747768">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="23" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593969159891" />
-    <state x="417" y="349" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1593904770840">
+    <state x="208" y="23" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593984747768" />
+    <state x="417" y="349" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1593984686769">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="417" y="349" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1440.900@0.0.1440.900" timestamp="1593904770840" />
+    <state x="417" y="349" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1440.900@0.0.1440.900" timestamp="1593984686769" />
   </component>
 </project>

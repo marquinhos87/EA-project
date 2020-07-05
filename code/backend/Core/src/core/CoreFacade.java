@@ -1,6 +1,11 @@
 package core;
 
 import beans.CoreFacadeBeanLocal;
+import exceptions.ClientAlreadyExistsException;
+import exceptions.ClientDontExistsException;
+import exceptions.PersonalTrainerAlreadyExistsException;
+import exceptions.PersonalTrainerDontExistsException;
+import org.orm.PersistentException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -38,7 +43,7 @@ public class CoreFacade {
 	 * 
 	 * @param usernameAsJson
 	 */
-	public void createClient(String usernameAsJson) {
+	public void createClient(String usernameAsJson) throws ClientAlreadyExistsException, PersistentException {
 		coreFacadeBean.createClient(usernameAsJson);
 	}
 
@@ -46,7 +51,7 @@ public class CoreFacade {
 	 * 
 	 * @param usernameAsJson
 	 */
-	public void createPersonalTrainer(String usernameAsJson) {
+	public void createPersonalTrainer(String usernameAsJson) throws PersistentException, PersonalTrainerAlreadyExistsException {
 		coreFacadeBean.createPersonalTrainer(usernameAsJson);
 	}
 
@@ -54,8 +59,16 @@ public class CoreFacade {
 	 * 
 	 * @param usernameAndTokenAsJson
 	 */
-	public void updateToken(String usernameAndTokenAsJson) {
-		coreFacadeBean.updateToken(usernameAndTokenAsJson);
+	public void updateTokenClient(String usernameAndTokenAsJson) throws ClientDontExistsException, PersistentException {
+		coreFacadeBean.updateTokenClient(usernameAndTokenAsJson);
+	}
+
+	/**
+	 *
+	 * @param usernameAndTokenAsJson
+	 */
+	public void updateTokenPersonalTrainer(String usernameAndTokenAsJson) throws PersonalTrainerDontExistsException, PersistentException {
+		coreFacadeBean.updateTokenPersonalTrainer(usernameAndTokenAsJson);
 	}
 
 	/**

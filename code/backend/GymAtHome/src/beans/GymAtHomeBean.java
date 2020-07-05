@@ -1,7 +1,10 @@
 package beans;
 
+import okhttp3.*;
+
 import javax.ejb.Stateless;
 import javax.ejb.Local;
+import java.io.IOException;
 
 @Local(GymAtHomeBeanLocal.class)
 @Stateless(name = "GymAtHomeEJB")
@@ -10,7 +13,19 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
     }
 
     @Override
-    public String createClient(String infoClientAsJSON) {
+    public String createClient(String infoClientAsJSON) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType JSON = MediaType.get("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(infoClientAsJSON,JSON);
+        Request request = new Request.Builder()
+                .url("http://localhost:8080/api/v1/GymAtHome/HRClient/createClient")
+                .post(body)
+                .addHeader("content-type", "application/JSON")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        
         return null;
     }
 
@@ -45,7 +60,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
     }
 
     @Override
-    public void editPersonalTrainertProfile(String usernameAsJSON) {
+    public void editPersonalTrainerProfile(String usernameAsJSON) {
 
     }
 
@@ -65,8 +80,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
     }
 
     @Override
-    public String submitClassification(String usernameAndClassificationAsJSON) {
-        return null;
+    public void submitClassification(String usernameAndClassificationAsJSON) {
+
     }
 
     @Override
