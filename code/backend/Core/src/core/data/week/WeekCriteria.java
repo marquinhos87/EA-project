@@ -23,12 +23,16 @@ import org.orm.criteria.*;
 public class WeekCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
 	public final IntegerExpression number;
+	public final DateExpression initialDate;
+	public final DateExpression finalDate;
 	public final CollectionExpression workouts;
 	
 	public WeekCriteria(Criteria criteria) {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
 		number = new IntegerExpression("number", this);
+		initialDate = new DateExpression("initialDate", this);
+		finalDate = new DateExpression("finalDate", this);
 		workouts = new CollectionExpression("ORM_Workouts", this);
 	}
 	

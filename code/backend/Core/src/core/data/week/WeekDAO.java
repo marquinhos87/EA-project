@@ -16,7 +16,7 @@ package core.data.week;
 import core.data.DiagramasPersistentManager;
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class WeekDAO {
@@ -149,7 +149,7 @@ public class WeekDAO {
 	}
 	
 	public static List queryWeek(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.week.Week as Week");
+		StringBuffer sb = new StringBuffer("From core.Week as Week");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -165,7 +165,7 @@ public class WeekDAO {
 	}
 	
 	public static List queryWeek(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.week.Week as Week");
+		StringBuffer sb = new StringBuffer("From core.Week as Week");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -264,7 +264,7 @@ public class WeekDAO {
 	}
 	
 	public static java.util.Iterator iterateWeekByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.week.Week as Week");
+		StringBuffer sb = new StringBuffer("From core.Week as Week");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -280,7 +280,7 @@ public class WeekDAO {
 	}
 	
 	public static java.util.Iterator iterateWeekByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.week.Week as Week");
+		StringBuffer sb = new StringBuffer("From core.Week as Week");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)

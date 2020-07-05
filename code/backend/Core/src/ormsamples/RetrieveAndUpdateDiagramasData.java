@@ -4,7 +4,7 @@
  */
 package ormsamples;
 
-import core.data.*;
+import core.data.DiagramasPersistentManager;
 import core.data.client.Client;
 import core.data.client.ClientCriteria;
 import core.data.client.ClientDAO;

@@ -26,6 +26,7 @@ public class PlanDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final AssociationExpression currentWeek;
 	public final BooleanExpression done;
 	public final BooleanExpression modified;
+	public final DateExpression initialDate;
 	public final CollectionExpression weeks;
 	
 	public PlanDetachedCriteria() {
@@ -35,6 +36,7 @@ public class PlanDetachedCriteria extends AbstractORMDetachedCriteria {
 		currentWeek = new AssociationExpression("currentWeek", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		modified = new BooleanExpression("modified", this.getDetachedCriteria());
+		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
 		weeks = new CollectionExpression("ORM_Weeks", this.getDetachedCriteria());
 	}
 	
@@ -45,6 +47,7 @@ public class PlanDetachedCriteria extends AbstractORMDetachedCriteria {
 		currentWeek = new AssociationExpression("currentWeek", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		modified = new BooleanExpression("modified", this.getDetachedCriteria());
+		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
 		weeks = new CollectionExpression("ORM_Weeks", this.getDetachedCriteria());
 	}
 	

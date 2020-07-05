@@ -5,7 +5,7 @@ License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="core.data.task.Task" table="Task" lazy="false">
+	<class name="core.Task" table="Task" lazy="false">
 		<id name="ID" column="ID" type="integer" unsaved-value="0">
 			<generator class="native">
 			</generator>
@@ -16,7 +16,7 @@ License Type: Academic
 		<property name="equipment" column="Equipment" type="string" length="255" not-null="false" lazy="false"/>
 		<set name="ORM_Series" lazy="true" cascade="save-update,lock" inverse="false">
 			<key column="TaskID" not-null="true"/>
-			<one-to-many class="core.data.serie.Serie"/>
+			<one-to-many class="core.Serie"/>
 		</set>
 	</class>
 </hibernate-mapping>

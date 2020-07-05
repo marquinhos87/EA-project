@@ -16,7 +16,6 @@ package core.data.client;
 import core.data.DiagramasPersistentManager;
 import org.orm.*;
 import org.hibernate.Query;
-
 import java.util.List;
 
 public class ClientDAO {
@@ -149,7 +148,7 @@ public class ClientDAO {
 	}
 	
 	public static List queryClient(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.client.Client as Client");
+		StringBuffer sb = new StringBuffer("From core.Client as Client");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -165,7 +164,7 @@ public class ClientDAO {
 	}
 	
 	public static List queryClient(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.client.Client as Client");
+		StringBuffer sb = new StringBuffer("From core.Client as Client");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -264,7 +263,7 @@ public class ClientDAO {
 	}
 	
 	public static java.util.Iterator iterateClientByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.client.Client as Client");
+		StringBuffer sb = new StringBuffer("From core.Client as Client");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -280,7 +279,7 @@ public class ClientDAO {
 	}
 	
 	public static java.util.Iterator iterateClientByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.client.Client as Client");
+		StringBuffer sb = new StringBuffer("From core.Client as Client");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)

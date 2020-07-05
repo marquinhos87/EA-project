@@ -23,6 +23,7 @@ import org.orm.criteria.*;
 public class WorkoutDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression ID;
 	public final StringExpression designation;
+	public final DateExpression date;
 	public final BooleanExpression done;
 	public final CollectionExpression tasks;
 	
@@ -30,6 +31,7 @@ public class WorkoutDetachedCriteria extends AbstractORMDetachedCriteria {
 		super(Workout.class, WorkoutCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		designation = new StringExpression("designation", this.getDetachedCriteria());
+		date = new DateExpression("date", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		tasks = new CollectionExpression("ORM_Tasks", this.getDetachedCriteria());
 	}
@@ -38,6 +40,7 @@ public class WorkoutDetachedCriteria extends AbstractORMDetachedCriteria {
 		super(aDetachedCriteria, WorkoutCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		designation = new StringExpression("designation", this.getDetachedCriteria());
+		date = new DateExpression("date", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		tasks = new CollectionExpression("ORM_Tasks", this.getDetachedCriteria());
 	}

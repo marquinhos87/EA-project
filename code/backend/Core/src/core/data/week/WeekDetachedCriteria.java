@@ -23,12 +23,16 @@ import org.orm.criteria.*;
 public class WeekDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression ID;
 	public final IntegerExpression number;
+	public final DateExpression initialDate;
+	public final DateExpression finalDate;
 	public final CollectionExpression workouts;
 	
 	public WeekDetachedCriteria() {
 		super(Week.class, WeekCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		number = new IntegerExpression("number", this.getDetachedCriteria());
+		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
+		finalDate = new DateExpression("finalDate", this.getDetachedCriteria());
 		workouts = new CollectionExpression("ORM_Workouts", this.getDetachedCriteria());
 	}
 	
@@ -36,6 +40,8 @@ public class WeekDetachedCriteria extends AbstractORMDetachedCriteria {
 		super(aDetachedCriteria, WeekCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		number = new IntegerExpression("number", this.getDetachedCriteria());
+		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
+		finalDate = new DateExpression("finalDate", this.getDetachedCriteria());
 		workouts = new CollectionExpression("ORM_Workouts", this.getDetachedCriteria());
 	}
 	

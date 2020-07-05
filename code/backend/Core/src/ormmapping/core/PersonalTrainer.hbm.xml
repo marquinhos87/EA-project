@@ -5,7 +5,7 @@ License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="core.data.personaltrainer.PersonalTrainer" table="PersonalTrainer" lazy="false">
+	<class name="core.PersonalTrainer" table="PersonalTrainer" lazy="false">
 		<id name="username" column="Username" type="string">
 			<generator class="assigned">
 			</generator>
@@ -13,7 +13,7 @@ License Type: Academic
 		<property name="token" column="Token" type="string" length="255" not-null="true" lazy="false"/>
 		<set name="ORM_Plans" lazy="true" cascade="save-update,lock" inverse="false">
 			<key column="PersonalTrainerUsername" not-null="true"/>
-			<one-to-many class="core.data.plan.Plan"/>
+			<one-to-many class="core.Plan"/>
 		</set>
 	</class>
 </hibernate-mapping>

@@ -16,7 +16,7 @@
     <Column name="WeekID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.data.week.Week.ID</ReferencedColumn>
+      <ReferencedColumn>core.Week.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
@@ -28,7 +28,7 @@
     <Column name="PersonalTrainerUsername">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.data.personaltrainer.PersonalTrainer.Username</ReferencedColumn>
+      <ReferencedColumn>core.PersonalTrainer.Username</ReferencedColumn>
       <Type>27</Type>
       <Length>255</Length>
       <Nullable>false</Nullable>
@@ -86,7 +86,7 @@
     <Column name="WeekID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.data.week.Week.ID</ReferencedColumn>
+      <ReferencedColumn>core.Week.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
@@ -144,7 +144,7 @@
     <Column name="WorkoutID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.data.workout.Workout.ID</ReferencedColumn>
+      <ReferencedColumn>core.Workout.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
@@ -213,7 +213,7 @@
     <Column name="TaskID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.data.task.Task.ID</ReferencedColumn>
+      <ReferencedColumn>core.Task.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
@@ -271,7 +271,7 @@
     <Column name="PlanID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.data.plan.Plan.ID</ReferencedColumn>
+      <ReferencedColumn>core.Plan.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
@@ -331,7 +331,7 @@
     <Column name="PlanID">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.data.plan.Plan.ID</ReferencedColumn>
+      <ReferencedColumn>core.Plan.ID</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>

@@ -16,7 +16,7 @@ package core.data.serie;
 import core.data.DiagramasPersistentManager;
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class SerieDAO {
@@ -149,7 +149,7 @@ public class SerieDAO {
 	}
 	
 	public static List querySerie(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.serie.Serie as Serie");
+		StringBuffer sb = new StringBuffer("From core.Serie as Serie");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -165,7 +165,7 @@ public class SerieDAO {
 	}
 	
 	public static List querySerie(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.serie.Serie as Serie");
+		StringBuffer sb = new StringBuffer("From core.Serie as Serie");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -264,7 +264,7 @@ public class SerieDAO {
 	}
 	
 	public static java.util.Iterator iterateSerieByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.serie.Serie as Serie");
+		StringBuffer sb = new StringBuffer("From core.Serie as Serie");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -280,7 +280,7 @@ public class SerieDAO {
 	}
 	
 	public static java.util.Iterator iterateSerieByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.serie.Serie as Serie");
+		StringBuffer sb = new StringBuffer("From core.Serie as Serie");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
