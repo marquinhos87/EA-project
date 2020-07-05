@@ -3,64 +3,45 @@ package beans;
 import core.ConcretePlanBuilder;
 import core.PlanDirector;
 
-@javax.ejb.Stateless(name="CoreFacadeBean")
-@javax.ejb.Local(CoreFacadeBeanLocal.class)
-public class CoreFacadeBean implements CoreFacadeBeanLocal {
+import javax.ejb.Local;
+import javax.ejb.Stateless;
 
-	private PlanDirector planDirector = new PlanDirector(new ConcretePlanBuilder());
+@Local(CoreFacadeBeanLocal.class)
+@Stateless(name = "CoreFacadeEJB")
+public class CoreFacadeBean implements CoreFacadeBeanLocal{
 
-	/**
-	 * 
-	 * @param usernameAsJson
-	 */
-	public void createClient(String usernameAsJson) {
-		// TODO - implement CoreFacadeBean.createClient
-		throw new UnsupportedOperationException();
-	}
+    private PlanDirector planDirector = new PlanDirector(new ConcretePlanBuilder());
 
-	/**
-	 * 
-	 * @param usernameAsJson
-	 */
-	public void createPersonalTrainer(String usernameAsJson) {
-		// TODO - implement CoreFacadeBean.createPersonalTrainer
-		throw new UnsupportedOperationException();
-	}
+    public CoreFacadeBean() {
+    }
 
-	/**
-	 * 
-	 * @param usernameAndTokenAsJson
-	 */
-	public void updateToken(String usernameAndTokenAsJson) {
-		// TODO - implement CoreFacadeBean.updateToken
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void createClient(String usernameAsJson) {
 
-	/**
-	 * 
-	 * @param usernameAndWeekAsJSON
-	 */
-	public String getPlan(String usernameAndWeekAsJSON) {
-		// TODO - implement CoreFacadeBean.getPlan
-		throw new UnsupportedOperationException();
-	}
+    }
 
-	/**
-	 * 
-	 * @param usernameAndWorkoutIdAsJSON
-	 */
-	public void finishWorkout(String usernameAndWorkoutIdAsJSON) {
-		// TODO - implement CoreFacadeBean.finishWorkout
-		throw new UnsupportedOperationException();
-	}
+    @Override
+    public void createPersonalTrainer(String usernameAsJson) {
 
-	/**
-	 * 
-	 * @param weekAsJson
-	 */
-	public void createWeek(String weekAsJson) {
-		// TODO - implement CoreFacadeBean.createWeek
-		throw new UnsupportedOperationException();
-	}
+    }
 
+    @Override
+    public void updateToken(String usernameAndTokenAsJson) {
+
+    }
+
+    @Override
+    public String getPlan(String usernameAndWeekAsJSON) {
+        return null;
+    }
+
+    @Override
+    public void finishWorkout(String usernameAndWorkoutIdAsJSON) {
+
+    }
+
+    @Override
+    public void createWeek(String weekAsJson) {
+
+    }
 }

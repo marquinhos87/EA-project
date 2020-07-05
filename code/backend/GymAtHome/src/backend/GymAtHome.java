@@ -1,5 +1,7 @@
 package backend;
 
+import beans.GymAtHomeBeanLocal;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,7 +20,7 @@ public class GymAtHome {
 	private GymAtHomeBeanLocal lookupGymAtHomeBeanLocal() {
 		try {
 			Context c = new InitialContext();
-			return (GymAtHomeBeanLocal) c.lookup("java:global/GymAtHome/GymAtHomeBean!backend.GymAtHomeBeanLocal");
+			return (GymAtHomeBeanLocal) c.lookup("java:global/GymAtHome/GymAtHomeBean!beans.GymAtHomeBeanLocal");
 		} catch (NamingException ne) {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
 			throw new RuntimeException(ne);
