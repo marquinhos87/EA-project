@@ -134,9 +134,20 @@ public class Client implements hrclient.IClient {
 	}
 	
 	public final hrclient.BiometricDataSetCollection biometricDatas = new hrclient.BiometricDataSetCollection(this, _ormAdapter, ORMConstants.KEY_CLIENT_BIOMETRICDATAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
-	
+
+	@Override
 	public String toString() {
-		return String.valueOf(getUsername());
+		return "Client{" +
+				"_ormAdapter=" + _ormAdapter +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", sex='" + sex + '\'' +
+				", birthday=" + birthday +
+				", token='" + token + '\'' +
+				", ORM_biometricDatas=" + ORM_biometricDatas +
+				", biometricDatas=" + biometricDatas +
+				'}';
 	}
-	
 }
