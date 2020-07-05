@@ -39,8 +39,7 @@ public class CoreFacade {
 	 * @param usernameAsJson
 	 */
 	public void createClient(String usernameAsJson) {
-		// TODO - implement core.CoreFacade.createClient
-		throw new UnsupportedOperationException();
+		coreFacadeBean.createClient(usernameAsJson);
 	}
 
 	/**
@@ -48,8 +47,7 @@ public class CoreFacade {
 	 * @param usernameAsJson
 	 */
 	public void createPersonalTrainer(String usernameAsJson) {
-		// TODO - implement core.CoreFacade.createPersonalTrainer
-		throw new UnsupportedOperationException();
+		coreFacadeBean.createPersonalTrainer(usernameAsJson);
 	}
 
 	/**
@@ -57,8 +55,7 @@ public class CoreFacade {
 	 * @param usernameAndTokenAsJson
 	 */
 	public void updateToken(String usernameAndTokenAsJson) {
-		// TODO - implement core.CoreFacade.updateToken
-		throw new UnsupportedOperationException();
+		coreFacadeBean.updateToken(usernameAndTokenAsJson);
 	}
 
 	/**
@@ -66,8 +63,7 @@ public class CoreFacade {
 	 * @param usernameAndWeekAsJSON
 	 */
 	public String getPlan(String usernameAndWeekAsJSON) {
-		// TODO - implement core.CoreFacade.getPlan
-		throw new UnsupportedOperationException();
+		return coreFacadeBean.getPlan(usernameAndWeekAsJSON);
 	}
 
 	/**
@@ -75,8 +71,7 @@ public class CoreFacade {
 	 * @param usernameAndWorkoutIdAsJSON
 	 */
 	public void finishWorkout(String usernameAndWorkoutIdAsJSON) {
-		// TODO - implement core.CoreFacade.finishWorkout
-		throw new UnsupportedOperationException();
+		coreFacadeBean.finishWorkout(usernameAndWorkoutIdAsJSON);
 	}
 
 	/**
@@ -84,8 +79,7 @@ public class CoreFacade {
 	 * @param weekAsJson
 	 */
 	public void createWeek(String weekAsJson) {
-		// TODO - implement core.CoreFacade.createWeek
-		throw new UnsupportedOperationException();
+		coreFacadeBean.createWeek(weekAsJson);
 	}
 
 }
