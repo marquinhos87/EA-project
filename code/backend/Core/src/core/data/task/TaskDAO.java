@@ -16,7 +16,7 @@ package core.data.task;
 import core.data.DiagramasPersistentManager;
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class TaskDAO {
@@ -149,7 +149,7 @@ public class TaskDAO {
 	}
 	
 	public static List queryTask(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.task.Task as Task");
+		StringBuffer sb = new StringBuffer("From core.Task as Task");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -165,7 +165,7 @@ public class TaskDAO {
 	}
 	
 	public static List queryTask(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.task.Task as Task");
+		StringBuffer sb = new StringBuffer("From core.Task as Task");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -264,7 +264,7 @@ public class TaskDAO {
 	}
 	
 	public static java.util.Iterator iterateTaskByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.task.Task as Task");
+		StringBuffer sb = new StringBuffer("From core.Task as Task");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -280,7 +280,7 @@ public class TaskDAO {
 	}
 	
 	public static java.util.Iterator iterateTaskByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.task.Task as Task");
+		StringBuffer sb = new StringBuffer("From core.Task as Task");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)

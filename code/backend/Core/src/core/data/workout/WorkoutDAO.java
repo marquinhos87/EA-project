@@ -16,7 +16,7 @@ package core.data.workout;
 import core.data.DiagramasPersistentManager;
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class WorkoutDAO {
@@ -149,7 +149,7 @@ public class WorkoutDAO {
 	}
 	
 	public static List queryWorkout(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.workout.Workout as Workout");
+		StringBuffer sb = new StringBuffer("From core.Workout as Workout");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -165,7 +165,7 @@ public class WorkoutDAO {
 	}
 	
 	public static List queryWorkout(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.workout.Workout as Workout");
+		StringBuffer sb = new StringBuffer("From core.Workout as Workout");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -264,7 +264,7 @@ public class WorkoutDAO {
 	}
 	
 	public static java.util.Iterator iterateWorkoutByQuery(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.workout.Workout as Workout");
+		StringBuffer sb = new StringBuffer("From core.Workout as Workout");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)
@@ -280,7 +280,7 @@ public class WorkoutDAO {
 	}
 	
 	public static java.util.Iterator iterateWorkoutByQuery(PersistentSession session, String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
-		StringBuffer sb = new StringBuffer("From core.data.workout.Workout as Workout");
+		StringBuffer sb = new StringBuffer("From core.Workout as Workout");
 		if (condition != null)
 			sb.append(" Where ").append(condition);
 		if (orderBy != null)

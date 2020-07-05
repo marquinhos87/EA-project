@@ -8,14 +8,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../Diagramas/diagramas-plan.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Diagramas/diagramas-plan.vpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/plan/Plan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/Plan.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/serie/Serie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/serie/Serie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/task/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/week/Week.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/Week.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/workout/Workout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/Workout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/orm.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/orm.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/client/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/client/ClientDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/PlanCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/PlanDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/PlanDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/serie/SerieDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/serie/SerieDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/task/TaskDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/task/TaskDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/WeekCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/WeekDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/WeekDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/WorkoutCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/WorkoutDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/WorkoutDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Client.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Client.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/PersonalTrainer.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/PersonalTrainer.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Plan.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Plan.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Serie.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Serie.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Task.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Task.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Week.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Week.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Workout.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Workout.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/database.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/database.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +75,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29988465" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
@@ -120,6 +142,7 @@
       <workItem from="1593966414855" duration="41000" />
       <workItem from="1593966589796" duration="193000" />
       <workItem from="1593966786347" duration="19000" />
+      <workItem from="1593968255987" duration="1619000" />
     </task>
     <servers />
   </component>
@@ -147,10 +170,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="958" height="238" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593966349099" />
-    <state x="208" y="23" key="SettingsEditor" timestamp="1593965871533">
+    <state x="208" y="23" key="SettingsEditor" timestamp="1593969159891">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="23" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593965871533" />
+    <state x="208" y="23" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593969159891" />
     <state x="417" y="349" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1593904770840">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

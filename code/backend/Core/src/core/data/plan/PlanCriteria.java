@@ -26,6 +26,7 @@ public class PlanCriteria extends AbstractORMCriteria {
 	public final AssociationExpression currentWeek;
 	public final BooleanExpression done;
 	public final BooleanExpression modified;
+	public final DateExpression initialDate;
 	public final CollectionExpression weeks;
 	
 	public PlanCriteria(Criteria criteria) {
@@ -35,6 +36,7 @@ public class PlanCriteria extends AbstractORMCriteria {
 		currentWeek = new AssociationExpression("currentWeek", this);
 		done = new BooleanExpression("done", this);
 		modified = new BooleanExpression("modified", this);
+		initialDate = new DateExpression("initialDate", this);
 		weeks = new CollectionExpression("ORM_Weeks", this);
 	}
 	

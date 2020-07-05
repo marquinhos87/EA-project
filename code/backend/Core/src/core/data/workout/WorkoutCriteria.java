@@ -23,6 +23,7 @@ import org.orm.criteria.*;
 public class WorkoutCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
 	public final StringExpression designation;
+	public final DateExpression date;
 	public final BooleanExpression done;
 	public final CollectionExpression tasks;
 	
@@ -30,6 +31,7 @@ public class WorkoutCriteria extends AbstractORMCriteria {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
 		designation = new StringExpression("designation", this);
+		date = new DateExpression("date", this);
 		done = new BooleanExpression("done", this);
 		tasks = new CollectionExpression("ORM_Tasks", this);
 	}

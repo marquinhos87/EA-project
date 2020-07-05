@@ -5,7 +5,7 @@ License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="core.data.week.Week" table="Week" lazy="false">
+	<class name="core.Week" table="Week" lazy="false">
 		<id name="ID" column="ID" type="integer" unsaved-value="0">
 			<generator class="native">
 			</generator>
@@ -15,7 +15,7 @@ License Type: Academic
 		<property name="finalDate" column="FinalDate" type="date" not-null="false" lazy="false"/>
 		<set name="ORM_Workouts" lazy="true" cascade="save-update,lock" inverse="false">
 			<key column="WeekID" not-null="true"/>
-			<one-to-many class="core.data.workout.Workout"/>
+			<one-to-many class="core.Workout"/>
 		</set>
 	</class>
 </hibernate-mapping>

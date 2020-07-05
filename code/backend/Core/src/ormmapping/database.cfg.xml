@@ -21,12 +21,12 @@
     <DriverFiles>&lt;&lt;MySQL Connector/J 8.0.20&gt;&gt;</DriverFiles>
     <Dialect>org.hibernate.dialect.MySQLDialect</Dialect>
     <DriverClass>com.mysql.jdbc.Driver</DriverClass>
-    <URL>jdbc:mysql://localhost:3306/gymathome?serverTimezone=UTC</URL>
+    <URL>jdbc:mysql://localhost:3306/core?serverTimezone=UTC</URL>
     <UserName>root</UserName>
     <EncryptedPassword>86B5D09CD8912AF029972D274BBCBE9B</EncryptedPassword>
     <HostName>localhost</HostName>
     <PortNO>3306</PortNO>
-    <DBName>gymathome?serverTimezone=UTC</DBName>
+    <DBName>core?serverTimezone=UTC</DBName>
     <ServiceName></ServiceName>
     <ServerName></ServerName>
     <SelectedForm>true</SelectedForm>
