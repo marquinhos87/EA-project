@@ -1,4 +1,2 @@
-*.iml
-.idea/
-*.log
-*.xml
+.DS_Store
+out/
