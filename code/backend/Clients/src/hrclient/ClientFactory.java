@@ -4,18 +4,24 @@ public class ClientFactory {
 
 	private static ClientFactory clientFactory;
 
+	/**
+	 * Return a single instance of this class.
+	 * @return Return a single instance of this class.
+	 */
 	public static ClientFactory getInstance() {
-		// TODO - implement ClientFactory.getInstance
-		throw new UnsupportedOperationException();
+		if(clientFactory == null)
+			clientFactory = new ClientFactory();
+		return clientFactory;
 	}
 
 	/**
-	 * 
-	 * @param type
+	 * Create different types of IClients.
+	 * @param type type of client (at the moment, only exists "Client").
 	 */
 	public IClient createIClient(String type) {
-		// TODO - implement ClientFactory.createIClient
-		throw new UnsupportedOperationException();
+		if(type.equals("Client"))
+			return new Client();
+		else return null;
 	}
 
 }
