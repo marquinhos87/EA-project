@@ -7,38 +7,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../Diagramas/diagramas-plan.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Diagramas/diagramas-plan.vpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/orm.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/orm.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/client/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/client/ClientDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/PlanCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/PlanDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/PlanDetachedCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/serie/SerieDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/serie/SerieDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/task/TaskDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/task/TaskDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/WeekCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/WeekDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/WeekDetachedCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/WorkoutCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/WorkoutDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/WorkoutDetachedCriteria.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Client.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Client.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/PersonalTrainer.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/PersonalTrainer.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Plan.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Plan.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Serie.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Serie.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Task.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Task.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Week.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Week.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/Workout.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/core/Workout.hbm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/database.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/database.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" afterDir="false" />
-    </list>
+    <list default="true" id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -142,7 +111,7 @@
       <workItem from="1593966414855" duration="41000" />
       <workItem from="1593966589796" duration="193000" />
       <workItem from="1593966786347" duration="19000" />
-      <workItem from="1593968255987" duration="1619000" />
+      <workItem from="1593968255987" duration="1693000" />
     </task>
     <servers />
   </component>
