@@ -1,6 +1,8 @@
 package beans;
 
-@javax.ejb.Local
+import javax.ejb.Local;
+
+@Local
 public interface CoreFacadeBeanLocal {
 
 	/**
