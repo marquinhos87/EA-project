@@ -53,9 +53,7 @@ public class PersonalTrainer {
 	};
 	
 	private String username;
-	
 	private String token;
-	
 	private java.util.Set ORM_plans = new java.util.HashSet();
 	
 	public void setUsername(String value) {

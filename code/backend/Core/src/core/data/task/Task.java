@@ -36,15 +36,10 @@ public class Task {
 	};
 	
 	private int ID;
-	
 	private String designation;
-	
 	private String rest;
-	
 	private String duration;
-	
 	private String equipment;
-	
 	private java.util.Set ORM_series = new java.util.HashSet();
 	
 	private void setID(int value) {

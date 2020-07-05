@@ -17,7 +17,7 @@ import core.data.ORMConstants;
 import core.data.week.Week;
 import core.data.week.WeekSetCollection;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Plan {
 	public Plan() {
@@ -52,7 +52,7 @@ public class Plan {
 	private Week currentWeek;
 	private boolean done;
 	private boolean modified;
-	private LocalDate initialDate;
+	private Date initialDate;
 	private java.util.Set ORM_weeks = new java.util.HashSet();
 	
 	private void setID(int value) {
@@ -83,11 +83,11 @@ public class Plan {
 		return modified;
 	}
 	
-	public void setInitialDate(LocalDate value) {
+	public void setInitialDate(Date value) {
 		this.initialDate = value;
 	}
 	
-	public LocalDate getInitialDate() {
+	public Date getInitialDate() {
 		return initialDate;
 	}
 	

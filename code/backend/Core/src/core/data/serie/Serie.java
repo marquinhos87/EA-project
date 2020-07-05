@@ -18,11 +18,8 @@ public class Serie {
 	}
 	
 	private int ID;
-	
 	private String description;
-	
 	private String repetitions;
-	
 	private String rest;
 	
 	private void setID(int value) {

@@ -37,9 +37,7 @@ public class Client {
 	}
 	
 	private String username;
-	
 	private Plan plan;
-	
 	private String token;
 	
 	public void setUsername(String value) {

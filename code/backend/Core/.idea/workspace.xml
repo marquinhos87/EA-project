@@ -8,68 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Core_ejb_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Core_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/EJB_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/orm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Core.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/core/Client.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/core/PersonalTrainer.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/core/Plan.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/core/Serie.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/core/Task.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/core/Week.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/core/Workout.hbm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ormmapping/database.cfg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/artifacts/GymAtHome_ejb_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/artifacts/GymAtHome_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/EJB_3_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Core/core/data/DiagramasPersistentManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Core/core/data/DiagramasPersistentManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Core/core/data/ORMConstants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Core/core/data/ORMConstants.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHome.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHome.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHomeBean.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHomeBeanLocal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/backend/Http.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/servlets/APIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/servlets/APIController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHome.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHome.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHomeBean.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHomeBeanLocal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/Http.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/servlets/APIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/servlets/APIController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/production/GymAtHome/backend/GymAtHome.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/production/GymAtHome/backend/GymAtHomeBean.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/production/GymAtHome/backend/GymAtHomeBeanLocal.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/production/GymAtHome/backend/Http.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/production/GymAtHome/servlets/APIController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHomeBean.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/Http.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/Plan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/plan/Plan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/serie/Serie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/serie/Serie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/task/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/Week.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/week/Week.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/Workout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/data/workout/Workout.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,6 +118,8 @@
       <workItem from="1593907073404" duration="205000" />
       <workItem from="1593965849784" duration="498000" />
       <workItem from="1593966414855" duration="41000" />
+      <workItem from="1593966589796" duration="193000" />
+      <workItem from="1593966786347" duration="19000" />
     </task>
     <servers />
   </component>

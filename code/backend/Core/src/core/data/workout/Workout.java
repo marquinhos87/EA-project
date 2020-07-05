@@ -16,7 +16,7 @@ package core.data.workout;
 import core.data.ORMConstants;
 import core.data.task.TaskSetCollection;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Workout {
 	public Workout() {
@@ -38,13 +38,9 @@ public class Workout {
 	};
 	
 	private int ID;
-	
 	private String designation;
-	
-	private LocalDate date;
-	
+	private Date date;
 	private boolean done;
-	
 	private java.util.Set ORM_tasks = new java.util.HashSet();
 	
 	private void setID(int value) {
@@ -67,11 +63,11 @@ public class Workout {
 		return designation;
 	}
 	
-	public void setDate(LocalDate value) {
+	public void setDate(Date value) {
 		this.date = value;
 	}
 	
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 	

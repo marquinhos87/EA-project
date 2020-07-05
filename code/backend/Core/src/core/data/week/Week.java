@@ -16,7 +16,7 @@ package core.data.week;
 import core.data.ORMConstants;
 import core.data.workout.WorkoutSetCollection;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Week {
 	public Week() {
@@ -38,13 +38,9 @@ public class Week {
 	};
 	
 	private int ID;
-	
 	private int number;
-	
-	private LocalDate initialDate;
-	
-	private LocalDate finalDate;
-	
+	private Date initialDate;
+	private Date finalDate;
 	private java.util.Set ORM_workouts = new java.util.HashSet();
 	
 	private void setID(int value) {
@@ -67,19 +63,19 @@ public class Week {
 		return number;
 	}
 	
-	public void setInitialDate(LocalDate value) {
+	public void setInitialDate(Date value) {
 		this.initialDate = value;
 	}
 	
-	public LocalDate getInitialDate() {
+	public Date getInitialDate() {
 		return initialDate;
 	}
 	
-	public void setFinalDate(LocalDate value) {
+	public void setFinalDate(Date value) {
 		this.finalDate = value;
 	}
 	
-	public LocalDate getFinalDate() {
+	public Date getFinalDate() {
 		return finalDate;
 	}
 	
