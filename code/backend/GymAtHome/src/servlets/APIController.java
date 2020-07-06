@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "APIController", urlPatterns = "/API")
+@WebServlet(name = "APIController", urlPatterns = "/api/v1/GymAtHome/GymAtHome")
 public class APIController extends HttpServlet {
 
     private GymAtHome gymAtHome = GymAtHome.getInstance();

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ClientRegisterServlet")
+@WebServlet(name = "ClientRegisterServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/ClientRegister")
 public class ClientRegisterServlet extends HttpServlet {
 
     /**

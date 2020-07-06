@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "MakeRequestServlet")
+@WebServlet(name = "MakeRequestServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/MakeRequest")
 public class MakeRequestServlet extends HttpServlet {
 
     /**
