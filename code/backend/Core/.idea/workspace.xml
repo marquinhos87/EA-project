@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b75eb8e-8d2f-4865-a3a9-b234800da9c2" name="Default Changelist" comment="" />
+    <list default="true" id="5b75eb8e-8d2f-4865-a3a9-b234800da9c2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/gson_2_8_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../GymAtHome/src/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,6 +143,7 @@
       <option name="presentableId" value="Default" />
       <updated>1594060511740</updated>
       <workItem from="1594060514250" duration="1630000" />
+      <workItem from="1594073076618" duration="441000" />
     </task>
     <servers />
   </component>

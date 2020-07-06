@@ -28,7 +28,7 @@ public interface GymAtHomeBeanLocal {
 	 * @param infoAsJSON Client credentials as json string.
 	 * @return A string with login status, True if ok or False if something is wrong.
 	 */
-	String loginClient(String infoAsJSON);
+	String loginClient(String infoAsJSON) throws IOException;
 
 	/**
 	 * Authenticate PersonalTrainer with the credentials provided.
@@ -36,7 +36,7 @@ public interface GymAtHomeBeanLocal {
 	 * @param infoAsJSON PersonalTrainer credentials as json string.
 	 * @return A string with login status, True if ok or False if something is wrong.
 	 */
-	String loginPersonalTrainer(String infoAsJSON);
+	String loginPersonalTrainer(String infoAsJSON) throws IOException;
 
 	/**
 	 * Get a Client profile by Client username.
@@ -44,7 +44,7 @@ public interface GymAtHomeBeanLocal {
 	 * @param usernameAsJSON Client username as json string.
 	 * @return Client info.
 	 */
-	String getClientProfile(String usernameAsJSON);
+	String getClientProfile(String usernameAsJSON) throws IOException;
 
 	/**
 	 * Get a PersonalTrainer profile by PersonalTrainer username.
@@ -52,21 +52,21 @@ public interface GymAtHomeBeanLocal {
 	 * @param usernameAsJSON PersonalTrainer username as json string.
 	 * @return PersonalTrainer info.
 	 */
-	String getPersonalTrainerProfile(String usernameAsJSON);
+	String getPersonalTrainerProfile(String usernameAsJSON) throws IOException;
 
 	/**
 	 * Edit Client info with new info given.
 	 * 
 	 * @param infoAsJSON Client new infos as json string.
 	 */
-	void editClientProfile(String infoAsJSON);
+	void editClientProfile(String infoAsJSON) throws IOException;
 
 	/**
 	 * Edit PersonalTrainer info with new info given.
 	 * 
 	 * @param usernameAsJSON PersonalTrainer new infos as json string.
 	 */
-	void editPersonalTrainerProfile(String usernameAsJSON);
+	void editPersonalTrainerProfile(String usernameAsJSON) throws IOException;
 
 	/**
 	 * Retrieves tha actual week of plan of that Client.
@@ -74,7 +74,7 @@ public interface GymAtHomeBeanLocal {
 	 * @param usernameAndWeekAsJSON Client username and current week of plan as json string.
 	 * @return Client plan (actual week of the plan).
 	 */
-	String getPlan(String usernameAndWeekAsJSON);
+	String getPlan(String usernameAndWeekAsJSON) throws IOException;
 
 	/**
 	 * Retrieves the PersonalTrainers that corresponded to the filters given by Client.
@@ -82,7 +82,7 @@ public interface GymAtHomeBeanLocal {
 	 * @param filtersAsJSON Filters introduced by Client as json string.
 	 * @return PersonalTrainers filtered.
 	 */
-	String getPersonalTrainers(String filtersAsJSON);
+	String getPersonalTrainers(String filtersAsJSON) throws IOException;
 
 	/**
 	 * Retrieves the most recent BioMetric data from a Client.
@@ -90,7 +90,7 @@ public interface GymAtHomeBeanLocal {
 	 * @param usernameAsJSON Client username as json string.
 	 * @return Client BioMetric data.
 	 */
-	String getBiometricData(String usernameAsJSON);
+	String getBiometricData(String usernameAsJSON) throws IOException;
 
 	/**
 	 * Submit a classification to a PersonalTrainer given by a Client.
@@ -98,14 +98,14 @@ public interface GymAtHomeBeanLocal {
 	 * @param usernameAndClassificationAsJSON PersonalTrainer username and classification attributed by Client as a json string.
 	 * @return
 	 */
-	String submitClassification(String usernameAndClassificationAsJSON);
+	String submitClassification(String usernameAndClassificationAsJSON) throws IOException;
 
 	/**
 	 * Client submit that as completed a workout.
 	 * 
 	 * @param usernameAndWorkoutIdAsJSON Client username and Workout Id as a json string.
 	 */
-	void finishWorkout(String usernameAndWorkoutIdAsJSON);
+	void finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException;
 
 	/**
 	 * Retrieves all Clients of a PersonalTrainer.
@@ -113,26 +113,26 @@ public interface GymAtHomeBeanLocal {
 	 * @param usernameAsJSON PersonalTrainer username.
 	 * @return PersonalTrainer clients.
 	 */
-	String getPersonalTrainerClients(String usernameAsJSON);
+	String getPersonalTrainerClients(String usernameAsJSON) throws IOException;
 
 	/**
 	 * Request submitted by a Client to a PersonalTrainer.
 	 * 
 	 * @param requestInfoAsJSON Request info submitted by Client.
 	 */
-	void submitRequest(String requestInfoAsJSON);
+	void submitRequest(String requestInfoAsJSON) throws IOException;
 
 	/**
 	 * Create and add a week of workouts to a plan of a Client.
 	 * 
 	 * @param weekAsJson Week info created by PersonalTrainer.
 	 */
-	void createWeek(String weekAsJson);
+	void createWeek(String weekAsJson) throws IOException;
 
 	/**
 	 * Response given by a PersonalTrainer to a Request submitted to him by a Client.
 	 * 
 	 * @param requestIdAndResponseAsJSON Request Id and Response by PersonalTrainer to the request.
 	 */
-	void replyToRequest(String requestIdAndResponseAsJSON);
+	void replyToRequest(String requestIdAndResponseAsJSON) throws IOException;
 }

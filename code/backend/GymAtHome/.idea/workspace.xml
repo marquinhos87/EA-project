@@ -8,16 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ba9b596-4e4f-47ef-81cc-56d4c9b57494" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/utils/Http.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/libraries/kotlin_stdlib_1_3_72.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/libraries/okhttp_4_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/libraries/okio_2_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/utils/Http.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_8_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GymAtHome.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GymAtHome.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/GymAtHome.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/GymAtHomeFrontend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/GymAtHomeFrontend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/APIController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +119,7 @@
       <workItem from="1593966435981" duration="48000" />
       <workItem from="1593972189661" duration="1800000" />
       <workItem from="1593980849853" duration="2397000" />
-      <workItem from="1594063198030" duration="1848000" />
+      <workItem from="1594063198030" duration="7279000" />
     </task>
     <servers />
   </component>
@@ -151,13 +150,17 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="958" height="379" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593965847704" />
-    <state x="208" y="23" width="1024" height="834" key="SettingsEditor" timestamp="1593982384214">
+    <state x="208" y="23" width="1024" height="834" key="SettingsEditor" timestamp="1594073042413">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="23" width="1024" height="834" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593982384214" />
+    <state x="208" y="23" width="1024" height="834" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1594073042413" />
     <state x="508" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593980889455">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="508" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1593980889455" />
+    <state x="425" y="233" key="refactoring.ChangeSignatureDialog" timestamp="1594072932595">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="425" y="233" key="refactoring.ChangeSignatureDialog/0.0.1440.900@0.0.1440.900" timestamp="1594072932595" />
   </component>
 </project>

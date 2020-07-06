@@ -47,7 +47,7 @@ public class GymAtHome {
 	 * 
 	 * @param infoAsJSON
 	 */
-	public String loginClient(String infoAsJSON) {
+	public String loginClient(String infoAsJSON) throws IOException {
 		return gymAtHomeBean.loginClient(infoAsJSON);
 	}
 
@@ -55,7 +55,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public String getClientProfile(String usernameAsJSON) {
+	public String getClientProfile(String usernameAsJSON) throws IOException {
 		return gymAtHomeBean.getClientProfile(usernameAsJSON);
 	}
 
@@ -63,7 +63,7 @@ public class GymAtHome {
 	 * 
 	 * @param filtersAsJSON
 	 */
-	public String getPersonalTrainers(String filtersAsJSON) {
+	public String getPersonalTrainers(String filtersAsJSON) throws IOException {
 		return gymAtHomeBean.getPersonalTrainers(filtersAsJSON);
 	}
 
@@ -79,7 +79,7 @@ public class GymAtHome {
 	 * 
 	 * @param infoAsJSON
 	 */
-	public String loginPersonalTrainer(String infoAsJSON) {
+	public String loginPersonalTrainer(String infoAsJSON) throws IOException {
 		return gymAtHomeBean.loginPersonalTrainer(infoAsJSON);
 	}
 
@@ -87,7 +87,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public String getPersonalTrainerProfile(String usernameAsJSON) {
+	public String getPersonalTrainerProfile(String usernameAsJSON) throws IOException {
 		return gymAtHomeBean.getPersonalTrainerProfile(usernameAsJSON);
 	}
 
@@ -95,7 +95,7 @@ public class GymAtHome {
 	 * 
 	 * @param infoAsJSON
 	 */
-	public void editClientProfile(String infoAsJSON) {
+	public void editClientProfile(String infoAsJSON) throws IOException {
 		gymAtHomeBean.editClientProfile(infoAsJSON);
 	}
 
@@ -103,7 +103,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public void editPersonalTrainertProfile(String usernameAsJSON) {
+	public void editPersonalTrainertProfile(String usernameAsJSON) throws IOException {
 		gymAtHomeBean.editPersonalTrainerProfile(usernameAsJSON);
 	}
 
@@ -111,7 +111,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAndWeekAsJSON
 	 */
-	public String getPlan(String usernameAndWeekAsJSON) {
+	public String getPlan(String usernameAndWeekAsJSON) throws IOException {
 		return gymAtHomeBean.getPlan(usernameAndWeekAsJSON);
 	}
 
@@ -119,7 +119,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public String getBiometricData(String usernameAsJSON) {
+	public String getBiometricData(String usernameAsJSON) throws IOException {
 		return gymAtHomeBean.getBiometricData(usernameAsJSON);
 	}
 
@@ -127,7 +127,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAndClassificationAsJSON
 	 */
-	public String submitClassification(String usernameAndClassificationAsJSON) {
+	public String submitClassification(String usernameAndClassificationAsJSON) throws IOException {
 		return gymAtHomeBean.submitClassification(usernameAndClassificationAsJSON);
 	}
 
@@ -135,7 +135,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAndWorkoutIdAsJSON
 	 */
-	public void finishWorkout(String usernameAndWorkoutIdAsJSON) {
+	public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException {
 		gymAtHomeBean.finishWorkout(usernameAndWorkoutIdAsJSON);
 	}
 
@@ -143,7 +143,7 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public String getPersonalTrainerClients(String usernameAsJSON) {
+	public String getPersonalTrainerClients(String usernameAsJSON) throws IOException {
 		return gymAtHomeBean.getPersonalTrainerClients(usernameAsJSON);
 	}
 
@@ -151,7 +151,7 @@ public class GymAtHome {
 	 * 
 	 * @param requestInfoAsJSON
 	 */
-	public void submitRequest(String requestInfoAsJSON) {
+	public void submitRequest(String requestInfoAsJSON) throws IOException {
 		gymAtHomeBean.submitRequest(requestInfoAsJSON);
 	}
 
@@ -159,7 +159,7 @@ public class GymAtHome {
 	 * 
 	 * @param weekAsJson
 	 */
-	public void createWeek(String weekAsJson) {
+	public void createWeek(String weekAsJson) throws IOException {
 		gymAtHomeBean.createWeek(weekAsJson);
 	}
 
@@ -167,7 +167,7 @@ public class GymAtHome {
 	 * 
 	 * @param requestIdAndResponseAsJSON
 	 */
-	public void replyToRequest(String requestIdAndResponseAsJSON) {
+	public void replyToRequest(String requestIdAndResponseAsJSON) throws IOException {
 		gymAtHomeBean.replyToRequest(requestIdAndResponseAsJSON);
 	}
 
