@@ -5,7 +5,7 @@ import org.orm.PersistentException;
 
 public class HRClientFacadeBeanTest {
     public static void main(String[] args) {
-        String json = "{\n" +
+        /*String json = "{\n" +
                 "  \"username\": \"marques\",\n" +
                 "  \"password\": \"password\",\n" +
                 "  \"name\": \"Ricardo Pereira\",\n" +
@@ -22,7 +22,7 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         } catch (JsonKeyInFaultException e) {
             e.printStackTrace();
-        }
+        }*/
 
         //  test same size of tokens
         /*Client c1 = null, c2 = null;
@@ -41,5 +41,22 @@ public class HRClientFacadeBeanTest {
         System.out.println(c1.getToken().length());
         System.out.println(c2.getToken().length());
         */
+
+        String json = "{\n" +
+                "  \"username\": \"josepereira\",\n" +
+                "  \"password\": \"password\",\n" +
+                "  \"token\": \"password\"\n" +
+                "}";
+
+        HRClientFacadeBeanBean hrClientFacadeBeanBean = new HRClientFacadeBeanBean();
+        try {
+            System.out.println(hrClientFacadeBeanBean.loginClient(json));
+        } catch (JsonKeyInFaultException e) {
+            e.printStackTrace();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        } catch (ClientDoesNotExistException e) {
+            e.printStackTrace();
+        }
     }
 }

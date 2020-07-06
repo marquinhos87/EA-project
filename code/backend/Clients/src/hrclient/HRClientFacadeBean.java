@@ -15,7 +15,7 @@ public interface HRClientFacadeBean {
 	 * 
 	 * @param infoAsJSON
 	 */
-	String loginClient(String infoAsJSON);
+	String loginClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDoesNotExistException;
 
 	/**
 	 * 

@@ -1,5 +1,7 @@
 package hrclient;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.Collection;
@@ -37,12 +39,13 @@ public class Utils {
                 " }";
     }
 
-    public static JsonObject validateJson(Collection<String> tags, JsonObject json) throws JsonKeyInFaultException {
+    public static JsonObject validateJson(Gson gson, String json, Collection<String> tags) throws JsonKeyInFaultException {
+        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         for(String tag: tags) {
-            if (!json.has(tag)) {
+            if (!jsonObject.has(tag)) {
                 throw new JsonKeyInFaultException(tag);
             }
         }
-        return json;
+        return jsonObject;
     }
 }

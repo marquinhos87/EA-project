@@ -25,7 +25,7 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	 * @param infoClientAsJSON
 	 */
 	public String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException, JsonKeyInFaultException {
-		Utils.validateJson(Arrays.asList("username", "password", "name", "email", "sex", "birthday"), gson.fromJson(infoClientAsJSON, JsonObject.class));
+		Utils.validateJson(gson , infoClientAsJSON ,Arrays.asList("username", "password", "name", "email", "sex", "birthday"));
 		Client client = gson.fromJson(infoClientAsJSON, Client.class);
 		String username = client.getUsername();
 		if(ClientDAO.getClientByORMID(username) != null) throw new ClientAlreadyExistsException(username);
@@ -38,9 +38,17 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	 * 
 	 * @param infoAsJSON
 	 */
-	public String loginClient(String infoAsJSON) {
-		// TODO - implement HRClientFacadeBean.loginClient
-		throw new UnsupportedOperationException();
+	public String loginClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDoesNotExistException {
+		JsonObject json = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "password"));
+		String username = json.get("username").getAsString();
+		Client client = null;
+		if ( (client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
+		String oldToken = client.getToken();
+		String newToken = Utils.tokenGenerate(client.getUsername());
+		client.setToken(newToken);// updates new token
+		ClientDAO.save(client);
+		return "{ \"oldToken\": \"" + oldToken + "\", " +
+				"\"newToken\": \"" + newToken + "\" }";
 	}
 
 	/**
