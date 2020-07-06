@@ -7,12 +7,6 @@ public interface HRPersonalTrainerFacadeBean {
 
 	/**
 	 * 
-	 * @param usernameAndTokenAsJson
-	 */
-	void updateToken(String usernameAndTokenAsJson);
-
-	/**
-	 * 
 	 * @param infoPTAsJSON
 	 */
 	String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException;

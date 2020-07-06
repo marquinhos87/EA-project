@@ -20,21 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7ce52c-ec6c-4e91-8c2d-08173f40c004" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Core/.idea/libraries/gson_2_8_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/kotlin_stdlib_1_3_72.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/okhttp_4_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/okio_2_6_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/Core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/Core.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/src/servlets/CoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/servlets/CoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PersonalTrainer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PersonalTrainer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +69,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -176,6 +167,7 @@
       <updated>1593956275993</updated>
       <workItem from="1593956278692" duration="7575000" />
       <workItem from="1593984828090" duration="480000" />
+      <workItem from="1594042624627" duration="4750000" />
     </task>
     <servers />
   </component>
@@ -199,33 +191,33 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593962055925" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1593961209737">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1594047042074">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1593961209737" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1594047042074" />
     <state x="666" y="261" key="FileChooserDialogImpl" timestamp="1593957813069">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="666" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593957813069" />
-    <state width="1877" height="338" key="GridCell.Tab.0.bottom" timestamp="1593963907242">
+    <state width="1877" height="378" key="GridCell.Tab.0.bottom" timestamp="1594047162465">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="338" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593963907242" />
-    <state width="1877" height="338" key="GridCell.Tab.0.center" timestamp="1593963907242">
+    <state width="1877" height="378" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594047162465" />
+    <state width="1877" height="378" key="GridCell.Tab.0.center" timestamp="1594047162465">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="338" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593963907242" />
-    <state width="1877" height="338" key="GridCell.Tab.0.left" timestamp="1593963907242">
+    <state width="1877" height="378" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594047162465" />
+    <state width="1877" height="378" key="GridCell.Tab.0.left" timestamp="1594047162465">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="338" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593963907242" />
-    <state width="1877" height="338" key="GridCell.Tab.0.right" timestamp="1593963907242">
+    <state width="1877" height="378" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594047162465" />
+    <state width="1877" height="378" key="GridCell.Tab.0.right" timestamp="1594047162465">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="338" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593963907242" />
-    <state x="440" y="94" key="SettingsEditor" timestamp="1593962274453">
+    <state width="1877" height="378" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594047162465" />
+    <state x="440" y="94" key="SettingsEditor" timestamp="1594042679471">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1593962274453" />
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1594042679471" />
   </component>
 </project>

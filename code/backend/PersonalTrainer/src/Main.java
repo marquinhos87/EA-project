@@ -1,10 +1,10 @@
 import hrpersonaltrainer.HRPersonalTrainerFacade;
-import hrpersonaltrainer.PersonalTrainerAlreadyExistsException;
-import org.orm.PersistentException;
+import hrpersonaltrainer.Utils;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
         String pt = "{ \"name\": \"ricardo\", " +
                 "\"username\": \"ricardo\", " +
                 "\"email\": \"rpetronilho98@gmail.com\", " +
@@ -13,7 +13,11 @@ public class Main {
                 "\"sex\": \"m\", " +
                 "\"skill\": \"cardio\", " +
                 "\"price\": 155.99 }";
-        String token = HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt);
-        System.out.println(token);
+
+        System.out.println(Utils.makeSuccess200(pt));
+        System.out.println(Utils.makeError(404, "token not found"));
+
+        //HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt);
+        //HRPersonalTrainerFacade.getInstance().updateToken("new-token");
     }
 }
