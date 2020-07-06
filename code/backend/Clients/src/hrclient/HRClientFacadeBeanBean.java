@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.orm.PersistentException;
 
+import java.util.Arrays;
+
 @javax.ejb.Stateless(name="HRClientFacadeBean")
 @javax.ejb.Remote(HRClientFacadeBean.class)
 @javax.ejb.Local(HRClientFacadeBeanLocal.class)
@@ -20,33 +22,14 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 
 	/**
 	 *
-	 * @param usernameAsJson
-	 */
-	public String updateToken(String usernameAsJson) throws PersistentException, ClientDoesNotExistException, TokenAndUsernameInFaultException, TokenIsInvalidException, InvalidJSONException {
-		JsonObject json = gson.fromJson(usernameAsJson, JsonObject.class);
-		//	TODO a verificação seguinte é um candidato a ser uma função genérica!
-		if(!json.has("token") || !json.has("username"))
-			throw new TokenAndUsernameInFaultException();
-		String token = json.get("token").getAsString();									//	this is actual token to validate authentication
-		String username = json.get("username").getAsString();							//	avoid calling gets 3 times
-
-		Client client = null;
-		if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
-		System.out.println(client.getToken() + " - " + token + " - " + client.getToken().equals(token));
-		if(!client.getToken().equals(token)) throw new TokenIsInvalidException(token);	//	validate authentication
-		client.setToken(TokenGenerate.tokenGenerate(username));
-		ClientDAO.save(client);
-		return client.getToken();														//	to propagation of writes, because, token is generated inside this method
-	}
-
-	/**
-	 *
 	 * @param infoClientAsJSON
 	 */
-	public String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException {
+	public String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException, JsonKeyInFaultException {
+		Utils.validateJson(Arrays.asList("username", "password", "name", "email", "sex", "birthday"), gson.fromJson(infoClientAsJSON, JsonObject.class));
 		Client client = gson.fromJson(infoClientAsJSON, Client.class);
-		client.setToken(TokenGenerate.tokenGenerate(client.getUsername()));
-		if(ClientDAO.getClientByORMID(client.getUsername()) != null) throw new ClientAlreadyExistsException(client.getUsername());
+		String username = client.getUsername();
+		if(ClientDAO.getClientByORMID(username) != null) throw new ClientAlreadyExistsException(username);
+		client.setToken(Utils.tokenGenerate(client.getUsername()));
 		ClientDAO.save(client);
 		return client.getToken();
 	}

@@ -5,8 +5,8 @@ import org.orm.PersistentException;
 
 public class HRClientFacadeBeanTest {
     public static void main(String[] args) {
-        /*String json = "{\n" +
-                "  \"username\": \"filipe1asdasdasd\",\n" +
+        String json = "{\n" +
+                "  \"username\": \"marques\",\n" +
                 "  \"password\": \"password\",\n" +
                 "  \"name\": \"Ricardo Pereira\",\n" +
                 "  \"email\": \"ricardo@email.com\",\n" +
@@ -20,7 +20,9 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         } catch (PersistentException e) {
             e.printStackTrace();
-        }*/
+        } catch (JsonKeyInFaultException e) {
+            e.printStackTrace();
+        }
 
         //  test same size of tokens
         /*Client c1 = null, c2 = null;
@@ -39,22 +41,5 @@ public class HRClientFacadeBeanTest {
         System.out.println(c1.getToken().length());
         System.out.println(c2.getToken().length());
         */
-
-        HRClientFacadeBean hrClientFacadeBean = new HRClientFacadeBeanBean();
-
-        try {
-            String tokenGenerated = hrClientFacadeBean.updateToken("{\"username\": \"ricardo\", \"token\": \"ricardoWI2MgKtbnjoaBRR7HCU7AoybK\"}");
-            System.out.println("TOKEN=" + tokenGenerated);
-        } catch (PersistentException e) {
-            e.printStackTrace();
-        } catch (ClientDoesNotExistException e) {
-            e.printStackTrace();
-        } catch (TokenIsInvalidException e) {
-            e.printStackTrace();
-        } catch (TokenAndUsernameInFaultException e) {
-            e.printStackTrace();
-        } catch (InvalidJSONException e) {
-            e.printStackTrace();
-        }
     }
 }
