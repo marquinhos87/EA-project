@@ -32,7 +32,7 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	 */
 	public String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException {
 		Client client = gson.fromJson(infoClientAsJSON, Client.class);
-		client.setToken(TokenGenerate.tokenGenerate());
+		client.setToken(TokenGenerate.tokenGenerate(client.getUsername()));
 		if(ClientDAO.getClientByORMID(client.getUsername()) != null) throw new ClientAlreadyExistsException(client.getUsername());
 		ClientDAO.save(client);
 		return client.getToken();

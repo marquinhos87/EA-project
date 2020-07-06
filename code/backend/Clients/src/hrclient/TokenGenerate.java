@@ -3,7 +3,7 @@ package hrclient;
 import java.util.Random;
 
 public class TokenGenerate {
-    protected static String tokenGenerate() {
+    protected static String tokenGenerate(String username) {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
@@ -11,7 +11,6 @@ public class TokenGenerate {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
-        String saltStr = salt.toString();
-        return saltStr;
+        return username + salt.toString();
     }
 }

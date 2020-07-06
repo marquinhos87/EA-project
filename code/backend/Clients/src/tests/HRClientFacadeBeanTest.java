@@ -8,12 +8,12 @@ import org.orm.PersistentException;
 public class HRClientFacadeBeanTest {
     public static void main(String[] args) {
         String json = "{\n" +
-                "  \"username\": \"josepereira\",\n" +
+                "  \"username\": \"filipe\",\n" +
                 "  \"password\": \"password\",\n" +
-                "  \"name\": \"José Pereira\",\n" +
-                "  \"email\": \"jose@email.com\",\n" +
+                "  \"name\": \"Ricardo Pereira\",\n" +
+                "  \"email\": \"ricardo@email.com\",\n" +
                 "  \"sex\": \"M\",\n" +
-                "  \"birthday\": \"1997-06-19\"\n" +
+                "  \"birthday\": \"2000-06-19\"\n" +
                 "}";
         HRClientFacadeBean hrClientFacadeBean = new HRClientFacadeBeanBean();
         try {
