@@ -1,9 +1,21 @@
 package hrclient;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.orm.PersistentException;
+
 @javax.ejb.Stateless(name="HRClientFacadeBean")
 @javax.ejb.Remote(HRClientFacadeBean.class)
 @javax.ejb.Local(HRClientFacadeBeanLocal.class)
 public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacadeBeanLocal {
+
+	private final Gson gson;
+
+	public HRClientFacadeBeanBean() {
+		gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd")
+				.create();
+	}
 
 	/**
 	 * 
@@ -15,12 +27,15 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	}
 
 	/**
-	 * 
-	 * @param infoClientAsJSON
+	 * Create Client.
+	 * @param infoClientAsJSON info of client.
 	 */
-	public String createClient(String infoClientAsJSON) {
-		// TODO - implement HRClientFacadeBean.createClient
-		throw new UnsupportedOperationException();
+	public String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException {
+		Client client = gson.fromJson(infoClientAsJSON, Client.class);
+		client.setToken(TokenGenerate.tokenGenerate());
+		if(ClientDAO.getClientByORMID(client.getUsername()) != null) throw new ClientAlreadyExistsException(client.getUsername());
+		ClientDAO.save(client);
+		return client.getToken();
 	}
 
 	/**

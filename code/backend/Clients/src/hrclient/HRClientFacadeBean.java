@@ -1,5 +1,7 @@
 package hrclient;
 
+import org.orm.PersistentException;
+
 @javax.ejb.Remote
 public interface HRClientFacadeBean {
 
@@ -13,7 +15,7 @@ public interface HRClientFacadeBean {
 	 * 
 	 * @param infoClientAsJSON
 	 */
-	String createClient(String infoClientAsJSON);
+	String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException;
 
 	/**
 	 * 
