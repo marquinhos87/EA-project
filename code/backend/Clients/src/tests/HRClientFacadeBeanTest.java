@@ -43,7 +43,7 @@ public class HRClientFacadeBeanTest {
         HRClientFacadeBean hrClientFacadeBean = new HRClientFacadeBeanBean();
 
         try {
-            String tokenGenerated = hrClientFacadeBean.updateToken("{\"username\": \"asdasdasds\", \"token\": \"ricardoIj6Sp2pVxRPEi8SF4x1AweaGY\"}");
+            String tokenGenerated = hrClientFacadeBean.updateToken("{\"username\": \"ricardo\", \"token\": \"ricardoWI2MgKtbnjoaBRR7HCU7AoybK\"}");
             System.out.println("TOKEN=" + tokenGenerated);
         } catch (PersistentException e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         } catch (TokenIsInvalidException e) {
             e.printStackTrace();
-        } catch (TokenInFaultException e) {
+        } catch (TokenAndUsernameInFaultException e) {
             e.printStackTrace();
         } catch (InvalidJSONException e) {
             e.printStackTrace();

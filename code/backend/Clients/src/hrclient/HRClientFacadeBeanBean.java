@@ -22,13 +22,12 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	 *
 	 * @param usernameAsJson
 	 */
-	public String updateToken(String usernameAsJson) throws PersistentException, ClientDoesNotExistException, TokenInFaultException, TokenIsInvalidException, InvalidJSONException {
+	public String updateToken(String usernameAsJson) throws PersistentException, ClientDoesNotExistException, TokenAndUsernameInFaultException, TokenIsInvalidException, InvalidJSONException {
 		JsonObject json = gson.fromJson(usernameAsJson, JsonObject.class);
-		if(!json.has("token"))
-			throw new TokenInFaultException();
+		//	TODO a verificação seguinte é um candidato a ser uma função genérica!
+		if(!json.has("token") || !json.has("username"))
+			throw new TokenAndUsernameInFaultException();
 		String token = json.get("token").getAsString();									//	this is actual token to validate authentication
-		if(!json.has("username"))
-			throw new InvalidJSONException("username in fault");
 		String username = json.get("username").getAsString();							//	avoid calling gets 3 times
 
 		Client client = null;
@@ -87,5 +86,4 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		// TODO - implement HRClientFacadeBean.getBiometricData
 		throw new UnsupportedOperationException();
 	}
-
 }

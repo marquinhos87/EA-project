@@ -9,7 +9,7 @@ public interface HRClientFacadeBeanLocal {
 	 * Generate/update a new token
 	 * @param usernameAsJson username of client
 	 */
-	String updateToken(String usernameAsJson) throws PersistentException, ClientDoesNotExistException, TokenInFaultException, TokenIsInvalidException, InvalidJSONException;
+	String updateToken(String usernameAsJson) throws PersistentException, ClientDoesNotExistException, TokenAndUsernameInFaultException, TokenIsInvalidException, InvalidJSONException;
 
 	/**
 	 * Create Client.
