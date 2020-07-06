@@ -1,7 +1,5 @@
 package core;
 
-import core.data.plan.Plan;
-
 public class PlanDirector {
 
 	private PlanBuilder planBuilder;
@@ -12,7 +10,7 @@ public class PlanDirector {
 	 */
 	public PlanDirector(PlanBuilder planBuilder) {
 		// TODO - implement PlanDirector.PlanDirector
-		throw new UnsupportedOperationException();
+		//throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -28,8 +26,8 @@ public class PlanDirector {
 	 * @param data
 	 */
 	public Plan buildPlan(String data) {
-		// TODO - implement PlanDirector.buildPlan
-		throw new UnsupportedOperationException();
+		planBuilder.buildWeek(data);
+		return planBuilder.getPlan();
 	}
 
 }

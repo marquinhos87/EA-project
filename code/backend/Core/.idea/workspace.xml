@@ -1,33 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ArtifactsWorkspaceSettings">
-    <artifacts-to-build>
-      <artifact name="Core:ejb exploded" />
-      <artifact name="Core:war exploded" />
-    </artifacts-to-build>
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_8_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/ClientAlreadyExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/ClientDontExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/PersonalTrainerAlreadyExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/exceptions/PersonalTrainerDontExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/kotlin_stdlib_1_3_72.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/okhttp_4_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../GymAtHome/.idea/libraries/okio_2_6_0.xml" afterDir="false" />
+    <list default="true" id="5b75eb8e-8d2f-4865-a3a9-b234800da9c2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/InvalidTokenException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/JsonKeyInFaultException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/parseJSON/WeekJSON.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/parseJSON/WeekTypeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/parseJSON/week.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Core/core/data/DiagramasPersistentManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Core/core/data/ORMConstants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/servlets/CoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/CoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/GymAtHome.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PersonalTrainer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PersonalTrainer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PersonalTrainer/PersonalTrainer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../PersonalTrainer/PersonalTrainer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ConcretePlanBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ConcretePlanBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/CoreFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CoreFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/PlanBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PlanBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/PlanDirector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PlanDirector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/DiagramasPersistentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/DiagramasPersistentManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/ORMConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ORMConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/client/ClientCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ClientCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/client/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ClientDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/client/ClientDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ClientDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PersonalTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainerCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PersonalTrainerCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PersonalTrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/personaltrainer/PersonalTrainerDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PersonalTrainerDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/Plan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Plan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PlanCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PlanDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PlanDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/plan/PlanSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/PlanSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/serie/Serie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Serie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/serie/SerieCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/SerieCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/serie/SerieDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/SerieDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/serie/SerieDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/SerieDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/serie/SerieSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/SerieSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/task/TaskCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TaskCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/task/TaskDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TaskDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/task/TaskDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TaskDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/task/TaskSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/TaskSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/Week.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Week.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WeekCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WeekDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WeekDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/week/WeekSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WeekSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/Workout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/Workout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WorkoutCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WorkoutDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WorkoutDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/data/workout/WorkoutSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/WorkoutSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasDatabaseSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasDatabaseSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/DropDiagramasDatabaseSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/DropDiagramasDatabaseSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,46 +74,73 @@
   <component name="ComposerSettings">
     <execution />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
   </component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="2" />
   </component>
-  <component name="ProjectId" id="1eF1RT8kCdhT2yGbMNhuItHdibm" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1eKBg3YuRFtPMjBBLA7heBrFCtU" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29988465" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
-  <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="exceptions" />
-    </key>
-  </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="CreateDiagramasDatabaseSchema" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ormsamples.CreateDiagramasDatabaseSchema" />
+      <module name="Core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ormsamples.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DropDiagramasDatabaseSchema" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ormsamples.DropDiagramasDatabaseSchema" />
+      <module name="Core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ormsamples.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.Main" />
+      <module name="Core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="JBoss 16.0.0.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 16.0.0.Final" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/Core_war_exploded" />
       <deployment>
@@ -96,21 +160,6 @@
         <option name="CREDENTIAL_ALIAS" />
       </server-settings>
       <predefined_log_file enabled="true" id="JBoss" />
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
@@ -119,61 +168,74 @@
         </option>
       </method>
     </configuration>
+    <configuration name="RunCreateDiagramasDatabaseSchema.sh" type="ShConfigurationType" temporary="true">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/RunCreateDiagramasDatabaseSchema.sh" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="/bin/zsh" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.CreateDiagramasDatabaseSchema" />
+        <item itemvalue="Application.DropDiagramasDatabaseSchema" />
+        <item itemvalue="Shell Script.RunCreateDiagramasDatabaseSchema.sh" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="21365757-b9a5-4a93-8494-e49f72ff6d50" name="Default Changelist" comment="" />
-      <created>1593902518333</created>
+      <changelist id="5b75eb8e-8d2f-4865-a3a9-b234800da9c2" name="Default Changelist" comment="" />
+      <created>1594060511740</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1593902518333</updated>
-      <workItem from="1593902520352" duration="2029000" />
-      <workItem from="1593904824458" duration="236000" />
-      <workItem from="1593905581618" duration="622000" />
-      <workItem from="1593907073404" duration="205000" />
-      <workItem from="1593965849784" duration="498000" />
-      <workItem from="1593966414855" duration="41000" />
-      <workItem from="1593966589796" duration="193000" />
-      <workItem from="1593966786347" duration="19000" />
-      <workItem from="1593968255987" duration="1693000" />
-      <workItem from="1593984262356" duration="3049000" />
+      <updated>1594060511740</updated>
+      <workItem from="1594060514250" duration="1307000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="533" y="163" key="#com.intellij.ide.util.MemberChooser" timestamp="1593966079466">
+    <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594060926177">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="533" y="163" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1593966079466" />
-    <state width="958" height="238" key="GridCell.Tab.0.bottom" timestamp="1593966349099">
+    <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1594060926177" />
+    <state width="1398" height="199" key="GridCell.Tab.0.bottom" timestamp="1594061741063">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="958" height="238" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1593966349099" />
-    <state width="958" height="238" key="GridCell.Tab.0.center" timestamp="1593966349098">
+    <state width="1398" height="199" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594061741063" />
+    <state width="1398" height="238" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1594061362047" />
+    <state width="1398" height="199" key="GridCell.Tab.0.center" timestamp="1594061741061">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="958" height="238" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1593966349098" />
-    <state width="958" height="238" key="GridCell.Tab.0.left" timestamp="1593966349097">
+    <state width="1398" height="199" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1594061741061" />
+    <state width="1398" height="238" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1594061362046" />
+    <state width="1398" height="199" key="GridCell.Tab.0.left" timestamp="1594061741061">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="958" height="238" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1593966349097" />
-    <state width="958" height="238" key="GridCell.Tab.0.right" timestamp="1593966349099">
+    <state width="1398" height="199" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1594061741061" />
+    <state width="1398" height="238" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1594061362045" />
+    <state width="1398" height="199" key="GridCell.Tab.0.right" timestamp="1594061741062">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="958" height="238" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1593966349099" />
-    <state x="208" y="23" key="SettingsEditor" timestamp="1593984747768">
+    <state width="1398" height="199" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1594061741062" />
+    <state width="1398" height="238" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1594061362047" />
+    <state x="208" y="23" width="1024" height="835" key="SettingsEditor" timestamp="1594061034002">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="23" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1593984747768" />
-    <state x="417" y="349" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1593984686769">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="417" y="349" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1440.900@0.0.1440.900" timestamp="1593984686769" />
+    <state x="208" y="23" width="1024" height="835" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1594061034002" />
   </component>
 </project>

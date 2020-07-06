@@ -1,7 +1,5 @@
 package core;
 
-import core.data.plan.Plan;
-
 public class ConcretePlanBuilder implements PlanBuilder {
 
 	private Plan plan;

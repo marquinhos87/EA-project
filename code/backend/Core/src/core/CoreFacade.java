@@ -1,11 +1,9 @@
 package core;
 
 import beans.CoreFacadeBeanLocal;
-import exceptions.ClientAlreadyExistsException;
-import exceptions.ClientDontExistsException;
-import exceptions.PersonalTrainerAlreadyExistsException;
-import exceptions.PersonalTrainerDontExistsException;
+import exceptions.*;
 import org.orm.PersistentException;
+import org.orm.PersistentSession;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -17,6 +15,7 @@ public class CoreFacade {
 
 	private static CoreFacade coreFacade;
 	private CoreFacadeBeanLocal coreFacadeBean = lookupCoreFacadeBeanLocal();
+	private static PersistentSession session;
 
 	private CoreFacade() {
 
@@ -25,7 +24,7 @@ public class CoreFacade {
 	private CoreFacadeBeanLocal lookupCoreFacadeBeanLocal() {
 		try {
 			Context c = new InitialContext();
-			return (CoreFacadeBeanLocal) c.lookup("java:global/Core/CoreFacadeBean!beans.CoreBeanLocal");
+			return (CoreFacadeBeanLocal) c.lookup("java:global/Core/CoreFacadeBean!beans.CoreFacadeBeanLocal");
 		} catch (NamingException ne) {
 			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
 			throw new RuntimeException(ne);
@@ -37,6 +36,17 @@ public class CoreFacade {
 			coreFacade = new CoreFacade();
 		}
 		return coreFacade;
+	}
+
+	public static PersistentSession getSession() {
+		if (session == null) {
+			try {
+				session = DiagramasPersistentManager.instance().getSession();
+			} catch (PersistentException e) {
+				e.printStackTrace();
+			}
+		}
+		return session;
 	}
 
 	/**
@@ -59,7 +69,7 @@ public class CoreFacade {
 	 * 
 	 * @param usernameAndTokenAsJson
 	 */
-	public void updateTokenClient(String usernameAndTokenAsJson) throws ClientDontExistsException, PersistentException {
+	public void updateTokenClient(String usernameAndTokenAsJson) throws ClientDontExistsException, PersistentException, JsonKeyInFaultException, InvalidTokenException {
 		coreFacadeBean.updateTokenClient(usernameAndTokenAsJson);
 	}
 
@@ -67,7 +77,7 @@ public class CoreFacade {
 	 *
 	 * @param usernameAndTokenAsJson
 	 */
-	public void updateTokenPersonalTrainer(String usernameAndTokenAsJson) throws PersonalTrainerDontExistsException, PersistentException {
+	public void updateTokenPersonalTrainer(String usernameAndTokenAsJson) throws PersonalTrainerDontExistsException, PersistentException, JsonKeyInFaultException, InvalidTokenException {
 		coreFacadeBean.updateTokenPersonalTrainer(usernameAndTokenAsJson);
 	}
 
@@ -75,15 +85,23 @@ public class CoreFacade {
 	 * 
 	 * @param usernameAndWeekAsJSON
 	 */
-	public String getPlan(String usernameAndWeekAsJSON) {
-		return coreFacadeBean.getPlan(usernameAndWeekAsJSON);
+	public String getWeekByClient(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException {
+		return coreFacadeBean.getWeekByClient(usernameAndWeekAsJSON);
+	}
+
+	/**
+	 *
+	 * @param usernameAndWeekAsJSON
+	 */
+	public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException {
+		return coreFacadeBean.getWeekByPersonalTrainer(usernameAndWeekAsJSON);
 	}
 
 	/**
 	 * 
 	 * @param usernameAndWorkoutIdAsJSON
 	 */
-	public void finishWorkout(String usernameAndWorkoutIdAsJSON) {
+	public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException {
 		coreFacadeBean.finishWorkout(usernameAndWorkoutIdAsJSON);
 	}
 
@@ -91,7 +109,7 @@ public class CoreFacade {
 	 * 
 	 * @param weekAsJson
 	 */
-	public void createWeek(String weekAsJson) {
+	public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException {
 		coreFacadeBean.createWeek(weekAsJson);
 	}
 

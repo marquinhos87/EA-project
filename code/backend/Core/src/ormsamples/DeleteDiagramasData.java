@@ -4,21 +4,21 @@
  */
 package ormsamples;
 
-import core.data.DiagramasPersistentManager;
-import core.data.client.Client;
-import core.data.client.ClientDAO;
-import core.data.personaltrainer.PersonalTrainer;
-import core.data.personaltrainer.PersonalTrainerDAO;
-import core.data.plan.Plan;
-import core.data.plan.PlanDAO;
-import core.data.serie.Serie;
-import core.data.serie.SerieDAO;
-import core.data.task.Task;
-import core.data.task.TaskDAO;
-import core.data.week.Week;
-import core.data.week.WeekDAO;
-import core.data.workout.Workout;
-import core.data.workout.WorkoutDAO;
+import core.DiagramasPersistentManager;
+import core.Client;
+import core.ClientDAO;
+import core.PersonalTrainer;
+import core.PersonalTrainerDAO;
+import core.Plan;
+import core.PlanDAO;
+import core.Serie;
+import core.SerieDAO;
+import core.Task;
+import core.TaskDAO;
+import core.Week;
+import core.WeekDAO;
+import core.Workout;
+import core.WorkoutDAO;
 import org.orm.*;
 public class DeleteDiagramasData {
 	public void deleteTestData() throws PersistentException {

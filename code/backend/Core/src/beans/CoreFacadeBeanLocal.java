@@ -1,9 +1,6 @@
 package beans;
 
-import exceptions.ClientAlreadyExistsException;
-import exceptions.ClientDontExistsException;
-import exceptions.PersonalTrainerAlreadyExistsException;
-import exceptions.PersonalTrainerDontExistsException;
+import exceptions.*;
 import org.orm.PersistentException;
 
 import javax.ejb.Local;
@@ -11,45 +8,53 @@ import javax.ejb.Local;
 @Local
 public interface CoreFacadeBeanLocal {
 
-	/**
-	 * 
-	 * @param usernameAsJson
-	 */
-	void createClient(String usernameAsJson) throws PersistentException, ClientAlreadyExistsException;
+    /**
+     * Create a Client.
+     *
+     * @param usernameAsJson Client username and token as a json string.
+     */
+    void createClient(String usernameAsJson) throws PersistentException, ClientAlreadyExistsException;
 
-	/**
-	 * 
-	 * @param usernameAsJson
-	 */
-	void createPersonalTrainer(String usernameAsJson) throws PersistentException, PersonalTrainerAlreadyExistsException;
+    /**
+     * Create a PersonalTrainer.
+     *
+     * @param usernameAsJson PersonalTrainer username and token as a json string.
+     */
+    void createPersonalTrainer(String usernameAsJson) throws PersistentException, PersonalTrainerAlreadyExistsException;
 
-	/**
-	 * 
-	 * @param usernameAndTokenAsJson
-	 */
-	void updateTokenClient(String usernameAndTokenAsJson) throws PersistentException, ClientDontExistsException;
+    /**
+     *
+     * @param usernameAndTokenAsJson Client username and token as a json string.
+     */
+    void updateTokenClient(String usernameAndTokenAsJson) throws PersistentException, ClientDontExistsException, JsonKeyInFaultException, InvalidTokenException;
 
-	/**
-	 *
-	 * @param usernameAndTokenAsJson
-	 */
-	void updateTokenPersonalTrainer(String usernameAndTokenAsJson) throws PersistentException, PersonalTrainerDontExistsException;
+    /**
+     *
+     * @param usernameAndTokenAsJson PersonalTrainer username and token as a json string.
+     */
+    void updateTokenPersonalTrainer(String usernameAndTokenAsJson) throws PersistentException, PersonalTrainerDontExistsException, JsonKeyInFaultException, InvalidTokenException;
 
-	/**
-	 * 
-	 * @param usernameAndWeekAsJSON
-	 */
-	String getPlan(String usernameAndWeekAsJSON);
+    /**
+     *
+     * @param usernameAndWeekAsJSON
+     */
+    String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException;
 
-	/**
-	 * 
-	 * @param usernameAndWorkoutIdAsJSON
-	 */
-	void finishWorkout(String usernameAndWorkoutIdAsJSON);
+    /**
+     *
+     * @param usernameAndWeekAsJSON
+     */
+    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException;
 
-	/**
-	 * 
-	 * @param weekAsJson
-	 */
-	void createWeek(String weekAsJson);
+    /**
+     *
+     * @param usernameAndWorkoutIdAsJSON
+     */
+    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException;
+
+    /**
+     *
+     * @param weekAsJson
+     */
+    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException;
 }

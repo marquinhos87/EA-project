@@ -4,28 +4,28 @@
  */
 package ormsamples;
 
-import core.data.DiagramasPersistentManager;
-import core.data.client.Client;
-import core.data.client.ClientCriteria;
-import core.data.client.ClientDAO;
-import core.data.personaltrainer.PersonalTrainer;
-import core.data.personaltrainer.PersonalTrainerCriteria;
-import core.data.personaltrainer.PersonalTrainerDAO;
-import core.data.plan.Plan;
-import core.data.plan.PlanCriteria;
-import core.data.plan.PlanDAO;
-import core.data.serie.Serie;
-import core.data.serie.SerieCriteria;
-import core.data.serie.SerieDAO;
-import core.data.task.Task;
-import core.data.task.TaskCriteria;
-import core.data.task.TaskDAO;
-import core.data.week.Week;
-import core.data.week.WeekCriteria;
-import core.data.week.WeekDAO;
-import core.data.workout.Workout;
-import core.data.workout.WorkoutCriteria;
-import core.data.workout.WorkoutDAO;
+import core.DiagramasPersistentManager;
+import core.Client;
+import core.ClientCriteria;
+import core.ClientDAO;
+import core.PersonalTrainer;
+import core.PersonalTrainerCriteria;
+import core.PersonalTrainerDAO;
+import core.Plan;
+import core.PlanCriteria;
+import core.PlanDAO;
+import core.Serie;
+import core.SerieCriteria;
+import core.SerieDAO;
+import core.Task;
+import core.TaskCriteria;
+import core.TaskDAO;
+import core.Week;
+import core.WeekCriteria;
+import core.WeekDAO;
+import core.Workout;
+import core.WorkoutCriteria;
+import core.WorkoutDAO;
 import org.orm.*;
 public class RetrieveAndUpdateDiagramasData {
 	public void retrieveAndUpdateTestData() throws PersistentException {

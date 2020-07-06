@@ -4,7 +4,7 @@
  */
 package ormsamples;
 
-import core.data.DiagramasPersistentManager;
+import core.DiagramasPersistentManager;
 import org.orm.*;
 public class DropDiagramasDatabaseSchema {
 	public static void main(String[] args) {
