@@ -9,13 +9,13 @@ public interface HRPersonalTrainerFacadeBeanLocal {
 	 * 
 	 * @param infoPTAsJSON
 	 */
-	String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException;
+	String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException;
 
 	/**
 	 * 
 	 * @param infoAsJSON
 	 */
-	String loginPersonalTrainer(String infoAsJSON);
+	String loginPersonalTrainer(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException;
 
 	/**
 	 * 

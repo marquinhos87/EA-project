@@ -1,5 +1,4 @@
 import hrpersonaltrainer.HRPersonalTrainerFacade;
-import hrpersonaltrainer.Utils;
 
 public class Main {
 
@@ -14,10 +13,8 @@ public class Main {
                 "\"skill\": \"cardio\", " +
                 "\"price\": 155.99 }";
 
-        System.out.println(Utils.makeSuccess200(pt));
-        System.out.println(Utils.makeError(404, "token not found"));
-
         //HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt);
-        //HRPersonalTrainerFacade.getInstance().updateToken("new-token");
+        String json = HRPersonalTrainerFacade.getInstance().loginPersonalTrainer("{ \"username\": \"ricardo\", \"password\": \"password\" }");
+        System.out.println(json);
     }
 }

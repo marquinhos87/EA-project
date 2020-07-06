@@ -2,7 +2,10 @@ package hrpersonaltrainer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import parseJSON.UsernamePasswordJson;
 import org.orm.PersistentException;
+
+import java.util.Arrays;
 
 @javax.ejb.Stateless(name="HRPersonalTrainerFacadeBean")
 @javax.ejb.Remote(HRPersonalTrainerFacadeBean.class)
@@ -23,7 +26,8 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * Creates a PersonalTrainer and saves it to database based on the given information.
 	 * @param infoPTAsJSON information of PersonalTrainer.
 	 */
-	public String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException {
+	public String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException {
+		Utils.validateJson(gson, infoPTAsJSON, Arrays.asList("name", "username", "email", "password", "birthday", "sex", "skill", "price"));
 		PersonalTrainer pt = gson.fromJson(infoPTAsJSON, PersonalTrainer.class);
 		pt.setToken(Utils.tokenGenerate(pt.getUsername())); // creates and saves token
 		System.err.println(pt);
@@ -37,9 +41,18 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * 
 	 * @param infoAsJSON
 	 */
-	public String loginPersonalTrainer(String infoAsJSON) {
-		// TODO - implement HRPersonalTrainerFacadeBean.loginPersonalTrainer
-		throw new UnsupportedOperationException();
+	public String loginPersonalTrainer(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException {
+		Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "password"));
+		UsernamePasswordJson info = gson.fromJson(infoAsJSON, UsernamePasswordJson.class);
+		PersonalTrainer pt;
+		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(info.username)) == null) throw new PersonalTrainerNotExistsException(info.username);
+		String oldToken = pt.getToken();
+		String newToken = Utils.tokenGenerate(pt.getUsername());
+		pt.setToken(newToken);// updates new token
+		PersonalTrainerDAO.save(pt);
+		System.err.println("PersonalTrainer's token updated...");
+		return "{ \"oldToken\": \"" + oldToken + "\", " +
+				"\"newToken\": \"" + newToken + "\" }";
 	}
 
 	/**
@@ -70,7 +83,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	}
 
 	/**
-	 * 
+	 *
 	 * @param usernameAndClassificationAsJSON
 	 */
 	public String submitClassification(int usernameAndClassificationAsJSON) {

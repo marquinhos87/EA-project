@@ -18,18 +18,9 @@ public class HRPersonalTrainerFacade {
 
 	/**
 	 * 
-	 * @param usernameAndTokenAsJson
-	 */
-	public void updateToken(String usernameAndTokenAsJson) {
-		// TODO - implement HRPersonalTrainerFacade.updateToken
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
 	 * @param infoPTAsJSON
 	 */
-	public String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException {
+	public String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException {
 		return personalTrainerFacadeBean.createPersonalTrainer(infoPTAsJSON);
 	}
 
@@ -37,9 +28,8 @@ public class HRPersonalTrainerFacade {
 	 * 
 	 * @param infoAsJSON
 	 */
-	public String loginPersonalTrainer(String infoAsJSON) {
-		// TODO - implement HRPersonalTrainerFacade.loginPersonalTrainer
-		throw new UnsupportedOperationException();
+	public String loginPersonalTrainer(String infoAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException {
+		return personalTrainerFacadeBean.loginPersonalTrainer(infoAsJSON);
 	}
 
 	/**
