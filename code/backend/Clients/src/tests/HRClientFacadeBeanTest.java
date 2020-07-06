@@ -22,7 +22,8 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         }*/
 
-        Client c1 = null, c2 = null;
+        //  test same size of tokens
+        /*Client c1 = null, c2 = null;
 
         try {
             c1 = ClientDAO.getClientByORMID("filipe1");
@@ -37,6 +38,23 @@ public class HRClientFacadeBeanTest {
 
         System.out.println(c1.getToken().length());
         System.out.println(c2.getToken().length());
+        */
 
+        HRClientFacadeBean hrClientFacadeBean = new HRClientFacadeBeanBean();
+
+        try {
+            String tokenGenerated = hrClientFacadeBean.updateToken("{\"username\": \"asdasdasds\", \"token\": \"ricardoIj6Sp2pVxRPEi8SF4x1AweaGY\"}");
+            System.out.println("TOKEN=" + tokenGenerated);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        } catch (ClientDoesNotExistException e) {
+            e.printStackTrace();
+        } catch (TokenIsInvalidException e) {
+            e.printStackTrace();
+        } catch (TokenInFaultException e) {
+            e.printStackTrace();
+        } catch (InvalidJSONException e) {
+            e.printStackTrace();
+        }
     }
 }

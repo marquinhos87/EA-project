@@ -2,6 +2,7 @@ package hrclient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import org.orm.PersistentException;
 
 @javax.ejb.Stateless(name="HRClientFacadeBean")
@@ -18,17 +19,30 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	}
 
 	/**
-	 * 
-	 * @param usernameAndTokenAsJson
+	 *
+	 * @param usernameAsJson
 	 */
-	public void updateToken(String usernameAndTokenAsJson) {
-		// TODO - implement HRClientFacadeBean.updateToken
-		throw new UnsupportedOperationException();
+	public String updateToken(String usernameAsJson) throws PersistentException, ClientDoesNotExistException, TokenInFaultException, TokenIsInvalidException, InvalidJSONException {
+		JsonObject json = gson.fromJson(usernameAsJson, JsonObject.class);
+		if(!json.has("token"))
+			throw new TokenInFaultException();
+		String token = json.get("token").getAsString();									//	this is actual token to validate authentication
+		if(!json.has("username"))
+			throw new InvalidJSONException("username in fault");
+		String username = json.get("username").getAsString();							//	avoid calling gets 3 times
+
+		Client client = null;
+		if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
+		System.out.println(client.getToken() + " - " + token + " - " + client.getToken().equals(token));
+		if(!client.getToken().equals(token)) throw new TokenIsInvalidException(token);	//	validate authentication
+		client.setToken(TokenGenerate.tokenGenerate(username));
+		ClientDAO.save(client);
+		return client.getToken();														//	to propagation of writes, because, token is generated inside this method
 	}
 
 	/**
-	 * Create Client.
-	 * @param infoClientAsJSON info of client.
+	 *
+	 * @param infoClientAsJSON
 	 */
 	public String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException {
 		Client client = gson.fromJson(infoClientAsJSON, Client.class);

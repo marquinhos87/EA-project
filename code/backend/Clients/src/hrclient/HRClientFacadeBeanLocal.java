@@ -6,14 +6,14 @@ import org.orm.PersistentException;
 public interface HRClientFacadeBeanLocal {
 
 	/**
-	 * 
-	 * @param usernameAndTokenAsJson
+	 * Generate/update a new token
+	 * @param usernameAsJson username of client
 	 */
-	void updateToken(String usernameAndTokenAsJson);
+	String updateToken(String usernameAsJson) throws PersistentException, ClientDoesNotExistException, TokenInFaultException, TokenIsInvalidException, InvalidJSONException;
 
 	/**
-	 * 
-	 * @param infoClientAsJSON
+	 * Create Client.
+	 * @param infoClientAsJSON info of client.
 	 */
 	String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException;
 
