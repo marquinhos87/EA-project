@@ -2,7 +2,7 @@ import hrpersonaltrainer.HRPersonalTrainerFacade;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         String pt = "{ \"name\": \"ricardo\", " +
                 "\"username\": \"ricardo\", " +
@@ -13,8 +13,35 @@ public class Main {
                 "\"skill\": \"cardio\", " +
                 "\"price\": 155.99 }";
 
-        //HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt);
-        String json = HRPersonalTrainerFacade.getInstance().loginPersonalTrainer("{ \"username\": \"ricardo\", \"password\": \"password\" }");
-        System.out.println(json);
+        String client = "{ \"username\": \"jose\", " +
+                "\"token\": \"token\" }";
+
+        try {
+            System.out.println(HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //TODO mudar a coluna PersonalTrainerUsername (FK) na tabela Client para possibilitar valores NULL
+        /*
+        try {
+            HRPersonalTrainerFacade.getInstance().createClient(client);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        */
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByClient("{ \"personalTrainerUsername\": \"ricardo\", \"clientUsername\": \"jose\", \"clientToken\": \"token\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().loginPersonalTrainer("{ \"username\": \"ricardo\", \"password\": \"password\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

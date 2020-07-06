@@ -2,9 +2,11 @@ package hrpersonaltrainer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.hibernate.Query;
+import org.orm.PersistentException;
 
-import java.util.Collection;
-import java.util.Random;
+import java.util.*;
+
 
 public class Utils {
 
@@ -49,5 +51,26 @@ public class Utils {
         return jsonObject;
     }
 
+    public static int years(Date first, Date last) {
+        Calendar a = getCalendar(first);
+        Calendar b = getCalendar(last);
+        int diff = b.get(Calendar.YEAR) - a.get(Calendar.YEAR);
+        if (a.get(Calendar.MONTH) > b.get(Calendar.MONTH) ||
+                (a.get(Calendar.MONTH) == b.get(Calendar.MONTH) && a.get(Calendar.DATE) > b.get(Calendar.DATE))) {
+            diff--;
+        }
+        return diff;
+    }
+
+    private static Calendar getCalendar(Date date) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTime(date);
+        return cal;
+    }
+
+    public static void validateToken(String token, String username, String entity) throws PersistentException, TokenIsInvalidException {
+        Query query = HRPersonalTrainerFacade.getSession().createQuery("select token from " + entity + " where token='" + token + "' and username='" + username + "'");
+        if(query.list().size() == 0) throw new TokenIsInvalidException(token);
+    }
 
 }

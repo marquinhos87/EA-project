@@ -21,7 +21,7 @@ public interface HRPersonalTrainerFacadeBean {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	String getPersonalTrainerProfile(String usernameAsJSON);
+	String getPersonalTrainerProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException;
 
 	/**
 	 * 
@@ -51,5 +51,5 @@ public interface HRPersonalTrainerFacadeBean {
 	 * 
 	 * @param usernameAndTokenAsJson
 	 */
-	void createClient(String usernameAndTokenAsJson);
+	void createClient(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException;
 }

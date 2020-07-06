@@ -72,7 +72,8 @@ public class PersonalTrainer implements hrpersonaltrainer.IPersonalTrainer {
 	private String token;
 	
 	private int numberOfClassifications;
-	
+
+	// TODO remover esta variavel do diagrama de classes
 	private int numberOfClients;
 	
 	private int numberOfCreatedPlans;

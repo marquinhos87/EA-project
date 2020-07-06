@@ -1,10 +1,14 @@
 package hrpersonaltrainer;
 
 import org.orm.PersistentException;
+import org.orm.PersistentSession;
 
 public class HRPersonalTrainerFacade {
 
 	private static HRPersonalTrainerFacade rhPersonalTrainerFacade;
+	private static PersistentSession session = null;
+
+	// TODO trocar isto para o código de obtenção do bean
 	private final HRPersonalTrainerFacadeBean personalTrainerFacadeBean = new HRPersonalTrainerFacadeBeanBean();
 
 	private HRPersonalTrainerFacade() {}
@@ -14,6 +18,11 @@ public class HRPersonalTrainerFacade {
 			rhPersonalTrainerFacade = new HRPersonalTrainerFacade();
 		}
 		return rhPersonalTrainerFacade;
+	}
+
+	public static PersistentSession getSession() throws PersistentException {
+		if (session == null) session = DiagramasPersistentManager.instance().getSession();
+		return session;
 	}
 
 	/**
@@ -36,9 +45,8 @@ public class HRPersonalTrainerFacade {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public String getPersonalTrainerProfile(String usernameAsJSON) {
-		// TODO - implement HRPersonalTrainerFacade.getPersonalTrainerProfile
-		throw new UnsupportedOperationException();
+	public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, TokenIsInvalidException {
+		return personalTrainerFacadeBean.getPersonalTrainerProfileByClient(usernameAsJSON);
 	}
 
 	/**
@@ -81,9 +89,8 @@ public class HRPersonalTrainerFacade {
 	 * 
 	 * @param usernameAndTokenAsJson
 	 */
-	public void createClient(String usernameAndTokenAsJson) {
-		// TODO - implement HRPersonalTrainerFacade.createClient
-		throw new UnsupportedOperationException();
+	public void createClient(String usernameAndTokenAsJson) throws ClientAlreadyExistsException, PersistentException, JsonKeyInFaultException {
+		personalTrainerFacadeBean.createClient(usernameAndTokenAsJson);
 	}
 
 }
