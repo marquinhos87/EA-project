@@ -8,23 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ba9b596-4e4f-47ef-81cc-56d4c9b57494" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/Http.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/libraries/kotlin_stdlib_1_3_72.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/libraries/okhttp_4_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/.idea/libraries/okio_2_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/utils/Http.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/APIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/ClientPlanServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/ClientPlanServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/ClientRegisterServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/ClientRegisterServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/MakeRequestServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/MakeRequestServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/MyProfileCServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/MyProfileCServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/PersonalTrainerProfileServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/PersonalTrainerProfileServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/SearchPersonalTrainersServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/SearchPersonalTrainersServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/TaskServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/clientservlets/TaskServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/commonservlets/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/commonservlets/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/commonservlets/NotificationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/commonservlets/NotificationServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/ClientProfileServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/ClientProfileServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/CreateWeekServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/CreateWeekServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/MyProfilePTServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/MyProfilePTServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/MyRequestsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/MyRequestsServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/PersonalTrainerRegisterServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/src/personaltrainerservlets/PersonalTrainerRegisterServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/GymAtHome.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/GymAtHomeFrontend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/GymAtHomeFrontend/GymAtHomeFrontend.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +26,13 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -120,7 +120,7 @@
       <workItem from="1593966435981" duration="48000" />
       <workItem from="1593972189661" duration="1800000" />
       <workItem from="1593980849853" duration="2397000" />
-      <workItem from="1594063198030" duration="396000" />
+      <workItem from="1594063198030" duration="1848000" />
     </task>
     <servers />
   </component>

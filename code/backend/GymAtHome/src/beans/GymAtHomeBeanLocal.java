@@ -20,7 +20,7 @@ public interface GymAtHomeBeanLocal {
 	 * @param infoPTAsJSON All PersonalTrainer info as json string.
 	 * @return A PersonalTrainer in json string.
 	 */
-	String createPersonalTrainer(String infoPTAsJSON);
+	String createPersonalTrainer(String infoPTAsJSON) throws IOException;
 
 	/**
 	 * Authenticate Client with the credentials provided.
@@ -94,10 +94,11 @@ public interface GymAtHomeBeanLocal {
 
 	/**
 	 * Submit a classification to a PersonalTrainer given by a Client.
-	 * 
+	 *
 	 * @param usernameAndClassificationAsJSON PersonalTrainer username and classification attributed by Client as a json string.
+	 * @return
 	 */
-	void submitClassification(String usernameAndClassificationAsJSON);
+	String submitClassification(String usernameAndClassificationAsJSON);
 
 	/**
 	 * Client submit that as completed a workout.

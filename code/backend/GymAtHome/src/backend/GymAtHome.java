@@ -5,6 +5,7 @@ import beans.GymAtHomeBeanLocal;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +39,7 @@ public class GymAtHome {
 	 * 
 	 * @param infoClientAsJSON
 	 */
-	public String createClient(String infoClientAsJSON) {
+	public String createClient(String infoClientAsJSON) throws IOException {
 		return gymAtHomeBean.createClient(infoClientAsJSON);
 	}
 
@@ -70,7 +71,7 @@ public class GymAtHome {
 	 * 
 	 * @param infoPTAsJSON
 	 */
-	public String createPersonalTrainer(String infoPTAsJSON) {
+	public String createPersonalTrainer(String infoPTAsJSON) throws IOException {
 		return gymAtHomeBean.createPersonalTrainer(infoPTAsJSON);
 	}
 

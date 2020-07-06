@@ -1,5 +1,6 @@
 package beans;
 
+import utils.Http;
 import okhttp3.*;
 
 import javax.ejb.Stateless;
@@ -14,23 +15,16 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
 
     @Override
     public String createClient(String infoClientAsJSON) throws IOException {
-        OkHttpClient client = new OkHttpClient();
-
-        MediaType JSON = MediaType.get("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(infoClientAsJSON,JSON);
-        Request request = new Request.Builder()
-                .url("http://localhost:8080/api/v1/GymAtHome/HRClient/createClient")
-                .post(body)
-                .addHeader("content-type", "application/JSON")
-                .build();
-
-        Response response = client.newCall(request).execute();
-        
+        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/createClient";
+        Response response = Http.post(url,infoClientAsJSON);
         return null;
     }
 
     @Override
-    public String createPersonalTrainer(String infoPTAsJSON) {
+    public String createPersonalTrainer(String infoPTAsJSON) throws IOException {
+        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/createPersonalTrainer";
+        Response response = Http.post(url,infoPTAsJSON);
+
         return null;
     }
 
@@ -80,8 +74,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
     }
 
     @Override
-    public void submitClassification(String usernameAndClassificationAsJSON) {
+    public String submitClassification(String usernameAndClassificationAsJSON) {
 
+        return usernameAndClassificationAsJSON;
     }
 
     @Override
