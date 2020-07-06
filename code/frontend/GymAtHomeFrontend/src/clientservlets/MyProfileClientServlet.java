@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "MyProfileCServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/MyProfileClient")
-public class MyProfileCServlet extends HttpServlet {
+@WebServlet(name = "MyProfileClientServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/MyProfileClient")
+public class MyProfileClientServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.

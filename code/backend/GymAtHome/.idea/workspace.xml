@@ -8,15 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ba9b596-4e4f-47ef-81cc-56d4c9b57494" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/gson_2_8_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GymAtHome.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GymAtHome.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/backend/GymAtHome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/APIController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +111,7 @@
       <workItem from="1593966435981" duration="48000" />
       <workItem from="1593972189661" duration="1800000" />
       <workItem from="1593980849853" duration="2397000" />
-      <workItem from="1594063198030" duration="7279000" />
+      <workItem from="1594063198030" duration="7585000" />
     </task>
     <servers />
   </component>
