@@ -3,9 +3,12 @@ package hrclient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.orm.PersistentException;
 
 import java.util.Arrays;
+import java.util.List;
 
 @javax.ejb.Stateless(name="HRClientFacadeBean")
 @javax.ejb.Remote(HRClientFacadeBean.class)
@@ -28,7 +31,7 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		Utils.validateJson(gson , infoClientAsJSON ,Arrays.asList("username", "password", "name", "email", "sex", "birthday"));
 		Client client = gson.fromJson(infoClientAsJSON, Client.class);
 		String username = client.getUsername();
-		if(ClientDAO.getClientByORMID(username) != null) throw new ClientAlreadyExistsException(username);
+		if(ClientDAO.getClientByORMID(HRClientFacade.getSession(),  username) != null) throw new ClientAlreadyExistsException(username);
 		client.setToken(Utils.tokenGenerate(client.getUsername()));
 		ClientDAO.save(client);
 		return client.getToken();
@@ -42,7 +45,7 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		JsonObject json = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "password"));
 		String username = json.get("username").getAsString();
 		Client client = null;
-		if ( (client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
+		if ( (client = ClientDAO.getClientByORMID(HRClientFacade.getSession(),username)) == null) throw new ClientDoesNotExistException(username);
 		String oldToken = client.getToken();
 		String newToken = Utils.tokenGenerate(client.getUsername());
 		client.setToken(newToken);// updates new token
@@ -64,9 +67,25 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	 * 
 	 * @param infoAsJSON
 	 */
-	public void editClientProfile(String infoAsJSON) {
-		// TODO - implement HRClientFacadeBean.editClientProfile
-		throw new UnsupportedOperationException();
+	public void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, ClientDoesNotExistException {
+		JsonObject json = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "token"));
+		String token = json.get("token").getAsString();
+		Utils.validateToken(token, json.get("username").getAsString(), "Client");
+		String username = json.get("username").getAsString();
+		Client client = null;
+		if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
+
+		//	update fields
+		if(json.has("name"))
+			client.setName(json.get("name").getAsString());
+		if(json.has("email"))
+			client.setEmail(json.get("email").getAsString());
+		if(json.has("sex"))
+			client.setSex(json.get("sex").getAsString());
+
+		BiometricData biometricData = gson.fromJson(infoAsJSON, BiometricData.class);
+		client.biometricDatas.add(biometricData);
+		ClientDAO.save(client);
 	}
 
 	/**

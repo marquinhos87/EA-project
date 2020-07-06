@@ -42,7 +42,7 @@ public class HRClientFacadeBeanTest {
         System.out.println(c2.getToken().length());
         */
 
-        String json = "{\n" +
+        /*String json = "{\n" +
                 "  \"username\": \"josepereira\",\n" +
                 "  \"password\": \"password\",\n" +
                 "  \"token\": \"password\"\n" +
@@ -54,6 +54,26 @@ public class HRClientFacadeBeanTest {
         } catch (JsonKeyInFaultException e) {
             e.printStackTrace();
         } catch (PersistentException e) {
+            e.printStackTrace();
+        } catch (ClientDoesNotExistException e) {
+            e.printStackTrace();
+        }*/
+
+        String json = "{\n" +
+                "  \"username\": \"ricardo\",\n" +
+                "  \"name\": \"José Pereira\",\n" +
+                "  \"token\": \"ricardopfLvauKOTd2KSWpidMyTKKl0U\",\n" +
+                "  \"sex\": \"F\"\n" +
+                "}";
+
+        HRClientFacadeBean bean = new HRClientFacadeBeanBean();
+        try {
+            bean.editClientProfile(json);
+        } catch (JsonKeyInFaultException e) {
+            e.printStackTrace();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        } catch (TokenIsInvalidException e) {
             e.printStackTrace();
         } catch (ClientDoesNotExistException e) {
             e.printStackTrace();

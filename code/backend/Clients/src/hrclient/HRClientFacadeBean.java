@@ -27,7 +27,7 @@ public interface HRClientFacadeBean {
 	 * 
 	 * @param infoAsJSON
 	 */
-	void editClientProfile(String infoAsJSON);
+	void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, ClientDoesNotExistException;
 
 	/**
 	 * 

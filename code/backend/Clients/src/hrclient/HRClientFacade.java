@@ -1,13 +1,24 @@
 package hrclient;
 
+import org.hibernate.Session;
+import org.orm.PersistentException;
+import org.orm.PersistentSession;
+
 public class HRClientFacade {
 
 	private HRClientFacadeBean clientFacadeBean;
 	private static HRClientFacade rhClientFacade;
+	private static PersistentSession session;
 
 	public static HRClientFacade getInstance() {
 		// TODO - implement HRClientFacade.getInstance
 		throw new UnsupportedOperationException();
+	}
+
+	public static PersistentSession getSession() throws PersistentException {
+		if(session == null)
+			session = DiagramasPersistentManager.instance().getSession();
+		return session;
 	}
 
 	/**

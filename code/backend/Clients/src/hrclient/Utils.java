@@ -1,8 +1,9 @@
 package hrclient;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.hibernate.Query;
+import org.orm.PersistentException;
 
 import java.util.Collection;
 import java.util.Random;
@@ -47,5 +48,10 @@ public class Utils {
             }
         }
         return jsonObject;
+    }
+
+    public static void validateToken(String token, String username, String entity) throws PersistentException, TokenIsInvalidException {
+        Query query = HRClientFacade.getSession().createQuery("select token from " + entity + " where token='" + token + "' and username='" + username+"'");
+        if(query.list().size() == 0) throw new TokenIsInvalidException(token);
     }
 }
