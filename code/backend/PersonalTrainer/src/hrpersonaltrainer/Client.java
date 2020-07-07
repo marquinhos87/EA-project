@@ -35,7 +35,6 @@ public class Client {
 	}
 	
 	private String username;
-	private String token;
 	
 	public void setUsername(String value) {
 		this.username = value;
@@ -53,12 +52,4 @@ public class Client {
 		return String.valueOf(getUsername());
 	}
 
-	public void setToken(String value) {
-		this.token = value;
-	}
-
-	public String getToken() {
-		return token;
-	}
-	
 }

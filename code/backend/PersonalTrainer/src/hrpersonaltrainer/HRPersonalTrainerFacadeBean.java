@@ -15,7 +15,7 @@ public interface HRPersonalTrainerFacadeBean {
 	 * 
 	 * @param infoAsJSON
 	 */
-	String loginPersonalTrainer(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException;
+	String loginPersonalTrainer(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, InvalidPasswordException;
 
 	/**
 	 * 

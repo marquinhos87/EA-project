@@ -37,7 +37,7 @@ public class HRPersonalTrainerFacade {
 	 * 
 	 * @param infoAsJSON
 	 */
-	public String loginPersonalTrainer(String infoAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException {
+	public String loginPersonalTrainer(String infoAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, InvalidPasswordException {
 		return personalTrainerFacadeBean.loginPersonalTrainer(infoAsJSON);
 	}
 

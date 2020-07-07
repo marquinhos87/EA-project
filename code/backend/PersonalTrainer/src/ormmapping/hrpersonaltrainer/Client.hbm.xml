@@ -10,6 +10,5 @@ License Type: Academic
 			<generator class="assigned">
 			</generator>
 		</id>
-		<property name="token" column="Token" type="string" length="255" not-null="false" lazy="false"/>
 	</class>
 </hibernate-mapping>

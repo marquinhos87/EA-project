@@ -17,22 +17,7 @@ public class Main {
                 "\"token\": \"token\" }";
 
         try {
-            System.out.println(HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //TODO mudar a coluna PersonalTrainerUsername (FK) na tabela Client para possibilitar valores NULL
-        /*
-        try {
-            HRPersonalTrainerFacade.getInstance().createClient(client);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
-
-        try {
-            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByClient("{ \"personalTrainerUsername\": \"ricardo\", \"clientUsername\": \"jose\", \"clientToken\": \"token\" }") );
+            System.out.println( HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt) );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,5 +28,19 @@ public class Main {
             e.printStackTrace();
         }
 
+        /*
+        //TODO mudar a coluna PersonalTrainerUsername (FK) na tabela Client para possibilitar valores NULL
+        try {
+            HRPersonalTrainerFacade.getInstance().createClient(client);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByClient("{ \"personalTrainerUsername\": \"ricardo\", \"clientUsername\": \"jose\", \"clientToken\": \"token\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        */
     }
 }
