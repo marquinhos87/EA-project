@@ -9,23 +9,23 @@ import javax.ejb.Local;
 public interface CoreFacadeBeanLocal {
 
     /**
-     * Create a Client.
+     * Create a User.
      *
      * @param usernameAsJson User username and token as a json string.
-     * @throws PersistentException
      * @throws UserAlreadyExistsException
+     * @throws JsonKeyInFaultException
      */
-    void createUserToken(String usernameAsJson) throws PersistentException, UserAlreadyExistsException;
+    void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException;
 
     /**
+     * Update a User token.
      *
      * @param usernameAndTokenAsJson User username and token as a json string.
-     * @throws PersistentException
      * @throws JsonKeyInFaultException
      * @throws InvalidTokenException
-     * @throws UserTokenDontExistsException
+     * @throws UserDontExistsException
      */
-    void updateToken(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException, InvalidTokenException, UserTokenDontExistsException;
+    void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException;
 
     /**
      *
@@ -33,10 +33,10 @@ public interface CoreFacadeBeanLocal {
      * @throws JsonKeyInFaultException
      * @throws PersistentException
      * @throws ClientDontExistsException
-     * @throws UserTokenDontExistsException
+     * @throws UserDontExistsException
      * @throws InvalidTokenException
      */
-    String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException, UserTokenDontExistsException;
+    String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException, UserDontExistsException;
 
     /**
      *
@@ -44,10 +44,10 @@ public interface CoreFacadeBeanLocal {
      * @throws JsonKeyInFaultException
      * @throws PersistentException
      * @throws PersonalTrainerDontExistsException
-     * @throws UserTokenDontExistsException
+     * @throws UserDontExistsException
      * @throws InvalidTokenException
      */
-    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException, UserTokenDontExistsException;
+    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException, UserDontExistsException, ClientDontExistsException;
 
     /**
      *
@@ -56,9 +56,9 @@ public interface CoreFacadeBeanLocal {
      * @throws ClientDontExistsException
      * @throws InvalidTokenException
      * @throws JsonKeyInFaultException
-     * @throws UserTokenDontExistsException
+     * @throws UserDontExistsException
      */
-    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserTokenDontExistsException;
+    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException;
 
     /**
      *
@@ -67,7 +67,7 @@ public interface CoreFacadeBeanLocal {
      * @throws PersonalTrainerDontExistsException
      * @throws PersistentException
      * @throws InvalidTokenException
-     * @throws UserTokenDontExistsException
+     * @throws UserDontExistsException
      */
-    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserTokenDontExistsException;
+    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException;
 }

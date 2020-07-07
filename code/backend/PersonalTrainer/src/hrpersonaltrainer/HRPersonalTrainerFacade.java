@@ -25,72 +25,43 @@ public class HRPersonalTrainerFacade {
 		return session;
 	}
 
-	/**
-	 * 
-	 * @param infoPTAsJSON
-	 */
 	public String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException {
 		return personalTrainerFacadeBean.createPersonalTrainer(infoPTAsJSON);
 	}
 
-	/**
-	 * 
-	 * @param infoAsJSON
-	 */
 	public String loginPersonalTrainer(String infoAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, InvalidPasswordException {
 		return personalTrainerFacadeBean.loginPersonalTrainer(infoAsJSON);
 	}
 
-	/**
-	 * 
-	 * @param usernameAsJSON
-	 */
-	public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, TokenIsInvalidException {
+	public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, TokenIsInvalidException, ClientNotExistsException {
 		return personalTrainerFacadeBean.getPersonalTrainerProfileByClient(usernameAsJSON);
 	}
 
-	/**
-	 * 
-	 * @param usernameAsJSON
-	 */
-	public void editPersonalTrainertProfile(int usernameAsJSON) {
-		// TODO - implement HRPersonalTrainerFacade.editPersonalTrainertProfile
-		throw new UnsupportedOperationException();
+	public void editPersonalTrainertProfile(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException {
+		personalTrainerFacadeBean.editPersonalTrainertProfile(infoAsJson);
 	}
 
-	/**
-	 * 
-	 * @param filtersAsJSON
-	 */
-	public String getPersonalTrainers(String filtersAsJSON) {
-		// TODO - implement HRPersonalTrainerFacade.getPersonalTrainers
-		throw new UnsupportedOperationException();
+	public String getPersonalTrainers(String infoAsJson) throws TokenIsInvalidException, PersistentException, JsonKeyInFaultException, ClientNotExistsException {
+		return personalTrainerFacadeBean.getPersonalTrainers(infoAsJson);
 	}
 
-	/**
-	 * 
-	 * @param usernameAndClassificationAsJSON
-	 */
-	public String submitClassification(int usernameAndClassificationAsJSON) {
-		// TODO - implement HRPersonalTrainerFacade.submitClassification
-		throw new UnsupportedOperationException();
+	public void submitClassification(String infoAsJSON) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, ClientNotExistsException {
+		personalTrainerFacadeBean.submitClassification(infoAsJSON);
 	}
 
-	/**
-	 * 
-	 * @param usernameAsJSON
-	 */
-	public void getPersonalTrainerClients(int usernameAsJSON) {
-		// TODO - implement HRPersonalTrainerFacade.getPersonalTrainerClients
-		throw new UnsupportedOperationException();
+	public String getPersonalTrainerClients(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException {
+		return personalTrainerFacadeBean.getPersonalTrainerClients(infoAsJson);
 	}
 
-	/**
-	 * 
-	 * @param usernameAndTokenAsJson
-	 */
-	public void createClient(String usernameAndTokenAsJson) throws ClientAlreadyExistsException, PersistentException, JsonKeyInFaultException {
-		personalTrainerFacadeBean.createClient(usernameAndTokenAsJson);
+	public void addClientToPersonalTrainer(String infoAsJson) throws ClientAlreadyExistsException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, TokenIsInvalidException {
+		personalTrainerFacadeBean.addClientToPersonalTrainer(infoAsJson);
 	}
 
+	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException {
+		personalTrainerFacadeBean.updateClientToken(usernameAndTokenAsJson);
+	}
+
+    public String getPersonalTrainerProfileByPersonalTrainer(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException {
+		return personalTrainerFacadeBean.getPersonalTrainerProfileByPersonalTrainer(infoAsJson);
+    }
 }

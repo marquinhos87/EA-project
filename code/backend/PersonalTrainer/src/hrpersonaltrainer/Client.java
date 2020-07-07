@@ -47,9 +47,12 @@ public class Client {
 	public String getORMID() {
 		return getUsername();
 	}
-	
-	public String toString() {
-		return String.valueOf(getUsername());
-	}
 
+
+	@Override
+	public String toString() {
+		return "Client{" +
+				"username='" + username + '\'' +
+				'}';
+	}
 }

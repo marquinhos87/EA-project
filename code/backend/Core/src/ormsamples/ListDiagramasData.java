@@ -65,14 +65,6 @@ public class ListDiagramasData {
 		}
 		System.out.println(length + " record(s) retrieved.");
 		
-		System.out.println("Listing UserToken...");
-		core.UserToken[] coreUserTokens = core.UserTokenDAO.listUserTokenByQuery(null, null);
-		length = Math.min(coreUserTokens.length, ROW_COUNT);
-		for (int i = 0; i < length; i++) {
-			System.out.println(coreUserTokens[i]);
-		}
-		System.out.println(length + " record(s) retrieved.");
-		
 	}
 	
 	public void listByCriteria() throws PersistentException {
@@ -159,18 +151,6 @@ public class ListDiagramasData {
 			 System.out.println(coreWeeks[i]);
 		}
 		System.out.println(length + " Week record(s) retrieved."); 
-		
-		System.out.println("Listing UserToken by Criteria...");
-		core.UserTokenCriteria lcoreUserTokenCriteria = new core.UserTokenCriteria();
-		// Please uncomment the follow line and fill in parameter(s) 
-		//lcoreUserTokenCriteria.username.eq();
-		lcoreUserTokenCriteria.setMaxResults(ROW_COUNT);
-		core.UserToken[] coreUserTokens = lcoreUserTokenCriteria.listUserToken();
-		length =coreUserTokens== null ? 0 : Math.min(coreUserTokens.length, ROW_COUNT); 
-		for (int i = 0; i < length; i++) {
-			 System.out.println(coreUserTokens[i]);
-		}
-		System.out.println(length + " UserToken record(s) retrieved."); 
 		
 	}
 	

@@ -30,9 +30,6 @@ public class RetrieveAndUpdateDiagramasData {
 			core.Week lcoreWeek = core.WeekDAO.loadWeekByQuery(null, null);
 			// Update the properties of the persistent object
 			core.WeekDAO.save(lcoreWeek);
-			core.UserToken lcoreUserToken = core.UserTokenDAO.loadUserTokenByQuery(null, null);
-			// Update the properties of the persistent object
-			core.UserTokenDAO.save(lcoreUserToken);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -83,12 +80,6 @@ public class RetrieveAndUpdateDiagramasData {
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcoreWeekCriteria.ID.eq();
 		System.out.println(lcoreWeekCriteria.uniqueWeek());
-		
-		System.out.println("Retrieving UserToken by UserTokenCriteria");
-		core.UserTokenCriteria lcoreUserTokenCriteria = new core.UserTokenCriteria();
-		// Please uncomment the follow line and fill in parameter(s)
-		//lcoreUserTokenCriteria.username.eq();
-		System.out.println(lcoreUserTokenCriteria.uniqueUserToken());
 		
 	}
 	

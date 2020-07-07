@@ -23,7 +23,7 @@ public class Main {
         /*String newToken = "{ \"username\": \"marques\",\"oldToken\":\"marquesapsiubvqpribv\", \"newToken\":\"marquesNewToken\"}";
         try {
             bean.updateToken(newToken);
-        } catch (PersistentException | InvalidTokenException | UserTokenDontExistsException | JsonKeyInFaultException e) {
+        } catch (PersistentException | InvalidTokenException | UserDontExistsException | JsonKeyInFaultException e) {
             e.printStackTrace();
         }*/
 

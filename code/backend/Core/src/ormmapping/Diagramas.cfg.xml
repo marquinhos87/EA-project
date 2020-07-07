@@ -22,7 +22,6 @@ License Type: Academic
 		<mapping resource="ormmapping/core/Plan.hbm.xml" />
 		<mapping resource="ormmapping/core/Serie.hbm.xml" />
 		<mapping resource="ormmapping/core/Task.hbm.xml" />
-		<mapping resource="ormmapping/core/UserToken.hbm.xml" />
 		<mapping resource="ormmapping/core/Week.hbm.xml" />
 		<mapping resource="ormmapping/core/Workout.hbm.xml" />
 	</session-factory>
