@@ -1,6 +1,5 @@
 package hrclient;
 
-import org.hibernate.Session;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
@@ -25,8 +24,8 @@ public class HRClientFacade {
 	 * 
 	 * @param usernameAndTokenAsJson
 	 */
-	public void updateToken(String usernameAndTokenAsJson) {
-		// TODO - implement HRClientFacade.updateToken
+	public void updateUserToken(String usernameAndTokenAsJson) {
+		// TODO - implement HRClientFacade.updateUserToken
 		throw new UnsupportedOperationException();
 	}
 
@@ -52,8 +51,17 @@ public class HRClientFacade {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public String getClientProfile(String usernameAsJSON) {
-		// TODO - implement HRClientFacade.getClientProfile
+	public String getClientProfileByClient(String usernameAsJSON) {
+		// TODO - implement HRClientFacade.getClientProfileByClient
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param usernameAsJSON
+	 */
+	public String getClientProfileByPersonalTrainer(String usernameAsJSON) {
+		// TODO - implement HRClientFacade.getClientProfileByPersonalTrainer
 		throw new UnsupportedOperationException();
 	}
 

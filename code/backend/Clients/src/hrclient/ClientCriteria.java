@@ -25,7 +25,6 @@ public class ClientCriteria extends AbstractORMCriteria {
 	public final StringExpression email;
 	public final StringExpression sex;
 	public final DateExpression birthday;
-	public final StringExpression token;
 	public final CollectionExpression biometricDatas;
 	
 	public ClientCriteria(Criteria criteria) {
@@ -36,7 +35,6 @@ public class ClientCriteria extends AbstractORMCriteria {
 		email = new StringExpression("email", this);
 		sex = new StringExpression("sex", this);
 		birthday = new DateExpression("birthday", this);
-		token = new StringExpression("token", this);
 		biometricDatas = new CollectionExpression("ORM_BiometricDatas", this);
 	}
 	

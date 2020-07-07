@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.hibernate.Query;
 import org.orm.PersistentException;
+import redis.clients.jedis.Jedis;
 
 import java.util.Collection;
 import java.util.Random;
@@ -50,8 +51,15 @@ public class Utils {
         return jsonObject;
     }
 
-    public static void validateToken(String token, String username, String entity) throws PersistentException, TokenIsInvalidException {
-        Query query = HRClientFacade.getSession().createQuery("select token from " + entity + " where token='" + token + "' and username='" + username+"'");
-        if(query.list().size() == 0) throw new TokenIsInvalidException(token);
+    public static void validateClientToken(String token, String username, Jedis redis) throws TokenIsInvalidException, ClientDoesNotExistException {
+        if (redis.exists(username) == false) throw new ClientDoesNotExistException(username);
+        String cachedToken = redis.get(username);
+        if(cachedToken.equals(token) == false) throw new TokenIsInvalidException(token);
+    }
+
+    public static void validatePersonalTrainerToken(String token, String username, Jedis redis) throws TokenIsInvalidException, PersonalTrainerDoesNotExistException {
+        if (redis.exists(username) == false) throw new PersonalTrainerDoesNotExistException(username);
+        String cachedToken = redis.get(username);
+        if(cachedToken.equals(token) == false) throw new TokenIsInvalidException(token);
     }
 }

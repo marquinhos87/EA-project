@@ -63,8 +63,6 @@ public class Client implements hrclient.IClient {
 	
 	private java.util.Date birthday;
 	
-	private String token;
-	
 	private java.util.Set ORM_biometricDatas = new java.util.HashSet();
 	
 	public void setUsername(String value) {
@@ -119,14 +117,6 @@ public class Client implements hrclient.IClient {
 		return birthday;
 	}
 	
-	public void setToken(String value) {
-		this.token = value;
-	}
-	
-	public String getToken() {
-		return token;
-	}
-	
 	private void setORM_BiometricDatas(java.util.Set value) {
 		this.ORM_biometricDatas = value;
 	}
@@ -144,20 +134,9 @@ public class Client implements hrclient.IClient {
 	public void setBiometricDatas(Set<BiometricData> biometricDatas) {
 		this.setORM_BiometricDatas(biometricDatas);
 	}
-
-	@Override
+	
 	public String toString() {
-		return "Client{" +
-				"_ormAdapter=" + _ormAdapter +
-				", username='" + username + '\'' +
-				", password='" + password + '\'' +
-				", name='" + name + '\'' +
-				", email='" + email + '\'' +
-				", sex='" + sex + '\'' +
-				", birthday=" + birthday +
-				", token='" + token + '\'' +
-				", ORM_biometricDatas=" + ORM_biometricDatas +
-				", biometricDatas=" + biometricDatas +
-				'}';
+		return String.valueOf(getUsername());
 	}
+	
 }

@@ -6,10 +6,16 @@ import org.orm.PersistentException;
 public interface HRClientFacadeBean {
 
 	/**
-	 * Create Client.
-	 * @param infoClientAsJSON info of client.
+	 * 
+	 * @param usernameAndTokenAsJson
 	 */
-	String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException, JsonKeyInFaultException;
+	void updateUserToken(String usernameAndTokenAsJson);
+
+	/**
+	 * 
+	 * @param infoClientAsJSON
+	 */
+	String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException;
 
 	/**
 	 * 
@@ -21,13 +27,19 @@ public interface HRClientFacadeBean {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	String getClientProfile(String usernameAsJSON);
+	String getClientProfileByClient(String usernameAsJSON);
+
+	/**
+	 * 
+	 * @param usernameAsJSON
+	 */
+	String getClientProfilePersonalTrainer(String usernameAsJSON);
 
 	/**
 	 * 
 	 * @param infoAsJSON
 	 */
-	void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, ClientDoesNotExistException;
+	void editClientProfile(String infoAsJSON);
 
 	/**
 	 * 

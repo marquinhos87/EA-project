@@ -3,12 +3,10 @@ package hrclient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.orm.PersistentException;
+import redis.clients.jedis.Jedis;
 
 import java.util.Arrays;
-import java.util.List;
 
 @javax.ejb.Stateless(name="HRClientFacadeBean")
 @javax.ejb.Remote(HRClientFacadeBean.class)
@@ -16,25 +14,41 @@ import java.util.List;
 public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacadeBeanLocal {
 
 	private final Gson gson;
+	private static final String REDIS_HOST = "localhost";
+	private static final int REDIS_PORT = 6379;
+	private final Jedis redis;
 
 	public HRClientFacadeBeanBean() {
 		gson = new GsonBuilder()
 				.setDateFormat("yyyy-MM-dd")
 				.create();
+		redis = new Jedis(REDIS_HOST, REDIS_PORT);
 	}
 
 	/**
-	 *
+	 * 
+	 * @param usernameAndTokenAsJson
+	 */
+	public void updateUserToken(String usernameAndTokenAsJson) {
+		// TODO - implement HRClientFacadeBean.updateUserToken
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
 	 * @param infoClientAsJSON
 	 */
-	public String createClient(String infoClientAsJSON) throws ClientAlreadyExistsException, PersistentException, JsonKeyInFaultException {
-		Utils.validateJson(gson , infoClientAsJSON ,Arrays.asList("username", "password", "name", "email", "sex", "birthday"));
+	public String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException {
+		Utils.validateJson(gson , infoClientAsJSON , Arrays.asList("username", "password", "name", "email", "sex", "birthday", "height", "weight"));
 		Client client = gson.fromJson(infoClientAsJSON, Client.class);
 		String username = client.getUsername();
 		if(ClientDAO.getClientByORMID(HRClientFacade.getSession(),  username) != null) throw new ClientAlreadyExistsException(username);
-		client.setToken(Utils.tokenGenerate(client.getUsername()));
+		BiometricData biometricData = gson.fromJson(infoClientAsJSON, BiometricData.class);
+		client.biometricDatas.add(biometricData);
+		String token = Utils.tokenGenerate(client.getUsername());
+		redis.set(username, token);
 		ClientDAO.save(client);
-		return client.getToken();
+		return token;
 	}
 
 	/**
@@ -46,9 +60,12 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		String username = json.get("username").getAsString();
 		Client client = null;
 		if ( (client = ClientDAO.getClientByORMID(HRClientFacade.getSession(),username)) == null) throw new ClientDoesNotExistException(username);
-		String oldToken = client.getToken();
+		String oldToken;
+		if(redis.exists(username) == false)
+			throw new ClientDoesNotExistException(username + "does not exist on redis database");
+		oldToken = redis.get(username);
 		String newToken = Utils.tokenGenerate(client.getUsername());
-		client.setToken(newToken);// updates new token
+		redis.set(username, newToken);
 		ClientDAO.save(client);
 		return "{ \"oldToken\": \"" + oldToken + "\", " +
 				"\"newToken\": \"" + newToken + "\" }";
@@ -58,8 +75,17 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	 * 
 	 * @param usernameAsJSON
 	 */
-	public String getClientProfile(String usernameAsJSON) {
-		// TODO - implement HRClientFacadeBean.getClientProfile
+	public String getClientProfileByClient(String usernameAsJSON) {
+		// TODO - implement HRClientFacadeBean.getClientProfileByClient
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * 
+	 * @param usernameAsJSON
+	 */
+	public String getClientProfilePersonalTrainer(String usernameAsJSON) {
+		// TODO - implement HRClientFacadeBean.getClientProfilePersonalTrainer
 		throw new UnsupportedOperationException();
 	}
 
@@ -67,25 +93,9 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	 * 
 	 * @param infoAsJSON
 	 */
-	public void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, ClientDoesNotExistException {
-		JsonObject json = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "token"));
-		String token = json.get("token").getAsString();
-		Utils.validateToken(token, json.get("username").getAsString(), "Client");
-		String username = json.get("username").getAsString();
-		Client client = null;
-		if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
-
-		//	update fields
-		if(json.has("name"))
-			client.setName(json.get("name").getAsString());
-		if(json.has("email"))
-			client.setEmail(json.get("email").getAsString());
-		if(json.has("sex"))
-			client.setSex(json.get("sex").getAsString());
-
-		BiometricData biometricData = gson.fromJson(infoAsJSON, BiometricData.class);
-		client.biometricDatas.add(biometricData);
-		ClientDAO.save(client);
+	public void editClientProfile(String infoAsJSON) {
+		// TODO - implement HRClientFacadeBean.editClientProfile
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -96,4 +106,5 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		// TODO - implement HRClientFacadeBean.getBiometricData
 		throw new UnsupportedOperationException();
 	}
+
 }

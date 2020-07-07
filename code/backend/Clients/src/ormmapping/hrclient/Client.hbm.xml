@@ -15,7 +15,6 @@ License Type: Academic
 		<property name="email" column="Email" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="sex" column="Sex" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="birthday" column="Birthday" type="date" not-null="false" lazy="false"/>
-		<property name="token" column="Token" type="string" length="255" not-null="false" lazy="false"/>
 		<set name="ORM_BiometricDatas" lazy="true" cascade="save-update,lock" inverse="false">
 			<key column="ClientUsername" not-null="true"/>
 			<one-to-many class="hrclient.BiometricData"/>

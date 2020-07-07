@@ -25,7 +25,6 @@ public class ClientDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression email;
 	public final StringExpression sex;
 	public final DateExpression birthday;
-	public final StringExpression token;
 	public final CollectionExpression biometricDatas;
 	
 	public ClientDetachedCriteria() {
@@ -36,7 +35,6 @@ public class ClientDetachedCriteria extends AbstractORMDetachedCriteria {
 		email = new StringExpression("email", this.getDetachedCriteria());
 		sex = new StringExpression("sex", this.getDetachedCriteria());
 		birthday = new DateExpression("birthday", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
 		biometricDatas = new CollectionExpression("ORM_BiometricDatas", this.getDetachedCriteria());
 	}
 	
@@ -48,7 +46,6 @@ public class ClientDetachedCriteria extends AbstractORMDetachedCriteria {
 		email = new StringExpression("email", this.getDetachedCriteria());
 		sex = new StringExpression("sex", this.getDetachedCriteria());
 		birthday = new DateExpression("birthday", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
 		biometricDatas = new CollectionExpression("ORM_BiometricDatas", this.getDetachedCriteria());
 	}
 	

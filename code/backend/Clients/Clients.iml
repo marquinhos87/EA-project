@@ -35,7 +35,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="JBoss 16.0.0.Final" level="application_server_libraries" />
     <orderEntry type="library" name="EJB-3.2.2" level="project" />
-    <orderEntry type="library" name="orm" level="project" />
     <orderEntry type="library" name="gson-2.8.6" level="project" />
+    <orderEntry type="library" name="jedis-3.3.0" level="project" />
+    <orderEntry type="library" name="orm" level="project" />
   </component>
 </module>
