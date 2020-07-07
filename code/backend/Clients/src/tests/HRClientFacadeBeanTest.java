@@ -6,10 +6,10 @@ import org.orm.PersistentException;
 public class HRClientFacadeBeanTest {
     public static void main(String[] args) {
         /*String json = "{\n" +
-                "  \"username\": \"marques\",\n" +
+                "  \"username\": \"josepereira\",\n" +
                 "  \"password\": \"password\",\n" +
-                "  \"name\": \"Ricardo Pereira\",\n" +
-                "  \"email\": \"ricardo@email.com\",\n" +
+                "  \"name\": \"José Pereira\",\n" +
+                "  \"email\": \"josepereira@email.com\",\n" +
                 "  \"sex\": \"M\",\n" +
                 "  \"birthday\": \"2000-06-19\",\n" +
                 "  \"height\": \"150\",\n" +
@@ -27,24 +27,6 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         }*/
 
-        //  test same size of tokens
-        /*Client c1 = null, c2 = null;
-
-        try {
-            c1 = ClientDAO.getClientByORMID("filipe1");
-        } catch (PersistentException e) {
-            e.printStackTrace();
-        }
-        try {
-            c2 = ClientDAO.getClientByORMID("filipe1asdasdasd");
-        } catch (PersistentException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println(c1.getToken().length());
-        System.out.println(c2.getToken().length());
-        */
-
         /*String json = "{\n" +
                 "  \"username\": \"josepereira\",\n" +
                 "  \"password\": \"password\",\n" +
@@ -60,13 +42,16 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         } catch (ClientDoesNotExistException e) {
             e.printStackTrace();
+        } catch (InvalidPasswordException e) {
+            e.printStackTrace();
         }*/
 
         /*String json = "{\n" +
                 "  \"username\": \"ricardo\",\n" +
                 "  \"name\": \"José Pereira\",\n" +
-                "  \"token\": \"ricardopfLvauKOTd2KSWpidMyTKKl0U\",\n" +
-                "  \"sex\": \"F\"\n" +
+                "  \"password\": \"password2\",\n" +
+                "  \"token\": \"ricardoExZTbZNxKdajM0MQ7NjkTAdHF\",\n" +
+                "  \"height\": \"500000\"\n" +
                 "}";
 
         HRClientFacadeBean bean = new HRClientFacadeBeanBean();
@@ -82,17 +67,17 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         }*/
 
-        String json = "{\n" +
-                "  \"username\": \"marques\",\n" +
+        /*String json1 = "{\n" +
+                "  \"username\": \"ricardo\",\n" +
                 "  \"name\": \"José Pereira\",\n" +
-                "  \"token\": \"marquesUMNM1vyqiYLuFqPh1eXffti9p\",\n" +
+                "  \"token\": \"ricardoExZTbZNxKdajM0MQ7NjkTAdHF\",\n" +
                 "  \"sex\": \"F\"\n" +
                 "}";
 
         HRClientFacadeBeanBean hrClientFacadeBeanBean = new HRClientFacadeBeanBean();
 
         try {
-            System.out.println(hrClientFacadeBeanBean.getClientProfile(json));
+            System.out.println(hrClientFacadeBeanBean.getClientProfileByClient(json1));
         } catch (JsonKeyInFaultException e) {
             e.printStackTrace();
         } catch (PersistentException e) {
@@ -100,6 +85,29 @@ public class HRClientFacadeBeanTest {
         } catch (TokenIsInvalidException e) {
             e.printStackTrace();
         } catch (ClientDoesNotExistException e) {
+            e.printStackTrace();
+        }*/
+
+        String json2 = "{\n" +
+                "  \"username\": \"josepereira\",\n" +
+                "  \"clientUsername\": \"ricardo\",\n" +
+                "  \"token\": \"josepereiran1E7CWYJH4E4gtfxTDlX3\",\n" +
+                "  \"sex\": \"F\"\n" +
+                "}";
+
+        HRClientFacadeBean hrClientFacadeBeanBean = new HRClientFacadeBeanBean();
+
+        try {
+            System.out.println(hrClientFacadeBeanBean.getClientProfileByPersonalTrainer(json2));
+        } catch (JsonKeyInFaultException e) {
+            e.printStackTrace();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        } catch (TokenIsInvalidException e) {
+            e.printStackTrace();
+        } catch (ClientDoesNotExistException e) {
+            e.printStackTrace();
+        } catch (PersonalTrainerDoesNotExistException e) {
             e.printStackTrace();
         }
     }
