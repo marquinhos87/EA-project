@@ -69,17 +69,16 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
 
     @Override
     public String getClientProfile(String usernameAsJSON) throws IOException {
-        String parameters = JsonToURLParameters(usernameAsJSON);
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/getClient?" + parameters;
-        Response response = Http.get(url);
-        return response.body().string();
+        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/getClient";
+        Response response = Http.post(url,usernameAsJSON);
+
+        return null;
     }
 
     @Override
     public String getPersonalTrainerProfile(String usernameAsJSON) throws IOException {
-        String parameters = JsonToURLParameters(usernameAsJSON);
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainer?" + parameters;
-        Response response = Http.get(url);
+        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainer";
+        Response response = Http.post(url,usernameAsJSON);
         return response.body().string();
     }
 
@@ -96,26 +95,30 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
     }
 
     @Override
-    public String getPlan(String usernameAndWeekAsJSON) throws IOException {
-        String parameters = JsonToURLParameters(usernameAndWeekAsJSON);
-        String url = "http://localhost:8080/api/v1/GymAtHome/Core/getPlanByClient?" + parameters;
-        Response response = Http.get(url);
+    public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException {
+        String url = "http://localhost:8080/api/v1/GymAtHome/Core/getPlanByClient";
+        Response response = Http.post(url,usernameAndWeekAsJSON);
+        return response.body().string();
+    }
+
+    @Override
+    public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
+        String url = "http://localhost:8080/api/v1/GymAtHome/Core/getPlanByPersonalTrainer";
+        Response response = Http.post(url,usernameAndWeekAsJSON);
         return response.body().string();
     }
 
     @Override
     public String getPersonalTrainers(String filtersAsJSON) throws IOException {
-        String parameters = JsonToURLParameters(filtersAsJSON);
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainers?" + parameters;
-        Response response = Http.get(url);
+        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainers";
+        Response response = Http.post(url,filtersAsJSON);
         return response.body().string();
     }
 
     @Override
     public String getBiometricData(String usernameAsJSON) throws IOException {
-        String parameters = JsonToURLParameters(usernameAsJSON);
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/getBiometricData?" + parameters;
-        Response response = Http.get(url);
+        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/getBiometricData";
+        Response response = Http.post(url,usernameAsJSON);
         return response.body().string();
     }
 
@@ -135,9 +138,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
 
     @Override
     public String getPersonalTrainerClients(String usernameAsJSON) throws IOException {
-        String parameters = JsonToURLParameters(usernameAsJSON);
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainerClients?" + parameters;
-        Response response = Http.get(url);
+        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainerClients";
+        Response response = Http.post(url,usernameAsJSON);
         return response.body().string();
     }
 
@@ -155,6 +157,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
 
     @Override
     public void replyToRequest(String requestIdAndResponseAsJSON) throws IOException {
+        String url = "http://localhost:8080/api/v1/GymAtHome/";
+        Response response = Http.post(url,requestIdAndResponseAsJSON);
 
     }
 }

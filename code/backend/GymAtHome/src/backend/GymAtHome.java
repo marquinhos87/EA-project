@@ -111,8 +111,16 @@ public class GymAtHome {
 	 * 
 	 * @param usernameAndWeekAsJSON
 	 */
-	public String getPlan(String usernameAndWeekAsJSON) throws IOException {
-		return gymAtHomeBean.getPlan(usernameAndWeekAsJSON);
+	public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException {
+		return gymAtHomeBean.getPlanByClient(usernameAndWeekAsJSON);
+	}
+
+	/**
+	 *
+	 * @param usernameAndWeekAsJSON
+	 */
+	public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
+		return gymAtHomeBean.getPlanByPersonalTrainer(usernameAndWeekAsJSON);
 	}
 
 	/**

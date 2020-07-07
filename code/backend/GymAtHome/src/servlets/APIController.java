@@ -90,8 +90,11 @@ public class APIController extends HttpServlet {
                 case "getPersonalTrainerClients":
                     res = makeSuccess(200, facade.getPersonalTrainerClients(data));
                     break;
-                case "getPlan":
-                    res = makeSuccess(200, facade.getPlan(data));
+                case "getPlanByClient":
+                    res = makeSuccess(200, facade.getPlanByClient(data));
+                    break;
+                case "getPlanByPersonalTrainer":
+                    res = makeSuccess(200, facade.getPlanByPersonalTrainer(data));
                     break;
                 default:
                     res = makeError(405, "Method not allowed.");

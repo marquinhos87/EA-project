@@ -74,7 +74,15 @@ public interface GymAtHomeBeanLocal {
 	 * @param usernameAndWeekAsJSON Client username and current week of plan as json string.
 	 * @return Client plan (actual week of the plan).
 	 */
-	String getPlan(String usernameAndWeekAsJSON) throws IOException;
+	String getPlanByClient(String usernameAndWeekAsJSON) throws IOException;
+
+	/**
+	 * Retrieves tha actual week of plan of that Client.
+	 *
+	 * @param usernameAndWeekAsJSON Client username and current week of plan as json string.
+	 * @return Client plan (actual week of the plan).
+	 */
+	String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException;
 
 	/**
 	 * Retrieves the PersonalTrainers that corresponded to the filters given by Client.
