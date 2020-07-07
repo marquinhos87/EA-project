@@ -20,6 +20,14 @@ public class Utils {
                 " }";
     }
 
+    public static String makeSuccess(int code, String data) {
+        return "{ \"status\": \"success\", " +
+                "\"code\": " + code + ", " +
+                "\"msg\": null, " +
+                "\"data\": " + data +
+                " }";
+    }
+
     public static String JsonToURLParameters(String json) throws UnsupportedEncodingException {
         Gson gson = new GsonBuilder().create();
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);

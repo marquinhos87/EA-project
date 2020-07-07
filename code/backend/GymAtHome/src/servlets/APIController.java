@@ -1,6 +1,8 @@
 package servlets;
 
 import backend.GymAtHome;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import static utils.Utils.*;
 
 import javax.servlet.ServletException;
@@ -18,20 +20,6 @@ public class APIController extends HttpServlet {
 
     private GymAtHome gymAtHome = GymAtHome.getInstance();
 
-    private void processRequest(HttpServletResponse response, String target, String data) throws IOException {
-        // Pass json data to correct function
-        try {
-            Method method = gymAtHome.getClass().getMethod(target, String.class);
-            String sResponse = (String) method.invoke(gymAtHome,data);
-            response.setContentType("application/json");
-            response.getWriter().print(sResponse);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-            response.setContentType("application/json");
-            response.getWriter().print(makeError(500,"Internal Error"));
-        }
-    }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -41,6 +29,8 @@ public class APIController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GymAtHome facade = GymAtHome.getInstance();
+
         // Obtain target
         String[] url = request.getRequestURI().split("/");
         String target = url[url.length-1];
@@ -53,8 +43,37 @@ public class APIController extends HttpServlet {
         }
         String data = sb.toString();
 
-        // Process requested method
-        processRequest(response, target, data);
+        String res = null;
+
+        try {
+            if (target.equals("createClient"))
+                res = makeSuccess(200,facade.createClient(data));
+            else if (target.equals("createPersonalTrainer"))
+                res = makeSuccess(200,facade.createPersonalTrainer(data));
+            else if (target.equals("editClientProfile"))
+                facade.editClientProfile(data);
+            else if (target.equals("editPersonalTrainerProfile"))
+                facade.editPersonalTrainertProfile(data);
+            else if (target.equals("submitClassification"))
+                facade.submitClassification(data);
+            else if (target.equals("createWeek"))
+                facade.createWeek(data);
+            else if (target.equals("loginClient"))
+                res = makeSuccess(200,facade.loginClient(data));
+            else if (target.equals("loginPersonalTrainer"))
+                res = makeSuccess(200,facade.loginPersonalTrainer(data));
+            else
+                res = makeError(405,"Method not allowed.");
+            if (res == null)
+                res = makeSuccess(200, "");
+        } catch (IOException e) {
+            e.printStackTrace();
+            res = makeError(500, "Internal error.");
+        }
+        finally {
+            response.setContentType("application/json");
+            response.getWriter().print(res);
+        }
     }
 
     /**
@@ -66,6 +85,8 @@ public class APIController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        GymAtHome facade = GymAtHome.getInstance();
+
         // Obtain target
         String[] url = request.getRequestURI().split("/");
         String target = url[url.length-1];
@@ -76,7 +97,31 @@ public class APIController extends HttpServlet {
         // Create a json string with the parameters
         String data = parametersToJSON(parameters);
 
-        // Process requested method
-        processRequest(response, target, data);
+        String res = null;
+
+        try {
+            if (target.equals("getBiometricData"))
+                res = makeSuccess(200, facade.getBiometricData(data));
+            else if (target.equals("getClientProfile"))
+                res = makeSuccess(200, facade.getClientProfile(""));
+            else if (target.equals("getPersonalTrainerProfile"))
+                res = makeSuccess(200, facade.getPersonalTrainerProfile(data));
+            else if (target.equals("getPersonalTrainers"))
+                res = makeSuccess(200, facade.getPersonalTrainers(data));
+            else if (target.equals("getPersonalTrainerClients"))
+                res = makeSuccess(200, facade.getPersonalTrainerClients(data));
+            else if (target.equals("getPlan"))
+                res = makeSuccess(200, facade.getPlan(data));
+            else
+                res = makeError(405, "Method not allowed.");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            res = makeError(500, "Internal error.");
+        }
+        finally {
+            response.setContentType("application/json");
+            response.getWriter().print(res);
+        }
     }
 }
