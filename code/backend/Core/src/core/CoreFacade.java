@@ -53,7 +53,7 @@ public class CoreFacade {
 	 * 
 	 * @param usernameAsJson
 	 */
-	public void createUserToken(String usernameAsJson) throws PersistentException, UserAlreadyExistsException {
+	public void createUserToken(String usernameAsJson) throws PersistentException, UserAlreadyExistsException, JsonKeyInFaultException {
 		coreFacadeBean.createUserToken(usernameAsJson);
 	}
 
@@ -77,7 +77,7 @@ public class CoreFacade {
 	 *
 	 * @param usernameAndWeekAsJSON
 	 */
-	public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException {
+	public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientDontExistsException {
 		return coreFacadeBean.getWeekByPersonalTrainer(usernameAndWeekAsJSON);
 	}
 
@@ -85,7 +85,7 @@ public class CoreFacade {
 	 * 
 	 * @param usernameAndWorkoutIdAsJSON
 	 */
-	public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException {
+	public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException, WorkoutAlreadyDoneException, WorkoutDontExistException, WorkoutDontBelongToUserException {
 		coreFacadeBean.finishWorkout(usernameAndWorkoutIdAsJSON);
 	}
 

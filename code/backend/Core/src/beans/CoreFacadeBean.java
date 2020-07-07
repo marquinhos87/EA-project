@@ -107,14 +107,39 @@ public class CoreFacadeBean implements CoreFacadeBeanLocal{
     }
 
     @Override
-    public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, JsonKeyInFaultException, UserDontExistsException {
+    public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, ClientDontExistsException, PersistentException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException {
         JsonObject json = Utils.validateJson(gson, usernameAndWorkoutIdAsJSON, Arrays.asList("token", "username", "workoutId"));
 
         String username = json.get("username").getAsString();
         String token = json.get("token").getAsString();
         Utils.validateToken(token, username, jedis);
 
-        // TODO
+        PersistentSession session = CoreFacade.getSession();
+        Client client;
+        if((client = ClientDAO.getClientByORMID(session,username)) == null)
+            throw new ClientDontExistsException(username);
+        Plan plan = client.getPlan();
+
+        // Check if the workout belong to the current plan of the client
+        int workoutId = json.get("workoutId").getAsInt();
+        Workout workout;
+        if((workout = WorkoutDAO.getWorkoutByORMID(session,workoutId)) == null)
+            throw new WorkoutDontExistException(Integer.toString(workoutId));
+
+        Week week;
+        for(Iterator it = plan.weeks.getIterator() ; it.hasNext() ; ) {
+            week = (Week) it.next();
+            if(week.workouts.contains(workout)) {
+                if(workout.isDone())
+                    throw new WorkoutAlreadyDoneException(Integer.toString(workoutId));
+                workout.setDone(true);
+                WorkoutDAO.save(workout);
+                session.flush();
+                return;
+            }
+        }
+
+        throw new WorkoutDontBelongToUserException(json.get("workoutId").getAsString() + '\t' + username);
     }
 
     @Override

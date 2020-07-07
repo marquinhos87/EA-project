@@ -2,27 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b75eb8e-8d2f-4865-a3a9-b234800da9c2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/jedis_3_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/WorkoutAlreadyDoneException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/WorkoutDontBelongToUserException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/exceptions/WorkoutDontExistException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Core.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/diagramas.ddl" beforeDir="false" afterPath="$PROJECT_DIR$/diagramas.ddl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/orm.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/orm.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/ConcretePlanBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ConcretePlanBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/CoreFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CoreFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/exceptions/UserTokenDontExistsException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/exceptions/UserDontExistsException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormmapping/core/UserToken.hbm.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parseJSON/WeekJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parseJSON/WeekJSON.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +156,7 @@
       <updated>1594060511740</updated>
       <workItem from="1594060514250" duration="1630000" />
       <workItem from="1594073076618" duration="441000" />
-      <workItem from="1594114282391" duration="13560000" />
+      <workItem from="1594114282391" duration="15064000" />
     </task>
     <servers />
   </component>

@@ -58,7 +58,7 @@ public interface CoreFacadeBeanLocal {
      * @throws JsonKeyInFaultException
      * @throws UserDontExistsException
      */
-    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserDontExistsException;
+    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException;
 
     /**
      *
