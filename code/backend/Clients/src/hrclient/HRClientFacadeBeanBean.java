@@ -102,7 +102,8 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 			}
 			index++;							//	increment array index
 		}
-		biometricData = biometricDatas[maxIDIndex];	//	get last register
+		if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
+		else biometricData = new BiometricData();									//	empty
 		//	TODO neste momento esta esta forma de construir o JSON, mas vou avançar e depois melhoro isto
 		return "{ \"username\": \"" + client.getUsername() + "\", " +
 				"\"password\": \"" + client.getPassword() + "\", " +
