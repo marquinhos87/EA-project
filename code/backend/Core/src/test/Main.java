@@ -7,23 +7,24 @@ import org.orm.PersistentException;
 
 public class Main {
     public static void main(String[] args) {
+        CoreFacade facade = CoreFacade.getInstance();
         CoreFacadeBean bean = new CoreFacadeBean();
 
         // Create UserToken
-        // Testing
-        String user = "{ \"username\": \"marques\",\"token\":\"marquesapsiubvqpribv\"}";
+        // Works
+        /*String user = "{ \"username\": \"marques\",\"token\":\"marquesapsiubvqpribv\"}";
         try {
             bean.createUserToken(user);
         } catch (UserAlreadyExistsException | JsonKeyInFaultException e) {
             e.printStackTrace();
-        }
+        }*/
 
         // Update Token
-        // Testing
+        // Works
         /*String newToken = "{ \"username\": \"marques\",\"oldToken\":\"marquesapsiubvqpribv\", \"newToken\":\"marquesNewToken\"}";
         try {
             bean.updateToken(newToken);
-        } catch (PersistentException | InvalidTokenException | UserDontExistsException | JsonKeyInFaultException e) {
+        } catch (InvalidTokenException | UserDontExistsException | JsonKeyInFaultException e) {
             e.printStackTrace();
         }*/
 
@@ -36,10 +37,10 @@ public class Main {
             e.printStackTrace();
         }*/
 
-        try {
+        /*try {
             CoreFacade.getSession().close();
         } catch (PersistentException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

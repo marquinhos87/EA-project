@@ -3,10 +3,8 @@ package beans;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonWriter;
 import core.*;
 import exceptions.*;
-import org.hibernate.Query;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 import redis.clients.jedis.Jedis;
@@ -16,9 +14,8 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.util.*;
 
-
 @Local(CoreFacadeBeanLocal.class)
-@Stateless(name = "CoreFacadeEJB")
+@Stateless(name = "CoreFacadeBean")
 public class CoreFacadeBean implements CoreFacadeBeanLocal{
 
     private static final String REDIS_HOST = "localhost";

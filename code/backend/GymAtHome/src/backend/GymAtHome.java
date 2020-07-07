@@ -6,8 +6,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GymAtHome {
 
@@ -22,9 +20,9 @@ public class GymAtHome {
 		try {
 			Context c = new InitialContext();
 			return (GymAtHomeBeanLocal) c.lookup("java:global/GymAtHome/GymAtHomeBean!beans.GymAtHomeBeanLocal");
-		} catch (NamingException ne) {
-			Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-			throw new RuntimeException(ne);
+		} catch (NamingException e) {
+			e.printStackTrace();
+			throw new RuntimeException();
 		}
 	}
 

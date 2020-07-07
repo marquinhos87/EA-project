@@ -3,9 +3,7 @@
   <component name="FacetManager">
     <facet type="ejb" name="EJB">
       <configuration>
-        <ejbRoots>
-          <root url="file://$MODULE_DIR$/src" />
-        </ejbRoots>
+        <ejbRoots />
       </configuration>
     </facet>
     <facet type="web" name="Web">
@@ -31,5 +29,6 @@
     <orderEntry type="library" name="gson-2.8.6" level="project" />
     <orderEntry type="library" name="jedis-3.3.0" level="project" />
     <orderEntry type="library" name="orm" level="project" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
   </component>
 </module>

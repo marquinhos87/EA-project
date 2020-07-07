@@ -7,10 +7,8 @@ import javax.ejb.Stateless;
 import javax.ejb.Local;
 import java.io.IOException;
 
-import static utils.Utils.JsonToURLParameters;
-
 @Local(GymAtHomeBeanLocal.class)
-@Stateless(name = "GymAtHomeEJB")
+@Stateless(name = "GymAtHomeBean")
 public class GymAtHomeBean implements GymAtHomeBeanLocal{
     public GymAtHomeBean() {
     }

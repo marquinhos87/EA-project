@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Core:war exploded" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="5b75eb8e-8d2f-4865-a3a9-b234800da9c2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/activation-1.1.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javaee-api-7.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.annotation.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.jms.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.mail-1.5.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.resource.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/javax.servlet.jsp.jstl.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../GymAtHome/src/tests/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Core_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Core_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/CoreFacadeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/CoreFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CoreFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHome.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/backend/GymAtHome.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/servlets/APIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_ejb_exploded.rar/servlets/APIController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHome.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/backend/GymAtHome.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/servlets/APIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/out/artifacts/GymAtHome_war_exploded.war/WEB-INF/classes/servlets/APIController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/backend/GymAtHome.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/beans/GymAtHomeBeanLocal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +43,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Tag Library Descriptor" />
       </list>
     </option>
   </component>
@@ -39,15 +64,19 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29988465" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.webservices" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -113,10 +142,24 @@
         <option name="CREDENTIAL_ALIAS" />
       </server-settings>
       <predefined_log_file enabled="true" id="JBoss" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="Core:ejb exploded" />
           <artifact name="Core:war exploded" />
         </option>
       </method>
@@ -153,7 +196,9 @@
       <updated>1594060511740</updated>
       <workItem from="1594060514250" duration="1630000" />
       <workItem from="1594073076618" duration="441000" />
-      <workItem from="1594114282391" duration="21241000" />
+      <workItem from="1594114282391" duration="21590000" />
+      <workItem from="1594152573322" duration="35000" />
+      <workItem from="1594155172445" duration="5589000" />
     </task>
     <servers />
   </component>
@@ -164,33 +209,45 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="354" y="135" key="#Inspections" timestamp="1594161930270">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="354" y="135" key="#Inspections/0.0.1440.900@0.0.1440.900" timestamp="1594161930270" />
     <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594060926177">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="320" y="115" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1594060926177" />
-    <state width="1398" height="201" key="GridCell.Tab.0.bottom" timestamp="1594136920142">
+    <state x="200" y="354" key="#com.intellij.javaee.module.view.common.J2EE.J2EEDeploymentDescriptorLocationPanel.changeDDPath" timestamp="1594161630643">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594136920142" />
+    <state x="200" y="354" key="#com.intellij.javaee.module.view.common.J2EE.J2EEDeploymentDescriptorLocationPanel.changeDDPath/0.0.1440.900@0.0.1440.900" timestamp="1594161630643" />
+    <state width="958" height="238" key="GridCell.Tab.0.bottom" timestamp="1594162619537">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="958" height="238" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1594162619537" />
     <state width="1398" height="238" key="GridCell.Tab.0.bottom/0.23.1440.835@0.23.1440.835" timestamp="1594061362047" />
-    <state width="1398" height="201" key="GridCell.Tab.0.center" timestamp="1594136920141">
+    <state width="958" height="238" key="GridCell.Tab.0.center" timestamp="1594162619536">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1594136920141" />
+    <state width="958" height="238" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1594162619536" />
     <state width="1398" height="238" key="GridCell.Tab.0.center/0.23.1440.835@0.23.1440.835" timestamp="1594061362046" />
-    <state width="1398" height="201" key="GridCell.Tab.0.left" timestamp="1594136920141">
+    <state width="958" height="238" key="GridCell.Tab.0.left" timestamp="1594162619535">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1594136920141" />
+    <state width="958" height="238" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1594162619535" />
     <state width="1398" height="238" key="GridCell.Tab.0.left/0.23.1440.835@0.23.1440.835" timestamp="1594061362045" />
-    <state width="1398" height="201" key="GridCell.Tab.0.right" timestamp="1594136920142">
+    <state width="958" height="238" key="GridCell.Tab.0.right" timestamp="1594162619536">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="201" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1594136920142" />
+    <state width="958" height="238" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1594162619536" />
     <state width="1398" height="238" key="GridCell.Tab.0.right/0.23.1440.835@0.23.1440.835" timestamp="1594061362047" />
-    <state x="208" y="23" width="1024" height="835" key="SettingsEditor" timestamp="1594141741568">
+    <state x="132" y="23" width="1024" height="834" key="SettingsEditor" timestamp="1594162577553">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="208" y="23" width="1024" height="835" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1594141741568" />
+    <state x="132" y="23" width="1024" height="834" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1594162577553" />
+    <state x="417" y="340" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1594156447619">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="417" y="340" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1440.900@0.0.1440.900" timestamp="1594156447619" />
   </component>
 </project>
