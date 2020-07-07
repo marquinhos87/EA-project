@@ -2,14 +2,10 @@ package utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import core.*;
 import exceptions.*;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
 import redis.clients.jedis.Jedis;
 
 import java.util.Collection;
-import java.util.Map;
 
 public class Utils {
 
@@ -28,7 +24,7 @@ public class Utils {
         if(!jedis.get(username).equals(token)) throw new InvalidTokenException(token);
     }
 
-    public static String parametersToJSON(Map<String,String[]> parameters) {
+    /*public static String parametersToJSON(Map<String,String[]> parameters) {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         int i = parameters.size();
@@ -41,7 +37,7 @@ public class Utils {
         }
         sb.append("}");
         return sb.toString();
-    }
+    }*/
 
     public static String makeError(int code, String msg) {
         return "{ \"status\": \"error\", " +

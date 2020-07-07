@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 import static utils.Utils.*;
 
@@ -46,19 +45,33 @@ public class CoreController extends HttpServlet {
         String res = null;
 
         try {
-            if (target.equals("createUserToken"))
-                facade.createUserToken(data);
-            else if (target.equals("updateToken"))
-                facade.updateToken(data);
-            else if (target.equals("finishWorkout"))
-                facade.finishWorkout(data);
-            else if (target.equals("createWeek"))
-                facade.createWeek(data);
-            else {
-                res = makeError(404,"Not found");
+            switch (target) {
+                case "createUserToken":
+                    facade.createUserToken(data);
+                    res = makeSuccess(200,"");
+                    break;
+                case "updateToken":
+                    facade.updateToken(data);
+                    res = makeSuccess(200,"");
+                    break;
+                case "finishWorkout":
+                    facade.finishWorkout(data);
+                    res = makeSuccess(200,"");
+                    break;
+                case "createWeek":
+                    facade.createWeek(data);
+                    res = makeSuccess(200,"");
+                    break;
+                case "getWeekByClient":
+                    res = makeSuccess(200, facade.getWeekByClient(data));
+                    break;
+                case "getWeekByPersonalTrainer":
+                    res = makeSuccess(200, facade.getWeekByPersonalTrainer(data));
+                    break;
+                default:
+                    res = makeError(405, "Method not allowed.");
+                    break;
             }
-            if(res == null)
-                res = makeSuccess(200,"");
         }
         catch (PersistentException e) {
             e.printStackTrace();
@@ -117,54 +130,7 @@ public class CoreController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CoreFacade facade = CoreFacade.getInstance();
-
-        // Obtain target
-        String[] url = request.getRequestURI().split("/");
-        String target = url[url.length-1];
-
-        // Obtain url parameters
-        Map<String,String[]> parameters = request.getParameterMap();
-
-        // Create a json string with the parameters
-        String data = parametersToJSON(parameters);
-        String res = null;
-
-        try {
-            if(target.equals("getWeekByClient"))
-                res = makeSuccess(200,facade.getWeekByClient(data));
-            else if(target.equals("getWeekByPersonalTrainer"))
-                res = makeSuccess(200,facade.getWeekByPersonalTrainer(data));
-            else
-                res = makeError(405,"Method not allowed");
-        }
-        catch (PersistentException e) {
-            e.printStackTrace();
-            res = makeError(500,"Internal Error.");
-        }
-        catch (JsonKeyInFaultException e) {
-            e.printStackTrace();
-            res = makeError(404,"Key in fault on Post (" + e.getMessage() + ")");
-        }
-        catch (PersonalTrainerDontExistsException e) {
-            e.printStackTrace();
-            res = makeError(404,"PersonalTrainer " + e.getMessage() + " dont exists.");
-        }
-        catch (UserDontExistsException e) {
-            e.printStackTrace();
-            res = makeError(404,"User " + e.getMessage() + " dont exists.");
-        }
-        catch (ClientDontExistsException e) {
-            e.printStackTrace();
-            res = makeError(404,"Client " + e.getMessage() + " dont exists.");
-        }
-        catch (InvalidTokenException e) {
-            e.printStackTrace();
-            res = makeError(400,"Invalid token (" + e.getMessage() + ") for given user.");
-        }
-        finally {
-            response.setContentType("application/json");
-            response.getWriter().print(res);
-        }
+        response.setContentType("application/json");
+        response.getWriter().print(makeError(405,"Method not allowed."));
     }
 }

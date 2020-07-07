@@ -46,26 +46,57 @@ public class APIController extends HttpServlet {
         String res = null;
 
         try {
-            if (target.equals("createClient"))
-                res = makeSuccess(200,facade.createClient(data));
-            else if (target.equals("createPersonalTrainer"))
-                res = makeSuccess(200,facade.createPersonalTrainer(data));
-            else if (target.equals("editClientProfile"))
-                facade.editClientProfile(data);
-            else if (target.equals("editPersonalTrainerProfile"))
-                facade.editPersonalTrainertProfile(data);
-            else if (target.equals("submitClassification"))
-                facade.submitClassification(data);
-            else if (target.equals("createWeek"))
-                facade.createWeek(data);
-            else if (target.equals("loginClient"))
-                res = makeSuccess(200,facade.loginClient(data));
-            else if (target.equals("loginPersonalTrainer"))
-                res = makeSuccess(200,facade.loginPersonalTrainer(data));
-            else
-                res = makeError(405,"Method not allowed.");
-            if (res == null)
-                res = makeSuccess(200, "");
+            switch (target) {
+                case "createClient":
+                    res = makeSuccess(200, facade.createClient(data));
+                    break;
+                case "createPersonalTrainer":
+                    res = makeSuccess(200, facade.createPersonalTrainer(data));
+                    break;
+                case "editClientProfile":
+                    facade.editClientProfile(data);
+                    res = makeSuccess(200, "");
+                    break;
+                case "editPersonalTrainerProfile":
+                    facade.editPersonalTrainertProfile(data);
+                    res = makeSuccess(200, "");
+                    break;
+                case "submitClassification":
+                    facade.submitClassification(data);
+                    res = makeSuccess(200, "");
+                    break;
+                case "createWeek":
+                    facade.createWeek(data);
+                    res = makeSuccess(200, "");
+                    break;
+                case "loginClient":
+                    res = makeSuccess(200, facade.loginClient(data));
+                    break;
+                case "loginPersonalTrainer":
+                    res = makeSuccess(200, facade.loginPersonalTrainer(data));
+                    break;
+                case "getBiometricData":
+                    res = makeSuccess(200, facade.getBiometricData(data));
+                    break;
+                case "getClientProfile":
+                    res = makeSuccess(200, facade.getClientProfile(""));
+                    break;
+                case "getPersonalTrainerProfile":
+                    res = makeSuccess(200, facade.getPersonalTrainerProfile(data));
+                    break;
+                case "getPersonalTrainers":
+                    res = makeSuccess(200, facade.getPersonalTrainers(data));
+                    break;
+                case "getPersonalTrainerClients":
+                    res = makeSuccess(200, facade.getPersonalTrainerClients(data));
+                    break;
+                case "getPlan":
+                    res = makeSuccess(200, facade.getPlan(data));
+                    break;
+                default:
+                    res = makeError(405, "Method not allowed.");
+                    break;
+            }
         } catch (IOException e) {
             e.printStackTrace();
             res = makeError(500, "Internal error.");
@@ -85,7 +116,9 @@ public class APIController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        GymAtHome facade = GymAtHome.getInstance();
+        response.setContentType("application/json");
+        response.getWriter().print(makeError(405,"Method not allowed."));
+        /*GymAtHome facade = GymAtHome.getInstance();
 
         // Obtain target
         String[] url = request.getRequestURI().split("/");
@@ -122,6 +155,6 @@ public class APIController extends HttpServlet {
         finally {
             response.setContentType("application/json");
             response.getWriter().print(res);
-        }
+        }*/
     }
 }

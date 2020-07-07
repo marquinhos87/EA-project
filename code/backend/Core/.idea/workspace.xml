@@ -4,11 +4,9 @@
     <list default="true" id="5b75eb8e-8d2f-4865-a3a9-b234800da9c2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/servlets/CoreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/CoreController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/servlets/APIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../GymAtHome/src/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../GymAtHome/src/utils/Utils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +154,7 @@
       <updated>1594060511740</updated>
       <workItem from="1594060514250" duration="1630000" />
       <workItem from="1594073076618" duration="441000" />
-      <workItem from="1594114282391" duration="20449000" />
+      <workItem from="1594114282391" duration="21050000" />
     </task>
     <servers />
   </component>
