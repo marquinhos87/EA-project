@@ -1,20 +1,22 @@
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import hrpersonaltrainer.HRPersonalTrainerFacade;
+import hrpersonaltrainer.InvalidPasswordException;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String pt = "{ \"name\": \"ricardo\", " +
+        String pt = "{ " +
                 "\"username\": \"ricardo\", " +
+                "\"name\": \"ricardo\", " +
                 "\"email\": \"rpetronilho98@gmail.com\", " +
                 "\"password\": \"password\", " +
                 "\"birthday\": \"1998-06-29\", " +
                 "\"sex\": \"m\", " +
                 "\"skill\": \"cardio\", " +
-                "\"price\": 155.99 }";
-
-        String client = "{ \"username\": \"jose\", " +
-                "\"token\": \"token\" }";
+                "\"price\": 155.99" +
+                "}";
 
         try {
             System.out.println( HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt) );
@@ -22,16 +24,21 @@ public class Main {
             e.printStackTrace();
         }
 
+        String ptToken = null;
         try {
-            System.out.println( HRPersonalTrainerFacade.getInstance().loginPersonalTrainer("{ \"username\": \"ricardo\", \"password\": \"password\" }") );
+            String oldNewToken = HRPersonalTrainerFacade.getInstance().loginPersonalTrainer("{ \"username\": \"ricardo\", \"password\": \"newpassword\" }");
+            System.out.println(oldNewToken);
+            JsonObject jsonObject = new Gson().fromJson(oldNewToken, JsonObject.class);
+            ptToken = jsonObject.get("newToken").getAsString();
+        } catch (InvalidPasswordException e) {
+            e.printStackTrace();
+            System.exit(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        /*
-        //TODO mudar a coluna PersonalTrainerUsername (FK) na tabela Client para possibilitar valores NULL
         try {
-            HRPersonalTrainerFacade.getInstance().createClient(client);
+            HRPersonalTrainerFacade.getInstance().updateClientToken("{ \"token\": \"token\", \"username\": \"jose\" }");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -41,6 +48,68 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        */
+
+        try {
+            HRPersonalTrainerFacade.getInstance().addClientToPersonalTrainer("{ \"personalTrainerToken\": \"" + ptToken + "\", \"personalTrainerUsername\": \"ricardo\", \"clientUsername\": \"jose\" }");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByPersonalTrainer("{ \"username\": \"ricardo\", \"token\": \"" + ptToken + "\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HRPersonalTrainerFacade.getInstance().submitClassification("{ \"personalTrainerUsername\": \"ricardo\", \"classification\": 5, \"clientToken\": \"token\", \"clientUsername\": \"jose\"  }");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HRPersonalTrainerFacade.getInstance().submitClassification("{ \"personalTrainerUsername\": \"ricardo\", \"classification\": 3, \"clientToken\": \"token\", \"clientUsername\": \"jose\"  }");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByClient("{ \"personalTrainerUsername\": \"ricardo\", \"clientUsername\": \"jose\", \"clientToken\": \"token\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainerClients("{ \"username\": \"ricardo\", \"token\": \"" + ptToken + "\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainers("{ \"username\": \"jose\", \"token\": \"token\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String newPtInfo = "{ " +
+                "\"username\": \"ricardo\", " +
+                "\"token\": \"" + ptToken + "\", " +
+                "\"password\": \"newpassword\", " +
+                "\"sex\": \"f\", " +
+                "\"skill\": \"muscle\", " +
+                "\"price\": 200" +
+                "}";
+
+        try {
+            HRPersonalTrainerFacade.getInstance().editPersonalTrainertProfile(newPtInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println( HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByClient("{ \"personalTrainerUsername\": \"ricardo\", \"clientUsername\": \"jose\", \"clientToken\": \"token\" }") );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
