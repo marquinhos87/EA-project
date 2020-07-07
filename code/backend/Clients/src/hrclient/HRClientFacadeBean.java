@@ -45,5 +45,5 @@ public interface HRClientFacadeBean {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	String getBiometricData(String usernameAsJSON);
+	String getBiometricData(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerDoesNotExistException, TokenIsInvalidException, PersistentException, ClientDoesNotExistException;
 }

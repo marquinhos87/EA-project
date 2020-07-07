@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.orm.PersistentException;
+import org.orm.PersistentSession;
 import redis.clients.jedis.Jedis;
 
 import java.time.LocalDateTime;
@@ -185,12 +187,45 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 	}
 
 	/**
-	 * 
-	 * @param usernameAsJSON
+	 * Returns biometric data fields
+	 * @param usernameAsJSON JSON with clientUsername of biometric data to search, username and token of requester
 	 */
-	public String getBiometricData(String usernameAsJSON) {
-		// TODO - implement HRClientFacadeBean.getBiometricData
-		throw new UnsupportedOperationException();
+	public String getBiometricData(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerDoesNotExistException, TokenIsInvalidException, PersistentException, ClientDoesNotExistException {
+		JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("clientUsername", "username" , "token"));
+		String token = json.get("token").getAsString(), username = json.get("username").getAsString(), clientUsername = json.get("clientUsername").getAsString();
+		Utils.validatePersonalTrainerToken(token, username, redis);
+		Client client;
+		//	TODO não está da melhor forma, pois vamos buscar o client à base de dados, depois verei uma forma mais eficiente
+		if((client = ClientDAO.getClientByORMID(clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
+		PersistentSession session = DiagramasPersistentManager.instance().getSession();
+		System.out.println(session);
+		//Query query = session.createQuery("SELECT BiometricData.height FROM BiometricData where ClientUsername = '" + clientUsername + "' ORDER BY ID DESC");
+		Query query = session.createQuery("SELECT BiometricData.height FROM BiometricData");
+
+		System.out.println(query.list().get(0));
+
+		//	get last biometric data using ID
+		BiometricData biometricData ;
+		int maxID = -1, elemID, index = 0, maxIDIndex = 0;
+		BiometricData[] biometricDatas = client.biometricDatas.toArray();
+		for(BiometricData elem : biometricDatas) {
+			if ((elemID = elem.getID()) > maxID) {
+				maxID = elemID;					//	save value of max id at the moment
+				maxIDIndex = index;				//	save current position at maxIDIndex (index of array with max Id at the moment)
+			}
+			index++;							//	increment array index
+		}
+		if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
+		else biometricData = new BiometricData();									//	empty
+		//	TODO neste momento esta esta forma de construir o JSON, mas vou avançar e depois melhoro isto
+		return "{\"height\": \"" + biometricData.getHeight() + "\", " +
+				"\"weight\": \"" + biometricData.getWeight() + "\", " +
+				"\"wrist\": \"" + biometricData.getWrist() + "\", " +
+				"\"chest\": \"" + biometricData.getChest() + "\", " +
+				"\"tricep\": \"" + biometricData.getTricep() + "\", " +
+				"\"waist\": \"" + biometricData.getWaist()+ "\", " +
+				"\"quadricep\": \"" + biometricData.getQuadricep() + "\", " +
+				"\"twin\": \"" + biometricData.getTwin() + "\"}";
 	}
 
 }

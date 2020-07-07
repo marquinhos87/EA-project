@@ -88,7 +88,7 @@ public class HRClientFacadeBeanTest {
             e.printStackTrace();
         }*/
 
-        String json2 = "{\n" +
+        /*String json2 = "{\n" +
                 "  \"username\": \"josepereira\",\n" +
                 "  \"clientUsername\": \"ricardo\",\n" +
                 "  \"token\": \"josepereiran1E7CWYJH4E4gtfxTDlX3\",\n" +
@@ -99,6 +99,29 @@ public class HRClientFacadeBeanTest {
 
         try {
             System.out.println(hrClientFacadeBeanBean.getClientProfileByPersonalTrainer(json2));
+        } catch (JsonKeyInFaultException e) {
+            e.printStackTrace();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        } catch (TokenIsInvalidException e) {
+            e.printStackTrace();
+        } catch (ClientDoesNotExistException e) {
+            e.printStackTrace();
+        } catch (PersonalTrainerDoesNotExistException e) {
+            e.printStackTrace();
+        }*/
+
+        String json3 = "{\n" +
+                "  \"username\": \"josepereira\",\n" +
+                "  \"clientUsername\": \"ricardo\",\n" +
+                "  \"token\": \"josepereiran1E7CWYJH4E4gtfxTDlX3\",\n" +
+                "  \"sex\": \"F\"\n" +
+                "}";
+
+        HRClientFacadeBean hrClientFacadeBeanBean = new HRClientFacadeBeanBean();
+
+        try {
+            System.out.println(hrClientFacadeBeanBean.getBiometricData(json3));
         } catch (JsonKeyInFaultException e) {
             e.printStackTrace();
         } catch (PersistentException e) {
