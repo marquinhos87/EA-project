@@ -30,9 +30,6 @@ public class DeleteDiagramasData {
 			core.Week lcoreWeek = core.WeekDAO.loadWeekByQuery(null, null);
 			// Delete the persistent object
 			core.WeekDAO.delete(lcoreWeek);
-			core.UserToken lcoreUserToken = core.UserTokenDAO.loadUserTokenByQuery(null, null);
-			// Delete the persistent object
-			core.UserTokenDAO.delete(lcoreUserToken);
 			t.commit();
 		}
 		catch (Exception e) {

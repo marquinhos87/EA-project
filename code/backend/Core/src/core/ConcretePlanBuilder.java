@@ -1,11 +1,15 @@
 package core;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import exceptions.PlanDontExistException;
 import org.orm.PersistentException;
+import parseJSON.WeekJSON;
 
 public class ConcretePlanBuilder implements PlanBuilder {
 
 	private Plan plan;
+	private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 
 	@Override
 	public Plan getPlan() {
@@ -32,7 +36,8 @@ public class ConcretePlanBuilder implements PlanBuilder {
 				throw new PlanDontExistException(planId.toString());
 		}
 
-		// TODO
+		WeekJSON weekJSON = gson.fromJson(data, WeekJSON.class);
+		Week week = WeekJSON.getWeek();
 	}
 
 	/**
