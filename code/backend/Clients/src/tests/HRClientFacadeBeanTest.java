@@ -16,9 +16,21 @@ public class HRClientFacadeBeanTest {
                 "  \"weight\": \"150\",\n" +
                 "  \"twin\": \"150\"\n" +
                 "}";
+
+        String json2 = "{\n" +
+                "  \"username\": \"ricardo\",\n" +
+                "  \"password\": \"password\",\n" +
+                "  \"name\": \"Ricardo Petronilho\",\n" +
+                "  \"email\": \"ricardo@email.com\",\n" +
+                "  \"sex\": \"M\",\n" +
+                "  \"birthday\": \"1998-06-29\",\n" +
+                "  \"height\": \"200\",\n" +
+                "  \"weight\": \"200\",\n" +
+                "  \"twin\": \"200\"\n" +
+                "}";
         HRClientFacadeBean hrClientFacadeBean = new HRClientFacadeBeanBean();
         try {
-            hrClientFacadeBean.createClient(json);
+            hrClientFacadeBean.createClient(json2);
         } catch (ClientAlreadyExistsException e) {
             e.printStackTrace();
         } catch (PersistentException e) {
@@ -114,7 +126,7 @@ public class HRClientFacadeBeanTest {
         String json3 = "{\n" +
                 "  \"username\": \"josepereira\",\n" +
                 "  \"clientUsername\": \"ricardo\",\n" +
-                "  \"token\": \"josepereiran1E7CWYJH4E4gtfxTDlX3\",\n" +
+                "  \"token\": \"josepereiraOuUVTuPC9Dg4lRhwJvvoJ\",\n" +
                 "  \"sex\": \"F\"\n" +
                 "}";
 

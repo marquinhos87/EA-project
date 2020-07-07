@@ -106,7 +106,7 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		}
 		if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
 		else biometricData = new BiometricData();									//	empty
-		//	TODO neste momento esta esta forma de construir o JSON, mas vou avançar e depois melhoro isto
+		//	TODO neste momento esta forma não é a melhor de construir o JSON, mas vou avançar e depois melhoro isto
 		return "{ \"username\": \"" + client.getUsername() + "\", " +
 				"\"password\": \"" + client.getPassword() + "\", " +
 				"\"name\": \"" + client.getName() + "\", " +
@@ -145,7 +145,7 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		}
 		if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
 		else biometricData = new BiometricData();									//	empty
-		//	TODO neste momento esta esta forma de construir o JSON, mas vou avançar e depois melhoro isto
+		//	TODO neste momento esta forma não é a melhor de construir o JSON, mas vou avançar e depois melhoro isto
 		return "{\"name\": \"" + client.getName() + "\", " +
 				"\"email\": \"" + client.getEmail() + "\", " +
 				"\"sex\": \"" + client.getSex() + "\", " +
@@ -197,12 +197,6 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		Client client;
 		//	TODO não está da melhor forma, pois vamos buscar o client à base de dados, depois verei uma forma mais eficiente
 		if((client = ClientDAO.getClientByORMID(clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
-		PersistentSession session = DiagramasPersistentManager.instance().getSession();
-		System.out.println(session);
-		//Query query = session.createQuery("SELECT BiometricData.height FROM BiometricData where ClientUsername = '" + clientUsername + "' ORDER BY ID DESC");
-		Query query = session.createQuery("SELECT BiometricData.height FROM BiometricData");
-
-		System.out.println(query.list().get(0));
 
 		//	get last biometric data using ID
 		BiometricData biometricData ;
@@ -217,7 +211,7 @@ public class HRClientFacadeBeanBean implements HRClientFacadeBean, HRClientFacad
 		}
 		if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
 		else biometricData = new BiometricData();									//	empty
-		//	TODO neste momento esta esta forma de construir o JSON, mas vou avançar e depois melhoro isto
+		//	TODO neste momento esta forma não é a melhor de construir o JSON, mas vou avançar e depois melhoro isto
 		return "{\"height\": \"" + biometricData.getHeight() + "\", " +
 				"\"weight\": \"" + biometricData.getWeight() + "\", " +
 				"\"wrist\": \"" + biometricData.getWrist() + "\", " +
