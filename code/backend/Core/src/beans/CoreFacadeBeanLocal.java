@@ -46,6 +46,7 @@ public interface CoreFacadeBeanLocal {
      * @throws PersonalTrainerDontExistsException
      * @throws UserDontExistsException
      * @throws InvalidTokenException
+     * @throws ClientDontExistsException
      */
     String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException, UserDontExistsException, ClientDontExistsException;
 
@@ -57,6 +58,9 @@ public interface CoreFacadeBeanLocal {
      * @throws InvalidTokenException
      * @throws JsonKeyInFaultException
      * @throws UserDontExistsException
+     * @throws WorkoutAlreadyDoneException
+     * @throws WorkoutDontBelongToUserException
+     * @throws WorkoutDontExistException
      */
     void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException;
 

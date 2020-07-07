@@ -10,16 +10,16 @@ public class Main {
         CoreFacadeBean bean = new CoreFacadeBean();
 
         // Create UserToken
-        // Works
-        /*String user = "{ \"username\": \"marques\",\"token\":\"marquesapsiubvqpribv\"}";
+        // Testing
+        String user = "{ \"username\": \"marques\",\"token\":\"marquesapsiubvqpribv\"}";
         try {
             bean.createUserToken(user);
-        } catch (UserAlreadyExistsException | PersistentException e) {
+        } catch (UserAlreadyExistsException | JsonKeyInFaultException e) {
             e.printStackTrace();
-        }*/
+        }
 
         // Update Token
-        // Works
+        // Testing
         /*String newToken = "{ \"username\": \"marques\",\"oldToken\":\"marquesapsiubvqpribv\", \"newToken\":\"marquesNewToken\"}";
         try {
             bean.updateToken(newToken);
