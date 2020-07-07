@@ -1,5 +1,8 @@
 package core;
 
+import exceptions.PlanDontExistException;
+import org.orm.PersistentException;
+
 public class ConcretePlanBuilder implements PlanBuilder {
 
 	private Plan plan;
@@ -20,9 +23,16 @@ public class ConcretePlanBuilder implements PlanBuilder {
 	 * @param data
 	 */
 	@Override
-	public void buildWeek(String data) {
-		// TODO - implement ConcretePlanBuilder.buildWeek
-		throw new UnsupportedOperationException();
+	public void buildWeek(Integer planId, String data) throws PersistentException, PlanDontExistException {
+		// Get plan or create a new one
+		if(planId == null)
+			this.plan = new Plan();
+		else {
+			if ((this.plan = PlanDAO.getPlanByORMID(CoreFacade.getSession(), planId)) == null)
+				throw new PlanDontExistException(planId.toString());
+		}
+
+		// TODO
 	}
 
 	/**

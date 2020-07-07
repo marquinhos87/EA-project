@@ -14,7 +14,6 @@
 package core;
 
 import java.util.List;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
@@ -28,7 +27,7 @@ public class TaskDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final CollectionExpression series;
 	
 	public TaskDetachedCriteria() {
-		super(Task.class, TaskCriteria.class);
+		super(core.Task.class, core.TaskCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		designation = new StringExpression("designation", this.getDetachedCriteria());
 		rest = new StringExpression("rest", this.getDetachedCriteria());
@@ -38,7 +37,7 @@ public class TaskDetachedCriteria extends AbstractORMDetachedCriteria {
 	}
 	
 	public TaskDetachedCriteria(DetachedCriteria aDetachedCriteria) {
-		super(aDetachedCriteria, TaskCriteria.class);
+		super(aDetachedCriteria, core.TaskCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		designation = new StringExpression("designation", this.getDetachedCriteria());
 		rest = new StringExpression("rest", this.getDetachedCriteria());

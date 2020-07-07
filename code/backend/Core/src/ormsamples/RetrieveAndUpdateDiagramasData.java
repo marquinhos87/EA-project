@@ -4,54 +4,35 @@
  */
 package ormsamples;
 
-import core.DiagramasPersistentManager;
-import core.Client;
-import core.ClientCriteria;
-import core.ClientDAO;
-import core.PersonalTrainer;
-import core.PersonalTrainerCriteria;
-import core.PersonalTrainerDAO;
-import core.Plan;
-import core.PlanCriteria;
-import core.PlanDAO;
-import core.Serie;
-import core.SerieCriteria;
-import core.SerieDAO;
-import core.Task;
-import core.TaskCriteria;
-import core.TaskDAO;
-import core.Week;
-import core.WeekCriteria;
-import core.WeekDAO;
-import core.Workout;
-import core.WorkoutCriteria;
-import core.WorkoutDAO;
 import org.orm.*;
 public class RetrieveAndUpdateDiagramasData {
 	public void retrieveAndUpdateTestData() throws PersistentException {
-		PersistentTransaction t = DiagramasPersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = core.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
-			Plan lcorePlan = PlanDAO.loadPlanByQuery(null, null);
+			core.Plan lcorePlan = core.PlanDAO.loadPlanByQuery(null, null);
 			// Update the properties of the persistent object
-			PlanDAO.save(lcorePlan);
-			Workout lcoreWorkout = WorkoutDAO.loadWorkoutByQuery(null, null);
+			core.PlanDAO.save(lcorePlan);
+			core.Workout lcoreWorkout = core.WorkoutDAO.loadWorkoutByQuery(null, null);
 			// Update the properties of the persistent object
-			WorkoutDAO.save(lcoreWorkout);
-			Task lcoreTask = TaskDAO.loadTaskByQuery(null, null);
+			core.WorkoutDAO.save(lcoreWorkout);
+			core.Task lcoreTask = core.TaskDAO.loadTaskByQuery(null, null);
 			// Update the properties of the persistent object
-			TaskDAO.save(lcoreTask);
-			Serie lcoreSerie = SerieDAO.loadSerieByQuery(null, null);
+			core.TaskDAO.save(lcoreTask);
+			core.Serie lcoreSerie = core.SerieDAO.loadSerieByQuery(null, null);
 			// Update the properties of the persistent object
-			SerieDAO.save(lcoreSerie);
-			Client lcoreClient = ClientDAO.loadClientByQuery(null, null);
+			core.SerieDAO.save(lcoreSerie);
+			core.Client lcoreClient = core.ClientDAO.loadClientByQuery(null, null);
 			// Update the properties of the persistent object
-			ClientDAO.save(lcoreClient);
-			PersonalTrainer lcorePersonalTrainer = PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
+			core.ClientDAO.save(lcoreClient);
+			core.PersonalTrainer lcorePersonalTrainer = core.PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
 			// Update the properties of the persistent object
-			PersonalTrainerDAO.save(lcorePersonalTrainer);
-			Week lcoreWeek = WeekDAO.loadWeekByQuery(null, null);
+			core.PersonalTrainerDAO.save(lcorePersonalTrainer);
+			core.Week lcoreWeek = core.WeekDAO.loadWeekByQuery(null, null);
 			// Update the properties of the persistent object
-			WeekDAO.save(lcoreWeek);
+			core.WeekDAO.save(lcoreWeek);
+			core.UserToken lcoreUserToken = core.UserTokenDAO.loadUserTokenByQuery(null, null);
+			// Update the properties of the persistent object
+			core.UserTokenDAO.save(lcoreUserToken);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -62,46 +43,52 @@ public class RetrieveAndUpdateDiagramasData {
 	
 	public void retrieveByCriteria() throws PersistentException {
 		System.out.println("Retrieving Plan by PlanCriteria");
-		PlanCriteria lcorePlanCriteria = new PlanCriteria();
+		core.PlanCriteria lcorePlanCriteria = new core.PlanCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcorePlanCriteria.ID.eq();
 		System.out.println(lcorePlanCriteria.uniquePlan());
 		
 		System.out.println("Retrieving Workout by WorkoutCriteria");
-		WorkoutCriteria lcoreWorkoutCriteria = new WorkoutCriteria();
+		core.WorkoutCriteria lcoreWorkoutCriteria = new core.WorkoutCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcoreWorkoutCriteria.ID.eq();
 		System.out.println(lcoreWorkoutCriteria.uniqueWorkout());
 		
 		System.out.println("Retrieving Task by TaskCriteria");
-		TaskCriteria lcoreTaskCriteria = new TaskCriteria();
+		core.TaskCriteria lcoreTaskCriteria = new core.TaskCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcoreTaskCriteria.ID.eq();
 		System.out.println(lcoreTaskCriteria.uniqueTask());
 		
 		System.out.println("Retrieving Serie by SerieCriteria");
-		SerieCriteria lcoreSerieCriteria = new SerieCriteria();
+		core.SerieCriteria lcoreSerieCriteria = new core.SerieCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcoreSerieCriteria.ID.eq();
 		System.out.println(lcoreSerieCriteria.uniqueSerie());
 		
 		System.out.println("Retrieving Client by ClientCriteria");
-		ClientCriteria lcoreClientCriteria = new ClientCriteria();
+		core.ClientCriteria lcoreClientCriteria = new core.ClientCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcoreClientCriteria.username.eq();
 		System.out.println(lcoreClientCriteria.uniqueClient());
 		
 		System.out.println("Retrieving PersonalTrainer by PersonalTrainerCriteria");
-		PersonalTrainerCriteria lcorePersonalTrainerCriteria = new PersonalTrainerCriteria();
+		core.PersonalTrainerCriteria lcorePersonalTrainerCriteria = new core.PersonalTrainerCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcorePersonalTrainerCriteria.username.eq();
 		System.out.println(lcorePersonalTrainerCriteria.uniquePersonalTrainer());
 		
 		System.out.println("Retrieving Week by WeekCriteria");
-		WeekCriteria lcoreWeekCriteria = new WeekCriteria();
+		core.WeekCriteria lcoreWeekCriteria = new core.WeekCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
 		//lcoreWeekCriteria.ID.eq();
 		System.out.println(lcoreWeekCriteria.uniqueWeek());
+		
+		System.out.println("Retrieving UserToken by UserTokenCriteria");
+		core.UserTokenCriteria lcoreUserTokenCriteria = new core.UserTokenCriteria();
+		// Please uncomment the follow line and fill in parameter(s)
+		//lcoreUserTokenCriteria.username.eq();
+		System.out.println(lcoreUserTokenCriteria.uniqueUserToken());
 		
 	}
 	
@@ -114,7 +101,7 @@ public class RetrieveAndUpdateDiagramasData {
 				//retrieveAndUpdateDiagramasData.retrieveByCriteria();
 			}
 			finally {
-				DiagramasPersistentManager.instance().disposePersistentManager();
+				core.DiagramasPersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

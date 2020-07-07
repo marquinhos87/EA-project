@@ -4,47 +4,35 @@
  */
 package ormsamples;
 
-import core.DiagramasPersistentManager;
-import core.Client;
-import core.ClientDAO;
-import core.PersonalTrainer;
-import core.PersonalTrainerDAO;
-import core.Plan;
-import core.PlanDAO;
-import core.Serie;
-import core.SerieDAO;
-import core.Task;
-import core.TaskDAO;
-import core.Week;
-import core.WeekDAO;
-import core.Workout;
-import core.WorkoutDAO;
 import org.orm.*;
 public class DeleteDiagramasData {
 	public void deleteTestData() throws PersistentException {
-		PersistentTransaction t = DiagramasPersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = core.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
-			Plan lcorePlan = PlanDAO.loadPlanByQuery(null, null);
+			core.Plan lcorePlan = core.PlanDAO.loadPlanByQuery(null, null);
 			// Delete the persistent object
-			PlanDAO.delete(lcorePlan);
-			Workout lcoreWorkout = WorkoutDAO.loadWorkoutByQuery(null, null);
+			core.PlanDAO.delete(lcorePlan);
+			core.Workout lcoreWorkout = core.WorkoutDAO.loadWorkoutByQuery(null, null);
 			// Delete the persistent object
-			WorkoutDAO.delete(lcoreWorkout);
-			Task lcoreTask = TaskDAO.loadTaskByQuery(null, null);
+			core.WorkoutDAO.delete(lcoreWorkout);
+			core.Task lcoreTask = core.TaskDAO.loadTaskByQuery(null, null);
 			// Delete the persistent object
-			TaskDAO.delete(lcoreTask);
-			Serie lcoreSerie = SerieDAO.loadSerieByQuery(null, null);
+			core.TaskDAO.delete(lcoreTask);
+			core.Serie lcoreSerie = core.SerieDAO.loadSerieByQuery(null, null);
 			// Delete the persistent object
-			SerieDAO.delete(lcoreSerie);
-			Client lcoreClient = ClientDAO.loadClientByQuery(null, null);
+			core.SerieDAO.delete(lcoreSerie);
+			core.Client lcoreClient = core.ClientDAO.loadClientByQuery(null, null);
 			// Delete the persistent object
-			ClientDAO.delete(lcoreClient);
-			PersonalTrainer lcorePersonalTrainer = PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
+			core.ClientDAO.delete(lcoreClient);
+			core.PersonalTrainer lcorePersonalTrainer = core.PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
 			// Delete the persistent object
-			PersonalTrainerDAO.delete(lcorePersonalTrainer);
-			Week lcoreWeek = WeekDAO.loadWeekByQuery(null, null);
+			core.PersonalTrainerDAO.delete(lcorePersonalTrainer);
+			core.Week lcoreWeek = core.WeekDAO.loadWeekByQuery(null, null);
 			// Delete the persistent object
-			WeekDAO.delete(lcoreWeek);
+			core.WeekDAO.delete(lcoreWeek);
+			core.UserToken lcoreUserToken = core.UserTokenDAO.loadUserTokenByQuery(null, null);
+			// Delete the persistent object
+			core.UserTokenDAO.delete(lcoreUserToken);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -60,7 +48,7 @@ public class DeleteDiagramasData {
 				deleteDiagramasData.deleteTestData();
 			}
 			finally {
-				DiagramasPersistentManager.instance().disposePersistentManager();
+				core.DiagramasPersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

@@ -13,8 +13,17 @@ public class WeekTypeAdapter extends TypeAdapter<Week> {
     public void write(JsonWriter jsonWriter, Week week) throws IOException {
         jsonWriter.beginObject();
 
-        jsonWriter.name("ORM_workouts");
+        jsonWriter.name("workouts");
         jsonWriter.value(String.valueOf(week.workouts));
+
+        jsonWriter.name("number");
+        jsonWriter.value(week.getNumber());
+
+        jsonWriter.name("finalDate");
+        jsonWriter.value(String.valueOf(week.getFinalDate()));
+
+        jsonWriter.name("initialDate");
+        jsonWriter.value(String.valueOf(week.getInitialDate()));
 
         jsonWriter.endObject();
     }

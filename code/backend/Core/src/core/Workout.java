@@ -13,8 +13,6 @@
  */
 package core;
 
-import java.util.Date;
-
 public class Workout {
 	public Workout() {
 	}
@@ -35,9 +33,13 @@ public class Workout {
 	};
 	
 	private int ID;
+	
 	private String designation;
-	private Date date;
+	
+	private java.util.Date date;
+	
 	private boolean done;
+	
 	private java.util.Set ORM_tasks = new java.util.HashSet();
 	
 	private void setID(int value) {
@@ -60,11 +62,11 @@ public class Workout {
 		return designation;
 	}
 	
-	public void setDate(Date value) {
+	public void setDate(java.util.Date value) {
 		this.date = value;
 	}
 	
-	public Date getDate() {
+	public java.util.Date getDate() {
 		return date;
 	}
 	
@@ -84,18 +86,15 @@ public class Workout {
 		return ORM_tasks;
 	}
 	
-	public final TaskSetCollection tasks = new TaskSetCollection(this, _ormAdapter, ORMConstants.KEY_WORKOUT_TASKS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final core.TaskSetCollection tasks = new core.TaskSetCollection(this, _ormAdapter, ORMConstants.KEY_WORKOUT_TASKS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public boolean isDone() {
-		return this.done;
+		//TODO: Implement Method
+		throw new UnsupportedOperationException();
 	}
-
-	@Override
+	
 	public String toString() {
-		return "Workout{" +
-				"designation='" + designation + '\'' +
-				", date=" + date +
-				", done=" + done +
-				'}';
+		return String.valueOf(getID());
 	}
+	
 }

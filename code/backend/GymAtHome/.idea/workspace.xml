@@ -8,7 +8,69 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ba9b596-4e4f-47ef-81cc-56d4c9b57494" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Core/src/core/UserToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/core/UserTokenCriteria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/core/UserTokenDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/core/UserTokenDetachedCriteria.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/exceptions/ClientAlreadyHasAnPlanException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/exceptions/PlanDontExistException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/exceptions/UserAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/exceptions/UserTokenDontExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/UserToken.hbm.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/parseJSON/TaskJSON.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Core/src/parseJSON/WorkoutJSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/diagramas.ddl" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/diagramas.ddl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/lib/orm.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/lib/orm.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/CreateDiagramasDatabaseSchema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/out/production/Core/ormsamples/DropDiagramasDatabaseSchema.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/beans/CoreFacadeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/ClientCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/ClientCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/ClientDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/ClientDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/ClientDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/ConcretePlanBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/ConcretePlanBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/CoreFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/CoreFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PersonalTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PersonalTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PersonalTrainerCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PersonalTrainerCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PersonalTrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PersonalTrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PersonalTrainerDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PersonalTrainerDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/Plan.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/Plan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PlanBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PlanBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PlanDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PlanDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PlanDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PlanDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/PlanDirector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/PlanDirector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/Serie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/Serie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/SerieDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/SerieDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/SerieDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/SerieDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/TaskDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/TaskDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/TaskDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/TaskDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/Week.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/Week.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/WeekDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/WeekDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/WeekDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/WeekDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/Workout.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/Workout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/WorkoutDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/WorkoutDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/core/WorkoutDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/core/WorkoutDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormmapping/Diagramas.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormmapping/Diagramas.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormmapping/Diagramas.erd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormmapping/Diagramas.erd.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormmapping/core/Client.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/Client.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormmapping/core/PersonalTrainer.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormmapping/core/PersonalTrainer.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormsamples/CreateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormsamples/CreateDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormsamples/CreateDiagramasDatabaseSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormsamples/CreateDiagramasDatabaseSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormsamples/DeleteDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormsamples/DeleteDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormsamples/DropDiagramasDatabaseSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormsamples/DropDiagramasDatabaseSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormsamples/ListDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormsamples/ListDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/ormsamples/RetrieveAndUpdateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/ormsamples/RetrieveAndUpdateDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/parseJSON/WeekJSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/parseJSON/WeekJSON.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/parseJSON/WeekTypeAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/parseJSON/WeekTypeAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/parseJSON/week.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/parseJSON/week.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/test/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Core/src/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Core/src/utils/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/GymAtHomeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/servlets/APIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/servlets/APIController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,6 +174,7 @@
       <workItem from="1593972189661" duration="1800000" />
       <workItem from="1593980849853" duration="2397000" />
       <workItem from="1594063198030" duration="7585000" />
+      <workItem from="1594128018226" duration="1333000" />
     </task>
     <servers />
   </component>

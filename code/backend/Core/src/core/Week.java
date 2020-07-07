@@ -13,8 +13,6 @@
  */
 package core;
 
-import java.util.Date;
-
 public class Week {
 	public Week() {
 	}
@@ -35,9 +33,13 @@ public class Week {
 	};
 	
 	private int ID;
+	
 	private int number;
-	private Date initialDate;
-	private Date finalDate;
+	
+	private java.util.Date initialDate;
+	
+	private java.util.Date finalDate;
+	
 	private java.util.Set ORM_workouts = new java.util.HashSet();
 	
 	private void setID(int value) {
@@ -60,19 +62,19 @@ public class Week {
 		return number;
 	}
 	
-	public void setInitialDate(Date value) {
+	public void setInitialDate(java.util.Date value) {
 		this.initialDate = value;
 	}
 	
-	public Date getInitialDate() {
+	public java.util.Date getInitialDate() {
 		return initialDate;
 	}
 	
-	public void setFinalDate(Date value) {
+	public void setFinalDate(java.util.Date value) {
 		this.finalDate = value;
 	}
 	
-	public Date getFinalDate() {
+	public java.util.Date getFinalDate() {
 		return finalDate;
 	}
 	
@@ -84,14 +86,10 @@ public class Week {
 		return ORM_workouts;
 	}
 	
-	public final WorkoutSetCollection workouts = new WorkoutSetCollection(this, _ormAdapter, ORMConstants.KEY_WEEK_WORKOUTS, ORMConstants.KEY_MUL_ONE_TO_MANY);
-
-	@Override
+	public final core.WorkoutSetCollection workouts = new core.WorkoutSetCollection(this, _ormAdapter, ORMConstants.KEY_WEEK_WORKOUTS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	
 	public String toString() {
-		return "Week{" +
-				"number=" + number +
-				", initialDate=" + initialDate +
-				", finalDate=" + finalDate +
-				'}';
+		return String.valueOf(getID());
 	}
+	
 }

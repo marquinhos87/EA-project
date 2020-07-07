@@ -2,29 +2,39 @@ package test;
 
 import beans.CoreFacadeBean;
 import core.CoreFacade;
-import exceptions.ClientAlreadyExistsException;
-import exceptions.PersonalTrainerAlreadyExistsException;
+import exceptions.*;
 import org.orm.PersistentException;
 
 public class Main {
     public static void main(String[] args) {
         CoreFacadeBean bean = new CoreFacadeBean();
 
-        //Create Client
-        String client = "{ \"username\": \"marques\",\"token\":\"marquesapsiubvqpribv\"}";
+        // Create UserToken
+        // Works
+        /*String user = "{ \"username\": \"marques\",\"token\":\"marquesapsiubvqpribv\"}";
         try {
-            bean.createClient(client);
-        } catch (ClientAlreadyExistsException | PersistentException e) {
+            bean.createUserToken(user);
+        } catch (UserAlreadyExistsException | PersistentException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        //Create PersonalTrainer
-        String personalTrainer = "{ \"username\": \"marques\",\"token\":\"marquesapsiubvqpribv\"}";
+        // Update Token
+        // Works
+        /*String newToken = "{ \"username\": \"marques\",\"oldToken\":\"marquesapsiubvqpribv\", \"newToken\":\"marquesNewToken\"}";
         try {
-            bean.createPersonalTrainer(personalTrainer);
+            bean.updateToken(newToken);
+        } catch (PersistentException | InvalidTokenException | UserTokenDontExistsException | JsonKeyInFaultException e) {
+            e.printStackTrace();
+        }*/
+
+        // Create Plan
+        // Testing
+        /* String week = ;
+        try {
+            bean.createWeek(week);
         } catch (PersistentException | PersonalTrainerAlreadyExistsException e) {
             e.printStackTrace();
-        }
+        }*/
 
         try {
             CoreFacade.getSession().close();

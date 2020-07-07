@@ -10,7 +10,6 @@ License Type: Academic
 			<generator class="assigned">
 			</generator>
 		</id>
-		<property name="token" column="Token" type="string" length="255" not-null="true" lazy="false"/>
 		<set name="ORM_Plans" lazy="true" cascade="save-update,lock" inverse="false">
 			<key column="PersonalTrainerUsername" not-null="true"/>
 			<one-to-many class="core.Plan"/>

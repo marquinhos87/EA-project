@@ -13,8 +13,6 @@
  */
 package core;
 
-import java.util.Date;
-
 public class Plan {
 	public Plan() {
 	}
@@ -29,7 +27,7 @@ public class Plan {
 	
 	private void this_setOwner(Object owner, int key) {
 		if (key == ORMConstants.KEY_PLAN_CURRENTWEEK) {
-			this.currentWeek = (Week) owner;
+			this.currentWeek = (core.Week) owner;
 		}
 	}
 	
@@ -45,10 +43,15 @@ public class Plan {
 	};
 	
 	private int ID;
-	private Week currentWeek;
+	
+	private core.Week currentWeek;
+	
 	private boolean done;
+	
 	private boolean modified;
-	private Date initialDate;
+	
+	private java.util.Date initialDate;
+	
 	private java.util.Set ORM_weeks = new java.util.HashSet();
 	
 	private void setID(int value) {
@@ -79,11 +82,11 @@ public class Plan {
 		return modified;
 	}
 	
-	public void setInitialDate(Date value) {
+	public void setInitialDate(java.util.Date value) {
 		this.initialDate = value;
 	}
 	
-	public Date getInitialDate() {
+	public java.util.Date getInitialDate() {
 		return initialDate;
 	}
 	
@@ -95,30 +98,28 @@ public class Plan {
 		return ORM_weeks;
 	}
 	
-	public final WeekSetCollection weeks = new WeekSetCollection(this, _ormAdapter, ORMConstants.KEY_PLAN_WEEKS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final core.WeekSetCollection weeks = new core.WeekSetCollection(this, _ormAdapter, ORMConstants.KEY_PLAN_WEEKS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
-	public void setCurrentWeek(Week value) {
+	public void setCurrentWeek(core.Week value) {
 		this.currentWeek = value;
 	}
 	
-	public Week getCurrentWeek() {
+	public core.Week getCurrentWeek() {
 		return currentWeek;
 	}
 	
 	public boolean isDone() {
-		return this.done;
+		//TODO: Implement Method
+		throw new UnsupportedOperationException();
 	}
 	
 	public boolean isModified() {
-		return this.modified;
+		//TODO: Implement Method
+		throw new UnsupportedOperationException();
 	}
-
-	@Override
+	
 	public String toString() {
-		return "Plan{" +
-				"done=" + done +
-				", modified=" + modified +
-				", initialDate=" + initialDate +
-				'}';
+		return String.valueOf(getID());
 	}
+	
 }

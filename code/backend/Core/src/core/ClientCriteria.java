@@ -22,14 +22,12 @@ public class ClientCriteria extends AbstractORMCriteria {
 	public final StringExpression username;
 	public final IntegerExpression planId;
 	public final AssociationExpression plan;
-	public final StringExpression token;
 	
 	public ClientCriteria(Criteria criteria) {
 		super(criteria);
 		username = new StringExpression("username", this);
 		planId = new IntegerExpression("plan.ID", this);
 		plan = new AssociationExpression("plan", this);
-		token = new StringExpression("token", this);
 	}
 	
 	public ClientCriteria(PersistentSession session) {

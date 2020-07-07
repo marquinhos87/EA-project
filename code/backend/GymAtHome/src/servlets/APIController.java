@@ -31,6 +31,7 @@ public class APIController extends HttpServlet {
             response.getWriter().print(makeError(500,"Internal Error"));
         }
     }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

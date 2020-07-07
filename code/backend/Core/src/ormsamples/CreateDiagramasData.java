@@ -4,47 +4,35 @@
  */
 package ormsamples;
 
-import core.DiagramasPersistentManager;
-import core.Client;
-import core.ClientDAO;
-import core.PersonalTrainer;
-import core.PersonalTrainerDAO;
-import core.Plan;
-import core.PlanDAO;
-import core.Serie;
-import core.SerieDAO;
-import core.Task;
-import core.TaskDAO;
-import core.Week;
-import core.WeekDAO;
-import core.Workout;
-import core.WorkoutDAO;
 import org.orm.*;
 public class CreateDiagramasData {
 	public void createTestData() throws PersistentException {
-		PersistentTransaction t = DiagramasPersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = core.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
-			Plan lcorePlan = PlanDAO.createPlan();
+			core.Plan lcorePlan = core.PlanDAO.createPlan();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : weeks, modified, currentWeek
-			PlanDAO.save(lcorePlan);
-			Workout lcoreWorkout = WorkoutDAO.createWorkout();
+			core.PlanDAO.save(lcorePlan);
+			core.Workout lcoreWorkout = core.WorkoutDAO.createWorkout();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : tasks, done
-			WorkoutDAO.save(lcoreWorkout);
-			Task lcoreTask = TaskDAO.createTask();
+			core.WorkoutDAO.save(lcoreWorkout);
+			core.Task lcoreTask = core.TaskDAO.createTask();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : series
-			TaskDAO.save(lcoreTask);
-			Serie lcoreSerie = SerieDAO.createSerie();
+			core.TaskDAO.save(lcoreTask);
+			core.Serie lcoreSerie = core.SerieDAO.createSerie();
 			// Initialize the properties of the persistent object here
-			SerieDAO.save(lcoreSerie);
-			Client lcoreClient = ClientDAO.createClient();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : token, plan, username
-			ClientDAO.save(lcoreClient);
-			PersonalTrainer lcorePersonalTrainer = PersonalTrainerDAO.createPersonalTrainer();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : plans, token, username
-			PersonalTrainerDAO.save(lcorePersonalTrainer);
-			Week lcoreWeek = WeekDAO.createWeek();
+			core.SerieDAO.save(lcoreSerie);
+			core.Client lcoreClient = core.ClientDAO.createClient();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : plan, username
+			core.ClientDAO.save(lcoreClient);
+			core.PersonalTrainer lcorePersonalTrainer = core.PersonalTrainerDAO.createPersonalTrainer();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : plans, username
+			core.PersonalTrainerDAO.save(lcorePersonalTrainer);
+			core.Week lcoreWeek = core.WeekDAO.createWeek();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : workouts, number
-			WeekDAO.save(lcoreWeek);
+			core.WeekDAO.save(lcoreWeek);
+			core.UserToken lcoreUserToken = core.UserTokenDAO.createUserToken();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
+			core.UserTokenDAO.save(lcoreUserToken);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -60,7 +48,7 @@ public class CreateDiagramasData {
 				createDiagramasData.createTestData();
 			}
 			finally {
-				DiagramasPersistentManager.instance().disposePersistentManager();
+				core.DiagramasPersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

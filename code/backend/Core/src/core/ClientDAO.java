@@ -15,6 +15,7 @@ package core;
 
 import org.orm.*;
 import org.hibernate.Query;
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class ClientDAO {
@@ -64,7 +65,7 @@ public class ClientDAO {
 	
 	public static Client loadClientByORMID(PersistentSession session, String username) throws PersistentException {
 		try {
-			return (Client) session.load(Client.class, username);
+			return (Client) session.load(core.Client.class, username);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -74,7 +75,7 @@ public class ClientDAO {
 	
 	public static Client getClientByORMID(PersistentSession session, String username) throws PersistentException {
 		try {
-			return (Client) session.get(Client.class, username);
+			return (Client) session.get(core.Client.class, username);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -84,7 +85,7 @@ public class ClientDAO {
 	
 	public static Client loadClientByORMID(PersistentSession session, String username, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Client) session.load(Client.class, username, lockMode);
+			return (Client) session.load(core.Client.class, username, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -94,7 +95,7 @@ public class ClientDAO {
 	
 	public static Client getClientByORMID(PersistentSession session, String username, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Client) session.get(Client.class, username, lockMode);
+			return (Client) session.get(core.Client.class, username, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -295,10 +296,10 @@ public class ClientDAO {
 	}
 	
 	public static Client createClient() {
-		return new Client();
+		return new core.Client();
 	}
 	
-	public static boolean save(Client client) throws PersistentException {
+	public static boolean save(core.Client client) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().saveObject(client);
 			return true;
@@ -309,7 +310,7 @@ public class ClientDAO {
 		}
 	}
 	
-	public static boolean delete(Client client) throws PersistentException {
+	public static boolean delete(core.Client client) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().deleteObject(client);
 			return true;
@@ -320,7 +321,7 @@ public class ClientDAO {
 		}
 	}
 	
-	public static boolean refresh(Client client) throws PersistentException {
+	public static boolean refresh(core.Client client) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(client);
 			return true;
@@ -331,7 +332,7 @@ public class ClientDAO {
 		}
 	}
 	
-	public static boolean evict(Client client) throws PersistentException {
+	public static boolean evict(core.Client client) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().evict(client);
 			return true;

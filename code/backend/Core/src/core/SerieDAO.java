@@ -15,7 +15,7 @@ package core;
 
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class SerieDAO {
@@ -65,7 +65,7 @@ public class SerieDAO {
 	
 	public static Serie loadSerieByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Serie) session.load(Serie.class, new Integer(ID));
+			return (Serie) session.load(core.Serie.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class SerieDAO {
 	
 	public static Serie getSerieByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Serie) session.get(Serie.class, new Integer(ID));
+			return (Serie) session.get(core.Serie.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class SerieDAO {
 	
 	public static Serie loadSerieByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Serie) session.load(Serie.class, new Integer(ID), lockMode);
+			return (Serie) session.load(core.Serie.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class SerieDAO {
 	
 	public static Serie getSerieByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Serie) session.get(Serie.class, new Integer(ID), lockMode);
+			return (Serie) session.get(core.Serie.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -296,10 +296,10 @@ public class SerieDAO {
 	}
 	
 	public static Serie createSerie() {
-		return new Serie();
+		return new core.Serie();
 	}
 	
-	public static boolean save(Serie serie) throws PersistentException {
+	public static boolean save(core.Serie serie) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().saveObject(serie);
 			return true;
@@ -310,7 +310,7 @@ public class SerieDAO {
 		}
 	}
 	
-	public static boolean delete(Serie serie) throws PersistentException {
+	public static boolean delete(core.Serie serie) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().deleteObject(serie);
 			return true;
@@ -321,7 +321,7 @@ public class SerieDAO {
 		}
 	}
 	
-	public static boolean refresh(Serie serie) throws PersistentException {
+	public static boolean refresh(core.Serie serie) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(serie);
 			return true;
@@ -332,7 +332,7 @@ public class SerieDAO {
 		}
 	}
 	
-	public static boolean evict(Serie serie) throws PersistentException {
+	public static boolean evict(core.Serie serie) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().evict(serie);
 			return true;

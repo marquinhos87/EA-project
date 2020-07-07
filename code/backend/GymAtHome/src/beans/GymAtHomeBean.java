@@ -17,33 +17,54 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
 
     @Override
     public String createClient(String infoClientAsJSON) throws IOException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/createClient";
-        Response response = Http.post(url,infoClientAsJSON);
-        return null;
+        String urlHRClient = "http://localhost:8080/api/v1/GymAtHome/HRClient/createClient";
+        Response responseHRClient = Http.post(urlHRClient,infoClientAsJSON);
+
+        // TODO concatenate
+        String coreJSON = infoClientAsJSON + responseHRClient.body().string();
+        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/createUserToken";
+        Response responseCore = Http.post(urlCore,coreJSON);
+
+        return responseHRClient.body().string();
     }
 
     @Override
     public String createPersonalTrainer(String infoPTAsJSON) throws IOException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/createPersonalTrainer";
-        Response response = Http.post(url,infoPTAsJSON);
+        String urlHRPT = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/createPersonalTrainer";
+        Response responseHRPT = Http.post(urlHRPT,infoPTAsJSON);
 
-        return null;
+        // TODO concatenate
+        String coreJSON = infoPTAsJSON + responseHRPT.body().string();
+        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/createUserToken";
+        Response responseCore = Http.post(urlCore,coreJSON);
+
+        return responseHRPT.body().string();
     }
 
     @Override
     public String loginClient(String infoAsJSON) throws IOException {
         String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/loginClient";
-        Response response = Http.post(url,infoAsJSON);
+        Response responseHRClient = Http.post(url,infoAsJSON);
 
-        return null;
+        // TODO concatenate
+        String coreJSON = infoAsJSON + responseHRClient.body().string();
+        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/updateToken";
+        Response responseCore = Http.post(urlCore,coreJSON);
+
+        return responseHRClient.body().string();
     }
 
     @Override
     public String loginPersonalTrainer(String infoAsJSON) throws IOException {
         String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/loginPersonalTrainer";
-        Response response = Http.post(url,infoAsJSON);
+        Response responseHRPT = Http.post(url,infoAsJSON);
 
-        return null;
+        // TODO concatenate
+        String coreJSON = infoAsJSON + responseHRPT.body().string();
+        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/createUserToken";
+        Response responseCore = Http.post(urlCore,coreJSON);
+
+        return responseHRPT.body().string();
     }
 
     @Override
@@ -87,8 +108,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
         String parameters = JsonToURLParameters(filtersAsJSON);
         String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainers?" + parameters;
         Response response = Http.get(url);
-
-        return null;
+        return response.body().string();
     }
 
     @Override
@@ -96,8 +116,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
         String parameters = JsonToURLParameters(usernameAsJSON);
         String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/getBiometricData?" + parameters;
         Response response = Http.get(url);
-
-        return null;
+        return response.body().string();
     }
 
     @Override
@@ -119,8 +138,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal{
         String parameters = JsonToURLParameters(usernameAsJSON);
         String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainerClients?" + parameters;
         Response response = Http.get(url);
-
-        return null;
+        return response.body().string();
     }
 
     @Override

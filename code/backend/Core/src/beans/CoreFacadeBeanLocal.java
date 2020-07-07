@@ -11,50 +11,63 @@ public interface CoreFacadeBeanLocal {
     /**
      * Create a Client.
      *
-     * @param usernameAsJson Client username and token as a json string.
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException
+     * @throws UserAlreadyExistsException
      */
-    void createClient(String usernameAsJson) throws PersistentException, ClientAlreadyExistsException;
-
-    /**
-     * Create a PersonalTrainer.
-     *
-     * @param usernameAsJson PersonalTrainer username and token as a json string.
-     */
-    void createPersonalTrainer(String usernameAsJson) throws PersistentException, PersonalTrainerAlreadyExistsException;
+    void createUserToken(String usernameAsJson) throws PersistentException, UserAlreadyExistsException;
 
     /**
      *
-     * @param usernameAndTokenAsJson Client username and token as a json string.
+     * @param usernameAndTokenAsJson User username and token as a json string.
+     * @throws PersistentException
+     * @throws JsonKeyInFaultException
+     * @throws InvalidTokenException
+     * @throws UserTokenDontExistsException
      */
-    void updateTokenClient(String usernameAndTokenAsJson) throws PersistentException, ClientDontExistsException, JsonKeyInFaultException, InvalidTokenException;
-
-    /**
-     *
-     * @param usernameAndTokenAsJson PersonalTrainer username and token as a json string.
-     */
-    void updateTokenPersonalTrainer(String usernameAndTokenAsJson) throws PersistentException, PersonalTrainerDontExistsException, JsonKeyInFaultException, InvalidTokenException;
+    void updateToken(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException, InvalidTokenException, UserTokenDontExistsException;
 
     /**
      *
      * @param usernameAndWeekAsJSON
+     * @throws JsonKeyInFaultException
+     * @throws PersistentException
+     * @throws ClientDontExistsException
+     * @throws UserTokenDontExistsException
+     * @throws InvalidTokenException
      */
-    String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException;
+    String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException, UserTokenDontExistsException;
 
     /**
      *
      * @param usernameAndWeekAsJSON
+     * @throws JsonKeyInFaultException
+     * @throws PersistentException
+     * @throws PersonalTrainerDontExistsException
+     * @throws UserTokenDontExistsException
+     * @throws InvalidTokenException
      */
-    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException;
+    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException, UserTokenDontExistsException;
 
     /**
      *
      * @param usernameAndWorkoutIdAsJSON
+     * @throws PersistentException
+     * @throws ClientDontExistsException
+     * @throws InvalidTokenException
+     * @throws JsonKeyInFaultException
+     * @throws UserTokenDontExistsException
      */
-    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException;
+    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserTokenDontExistsException;
 
     /**
      *
      * @param weekAsJson
+     * @throws JsonKeyInFaultException
+     * @throws PersonalTrainerDontExistsException
+     * @throws PersistentException
+     * @throws InvalidTokenException
+     * @throws UserTokenDontExistsException
      */
-    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException;
+    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserTokenDontExistsException;
 }

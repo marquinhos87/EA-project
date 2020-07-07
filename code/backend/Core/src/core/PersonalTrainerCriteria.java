@@ -20,13 +20,11 @@ import org.orm.criteria.*;
 
 public class PersonalTrainerCriteria extends AbstractORMCriteria {
 	public final StringExpression username;
-	public final StringExpression token;
 	public final CollectionExpression plans;
 	
 	public PersonalTrainerCriteria(Criteria criteria) {
 		super(criteria);
 		username = new StringExpression("username", this);
-		token = new StringExpression("token", this);
 		plans = new CollectionExpression("ORM_Plans", this);
 	}
 	

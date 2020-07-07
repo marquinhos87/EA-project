@@ -33,10 +33,15 @@ public class Task {
 	};
 	
 	private int ID;
+	
 	private String designation;
+	
 	private String rest;
+	
 	private String duration;
+	
 	private String equipment;
+	
 	private java.util.Set ORM_series = new java.util.HashSet();
 	
 	private void setID(int value) {
@@ -91,7 +96,7 @@ public class Task {
 		return ORM_series;
 	}
 	
-	public final SerieSetCollection series = new SerieSetCollection(this, _ormAdapter, ORMConstants.KEY_TASK_SERIES, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final core.SerieSetCollection series = new core.SerieSetCollection(this, _ormAdapter, ORMConstants.KEY_TASK_SERIES, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getID());

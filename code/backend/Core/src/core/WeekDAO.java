@@ -15,7 +15,7 @@ package core;
 
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class WeekDAO {
@@ -65,7 +65,7 @@ public class WeekDAO {
 	
 	public static Week loadWeekByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Week) session.load(Week.class, new Integer(ID));
+			return (Week) session.load(core.Week.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class WeekDAO {
 	
 	public static Week getWeekByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Week) session.get(Week.class, new Integer(ID));
+			return (Week) session.get(core.Week.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class WeekDAO {
 	
 	public static Week loadWeekByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Week) session.load(Week.class, new Integer(ID), lockMode);
+			return (Week) session.load(core.Week.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class WeekDAO {
 	
 	public static Week getWeekByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Week) session.get(Week.class, new Integer(ID), lockMode);
+			return (Week) session.get(core.Week.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -296,10 +296,10 @@ public class WeekDAO {
 	}
 	
 	public static Week createWeek() {
-		return new Week();
+		return new core.Week();
 	}
 	
-	public static boolean save(Week week) throws PersistentException {
+	public static boolean save(core.Week week) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().saveObject(week);
 			return true;
@@ -310,7 +310,7 @@ public class WeekDAO {
 		}
 	}
 	
-	public static boolean delete(Week week) throws PersistentException {
+	public static boolean delete(core.Week week) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().deleteObject(week);
 			return true;
@@ -321,7 +321,7 @@ public class WeekDAO {
 		}
 	}
 	
-	public static boolean refresh(Week week) throws PersistentException {
+	public static boolean refresh(core.Week week) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(week);
 			return true;
@@ -332,7 +332,7 @@ public class WeekDAO {
 		}
 	}
 	
-	public static boolean evict(Week week) throws PersistentException {
+	public static boolean evict(core.Week week) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().evict(week);
 			return true;

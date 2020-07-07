@@ -1,5 +1,8 @@
 package core;
 
+import exceptions.PlanDontExistException;
+import org.orm.PersistentException;
+
 public class PlanDirector {
 
 	private PlanBuilder planBuilder;
@@ -9,8 +12,7 @@ public class PlanDirector {
 	 * @param planBuilder
 	 */
 	public PlanDirector(PlanBuilder planBuilder) {
-		// TODO - implement PlanDirector.PlanDirector
-		//throw new UnsupportedOperationException();
+		this.planBuilder = planBuilder;
 	}
 
 	/**
@@ -25,8 +27,8 @@ public class PlanDirector {
 	 * 
 	 * @param data
 	 */
-	public Plan buildPlan(String data) {
-		planBuilder.buildWeek(data);
+	public Plan buildPlan(Integer planId, String data) throws PersistentException, PlanDontExistException {
+		planBuilder.buildWeek(planId,data);
 		return planBuilder.getPlan();
 	}
 

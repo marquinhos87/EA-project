@@ -25,7 +25,7 @@ public class SerieDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression rest;
 	
 	public SerieDetachedCriteria() {
-		super(Serie.class, SerieCriteria.class);
+		super(core.Serie.class, core.SerieCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		description = new StringExpression("description", this.getDetachedCriteria());
 		repetitions = new StringExpression("repetitions", this.getDetachedCriteria());
@@ -33,7 +33,7 @@ public class SerieDetachedCriteria extends AbstractORMDetachedCriteria {
 	}
 	
 	public SerieDetachedCriteria(DetachedCriteria aDetachedCriteria) {
-		super(aDetachedCriteria, SerieCriteria.class);
+		super(aDetachedCriteria, core.SerieCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		description = new StringExpression("description", this.getDetachedCriteria());
 		repetitions = new StringExpression("repetitions", this.getDetachedCriteria());

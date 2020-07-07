@@ -2,9 +2,10 @@ CREATE TABLE `Plan` (ID int(10) NOT NULL AUTO_INCREMENT, WeekID int(10) NOT NULL
 CREATE TABLE Workout (ID int(10) NOT NULL AUTO_INCREMENT, WeekID int(10) NOT NULL, Designation varchar(255), `Date` date, Done tinyint(1) NOT NULL, PRIMARY KEY (ID));
 CREATE TABLE Task (ID int(10) NOT NULL AUTO_INCREMENT, WorkoutID int(10) NOT NULL, Designation varchar(255), Rest varchar(255), Duration varchar(255), Equipment varchar(255), PRIMARY KEY (ID));
 CREATE TABLE Serie (ID int(10) NOT NULL AUTO_INCREMENT, TaskID int(10) NOT NULL, Description varchar(255), Repetitions varchar(255), Rest varchar(255), PRIMARY KEY (ID));
-CREATE TABLE Client (Username varchar(255) NOT NULL, PlanID int(10) NOT NULL, Token varchar(255) NOT NULL, PRIMARY KEY (Username));
-CREATE TABLE PersonalTrainer (Username varchar(255) NOT NULL, Token varchar(255) NOT NULL, PRIMARY KEY (Username));
+CREATE TABLE Client (Username varchar(255) NOT NULL, PlanID int(10) NOT NULL, PRIMARY KEY (Username));
+CREATE TABLE PersonalTrainer (Username varchar(255) NOT NULL, PRIMARY KEY (Username));
 CREATE TABLE Week (ID int(10) NOT NULL AUTO_INCREMENT, PlanID int(10) NOT NULL, Number int(10) NOT NULL, InitialDate date, FinalDate date, PRIMARY KEY (ID));
+CREATE TABLE UserToken (Username varchar(255) NOT NULL, Token varchar(255), PRIMARY KEY (Username));
 ALTER TABLE `Plan` ADD CONSTRAINT FKPlan877161 FOREIGN KEY (PersonalTrainerUsername) REFERENCES PersonalTrainer (Username);
 ALTER TABLE Task ADD CONSTRAINT FKTask764907 FOREIGN KEY (WorkoutID) REFERENCES Workout (ID);
 ALTER TABLE Workout ADD CONSTRAINT FKWorkout678567 FOREIGN KEY (WeekID) REFERENCES Week (ID);

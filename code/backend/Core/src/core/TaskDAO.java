@@ -15,7 +15,7 @@ package core;
 
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class TaskDAO {
@@ -65,7 +65,7 @@ public class TaskDAO {
 	
 	public static Task loadTaskByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Task) session.load(Task.class, new Integer(ID));
+			return (Task) session.load(core.Task.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class TaskDAO {
 	
 	public static Task getTaskByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Task) session.get(Task.class, new Integer(ID));
+			return (Task) session.get(core.Task.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class TaskDAO {
 	
 	public static Task loadTaskByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Task) session.load(Task.class, new Integer(ID), lockMode);
+			return (Task) session.load(core.Task.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class TaskDAO {
 	
 	public static Task getTaskByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Task) session.get(Task.class, new Integer(ID), lockMode);
+			return (Task) session.get(core.Task.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -296,10 +296,10 @@ public class TaskDAO {
 	}
 	
 	public static Task createTask() {
-		return new Task();
+		return new core.Task();
 	}
 	
-	public static boolean save(Task task) throws PersistentException {
+	public static boolean save(core.Task task) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().saveObject(task);
 			return true;
@@ -310,7 +310,7 @@ public class TaskDAO {
 		}
 	}
 	
-	public static boolean delete(Task task) throws PersistentException {
+	public static boolean delete(core.Task task) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().deleteObject(task);
 			return true;
@@ -321,7 +321,7 @@ public class TaskDAO {
 		}
 	}
 	
-	public static boolean refresh(Task task) throws PersistentException {
+	public static boolean refresh(core.Task task) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(task);
 			return true;
@@ -332,7 +332,7 @@ public class TaskDAO {
 		}
 	}
 	
-	public static boolean evict(Task task) throws PersistentException {
+	public static boolean evict(core.Task task) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().evict(task);
 			return true;

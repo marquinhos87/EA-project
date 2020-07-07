@@ -15,7 +15,7 @@ package core;
 
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class WorkoutDAO {
@@ -65,7 +65,7 @@ public class WorkoutDAO {
 	
 	public static Workout loadWorkoutByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Workout) session.load(Workout.class, new Integer(ID));
+			return (Workout) session.load(core.Workout.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class WorkoutDAO {
 	
 	public static Workout getWorkoutByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Workout) session.get(Workout.class, new Integer(ID));
+			return (Workout) session.get(core.Workout.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class WorkoutDAO {
 	
 	public static Workout loadWorkoutByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Workout) session.load(Workout.class, new Integer(ID), lockMode);
+			return (Workout) session.load(core.Workout.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class WorkoutDAO {
 	
 	public static Workout getWorkoutByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Workout) session.get(Workout.class, new Integer(ID), lockMode);
+			return (Workout) session.get(core.Workout.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -296,10 +296,10 @@ public class WorkoutDAO {
 	}
 	
 	public static Workout createWorkout() {
-		return new Workout();
+		return new core.Workout();
 	}
 	
-	public static boolean save(Workout workout) throws PersistentException {
+	public static boolean save(core.Workout workout) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().saveObject(workout);
 			return true;
@@ -310,7 +310,7 @@ public class WorkoutDAO {
 		}
 	}
 	
-	public static boolean delete(Workout workout) throws PersistentException {
+	public static boolean delete(core.Workout workout) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().deleteObject(workout);
 			return true;
@@ -321,7 +321,7 @@ public class WorkoutDAO {
 		}
 	}
 	
-	public static boolean refresh(Workout workout) throws PersistentException {
+	public static boolean refresh(core.Workout workout) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(workout);
 			return true;
@@ -332,7 +332,7 @@ public class WorkoutDAO {
 		}
 	}
 	
-	public static boolean evict(Workout workout) throws PersistentException {
+	public static boolean evict(core.Workout workout) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().evict(workout);
 			return true;

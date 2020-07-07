@@ -15,7 +15,7 @@ package core;
 
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class PlanDAO {
@@ -65,7 +65,7 @@ public class PlanDAO {
 	
 	public static Plan loadPlanByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Plan) session.load(Plan.class, new Integer(ID));
+			return (Plan) session.load(core.Plan.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class PlanDAO {
 	
 	public static Plan getPlanByORMID(PersistentSession session, int ID) throws PersistentException {
 		try {
-			return (Plan) session.get(Plan.class, new Integer(ID));
+			return (Plan) session.get(core.Plan.class, new Integer(ID));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class PlanDAO {
 	
 	public static Plan loadPlanByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Plan) session.load(Plan.class, new Integer(ID), lockMode);
+			return (Plan) session.load(core.Plan.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class PlanDAO {
 	
 	public static Plan getPlanByORMID(PersistentSession session, int ID, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Plan) session.get(Plan.class, new Integer(ID), lockMode);
+			return (Plan) session.get(core.Plan.class, new Integer(ID), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -296,10 +296,10 @@ public class PlanDAO {
 	}
 	
 	public static Plan createPlan() {
-		return new Plan();
+		return new core.Plan();
 	}
 	
-	public static boolean save(Plan plan) throws PersistentException {
+	public static boolean save(core.Plan plan) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().saveObject(plan);
 			return true;
@@ -310,7 +310,7 @@ public class PlanDAO {
 		}
 	}
 	
-	public static boolean delete(Plan plan) throws PersistentException {
+	public static boolean delete(core.Plan plan) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().deleteObject(plan);
 			return true;
@@ -321,7 +321,7 @@ public class PlanDAO {
 		}
 	}
 	
-	public static boolean refresh(Plan plan) throws PersistentException {
+	public static boolean refresh(core.Plan plan) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(plan);
 			return true;
@@ -332,7 +332,7 @@ public class PlanDAO {
 		}
 	}
 	
-	public static boolean evict(Plan plan) throws PersistentException {
+	public static boolean evict(core.Plan plan) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().evict(plan);
 			return true;

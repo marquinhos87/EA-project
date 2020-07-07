@@ -14,7 +14,6 @@
 package core;
 
 import java.util.List;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
@@ -23,22 +22,19 @@ public class ClientDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression username;
 	public final IntegerExpression planId;
 	public final AssociationExpression plan;
-	public final StringExpression token;
 	
 	public ClientDetachedCriteria() {
-		super(Client.class, ClientCriteria.class);
+		super(core.Client.class, core.ClientCriteria.class);
 		username = new StringExpression("username", this.getDetachedCriteria());
 		planId = new IntegerExpression("plan.ID", this.getDetachedCriteria());
 		plan = new AssociationExpression("plan", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
 	}
 	
 	public ClientDetachedCriteria(DetachedCriteria aDetachedCriteria) {
-		super(aDetachedCriteria, ClientCriteria.class);
+		super(aDetachedCriteria, core.ClientCriteria.class);
 		username = new StringExpression("username", this.getDetachedCriteria());
 		planId = new IntegerExpression("plan.ID", this.getDetachedCriteria());
 		plan = new AssociationExpression("plan", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
 	}
 	
 	public PlanDetachedCriteria createPlanCriteria() {

@@ -15,7 +15,7 @@ package core;
 
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class PersonalTrainerDAO {
@@ -65,7 +65,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer loadPersonalTrainerByORMID(PersistentSession session, String username) throws PersistentException {
 		try {
-			return (PersonalTrainer) session.load(PersonalTrainer.class, username);
+			return (PersonalTrainer) session.load(core.PersonalTrainer.class, username);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer getPersonalTrainerByORMID(PersistentSession session, String username) throws PersistentException {
 		try {
-			return (PersonalTrainer) session.get(PersonalTrainer.class, username);
+			return (PersonalTrainer) session.get(core.PersonalTrainer.class, username);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer loadPersonalTrainerByORMID(PersistentSession session, String username, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (PersonalTrainer) session.load(PersonalTrainer.class, username, lockMode);
+			return (PersonalTrainer) session.load(core.PersonalTrainer.class, username, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +95,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer getPersonalTrainerByORMID(PersistentSession session, String username, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (PersonalTrainer) session.get(PersonalTrainer.class, username, lockMode);
+			return (PersonalTrainer) session.get(core.PersonalTrainer.class, username, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -296,10 +296,10 @@ public class PersonalTrainerDAO {
 	}
 	
 	public static PersonalTrainer createPersonalTrainer() {
-		return new PersonalTrainer();
+		return new core.PersonalTrainer();
 	}
 	
-	public static boolean save(PersonalTrainer personalTrainer) throws PersistentException {
+	public static boolean save(core.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().saveObject(personalTrainer);
 			return true;
@@ -310,7 +310,7 @@ public class PersonalTrainerDAO {
 		}
 	}
 	
-	public static boolean delete(PersonalTrainer personalTrainer) throws PersistentException {
+	public static boolean delete(core.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().deleteObject(personalTrainer);
 			return true;
@@ -321,7 +321,7 @@ public class PersonalTrainerDAO {
 		}
 	}
 	
-	public static boolean refresh(PersonalTrainer personalTrainer) throws PersistentException {
+	public static boolean refresh(core.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(personalTrainer);
 			return true;
@@ -332,7 +332,7 @@ public class PersonalTrainerDAO {
 		}
 	}
 	
-	public static boolean evict(PersonalTrainer personalTrainer) throws PersistentException {
+	public static boolean evict(core.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().evict(personalTrainer);
 			return true;

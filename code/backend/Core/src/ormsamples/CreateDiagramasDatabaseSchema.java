@@ -4,13 +4,12 @@
  */
 package ormsamples;
 
-import core.DiagramasPersistentManager;
 import org.orm.*;
 public class CreateDiagramasDatabaseSchema {
 	public static void main(String[] args) {
 		try {
-			ORMDatabaseInitiator.createSchema(DiagramasPersistentManager.instance());
-			DiagramasPersistentManager.instance().disposePersistentManager();
+			ORMDatabaseInitiator.createSchema(core.DiagramasPersistentManager.instance());
+			core.DiagramasPersistentManager.instance().disposePersistentManager();
 		}
 		catch (Exception e) {
 			e.printStackTrace();

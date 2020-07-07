@@ -50,7 +50,7 @@ public class PersonalTrainer {
 	};
 	
 	private String username;
-	private String token;
+	
 	private java.util.Set ORM_plans = new java.util.HashSet();
 	
 	public void setUsername(String value) {
@@ -65,14 +65,6 @@ public class PersonalTrainer {
 		return getUsername();
 	}
 	
-	public void setToken(String value) {
-		this.token = value;
-	}
-	
-	public String getToken() {
-		return token;
-	}
-	
 	private void setORM_Plans(java.util.Set value) {
 		this.ORM_plans = value;
 	}
@@ -81,7 +73,7 @@ public class PersonalTrainer {
 		return ORM_plans;
 	}
 	
-	public final PlanSetCollection plans = new PlanSetCollection(this, _ormAdapter, ORMConstants.KEY_PERSONALTRAINER_PLANS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final core.PlanSetCollection plans = new core.PlanSetCollection(this, _ormAdapter, ORMConstants.KEY_PERSONALTRAINER_PLANS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getUsername());

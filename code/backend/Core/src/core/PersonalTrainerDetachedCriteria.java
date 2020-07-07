@@ -14,27 +14,23 @@
 package core;
 
 import java.util.List;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class PersonalTrainerDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression username;
-	public final StringExpression token;
 	public final CollectionExpression plans;
 	
 	public PersonalTrainerDetachedCriteria() {
-		super(PersonalTrainer.class, PersonalTrainerCriteria.class);
+		super(core.PersonalTrainer.class, core.PersonalTrainerCriteria.class);
 		username = new StringExpression("username", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
 		plans = new CollectionExpression("ORM_Plans", this.getDetachedCriteria());
 	}
 	
 	public PersonalTrainerDetachedCriteria(DetachedCriteria aDetachedCriteria) {
-		super(aDetachedCriteria, PersonalTrainerCriteria.class);
+		super(aDetachedCriteria, core.PersonalTrainerCriteria.class);
 		username = new StringExpression("username", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
 		plans = new CollectionExpression("ORM_Plans", this.getDetachedCriteria());
 	}
 	

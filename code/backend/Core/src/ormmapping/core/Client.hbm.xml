@@ -12,6 +12,5 @@ License Type: Academic
 		</id>
 		<many-to-one name="plan" column="PlanID" class="core.Plan" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
 		</many-to-one>
-		<property name="token" column="Token" type="string" length="255" not-null="true" lazy="false"/>
 	</class>
 </hibernate-mapping>

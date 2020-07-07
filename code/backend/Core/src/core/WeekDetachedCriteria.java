@@ -14,7 +14,6 @@
 package core;
 
 import java.util.List;
-
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
@@ -27,7 +26,7 @@ public class WeekDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final CollectionExpression workouts;
 	
 	public WeekDetachedCriteria() {
-		super(Week.class, WeekCriteria.class);
+		super(core.Week.class, core.WeekCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		number = new IntegerExpression("number", this.getDetachedCriteria());
 		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
@@ -36,7 +35,7 @@ public class WeekDetachedCriteria extends AbstractORMDetachedCriteria {
 	}
 	
 	public WeekDetachedCriteria(DetachedCriteria aDetachedCriteria) {
-		super(aDetachedCriteria, WeekCriteria.class);
+		super(aDetachedCriteria, core.WeekCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
 		number = new IntegerExpression("number", this.getDetachedCriteria());
 		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());

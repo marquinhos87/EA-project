@@ -4,7 +4,6 @@
  */
 package ormsamples;
 
-import core.DiagramasPersistentManager;
 import org.orm.*;
 public class DropDiagramasDatabaseSchema {
 	public static void main(String[] args) {
@@ -12,8 +11,8 @@ public class DropDiagramasDatabaseSchema {
 			System.out.println("Are you sure to drop table(s)? (Y/N)");
 			java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 			if (reader.readLine().trim().toUpperCase().equals("Y")) {
-				ORMDatabaseInitiator.dropSchema(DiagramasPersistentManager.instance());
-				DiagramasPersistentManager.instance().disposePersistentManager();
+				ORMDatabaseInitiator.dropSchema(core.DiagramasPersistentManager.instance());
+				core.DiagramasPersistentManager.instance().disposePersistentManager();
 			}
 			
 		}

@@ -35,8 +35,8 @@ public class Client {
 	}
 	
 	private String username;
-	private Plan plan;
-	private String token;
+	
+	private core.Plan plan;
 	
 	public void setUsername(String value) {
 		this.username = value;
@@ -50,19 +50,11 @@ public class Client {
 		return getUsername();
 	}
 	
-	public void setToken(String value) {
-		this.token = value;
-	}
-	
-	public String getToken() {
-		return token;
-	}
-	
-	public void setPlan(Plan value) {
+	public void setPlan(core.Plan value) {
 		this.plan = value;
 	}
 	
-	public Plan getPlan() {
+	public core.Plan getPlan() {
 		return plan;
 	}
 	
