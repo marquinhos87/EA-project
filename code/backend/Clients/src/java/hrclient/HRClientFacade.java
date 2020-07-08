@@ -31,7 +31,7 @@ public class HRClientFacade {
      * 
      * @param usernameAndTokenAsJson
      */
-    public void updateUserToken(String usernameAndTokenAsJson) {
+    public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersonalTrainerDoesNotExistException {
             hRClientFacadeBean.updateUserToken(usernameAndTokenAsJson);
     }
 
