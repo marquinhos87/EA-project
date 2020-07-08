@@ -37,12 +37,14 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
     }
 
     /**
-     * 
-     * @param usernameAndTokenAsJson
+     * Update token of other entities associated with Client, at the moment only Personal Trainer.
+     * @param usernameAndTokenAsJson json with username, old token and new token of personal trainer
      */
-    public void updateUserToken(String usernameAndTokenAsJson) {
-            // TODO - implement HRClientFacadeBean.updateUserToken
-            throw new UnsupportedOperationException();
+    public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersonalTrainerDoesNotExistException{
+        JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJson , Arrays.asList("username", "oldToken", "newToken"));
+        String oldToken = json.get("oldToken").getAsString(), username = json.get("username").getAsString(), newToken = json.get("newToken").getAsString();
+        Utils.validatePersonalTrainerToken(oldToken, username, redis);
+        redis.set(username, newToken);
     }
 
     /**
@@ -59,7 +61,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             client.biometricDatas.add(biometricData);
             String token = Utils.tokenGenerate(client.getUsername());
             if(redis.exists(username) == true)
-                    throw new ClientAlreadyExistsException(username + "on redis database");
+                throw new ClientAlreadyExistsException(username + "on redis database");
             redis.set(username, token);
             ClientDAO.save(client);
             return "{\"token\":\"" + token + "\"}";

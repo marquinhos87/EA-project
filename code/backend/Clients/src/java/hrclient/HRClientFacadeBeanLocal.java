@@ -15,7 +15,7 @@ import org.orm.PersistentException;
 @Local
 public interface HRClientFacadeBeanLocal {
     String sayHello(String name);
-    void updateUserToken(String usernameAndTokenAsJson);
+    void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersonalTrainerDoesNotExistException;
     String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException;
     String loginClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDoesNotExistException, InvalidPasswordException;
     String getClientProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException;
