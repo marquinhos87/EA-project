@@ -2,3 +2,6 @@
 *.vpp.b*
 *.vpp.lck
 modelos-tarefas/~$*.docx
+/code/backend/Clients/nbproject/private/
+/code/backend/Clients/build/
+/code/backend/Clients/dist/
