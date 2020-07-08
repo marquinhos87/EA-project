@@ -1,19 +1,22 @@
 package hrpersonaltrainer;
 
+import beans.HRPersonalTrainerFacadeBeanLocal;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 public class HRPersonalTrainerFacade {
 
-	private static HRPersonalTrainerFacade rhPersonalTrainerFacade;
+	private static HRPersonalTrainerFacade rhPersonalTrainerFacade = null;
 	private static PersistentSession session = null;
+	private final HRPersonalTrainerFacadeBeanLocal personalTrainerFacadeBean = lookupHRPersonalTrainerFacadeBeanLocal();
 
-	// TODO trocar isto para o código de obtenção do bean
-	private final HRPersonalTrainerFacadeBean personalTrainerFacadeBean = new HRPersonalTrainerFacadeBeanBean();
+	private HRPersonalTrainerFacade() throws PersistentException {}
 
-	private HRPersonalTrainerFacade() {}
-
-	public static HRPersonalTrainerFacade getInstance() {
+	public static HRPersonalTrainerFacade getInstance() throws PersistentException {
 		if (rhPersonalTrainerFacade == null) {
 			rhPersonalTrainerFacade = new HRPersonalTrainerFacade();
 		}
@@ -64,4 +67,15 @@ public class HRPersonalTrainerFacade {
     public String getPersonalTrainerProfileByPersonalTrainer(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException {
 		return personalTrainerFacadeBean.getPersonalTrainerProfileByPersonalTrainer(infoAsJson);
     }
+
+	private HRPersonalTrainerFacadeBeanLocal lookupHRPersonalTrainerFacadeBeanLocal() {
+		try {
+			Context c = new InitialContext();
+			return (HRPersonalTrainerFacadeBeanLocal) c.lookup("java:global/PersonalTrainer/HRPersonalTrainerFacadeBean!beans.HRPersonalTrainerFacadeBeanLocal");
+		} catch (NamingException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+	}
 }

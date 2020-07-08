@@ -13,6 +13,9 @@
     </facet>
     <facet type="ejb" name="EJB">
       <configuration>
+        <descriptors>
+          <deploymentDescriptor name="jboss.xml" url="file://$MODULE_DIR$/META-INF/jboss.xml" />
+        </descriptors>
         <ejbRoots>
           <root url="file://$MODULE_DIR$/src" />
         </ejbRoots>
@@ -41,5 +44,6 @@
     <orderEntry type="library" name="gson-2.8.6" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="library" name="jedis-3.3.0" level="project" />
+    <orderEntry type="library" name="JBoss Weld-2.0.3" level="project" />
   </component>
 </module>

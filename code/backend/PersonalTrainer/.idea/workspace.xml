@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="PersonalTrainer:ejb exploded" />
+      <artifact name="PersonalTrainer:war exploded" />
+    </artifacts-to-build>
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -20,16 +26,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7ce52c-ec6c-4e91-8c2d-08173f40c004" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/parseJSON/PersonalTrainerSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/JBoss_Weld_2_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/rest/HRPersonalTrainerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/PersonalTrainer_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/PersonalTrainer_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PersonalTrainer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PersonalTrainer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompileAll.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/CompileAll.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunCreateDiagramasData.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunCreateDiagramasData.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunCreateDiagramasDatabaseSchema.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunCreateDiagramasDatabaseSchema.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunDeleteDiagramasData.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunDeleteDiagramasData.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunDropDiagramasDatabaseSchema.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunDropDiagramasDatabaseSchema.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunListDiagramasData.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunListDiagramasData.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunRetrieveAndUpdateDiagramasData.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunRetrieveAndUpdateDiagramasData.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RunSample.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunSample.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/build.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/diagramas.ddl" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/diagramas.ddl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerController.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parseJSON/PersonalTrainerProfileTypeAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parseJSON/UsernamePasswordJson.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBeanBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,17 +93,20 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.1741683" />
+    <property name="project.structure.side.proportion" value="0.3534994" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/databasescripts" />
+    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="hrpersonaltrainer" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JBoss Server.JBoss 16.0.0.Final">
     <configuration name="CreateDiagramasDatabaseSchema" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ormsamples.CreateDiagramasDatabaseSchema" />
       <module name="PersonalTrainer" />
@@ -104,7 +128,6 @@
       </method>
     </configuration>
     <configuration name="JBoss 16.0.0.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 16.0.0.Final" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/PersonalTrainer_war_exploded" />
       <deployment>
         <artifact name="PersonalTrainer:ejb exploded">
           <settings />
@@ -114,14 +137,62 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="SERVER" value="" />
+        <option name="SERVER" />
         <option name="BINDING_SET_NAME" value="" />
         <option name="DOMAIN" value="false" />
-        <option name="SERVER_GROUP" value="" />
+        <option name="SERVER_GROUP" />
         <option name="USERNAME" value="" />
         <option name="CREDENTIAL_ALIAS" />
       </server-settings>
       <predefined_log_file enabled="true" id="JBoss" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="46819" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
@@ -132,7 +203,7 @@
     </configuration>
     <configuration name="CompileAll.sh" type="ShConfigurationType" temporary="true">
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/CompileAll.sh" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/databasescripts/CompileAll.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
       <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
       <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
@@ -143,7 +214,7 @@
     </configuration>
     <configuration name="RunCreateDiagramasData.sh" type="ShConfigurationType" temporary="true">
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/RunCreateDiagramasData.sh" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/databasescripts/RunCreateDiagramasData.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
       <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
       <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
@@ -154,7 +225,7 @@
     </configuration>
     <configuration name="RunCreateDiagramasDatabaseSchema.sh" type="ShConfigurationType" temporary="true">
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/RunCreateDiagramasDatabaseSchema.sh" />
+      <option name="SCRIPT_PATH" value="$PROJECT_DIR$/src/databasescripts/RunCreateDiagramasDatabaseSchema.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
       <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
       <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
@@ -163,6 +234,14 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.CreateDiagramasDatabaseSchema" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JBoss Server.JBoss 16.0.0.Final" />
+      <item itemvalue="Shell Script.CompileAll.sh" />
+      <item itemvalue="Shell Script.RunCreateDiagramasData.sh" />
+      <item itemvalue="Shell Script.RunCreateDiagramasDatabaseSchema.sh" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
@@ -188,6 +267,9 @@
       <workItem from="1594042624627" duration="6045000" />
       <workItem from="1594048718986" duration="12303000" />
       <workItem from="1594121691449" duration="13921000" />
+      <workItem from="1594144802973" duration="669000" />
+      <workItem from="1594145518822" duration="3779000" />
+      <workItem from="1594202586427" duration="10448000" />
     </task>
     <servers />
   </component>
@@ -207,43 +289,82 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="385" y="145" width="732" height="644" key="#Inspections" timestamp="1594214801351">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="385" y="145" width="732" height="644" key="#Inspections/72.27.1368.873@72.27.1368.873" timestamp="1594214801351" />
+    <state x="445" y="64" width="612" height="805" key="#JBoss_16.0.0.Final" timestamp="1594158730810">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="445" y="64" width="612" height="805" key="#JBoss_16.0.0.Final/72.27.1368.873@72.27.1368.873" timestamp="1594158730810" />
+    <state x="524" y="359" width="443" height="222" key="#JBoss_Server" timestamp="1594158850945">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="524" y="359" width="443" height="222" key="#JBoss_Server/72.27.1368.873@72.27.1368.873" timestamp="1594158850945" />
     <state x="658" y="279" width="666" height="556" key="#RunCreateDiagramasDatabaseSchema.sh" timestamp="1594121946820">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="658" y="279" width="666" height="556" key="#RunCreateDiagramasDatabaseSchema.sh/72.27.1848.1053@72.27.1848.1053" timestamp="1594121946820" />
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593962055925">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="193" y="60" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594159406170">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593962055925" />
-    <state x="808" y="266" width="553" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1594135305631">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state x="193" y="60" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1368.873@72.27.1368.873" timestamp="1594159406170" />
+    <state x="545" y="305" width="430" height="309" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog" timestamp="1594216908502">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="545" y="305" width="430" height="309" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog/72.27.1368.873@72.27.1368.873" timestamp="1594216908502" />
+    <state x="617" y="225" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1594215751804">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1594053210366" />
+    <state x="617" y="225" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/72.27.1368.873@72.27.1368.873" timestamp="1594215751804" />
     <state x="808" y="266" width="553" height="599" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1594135305631" />
-    <state x="713" y="291" width="735" height="520" key="FileChooserDialogImpl" timestamp="1594123509708">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state x="484" y="245" width="524" height="451" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1594214848581">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="484" y="245" width="524" height="451" key="#com.intellij.ide.util.PackageChooserDialog/72.27.1368.873@72.27.1368.873" timestamp="1594214848581" />
+    <state x="164" y="133" width="979" height="668" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog" timestamp="1594216892224">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="164" y="133" width="979" height="668" key="#com.intellij.ide.util.frameworkSupport.AddFrameworkSupportDialog/72.27.1368.873@72.27.1368.873" timestamp="1594216892224" />
+    <state x="409" y="195" width="694" height="450" key="#com.intellij.javaee.ejb.migration.ApplyJavaeeStyleDialog" timestamp="1594214128617">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="409" y="195" width="694" height="450" key="#com.intellij.javaee.ejb.migration.ApplyJavaeeStyleDialog/72.27.1368.873@72.27.1368.873" timestamp="1594214128617" />
+    <state x="429" y="326" width="643" height="282" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1594214160635">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="429" y="326" width="643" height="282" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1368.873@72.27.1368.873" timestamp="1594214160635" />
+    <state x="547" y="246" width="735" height="520" key="FileChooserDialogImpl" timestamp="1594216844043">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state x="666" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593957813069" />
+    <state x="547" y="246" width="735" height="520" key="FileChooserDialogImpl/72.27.1368.873@72.27.1368.873" timestamp="1594216844043" />
     <state x="713" y="291" width="735" height="520" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1594123509708" />
-    <state width="1802" height="346" key="GridCell.Tab.0.bottom" timestamp="1594136661210">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1105" height="342" key="GridCell.Tab.0.bottom" timestamp="1594217372529">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
+    <state width="1105" height="342" key="GridCell.Tab.0.bottom/72.27.1368.873@72.27.1368.873" timestamp="1594217372529" />
     <state width="1802" height="346" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1594136661210" />
-    <state width="1802" height="346" key="GridCell.Tab.0.center" timestamp="1594136661210">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1105" height="342" key="GridCell.Tab.0.center" timestamp="1594217372528">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
+    <state width="1105" height="342" key="GridCell.Tab.0.center/72.27.1368.873@72.27.1368.873" timestamp="1594217372528" />
     <state width="1802" height="346" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1594136661210" />
-    <state width="1802" height="346" key="GridCell.Tab.0.left" timestamp="1594136661209">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1105" height="342" key="GridCell.Tab.0.left" timestamp="1594217372528">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
+    <state width="1105" height="342" key="GridCell.Tab.0.left/72.27.1368.873@72.27.1368.873" timestamp="1594217372528" />
     <state width="1802" height="346" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1594136661209" />
-    <state width="1802" height="346" key="GridCell.Tab.0.right" timestamp="1594136661210">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state width="1105" height="342" key="GridCell.Tab.0.right" timestamp="1594217372528">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
+    <state width="1105" height="342" key="GridCell.Tab.0.right/72.27.1368.873@72.27.1368.873" timestamp="1594217372528" />
     <state width="1802" height="346" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1594136661210" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1594061308124">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -261,14 +382,19 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
-    <state x="496" y="122" width="1024" height="852" key="SettingsEditor" timestamp="1594123838165">
-      <screen x="72" y="27" width="1848" height="1053" />
+    <state x="201" y="109" width="1133" height="712" key="SettingsEditor" timestamp="1594216987934">
+      <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1594042679471" />
+    <state x="201" y="109" width="1133" height="712" key="SettingsEditor/72.27.1368.873@72.27.1368.873" timestamp="1594216987934" />
     <state x="496" y="122" width="1024" height="852" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1594123838165" />
     <state x="775" y="311" width="423" height="492" key="refactoring.ChangeSignatureDialog" timestamp="1594136257450">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="775" y="311" width="423" height="492" key="refactoring.ChangeSignatureDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1594136257450" />
+    <state x="419" y="214" width="672" height="678" key="search.everywhere.popup" timestamp="1594204270076">
+      <screen x="72" y="27" width="1368" height="873" />
+    </state>
+    <state x="419" y="214" width="672" height="678" key="search.everywhere.popup/72.27.1368.873@72.27.1368.873" timestamp="1594204270076" />
   </component>
 </project>

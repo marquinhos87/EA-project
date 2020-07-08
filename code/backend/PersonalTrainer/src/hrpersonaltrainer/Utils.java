@@ -2,8 +2,6 @@ package hrpersonaltrainer;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.hibernate.Query;
-import org.orm.PersistentException;
 import redis.clients.jedis.Jedis;
 
 import java.util.*;
@@ -11,7 +9,7 @@ import java.util.*;
 
 public class Utils {
 
-    protected static String tokenGenerate(String username) {
+    public static String tokenGenerate(String username) {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
