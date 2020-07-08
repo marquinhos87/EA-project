@@ -8,6 +8,8 @@ package servlets;
 import core.CoreFacade;
 import exceptions.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +24,7 @@ import static utils.Utils.makeSuccess;
  *
  * @author joaomarques
  */
-@WebServlet(urlPatterns = {"/CoreController"})
+@WebServlet(name="api", urlPatterns="api/*")
 public class CoreController extends HttpServlet {
 
     private CoreFacade coreFacade = CoreFacade.getInstance();
@@ -140,6 +142,16 @@ public class CoreController extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             res = makeError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid token (" + e.getMessage() + ") for given user.");
         }
+        catch (ClientAlreadyHasAnPlanException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            res = makeError(HttpServletResponse.SC_CONFLICT,"Client (" + e.getMessage() + ") already have a plan.");
+        }
+        catch (PlanDontExistException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            res = makeError(HttpServletResponse.SC_NOT_FOUND,"Plan with Id = " + e.getMessage() + " dont exists.");
+        }
         catch (JedisConnectionException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -166,13 +178,9 @@ public class CoreController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         response.setContentType("application/json");
         response.getWriter().print(makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"Method not allowed."));
-        */
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("application/json");
-        response.getWriter().print(makeSuccess(HttpServletResponse.SC_OK, CoreFacade.getInstance().sayHello("Joao")));
     }
 
     /**

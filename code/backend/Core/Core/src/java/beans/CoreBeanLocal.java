@@ -84,5 +84,5 @@ public interface CoreBeanLocal {
      * @throws InvalidTokenException
      * @throws UserDontExistsException
      */
-    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException;
+    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException;
 }

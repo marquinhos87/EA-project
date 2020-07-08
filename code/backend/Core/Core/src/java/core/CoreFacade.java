@@ -97,7 +97,7 @@ public class CoreFacade {
 	 * 
 	 * @param weekAsJson
 	 */
-	public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException {
+	public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException {
 		coreBean.createWeek(weekAsJson);
 	}
 }

@@ -67,7 +67,7 @@ public class CoreBean implements CoreBeanLocal {
 
     @Override
     public String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, InvalidTokenException, UserDontExistsException, ClientDontExistsException {
-        JsonObject json = Utils.validateJson(gson, usernameAndWeekAsJSON, Arrays.asList("token", "username", "week"));
+        JsonObject json = Utils.validateJson(gson, usernameAndWeekAsJSON, Arrays.asList("token", "username"));
 
         String username = json.get("username").getAsString();
         String token = json.get("token").getAsString();
@@ -78,10 +78,14 @@ public class CoreBean implements CoreBeanLocal {
         if((client = ClientDAO.getClientByORMID(session,username)) == null)
             throw new ClientDontExistsException(username);
         Plan plan = client.getPlan();
-        Iterator it = plan.weeks.getIterator();
         Week week = null;
-        for( int i = 0 ; i < json.get("week").getAsInt() ; week = (Week) it.next());
-
+        if(json.has("week")) {
+            Iterator it = plan.weeks.getIterator();
+            for( int i = 0 ; i < json.get("week").getAsInt() ; week = (Week) it.next());
+        } else {
+            week = plan.getCurrentWeek();
+        }
+        
         // TODO week to json
 
         return null;
@@ -101,16 +105,16 @@ public class CoreBean implements CoreBeanLocal {
             throw new ClientDontExistsException(json.get("clientUsername").getAsString());
 
         Week week = null;
+        Plan plan = client.getPlan();
         // get specific week
         if(json.has("week")) {
-            Plan plan = client.getPlan();
             Iterator it = plan.weeks.getIterator();
-
             for( int i = 0 ; i < json.get("week").getAsInt() ; week = (Week) it.next());
         } // get actual week
         else {
-            week = client.getPlan().getCurrentWeek();
+            week = plan.getCurrentWeek();
         }
+        
         // TODO week to json
 
         return null;
@@ -153,7 +157,7 @@ public class CoreBean implements CoreBeanLocal {
     }
 
     @Override
-    public void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersistentException, InvalidTokenException, UserDontExistsException {
+    public void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException {
         JsonObject json = Utils.validateJson(gson, weekAsJson, Arrays.asList("token", "username", "week"));
 
         String username = json.get("username").getAsString();
@@ -161,7 +165,7 @@ public class CoreBean implements CoreBeanLocal {
         Utils.validateToken(token, username, jedis);
 
         PersistentSession session = CoreFacade.getSession();
-        // Verify if PersonalTrainer exists and if not create a new one
+        // Verify if PersonalTrainer exists and if not create him
         PersonalTrainer pt;
         if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(session,username)) == null) {
             pt = new PersonalTrainer();
@@ -170,24 +174,22 @@ public class CoreBean implements CoreBeanLocal {
             session.flush();
         }
 
-        // TODO
         // Verify if createWeek has called to create a new plan or to add a new week to an existing plan
         if(json.has("planId")) {
-            // planDirector.build(json.get("planId").getAsInt(),json.get("week").getAsString());
+            planDirector.buildPlan(json.get("planId").getAsInt(),json.get("week").getAsString());
         } else {
             // Create Plan and associate to PersonalTrainer and Client
-            // if(!json.has("clientUsername"))
-            //     throws nem JsonKeyInFaultException("clientUsername");
-            // Plan plan = planDirector.buildPlan(null,json.get("week").getAsJsonObject());
-            // String clientUsername = json.get("clientUsername").getAsString();
-            // Client client;
-            // if((client = ClientDAO.getClientByORMID(session,clientUsername)) != null)
-            //     throws new ClientAlreadyHasAnPlanException(clientUsername);
-            // client = new Client();
-            // client.setUsername(clientUsername);
-            // client.setPlan(plan);
-            // ClientDAO.save(client);
-            // session.flush();
+            if(!json.has("clientUsername"))
+                throw new JsonKeyInFaultException("clientUsername");
+            String clientUsername = json.get("clientUsername").getAsString();
+            if(ClientDAO.getClientByORMID(session,clientUsername) != null)
+                throw new ClientAlreadyHasAnPlanException(clientUsername);
+            Plan plan = planDirector.buildPlan(null,json.get("week").getAsString());
+            Client client = new Client();
+            client.setUsername(clientUsername);
+            client.setPlan(plan);
+            ClientDAO.save(client);
+            session.flush();
         }
     }
 }
