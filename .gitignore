@@ -6,3 +6,4 @@ modelos-tarefas/~$*.docx
 /code/backend/Clients/build/
 /code/backend/Clients/dist/
 /code/backend/Core/wildfly-12.0.0.Final/
+/code/backend/PersonalTrainer/wildfly-16.0.0.Final/

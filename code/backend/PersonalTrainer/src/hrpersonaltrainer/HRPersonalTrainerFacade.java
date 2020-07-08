@@ -1,5 +1,6 @@
 package hrpersonaltrainer;
 
+import beans.HRPersonalTrainerFacadeBeanBean;
 import beans.HRPersonalTrainerFacadeBeanLocal;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -12,7 +13,7 @@ public class HRPersonalTrainerFacade {
 
 	private static HRPersonalTrainerFacade rhPersonalTrainerFacade = null;
 	private static PersistentSession session = null;
-	private final HRPersonalTrainerFacadeBeanLocal personalTrainerFacadeBean = lookupHRPersonalTrainerFacadeBeanLocal();
+	private final HRPersonalTrainerFacadeBeanLocal personalTrainerFacadeBean = new HRPersonalTrainerFacadeBeanBean();
 
 	private HRPersonalTrainerFacade() throws PersistentException {}
 

@@ -46,7 +46,7 @@ public class HRPersonalTrainerController extends HttpServlet {
 						break;
 					default:
 						response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-						response.getWriter().print(Utils.makeError(405, "target is not allowed."));
+						response.getWriter().print(Utils.makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "target is not allowed."));
 				}
 		} catch (PersistentException e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class HRPersonalTrainerController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "unexpected error occurred"));
+			out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "hibernate session error."));
 		}
 	}
 
