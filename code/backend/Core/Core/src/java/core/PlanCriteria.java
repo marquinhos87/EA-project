@@ -20,21 +20,19 @@ import org.orm.criteria.*;
 
 public class PlanCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
-	public final IntegerExpression currentWeekId;
-	public final AssociationExpression currentWeek;
 	public final BooleanExpression done;
 	public final BooleanExpression modified;
 	public final DateExpression initialDate;
+	public final IntegerExpression currentWeek;
 	public final CollectionExpression weeks;
 	
 	public PlanCriteria(Criteria criteria) {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
-		currentWeekId = new IntegerExpression("currentWeek.ID", this);
-		currentWeek = new AssociationExpression("currentWeek", this);
 		done = new BooleanExpression("done", this);
 		modified = new BooleanExpression("modified", this);
 		initialDate = new DateExpression("initialDate", this);
+		currentWeek = new IntegerExpression("currentWeek", this);
 		weeks = new CollectionExpression("ORM_Weeks", this);
 	}
 	
@@ -44,10 +42,6 @@ public class PlanCriteria extends AbstractORMCriteria {
 	
 	public PlanCriteria() throws PersistentException {
 		this(DiagramasPersistentManager.instance().getSession());
-	}
-	
-	public WeekCriteria createCurrentWeekCriteria() {
-		return new WeekCriteria(createCriteria("currentWeek"));
 	}
 	
 	public WeekCriteria createWeeksCriteria() {

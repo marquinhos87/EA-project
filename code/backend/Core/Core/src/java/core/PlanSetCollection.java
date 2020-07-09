@@ -74,6 +74,7 @@ public class PlanSetCollection extends org.orm.util.ORMSet {
 	 * <li>done</li>
 	 * <li>modified</li>
 	 * <li>initialDate</li>
+	 * <li>currentWeek</li>
 	 * </ul>
 	 * @return The persistent objects sorted array
 	 */
@@ -88,6 +89,7 @@ public class PlanSetCollection extends org.orm.util.ORMSet {
 	 * <li>done</li>
 	 * <li>modified</li>
 	 * <li>initialDate</li>
+	 * <li>currentWeek</li>
 	 * </ul>
 	 * @param ascending true for ascending, false for descending
 	 * @return The persistent objects sorted array

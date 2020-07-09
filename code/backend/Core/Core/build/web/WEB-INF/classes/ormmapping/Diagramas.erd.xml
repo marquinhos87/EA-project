@@ -13,18 +13,6 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="WeekID">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>core.Week.ID</ReferencedColumn>
-      <Type>9</Type>
-      <Length>10</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
     <Column name="PersonalTrainerUsername">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
@@ -65,6 +53,17 @@
       <Type>17</Type>
       <Length>0</Length>
       <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="CurrentWeek">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>9</Type>
+      <Length>10</Length>
+      <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
       <Index>false</Index>
@@ -431,16 +430,6 @@
     <ReferencedTable>Plan</ReferencedTable>
     <Columns>
       <Column>PlanID</Column>
-    </Columns>
-    <RefColumns>
-      <Column>ID</Column>
-    </RefColumns>
-  </ForeignKey>
-  <ForeignKey name="FKPlan658559">
-    <ReferenceTable>Plan</ReferenceTable>
-    <ReferencedTable>Week</ReferencedTable>
-    <Columns>
-      <Column>WeekID</Column>
     </Columns>
     <RefColumns>
       <Column>ID</Column>

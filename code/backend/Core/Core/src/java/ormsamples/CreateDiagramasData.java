@@ -10,7 +10,7 @@ public class CreateDiagramasData {
 		PersistentTransaction t = core.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
 			core.Plan lcorePlan = core.PlanDAO.createPlan();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : weeks, modified, currentWeek
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : weeks, currentWeek, modified
 			core.PlanDAO.save(lcorePlan);
 			core.Workout lcoreWorkout = core.WorkoutDAO.createWorkout();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : tasks, done

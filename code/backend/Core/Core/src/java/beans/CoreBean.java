@@ -93,7 +93,7 @@ public class CoreBean implements CoreBeanLocal {
             Iterator it = plan.weeks.getIterator();
             for( int i = 0 ; i < json.get("week").getAsInt() ; week = (Week) it.next());
         } else {
-            week = plan.getCurrentWeek();
+            //week = plan.getCurrentWeek();
         }
         
         // TODO week to json
@@ -123,7 +123,7 @@ public class CoreBean implements CoreBeanLocal {
             for( int i = 0 ; i < json.get("week").getAsInt() ; week = (Week) it.next());
         } // get actual week
         else {
-            week = plan.getCurrentWeek();
+            //week = plan.getCurrentWeek();
         }
         
         // TODO week to json
@@ -198,9 +198,12 @@ public class CoreBean implements CoreBeanLocal {
             
             plan = new Plan();
             plan.weeks.add(week);
-            plan.setCurrentWeek(week);
+            //plan.setCurrentWeek(week);
+            plan.setCurrentWeek(1);
             plan.setDone(false);
             plan.setModified(false);
+            
+            
             
             // This code purpose is to detect the next SUNDAY
             ZoneId defaultZoneId = ZoneId.systemDefault();
@@ -216,16 +219,20 @@ public class CoreBean implements CoreBeanLocal {
             pt.plans.add(plan);
 
             PersonalTrainerDAO.save(pt);
-            PlanDAO.save(plan);
+            session.flush();
+            
             ClientDAO.save(client);
         }
         else {
+            //Here dont need to associate Client and PersonalTrainer because here adds a new week to an existing plan already associated with the previous ones
             if ((plan = PlanDAO.getPlanByORMID(CoreFacade.getSession(), json.get("planId").getAsInt())) == null)
                 throw new PlanDontExistException(json.get("planId").getAsString());
             
-            plan.weeks.add(week); 
+            plan.weeks.add(week);
+            Iterator weeks = plan.weeks.getIterator();
+            //for( ; )
             //TODO
-            Week currentWeek = plan.getCurrentWeek();
+            //Week currentWeek = plan.getCurrentWeek();
            
             PlanDAO.save(plan);
         }

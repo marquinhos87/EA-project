@@ -89,8 +89,7 @@ public class Workout {
 	public final core.TaskSetCollection tasks = new core.TaskSetCollection(this, _ormAdapter, ORMConstants.KEY_WORKOUT_TASKS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public boolean isDone() {
-		//TODO: Implement Method
-		throw new UnsupportedOperationException();
+		return done;
 	}
 	
 	public String toString() {

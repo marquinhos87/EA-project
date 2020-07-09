@@ -25,32 +25,22 @@ public class Plan {
 		return null;
 	}
 	
-	private void this_setOwner(Object owner, int key) {
-		if (key == ORMConstants.KEY_PLAN_CURRENTWEEK) {
-			this.currentWeek = (core.Week) owner;
-		}
-	}
-	
 	org.orm.util.ORMAdapter _ormAdapter = new org.orm.util.AbstractORMAdapter() {
 		public java.util.Set getSet(int key) {
 			return this_getSet(key);
-		}
-		
-		public void setOwner(Object owner, int key) {
-			this_setOwner(owner, key);
 		}
 		
 	};
 	
 	private int ID;
 	
-	private core.Week currentWeek;
-	
 	private boolean done;
 	
 	private boolean modified;
 	
 	private java.util.Date initialDate;
+	
+	private int currentWeek;
 	
 	private java.util.Set ORM_weeks = new java.util.HashSet();
 	
@@ -90,6 +80,14 @@ public class Plan {
 		return initialDate;
 	}
 	
+	public void setCurrentWeek(int value) {
+		this.currentWeek = value;
+	}
+	
+	public int getCurrentWeek() {
+		return currentWeek;
+	}
+	
 	private void setORM_Weeks(java.util.Set value) {
 		this.ORM_weeks = value;
 	}
@@ -100,22 +98,12 @@ public class Plan {
 	
 	public final core.WeekSetCollection weeks = new core.WeekSetCollection(this, _ormAdapter, ORMConstants.KEY_PLAN_WEEKS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
-	public void setCurrentWeek(core.Week value) {
-		this.currentWeek = value;
-	}
-	
-	public core.Week getCurrentWeek() {
-		return currentWeek;
-	}
-	
 	public boolean isDone() {
-		//TODO: Implement Method
-		throw new UnsupportedOperationException();
+		return done;
 	}
 	
 	public boolean isModified() {
-		//TODO: Implement Method
-		throw new UnsupportedOperationException();
+		return modified;
 	}
 	
 	public String toString() {

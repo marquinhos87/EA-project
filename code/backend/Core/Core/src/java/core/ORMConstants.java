@@ -18,8 +18,6 @@ public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	
 	final int KEY_PERSONALTRAINER_PLANS = -1489616928;
 	
-	final int KEY_PLAN_CURRENTWEEK = 1983915287;
-	
 	final int KEY_PLAN_WEEKS = -1544919415;
 	
 	final int KEY_TASK_SERIES = -601088431;

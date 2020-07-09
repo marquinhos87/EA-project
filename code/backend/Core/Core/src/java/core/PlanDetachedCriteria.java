@@ -20,37 +20,30 @@ import org.orm.criteria.*;
 
 public class PlanDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression ID;
-	public final IntegerExpression currentWeekId;
-	public final AssociationExpression currentWeek;
 	public final BooleanExpression done;
 	public final BooleanExpression modified;
 	public final DateExpression initialDate;
+	public final IntegerExpression currentWeek;
 	public final CollectionExpression weeks;
 	
 	public PlanDetachedCriteria() {
 		super(core.Plan.class, core.PlanCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
-		currentWeekId = new IntegerExpression("currentWeek.ID", this.getDetachedCriteria());
-		currentWeek = new AssociationExpression("currentWeek", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		modified = new BooleanExpression("modified", this.getDetachedCriteria());
 		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
+		currentWeek = new IntegerExpression("currentWeek", this.getDetachedCriteria());
 		weeks = new CollectionExpression("ORM_Weeks", this.getDetachedCriteria());
 	}
 	
 	public PlanDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, core.PlanCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
-		currentWeekId = new IntegerExpression("currentWeek.ID", this.getDetachedCriteria());
-		currentWeek = new AssociationExpression("currentWeek", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		modified = new BooleanExpression("modified", this.getDetachedCriteria());
 		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
+		currentWeek = new IntegerExpression("currentWeek", this.getDetachedCriteria());
 		weeks = new CollectionExpression("ORM_Weeks", this.getDetachedCriteria());
-	}
-	
-	public WeekDetachedCriteria createCurrentWeekCriteria() {
-		return new WeekDetachedCriteria(createCriteria("currentWeek"));
 	}
 	
 	public WeekDetachedCriteria createWeeksCriteria() {
