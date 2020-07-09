@@ -51,6 +51,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		PersonalTrainerDAO.save(pt);
 		String token = Utils.tokenGenerate(pt.getUsername());
 		Jedis redis = new Jedis(REDIS_HOST, REDIS_PORT);
+		if (redis.exists(pt.getUsername())) throw new PersonalTrainerAlreadyExistsException(pt.getUsername() + " on redis");
 		redis.set(pt.getUsername(), token); // creates and saves token on redis
 		System.err.println(pt);
 		System.err.println("PersonalTrainer saved to database. Token saved to redis...");
@@ -74,6 +75,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		String password = jsonObject.get("password").getAsString();
 		if (pt.getPassword().equals(password) == false) throw new InvalidPasswordException(password);
 		Jedis redis = new Jedis(REDIS_HOST, REDIS_PORT);
+		if (redis.exists(pt.getUsername()) == false) throw new PersonalTrainerNotExistsException(pt.getUsername()+ " on redis");
 		String oldToken = redis.get(username);
 		String newToken = Utils.tokenGenerate(username);
 		redis.set(pt.getUsername(), newToken); // creates and saves new token on redis
