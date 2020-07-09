@@ -21,6 +21,15 @@ import java.text.SimpleDateFormat;
  */
 public class WeekDeserializer implements JsonDeserializer<Week> {
 
+    /**
+     * Deserialize a JsonElement to a Week.
+     * 
+     * @param je The JsonElement to deserialize.
+     * @param type
+     * @param jdc
+     * @return A Week.
+     * @throws JsonParseException 
+     */
     @Override
     public Week deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
         Week week = null;

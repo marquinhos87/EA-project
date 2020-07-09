@@ -20,6 +20,15 @@ import java.lang.reflect.Type;
  */
 public class TaskDeserializer implements JsonDeserializer<Task> {
 
+    /**
+     * Deserialize a JsonElement to a Task.
+     * 
+     * @param je The JsonElement to deserialize.
+     * @param type
+     * @param jdc
+     * @return A Task.
+     * @throws JsonParseException 
+     */
     @Override
     public Task deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
         Task task = null;

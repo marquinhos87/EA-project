@@ -11,10 +11,18 @@ package exceptions;
  */
 public class InvalidWeekNumberException extends Exception {
 
+    /**
+     * InvalidWeekNumberException parameterized constructor.
+     * 
+     * @param message Error message.
+     */
     public InvalidWeekNumberException(String message) {
         super(message);
     }
     
+    /**
+     * InvalidWeekNumberException empty constructor.
+     */
     public InvalidWeekNumberException() {
         super();
     }

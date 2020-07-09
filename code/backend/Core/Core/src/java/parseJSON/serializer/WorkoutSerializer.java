@@ -18,6 +18,14 @@ import java.lang.reflect.Type;
  */
 public class WorkoutSerializer implements JsonSerializer<Workout> {
 
+    /**
+     * Serialize a Workout to a JsonElement.
+     * 
+     * @param workout The workout to serialize.
+     * @param type
+     * @param jsc
+     * @return A JsonElement with a Workout inside.
+     */
     @Override
     public JsonElement serialize(Workout workout, Type type, JsonSerializationContext jsc) {
         final JsonObject jsonObj = new JsonObject();

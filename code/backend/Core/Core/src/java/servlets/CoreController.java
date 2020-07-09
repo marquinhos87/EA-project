@@ -24,7 +24,7 @@ import static utils.Utils.makeSuccess;
 @WebServlet(name="api", urlPatterns="api/*")
 public class CoreController extends HttpServlet {
 
-    private CoreFacade coreFacade = CoreFacade.getInstance();
+    private final CoreFacade coreFacade = CoreFacade.getInstance();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -36,8 +36,6 @@ public class CoreController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CoreFacade facade = CoreFacade.getInstance();
-
         // Obtain target
         String[] url = request.getRequestURI().split("/");
         String target = url[url.length-1];
@@ -51,36 +49,37 @@ public class CoreController extends HttpServlet {
         String data = sb.toString();
 
         String res = null;
-
+        
+        // Execute the correct method
         try {
             switch (target) {
                 case "createUserToken":
-                    facade.createUserToken(data);
+                    coreFacade.createUserToken(data);
                     response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 case "updateToken":
-                    facade.updateToken(data);
+                    coreFacade.updateToken(data);
                     response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 case "finishWorkout":
-                    facade.finishWorkout(data);
+                    coreFacade.finishWorkout(data);
                     response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 case "createWeek":
-                    facade.createWeek(data);
+                    coreFacade.createWeek(data);
                     response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 case "getWeekByClient":
                     response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK, facade.getWeekByClient(data));
+                    res = makeSuccess(HttpServletResponse.SC_OK, coreFacade.getWeekByClient(data));
                     break;
                 case "getWeekByPersonalTrainer":
                     response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK, facade.getWeekByPersonalTrainer(data));
+                    res = makeSuccess(HttpServletResponse.SC_OK, coreFacade.getWeekByPersonalTrainer(data));
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
@@ -93,35 +92,55 @@ public class CoreController extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Hibernate internal error. " + e.getMessage());
         }
-        catch (PersonalTrainerDontExistsException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            res = makeError(HttpServletResponse.SC_NOT_FOUND,"PersonalTrainer " + e.getMessage() + " dont exists.");
-        }
         catch (ClientDontExistsException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             res = makeError(HttpServletResponse.SC_NOT_FOUND,"Client " + e.getMessage() + " dont exists.");
+        }
+        catch (ClientAlreadyHasAnPlanException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            res = makeError(HttpServletResponse.SC_CONFLICT,"Client (" + e.getMessage() + ") already have a plan.");
+        }
+        catch (InvalidTokenException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res = makeError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid token (" + e.getMessage() + ") for given user.");
+        }
+        catch (InvalidWeekNumberException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res = makeError(HttpServletResponse.SC_BAD_REQUEST,"Plan with Id = " + e.getMessage() + " dont exists.");
         }
         catch (JsonKeyInFaultException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             res = makeError(HttpServletResponse.SC_BAD_REQUEST,"Key in fault on Post (" + e.getMessage() + ")");
         }
+        catch (PersonalTrainerDontExistsException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            res = makeError(HttpServletResponse.SC_NOT_FOUND,"PersonalTrainer " + e.getMessage() + " dont exists.");
+        }
+        catch (PlanDontExistException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            res = makeError(HttpServletResponse.SC_NOT_FOUND,"Plan with Id = " + e.getMessage() + " dont exists.");
+        }
         catch (UserAlreadyExistsException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_CONFLICT);
             res = makeError(HttpServletResponse.SC_CONFLICT,"User with username = " + e.getMessage() + " already registered.");
         }
-        catch (WorkoutDontExistException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            res = makeError(HttpServletResponse.SC_NOT_FOUND,"Invalid Workout Id (" + e.getMessage() + ").");
-        }
         catch (UserDontExistsException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             res = makeError(HttpServletResponse.SC_NOT_FOUND,"User " + e.getMessage() + " dont exists.");
+        }
+        catch (WorkoutAlreadyDoneException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            res = makeError(HttpServletResponse.SC_CONFLICT,"Workout (" + e.getMessage() + ") already completed.");
         }
         catch (WorkoutDontBelongToUserException e) {
             e.printStackTrace();
@@ -129,30 +148,10 @@ public class CoreController extends HttpServlet {
             String[] aux = e.getMessage().split("\t");
             res = makeError(HttpServletResponse.SC_UNAUTHORIZED,"Workout (" + aux[0] + ") dont belong to user (" + aux[1] + ".");
         }
-        catch (WorkoutAlreadyDoneException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_CONFLICT);
-            res = makeError(HttpServletResponse.SC_CONFLICT,"Workout (" + e.getMessage() + ") already completed.");
-        }
-        catch (InvalidTokenException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res = makeError(HttpServletResponse.SC_UNAUTHORIZED,"Invalid token (" + e.getMessage() + ") for given user.");
-        }
-        catch (ClientAlreadyHasAnPlanException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_CONFLICT);
-            res = makeError(HttpServletResponse.SC_CONFLICT,"Client (" + e.getMessage() + ") already have a plan.");
-        }
-        catch (PlanDontExistException e) {
+        catch (WorkoutDontExistException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            res = makeError(HttpServletResponse.SC_NOT_FOUND,"Plan with Id = " + e.getMessage() + " dont exists.");
-        }
-        catch (InvalidWeekNumberException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            res = makeError(HttpServletResponse.SC_BAD_REQUEST,"Plan with Id = " + e.getMessage() + " dont exists.");
+            res = makeError(HttpServletResponse.SC_NOT_FOUND,"Invalid Workout Id (" + e.getMessage() + ").");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -175,6 +174,7 @@ public class CoreController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Method get is not support for this API
         response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         response.setContentType("application/json");
         response.getWriter().print(makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"Method not allowed."));

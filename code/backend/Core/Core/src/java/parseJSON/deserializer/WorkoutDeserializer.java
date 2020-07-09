@@ -21,6 +21,15 @@ import java.text.SimpleDateFormat;
  */
 public class WorkoutDeserializer implements JsonDeserializer<Workout> {
 
+    /**
+     * Deserialize a JsonElement to a Workout.
+     * 
+     * @param je The JsonElement to deserialize.
+     * @param type
+     * @param jdc
+     * @return A Workout.
+     * @throws JsonParseException 
+     */
     @Override
     public Workout deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
         Workout workout = null;

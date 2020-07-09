@@ -18,6 +18,14 @@ import java.lang.reflect.Type;
  */
 public class WeekSerializer implements JsonSerializer<Week> {
     
+    /**
+     * Serialize a Week to a JsonElement.
+     * 
+     * @param week The week to serialize.
+     * @param type
+     * @param jsc
+     * @return A JsonElement with a Week inside.
+     */
     @Override
     public JsonElement serialize(Week week, Type type, JsonSerializationContext jsc) {
         final JsonObject jsonObj = new JsonObject();

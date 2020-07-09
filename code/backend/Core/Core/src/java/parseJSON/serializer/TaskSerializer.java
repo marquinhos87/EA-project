@@ -18,6 +18,14 @@ import java.lang.reflect.Type;
  */
 public class TaskSerializer implements JsonSerializer<Task> {
 
+    /**
+     * Serialize a Task to a JsonElement.
+     * 
+     * @param task The task to serialize.
+     * @param type
+     * @param jsc
+     * @return A JsonElement with a Task inside.
+     */
     @Override
     public JsonElement serialize(Task task, Type type, JsonSerializationContext jsc) {
         final JsonObject jsonObj = new JsonObject();

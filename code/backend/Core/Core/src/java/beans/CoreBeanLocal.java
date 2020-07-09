@@ -5,10 +5,9 @@
  */
 package beans;
 
-
 import exceptions.*;
-import org.orm.PersistentException;
 
+import org.orm.PersistentException;
 import javax.ejb.Local;
 
 /**
@@ -49,6 +48,7 @@ public interface CoreBeanLocal {
      * @throws ClientDontExistsException if Client dont exist
      * @throws UserDontExistsException if username given dont exists
      * @throws InvalidTokenException if for given user the token is invalid
+     * @throws InvalidWeekNumberException if given number of the week is incorrect
      */
     String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException, UserDontExistsException, InvalidWeekNumberException;
 
@@ -63,6 +63,7 @@ public interface CoreBeanLocal {
      * @throws UserDontExistsException if username given dont exists
      * @throws InvalidTokenException if for given user the token is invalid
      * @throws ClientDontExistsException if Client dont exist
+     * @throws InvalidWeekNumberException if given number of the week is incorrect
      */
     String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException, UserDontExistsException, ClientDontExistsException, InvalidWeekNumberException;
 
