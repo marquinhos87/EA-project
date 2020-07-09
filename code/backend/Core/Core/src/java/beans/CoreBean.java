@@ -10,6 +10,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import core.*;
 import exceptions.*;
+import static java.time.DayOfWeek.SUNDAY;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalAdjusters.next;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 import redis.clients.jedis.Jedis;
@@ -17,6 +21,9 @@ import utils.Utils;
 
 import javax.ejb.Stateless;
 import java.util.*;
+import parseJSON.deserializer.TaskDeserializer;
+import parseJSON.deserializer.WorkoutDeserializer;
+import parseJSON.serializer.WeekSerializer;
 
 /**
  *
@@ -35,13 +42,11 @@ public class CoreBean implements CoreBeanLocal {
     public CoreBean() {
         gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
+                .registerTypeAdapter(Week.class, new WeekSerializer())
+                .registerTypeAdapter(Workout.class, new WorkoutDeserializer())
+                .registerTypeAdapter(Task.class, new TaskDeserializer())
                 .create();
         jedis = new Jedis(REDIS_HOST,REDIS_PORT);
-    }
-    
-    @Override
-    public String sayHello(String name) {
-        return "Hello, " + name;
     }
 
     @Override
@@ -170,13 +175,71 @@ public class CoreBean implements CoreBeanLocal {
         if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(session,username)) == null) {
             pt = new PersonalTrainer();
             pt.setUsername(username);
+        }
+        
+        Plan plan;
+        Week week = gson.fromJson(json.get("week"), Week.class);
+        // Verify if createWeek has called to create a new plan or to add a new week to an existing plan
+        if(!json.has("planId")) {
+            
+            if(!json.has("clientUsername"))
+                throw new JsonKeyInFaultException("clientUsername");
+            String clientUsername = json.get("clientUsername").getAsString();
+            if(ClientDAO.getClientByORMID(session,clientUsername) != null)
+                throw new ClientAlreadyHasAnPlanException(clientUsername);
+            
+            plan = new Plan();
+            plan.weeks.add(week);
+            plan.setCurrentWeek(week);
+            plan.setDone(false);
+            plan.setModified(false);
+            
+            // This code purpose is to detect the next SUNDAY
+            ZoneId defaultZoneId = ZoneId.systemDefault();
+            LocalDate localDate = LocalDate.now();
+            if(localDate.getDayOfWeek() != SUNDAY)
+                localDate = localDate.with(next(SUNDAY));
+            plan.setInitialDate(Date.from(localDate.atStartOfDay(defaultZoneId).toInstant()));
+            
+            Client client = new Client();
+            client.setUsername(clientUsername);
+            client.setPlan(plan);
+            
+            pt.plans.add(plan);
+            
+            PlanDAO.save(plan);
+            
+            ClientDAO.save(client);
+            
             PersonalTrainerDAO.save(pt);
+            
             session.flush();
         }
-
+        else {
+            if ((plan = PlanDAO.getPlanByORMID(CoreFacade.getSession(), json.get("planId").getAsInt())) == null)
+                throw new PlanDontExistException(json.get("planId").getAsString());
+            
+            plan.weeks.add(week);
+            
+            //TODO
+            Week currentWeek = plan.getCurrentWeek();
+            
+           
+            PlanDAO.save(plan);
+            
+        }
+        
+        
+        
+        
+        
+        
+        /*String data = json.get("week").getAsJsonObject().toString();
         // Verify if createWeek has called to create a new plan or to add a new week to an existing plan
         if(json.has("planId")) {
-            planDirector.buildPlan(json.get("planId").getAsInt(),json.get("week").getAsString());
+            plan = planDirector.buildPlan(json.get("planId").getAsInt(),data);
+            PlanDAO.save(plan);
+            session.flush();
         } else {
             // Create Plan and associate to PersonalTrainer and Client
             if(!json.has("clientUsername"))
@@ -184,12 +247,15 @@ public class CoreBean implements CoreBeanLocal {
             String clientUsername = json.get("clientUsername").getAsString();
             if(ClientDAO.getClientByORMID(session,clientUsername) != null)
                 throw new ClientAlreadyHasAnPlanException(clientUsername);
-            Plan plan = planDirector.buildPlan(null,json.get("week").getAsString());
+            plan = planDirector.buildPlan(null,data);
             Client client = new Client();
             client.setUsername(clientUsername);
             client.setPlan(plan);
+            pt.plans.add(plan);
+            
             ClientDAO.save(client);
+            PersonalTrainerDAO.save(pt);
             session.flush();
-        }
+        }*/
     }
 }

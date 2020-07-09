@@ -8,8 +8,6 @@ package servlets;
 import core.CoreFacade;
 import exceptions.*;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -94,7 +92,7 @@ public class CoreController extends HttpServlet {
         catch (PersistentException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Hibernate internal error.");
+            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Hibernate internal error. " + e.getMessage());
         }
         catch (PersonalTrainerDontExistsException e) {
             e.printStackTrace();
@@ -160,7 +158,7 @@ public class CoreController extends HttpServlet {
         catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Unexcepted error.");
+            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Unexcepted error. " + e.getMessage());
         }
         finally {
             response.setContentType("application/json");

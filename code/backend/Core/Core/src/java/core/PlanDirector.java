@@ -26,6 +26,9 @@ public class PlanDirector {
 	/**
 	 * 
 	 * @param data
+         * @return 
+         * @throws PersistentException
+         * @throws PlanDontExistException
 	 */
 	public Plan buildPlan(Integer planId, String data) throws PersistentException, PlanDontExistException {
 		planBuilder.buildWeek(planId,data);

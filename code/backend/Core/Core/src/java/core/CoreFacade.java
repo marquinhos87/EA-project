@@ -13,8 +13,7 @@ import java.util.logging.Logger;
 
 public class CoreFacade {
 
-    CoreBeanLocal coreBean = lookupCoreBeanLocal();
-
+    private final CoreBeanLocal coreBean = lookupCoreBeanLocal();
     private static CoreFacade coreFacade;
     private static PersistentSession session;
 
@@ -31,73 +30,70 @@ public class CoreFacade {
             throw new RuntimeException(ne);
         }
     }
-
-    public String sayHello(String name) {
-        return coreBean.sayHello(name);
+    
+    public static CoreFacade getInstance() {
+        if (coreFacade == null) {
+            coreFacade = new CoreFacade();
+        }
+        return coreFacade;
     }
-	public static CoreFacade getInstance() {
-		if (coreFacade == null) {
-			coreFacade = new CoreFacade();
-		}
-		return coreFacade;
-	}
 
-	public static PersistentSession getSession() {
-		if (session == null) {
-			try {
-				session = DiagramasPersistentManager.instance().getSession();
-			} catch (PersistentException e) {
-				e.printStackTrace();
-			}
-		}
-		return session;
-	}
+    public static PersistentSession getSession() {
+        if (session == null) {
+            try {
+                session = DiagramasPersistentManager.instance().getSession();
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+        }
+        return session;
+    }
 
-	/**
-	 * 
-	 * @param usernameAsJson
-	 */
-	public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException {
-		coreBean.createUserToken(usernameAsJson);
-	}
+    /**
+     * 
+     * @param usernameAsJson
+     */
+    public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException {
+        coreBean.createUserToken(usernameAsJson);
+    }
 
-	/**
-	 * 
-	 * @param usernameAndTokenAsJson
-	 */
-	public void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException {
-		coreBean.updateToken(usernameAndTokenAsJson);
-	}
+    /**
+     * 
+     * @param usernameAndTokenAsJson
+     */
+    public void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException {
+        coreBean.updateToken(usernameAndTokenAsJson);
+    }
 
-	/**
-	 * 
-	 * @param usernameAndWeekAsJSON
-	 */
-	public String getWeekByClient(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException {
-		return coreBean.getWeekByClient(usernameAndWeekAsJSON);
-	}
+    /**
+     * 
+     * @param usernameAndWeekAsJSON
+     */
+    public String getWeekByClient(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException {
+        return coreBean.getWeekByClient(usernameAndWeekAsJSON);
+    }
 
-	/**
-	 *
-	 * @param usernameAndWeekAsJSON
-	 */
-	public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientDontExistsException {
-		return coreBean.getWeekByPersonalTrainer(usernameAndWeekAsJSON);
-	}
+    /**
+     *
+     * @param usernameAndWeekAsJSON
+     */
+    public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientDontExistsException {
+        return coreBean.getWeekByPersonalTrainer(usernameAndWeekAsJSON);
+    }
 
-	/**
-	 * 
-	 * @param usernameAndWorkoutIdAsJSON
-	 */
-	public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException, WorkoutAlreadyDoneException, WorkoutDontExistException, WorkoutDontBelongToUserException {
-		coreBean.finishWorkout(usernameAndWorkoutIdAsJSON);
-	}
+    /**
+     * 
+     * @param usernameAndWorkoutIdAsJSON
+     */
+    public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException, WorkoutAlreadyDoneException, WorkoutDontExistException, WorkoutDontBelongToUserException {
+        coreBean.finishWorkout(usernameAndWorkoutIdAsJSON);
+    }
 
-	/**
-	 * 
-	 * @param weekAsJson
-	 */
-	public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException {
-		coreBean.createWeek(weekAsJson);
-	}
+    /**
+     * 
+     * @param weekAsJson
+     */
+    public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException {
+        coreBean.createWeek(weekAsJson);
+    }
 }

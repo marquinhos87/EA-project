@@ -13,6 +13,8 @@
  */
 package core;
 
+import java.util.Arrays;
+
 public class Task {
 	public Task() {
 	}
@@ -97,9 +99,12 @@ public class Task {
 	}
 	
 	public final core.SerieSetCollection series = new core.SerieSetCollection(this, _ormAdapter, ORMConstants.KEY_TASK_SERIES, ORMConstants.KEY_MUL_ONE_TO_MANY);
+
+    @Override
+    public String toString() {
+        return "Task{" + "ID=" + ID + ", designation=" + designation + ", rest=" + rest + ", duration=" + duration + ", equipment=" + equipment + ", series=" + Arrays.toString(series.toArray()) + '}';
+    }
 	
-	public String toString() {
-		return String.valueOf(getID());
-	}
+
 	
 }
