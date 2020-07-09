@@ -60,12 +60,9 @@ public class Serie {
 	public String getRest() {
 		return rest;
 	}
-
-    @Override
-    public String toString() {
-        return "Serie{" + "ID=" + ID + ", description=" + description + ", repetitions=" + repetitions + ", rest=" + rest + '}';
-    }
 	
-
+	public String toString() {
+		return String.valueOf(getID());
+	}
 	
 }

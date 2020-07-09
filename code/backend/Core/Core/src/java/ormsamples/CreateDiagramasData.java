@@ -30,6 +30,9 @@ public class CreateDiagramasData {
 			core.Week lcoreWeek = core.WeekDAO.createWeek();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : workouts, number
 			core.WeekDAO.save(lcoreWeek);
+			core.User lcoreUser = core.UserDAO.createUser();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
+			core.UserDAO.save(lcoreUser);
 			t.commit();
 		}
 		catch (Exception e) {

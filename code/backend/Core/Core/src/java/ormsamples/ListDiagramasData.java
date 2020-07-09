@@ -65,6 +65,14 @@ public class ListDiagramasData {
 		}
 		System.out.println(length + " record(s) retrieved.");
 		
+		System.out.println("Listing User...");
+		core.User[] coreUsers = core.UserDAO.listUserByQuery(null, null);
+		length = Math.min(coreUsers.length, ROW_COUNT);
+		for (int i = 0; i < length; i++) {
+			System.out.println(coreUsers[i]);
+		}
+		System.out.println(length + " record(s) retrieved.");
+		
 	}
 	
 	public void listByCriteria() throws PersistentException {
@@ -151,6 +159,18 @@ public class ListDiagramasData {
 			 System.out.println(coreWeeks[i]);
 		}
 		System.out.println(length + " Week record(s) retrieved."); 
+		
+		System.out.println("Listing User by Criteria...");
+		core.UserCriteria lcoreUserCriteria = new core.UserCriteria();
+		// Please uncomment the follow line and fill in parameter(s) 
+		//lcoreUserCriteria.username.eq();
+		lcoreUserCriteria.setMaxResults(ROW_COUNT);
+		core.User[] coreUsers = lcoreUserCriteria.listUser();
+		length =coreUsers== null ? 0 : Math.min(coreUsers.length, ROW_COUNT); 
+		for (int i = 0; i < length; i++) {
+			 System.out.println(coreUsers[i]);
+		}
+		System.out.println(length + " User record(s) retrieved."); 
 		
 	}
 	

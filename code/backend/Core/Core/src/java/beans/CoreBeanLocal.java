@@ -22,20 +22,22 @@ public interface CoreBeanLocal {
      * Create a User.
      *
      * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
      * @throws UserAlreadyExistsException if users token already register
      * @throws JsonKeyInFaultException if has some keys in fault 
      */
-    void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException;
+    void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException;
 
     /**
      * Update a User token.
      *
      * @param usernameAndTokenAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
      * @throws JsonKeyInFaultException if has some keys in fault 
      * @throws InvalidTokenException if for given user the token is invalid
      * @throws UserDontExistsException if username given dont exists
      */
-    void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException;
+    void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException, PersistentException;
 
     /**
      * Get a week of a Client plan.

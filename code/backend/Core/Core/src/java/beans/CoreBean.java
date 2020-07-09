@@ -16,12 +16,12 @@ import java.time.ZoneId;
 import static java.time.temporal.TemporalAdjusters.next;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
-import redis.clients.jedis.Jedis;
 import utils.Utils;
 
 import javax.ejb.Stateless;
 import java.util.*;
 import parseJSON.deserializer.TaskDeserializer;
+import parseJSON.deserializer.WeekDeserializer;
 import parseJSON.deserializer.WorkoutDeserializer;
 import parseJSON.serializer.WeekSerializer;
 
@@ -32,42 +32,46 @@ import parseJSON.serializer.WeekSerializer;
 @Stateless
 public class CoreBean implements CoreBeanLocal {
 
-   
-    private static final String REDIS_HOST = "localhost";
-    private static final int REDIS_PORT = 6379;
     private final Gson gson;
-    private final Jedis jedis;
     private PlanDirector planDirector = new PlanDirector(new ConcretePlanBuilder());
 
     public CoreBean() {
         gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd")
-                .registerTypeAdapter(Week.class, new WeekSerializer())
+                .registerTypeAdapter(Week.class, new WeekDeserializer())
                 .registerTypeAdapter(Workout.class, new WorkoutDeserializer())
                 .registerTypeAdapter(Task.class, new TaskDeserializer())
                 .create();
-        jedis = new Jedis(REDIS_HOST,REDIS_PORT);
     }
 
     @Override
-    public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException {
+    public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
         JsonObject json = Utils.validateJson(gson, usernameAsJson, Arrays.asList("token", "username"));
 
-        if(jedis.exists(json.get("username").getAsString()))
+        PersistentSession session = CoreFacade.getSession();
+        if(UserDAO.getUserByORMID(session,json.get("username").getAsString()) != null)
             throw new UserAlreadyExistsException(json.get("username").getAsString());
-
-        jedis.set(json.get("username").getAsString(),json.get("token").getAsString());
+        
+        User user = new User();
+        user.setUsername(json.get("username").getAsString());
+        user.setToken(json.get("token").getAsString());
+        UserDAO.save(user);
+        
+        session.flush();
     }
 
     @Override
-    public void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException {
+    public void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException, PersistentException {
         JsonObject json = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "newToken", "username"));
 
         String username = json.get("username").getAsString();
         String token = json.get("oldToken").getAsString();
-        Utils.validateToken(token, username, jedis);
 
-        jedis.set(username,json.get("newToken").getAsString());
+        PersistentSession session = CoreFacade.getSession();
+        User user = Utils.validateToken(token,username,session);
+        user.setToken(json.get("newToken").getAsString());
+        UserDAO.save(user);
+        session.flush();
     }
 
     @Override
@@ -76,9 +80,10 @@ public class CoreBean implements CoreBeanLocal {
 
         String username = json.get("username").getAsString();
         String token = json.get("token").getAsString();
-        Utils.validateToken(token, username, jedis);
 
         PersistentSession session = CoreFacade.getSession();
+        Utils.validateToken(token,username,session);
+        
         Client client;
         if((client = ClientDAO.getClientByORMID(session,username)) == null)
             throw new ClientDontExistsException(username);
@@ -102,9 +107,10 @@ public class CoreBean implements CoreBeanLocal {
 
         String username = json.get("username").getAsString();
         String token = json.get("token").getAsString();
-        Utils.validateToken(token, username, jedis);
 
         PersistentSession session = CoreFacade.getSession();
+        Utils.validateToken(token,username,session);
+        
         Client client;
         if((client = ClientDAO.getClientByORMID(session,json.get("clientUsername").getAsString())) == null)
             throw new ClientDontExistsException(json.get("clientUsername").getAsString());
@@ -131,9 +137,10 @@ public class CoreBean implements CoreBeanLocal {
 
         String username = json.get("username").getAsString();
         String token = json.get("token").getAsString();
-        Utils.validateToken(token, username, jedis);
 
         PersistentSession session = CoreFacade.getSession();
+        Utils.validateToken(token,username,session);
+        
         Client client;
         if((client = ClientDAO.getClientByORMID(session,username)) == null)
             throw new ClientDontExistsException(username);
@@ -167,9 +174,10 @@ public class CoreBean implements CoreBeanLocal {
 
         String username = json.get("username").getAsString();
         String token = json.get("token").getAsString();
-        Utils.validateToken(token, username, jedis);
 
         PersistentSession session = CoreFacade.getSession();
+        Utils.validateToken(token,username,session);
+        
         // Verify if PersonalTrainer exists and if not create him
         PersonalTrainer pt;
         if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(session,username)) == null) {
@@ -178,7 +186,7 @@ public class CoreBean implements CoreBeanLocal {
         }
         
         Plan plan;
-        Week week = gson.fromJson(json.get("week"), Week.class);
+        Week week = gson.fromJson(json.get("week").toString(), Week.class);
         // Verify if createWeek has called to create a new plan or to add a new week to an existing plan
         if(!json.has("planId")) {
             
@@ -206,56 +214,21 @@ public class CoreBean implements CoreBeanLocal {
             client.setPlan(plan);
             
             pt.plans.add(plan);
-            
-            PlanDAO.save(plan);
-            
-            ClientDAO.save(client);
-            
+
             PersonalTrainerDAO.save(pt);
-            
-            session.flush();
+            PlanDAO.save(plan);
+            ClientDAO.save(client);
         }
         else {
             if ((plan = PlanDAO.getPlanByORMID(CoreFacade.getSession(), json.get("planId").getAsInt())) == null)
                 throw new PlanDontExistException(json.get("planId").getAsString());
             
-            plan.weeks.add(week);
-            
+            plan.weeks.add(week); 
             //TODO
             Week currentWeek = plan.getCurrentWeek();
-            
            
             PlanDAO.save(plan);
-            
         }
-        
-        
-        
-        
-        
-        
-        /*String data = json.get("week").getAsJsonObject().toString();
-        // Verify if createWeek has called to create a new plan or to add a new week to an existing plan
-        if(json.has("planId")) {
-            plan = planDirector.buildPlan(json.get("planId").getAsInt(),data);
-            PlanDAO.save(plan);
-            session.flush();
-        } else {
-            // Create Plan and associate to PersonalTrainer and Client
-            if(!json.has("clientUsername"))
-                throw new JsonKeyInFaultException("clientUsername");
-            String clientUsername = json.get("clientUsername").getAsString();
-            if(ClientDAO.getClientByORMID(session,clientUsername) != null)
-                throw new ClientAlreadyHasAnPlanException(clientUsername);
-            plan = planDirector.buildPlan(null,data);
-            Client client = new Client();
-            client.setUsername(clientUsername);
-            client.setPlan(plan);
-            pt.plans.add(plan);
-            
-            ClientDAO.save(client);
-            PersonalTrainerDAO.save(pt);
-            session.flush();
-        }*/
+        session.flush();
     }
 }

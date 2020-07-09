@@ -13,8 +13,6 @@
  */
 package core;
 
-import java.util.Arrays;
-
 public class Workout {
 	public Workout() {
 	}
@@ -94,11 +92,9 @@ public class Workout {
 		//TODO: Implement Method
 		throw new UnsupportedOperationException();
 	}
-
-    @Override
-    public String toString() {
-        return "Workout{" + "ID=" + ID + ", designation=" + designation + ", date=" + date + ", done=" + done + ", tasks=" + Arrays.toString(tasks.toArray()) + '}';
-    }
 	
+	public String toString() {
+		return String.valueOf(getID());
+	}
 	
 }

@@ -3,9 +3,12 @@ package utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import exceptions.*;
-import redis.clients.jedis.Jedis;
 
 import java.util.Collection;
+import org.orm.PersistentSession;
+import core.User;
+import core.UserDAO;
+import org.orm.PersistentException;
 
 public class Utils {
 
@@ -19,25 +22,14 @@ public class Utils {
         return jsonObject;
     }
 
-    public static void validateToken(String token, String username, Jedis jedis) throws UserDontExistsException, InvalidTokenException {
-        if(!jedis.exists(username)) throw new UserDontExistsException(username);
-        if(!jedis.get(username).equals(token)) throw new InvalidTokenException(token);
+    public static User validateToken(String token, String username, PersistentSession session) throws UserDontExistsException, InvalidTokenException, PersistentException {
+        User user;
+        if((user = UserDAO.getUserByORMID(session,username)) == null)
+            throw new UserDontExistsException(username);
+        if(!user.getToken().equals(token))
+            throw new InvalidTokenException(token);
+        return user;
     }
-
-    /*public static String parametersToJSON(Map<String,String[]> parameters) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        int i = parameters.size();
-        for(Map.Entry<String,String[]> parameter: parameters.entrySet()) {
-            i--;
-            if(i == 0)
-                sb.append("\"" + parameter.getKey() + "\":\"" + parameter.getValue()[0] + "\"");
-            else
-                sb.append("\"" + parameter.getKey() + "\":\"" + parameter.getValue()[0] + "\",");
-        }
-        sb.append("}");
-        return sb.toString();
-    }*/
 
     public static String makeError(int code, String msg) {
         return "{ \"status\": \"error\", " +

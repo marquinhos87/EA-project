@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.orm.PersistentException;
-import redis.clients.jedis.exceptions.JedisConnectionException;
 import static utils.Utils.makeError;
 import static utils.Utils.makeSuccess;
 
@@ -149,11 +148,6 @@ public class CoreController extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             res = makeError(HttpServletResponse.SC_NOT_FOUND,"Plan with Id = " + e.getMessage() + " dont exists.");
-        }
-        catch (JedisConnectionException e) {
-            e.printStackTrace();
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Couldn't connect to Jedis server.");
         }
         catch (Exception e) {
             e.printStackTrace();

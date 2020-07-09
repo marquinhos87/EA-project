@@ -13,8 +13,6 @@
  */
 package core;
 
-import java.util.Arrays;
-
 public class Week {
 	public Week() {
 	}
@@ -89,10 +87,9 @@ public class Week {
 	}
 	
 	public final core.WorkoutSetCollection workouts = new core.WorkoutSetCollection(this, _ormAdapter, ORMConstants.KEY_WEEK_WORKOUTS, ORMConstants.KEY_MUL_ONE_TO_MANY);
-
-    @Override
-    public String toString() {
-        return "Week{" + "ID=" + ID + ", number=" + number + ", initialDate=" + initialDate + ", finalDate=" + finalDate + ", workouts=" + Arrays.toString(workouts.toArray()) + '}';
-    }
+	
+	public String toString() {
+		return String.valueOf(getID());
+	}
 	
 }

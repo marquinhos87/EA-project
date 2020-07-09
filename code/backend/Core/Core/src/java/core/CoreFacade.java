@@ -53,7 +53,7 @@ public class CoreFacade {
      * 
      * @param usernameAsJson
      */
-    public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException {
+    public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
         coreBean.createUserToken(usernameAsJson);
     }
 
@@ -61,7 +61,7 @@ public class CoreFacade {
      * 
      * @param usernameAndTokenAsJson
      */
-    public void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException {
+    public void updateToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException, PersistentException {
         coreBean.updateToken(usernameAndTokenAsJson);
     }
 
