@@ -27,10 +27,11 @@ public class PersonalTrainerDetachedCriteria extends AbstractORMDetachedCriteria
 	public final StringExpression name;
 	public final StringExpression email;
 	public final StringExpression sex;
-	public final StringExpression token;
+	public final DateExpression birthday;
 	public final IntegerExpression numberOfClassifications;
 	public final IntegerExpression numberOfClients;
 	public final IntegerExpression numberOfCreatedPlans;
+	public final BooleanExpression certified;
 	public final CollectionExpression clients;
 	
 	public PersonalTrainerDetachedCriteria() {
@@ -43,10 +44,11 @@ public class PersonalTrainerDetachedCriteria extends AbstractORMDetachedCriteria
 		name = new StringExpression("name", this.getDetachedCriteria());
 		email = new StringExpression("email", this.getDetachedCriteria());
 		sex = new StringExpression("sex", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
+		birthday = new DateExpression("birthday", this.getDetachedCriteria());
 		numberOfClassifications = new IntegerExpression("numberOfClassifications", this.getDetachedCriteria());
 		numberOfClients = new IntegerExpression("numberOfClients", this.getDetachedCriteria());
 		numberOfCreatedPlans = new IntegerExpression("numberOfCreatedPlans", this.getDetachedCriteria());
+		certified = new BooleanExpression("certified", this.getDetachedCriteria());
 		clients = new CollectionExpression("ORM_Clients", this.getDetachedCriteria());
 	}
 	
@@ -60,15 +62,16 @@ public class PersonalTrainerDetachedCriteria extends AbstractORMDetachedCriteria
 		name = new StringExpression("name", this.getDetachedCriteria());
 		email = new StringExpression("email", this.getDetachedCriteria());
 		sex = new StringExpression("sex", this.getDetachedCriteria());
-		token = new StringExpression("token", this.getDetachedCriteria());
+		birthday = new DateExpression("birthday", this.getDetachedCriteria());
 		numberOfClassifications = new IntegerExpression("numberOfClassifications", this.getDetachedCriteria());
 		numberOfClients = new IntegerExpression("numberOfClients", this.getDetachedCriteria());
 		numberOfCreatedPlans = new IntegerExpression("numberOfCreatedPlans", this.getDetachedCriteria());
+		certified = new BooleanExpression("certified", this.getDetachedCriteria());
 		clients = new CollectionExpression("ORM_Clients", this.getDetachedCriteria());
 	}
 	
-	public ClientDetachedCriteria createClientsCriteria() {
-		return new ClientDetachedCriteria(createCriteria("ORM_Clients"));
+	public hrpersonaltrainer.ClientDetachedCriteria createClientsCriteria() {
+		return new hrpersonaltrainer.ClientDetachedCriteria(createCriteria("ORM_Clients"));
 	}
 	
 	public PersonalTrainer uniquePersonalTrainer(PersistentSession session) {

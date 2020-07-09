@@ -3,7 +3,6 @@ package hrpersonaltrainer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.orm.PersistentException;
-import redis.clients.jedis.Jedis;
 
 import java.util.*;
 
@@ -69,12 +68,12 @@ public class Utils {
     }
 
     public static void validateClientToken(String token, String username) throws TokenIsInvalidException, PersistentException {
-        List results = HRPersonalTrainerFacade.getSession().createQuery("select token from Client where username='" + username + "' and token='" + token + "'").list();
+        List results = HRPersonalTrainerFacade.getSession().createQuery("select token from User where username='" + username + "' and token='" + token + "'").list();
         if (results.size() == 0) throw new TokenIsInvalidException(token);
     }
 
     public static void validatePersonalTrainerToken(String token, String username) throws TokenIsInvalidException, PersistentException {
-        List results = HRPersonalTrainerFacade.getSession().createQuery("select token from PersonalTrainer where username='" + username + "' and token='" + token + "'").list();
+        List results = HRPersonalTrainerFacade.getSession().createQuery("select token from User where username='" + username + "' and token='" + token + "'").list();
         if (results.size() == 0) throw new TokenIsInvalidException(token);
     }
 

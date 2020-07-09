@@ -91,7 +91,7 @@ public class ClientSetCollection extends org.orm.util.ORMSet {
 	}
 	
 	protected PersistentManager getPersistentManager() throws PersistentException {
-		return DiagramasPersistentManager.instance();
+		return hrpersonaltrainer.DiagramasPersistentManager.instance();
 	}
 	
 }

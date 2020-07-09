@@ -8,9 +8,7 @@
           <element id="module-output" name="PersonalTrainer" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="jedis-3.3.0" />
           <element id="library" level="project" name="gson-2.8.6" />
-          <element id="library" level="project" name="orm" />
           <element id="library" level="project" name="JBoss Weld-2.0.3" />
         </element>
       </element>

@@ -27,10 +27,11 @@ public class PersonalTrainerCriteria extends AbstractORMCriteria {
 	public final StringExpression name;
 	public final StringExpression email;
 	public final StringExpression sex;
-	public final StringExpression token;
+	public final DateExpression birthday;
 	public final IntegerExpression numberOfClassifications;
 	public final IntegerExpression numberOfClients;
 	public final IntegerExpression numberOfCreatedPlans;
+	public final BooleanExpression certified;
 	public final CollectionExpression clients;
 	
 	public PersonalTrainerCriteria(Criteria criteria) {
@@ -43,10 +44,11 @@ public class PersonalTrainerCriteria extends AbstractORMCriteria {
 		name = new StringExpression("name", this);
 		email = new StringExpression("email", this);
 		sex = new StringExpression("sex", this);
-		token = new StringExpression("token", this);
+		birthday = new DateExpression("birthday", this);
 		numberOfClassifications = new IntegerExpression("numberOfClassifications", this);
 		numberOfClients = new IntegerExpression("numberOfClients", this);
 		numberOfCreatedPlans = new IntegerExpression("numberOfCreatedPlans", this);
+		certified = new BooleanExpression("certified", this);
 		clients = new CollectionExpression("ORM_Clients", this);
 	}
 	
@@ -55,11 +57,11 @@ public class PersonalTrainerCriteria extends AbstractORMCriteria {
 	}
 	
 	public PersonalTrainerCriteria() throws PersistentException {
-		this(DiagramasPersistentManager.instance().getSession());
+		this(hrpersonaltrainer.DiagramasPersistentManager.instance().getSession());
 	}
 	
-	public ClientCriteria createClientsCriteria() {
-		return new ClientCriteria(createCriteria("ORM_Clients"));
+	public hrpersonaltrainer.ClientCriteria createClientsCriteria() {
+		return new hrpersonaltrainer.ClientCriteria(createCriteria("ORM_Clients"));
 	}
 	
 	public PersonalTrainer uniquePersonalTrainer() {

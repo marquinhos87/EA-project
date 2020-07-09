@@ -9,12 +9,15 @@ public class DeleteDiagramasData {
 	public void deleteTestData() throws PersistentException {
 		PersistentTransaction t = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
-			hrpersonaltrainer.PersonalTrainer lhrpersonaltrainerPersonalTrainer = hrpersonaltrainer.PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
+			hrpersonaltrainer.PersonalTrainer hRPersonalTrainerPersonalTrainer = hrpersonaltrainer.PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
 			// Delete the persistent object
-			hrpersonaltrainer.PersonalTrainerDAO.delete(lhrpersonaltrainerPersonalTrainer);
-			hrpersonaltrainer.Client lhrpersonaltrainerClient = hrpersonaltrainer.ClientDAO.loadClientByQuery(null, null);
+			hrpersonaltrainer.PersonalTrainerDAO.delete(hRPersonalTrainerPersonalTrainer);
+			hrpersonaltrainer.Client hRPersonalTrainerClient = hrpersonaltrainer.ClientDAO.loadClientByQuery(null, null);
 			// Delete the persistent object
-			hrpersonaltrainer.ClientDAO.delete(lhrpersonaltrainerClient);
+			hrpersonaltrainer.ClientDAO.delete(hRPersonalTrainerClient);
+			hrpersonaltrainer.User hRPersonalTrainerUser = hrpersonaltrainer.UserDAO.loadUserByQuery(null, null);
+			// Delete the persistent object
+			hrpersonaltrainer.UserDAO.delete(hRPersonalTrainerUser);
 			t.commit();
 		}
 		catch (Exception e) {

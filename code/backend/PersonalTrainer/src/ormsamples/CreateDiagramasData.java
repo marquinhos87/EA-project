@@ -9,12 +9,15 @@ public class CreateDiagramasData {
 	public void createTestData() throws PersistentException {
 		PersistentTransaction t = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
-			hrpersonaltrainer.PersonalTrainer lhrpersonaltrainerPersonalTrainer = hrpersonaltrainer.PersonalTrainerDAO.createPersonalTrainer();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : clients, numberOfCreatedPlans, numberOfClients, numberOfClassifications, classification, price, username
-			hrpersonaltrainer.PersonalTrainerDAO.save(lhrpersonaltrainerPersonalTrainer);
-			hrpersonaltrainer.Client lhrpersonaltrainerClient = hrpersonaltrainer.ClientDAO.createClient();
+			hrpersonaltrainer.PersonalTrainer hRPersonalTrainerPersonalTrainer = hrpersonaltrainer.PersonalTrainerDAO.createPersonalTrainer();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : clients, certified, numberOfCreatedPlans, numberOfClients, numberOfClassifications, classification, price, username
+			hrpersonaltrainer.PersonalTrainerDAO.save(hRPersonalTrainerPersonalTrainer);
+			hrpersonaltrainer.Client hRPersonalTrainerClient = hrpersonaltrainer.ClientDAO.createClient();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
-			hrpersonaltrainer.ClientDAO.save(lhrpersonaltrainerClient);
+			hrpersonaltrainer.ClientDAO.save(hRPersonalTrainerClient);
+			hrpersonaltrainer.User hRPersonalTrainerUser = hrpersonaltrainer.UserDAO.createUser();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
+			hrpersonaltrainer.UserDAO.save(hRPersonalTrainerUser);
 			t.commit();
 		}
 		catch (Exception e) {

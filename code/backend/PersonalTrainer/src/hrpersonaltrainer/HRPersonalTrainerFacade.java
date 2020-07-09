@@ -29,11 +29,11 @@ public class HRPersonalTrainerFacade {
 		return session;
 	}
 
-	public String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException {
+	public String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException, UserAlreadyExistsException {
 		return personalTrainerFacadeBean.createPersonalTrainer(infoPTAsJSON);
 	}
 
-	public String loginPersonalTrainer(String infoAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, InvalidPasswordException {
+	public String loginPersonalTrainer(String infoAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, InvalidPasswordException, UserNotExistsException {
 		return personalTrainerFacadeBean.loginPersonalTrainer(infoAsJSON);
 	}
 
@@ -61,7 +61,7 @@ public class HRPersonalTrainerFacade {
 		personalTrainerFacadeBean.addClientToPersonalTrainer(infoAsJson);
 	}
 
-	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException {
+	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException {
 		personalTrainerFacadeBean.updateClientToken(usernameAndTokenAsJson);
 	}
 
@@ -78,5 +78,9 @@ public class HRPersonalTrainerFacade {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	public void createClient(String json) throws PersistentException, UserAlreadyExistsException, JsonKeyInFaultException {
+		personalTrainerFacadeBean.createClient(json);
 	}
 }

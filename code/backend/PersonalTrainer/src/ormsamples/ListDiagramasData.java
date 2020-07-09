@@ -10,18 +10,26 @@ public class ListDiagramasData {
 	
 	public void listTestData() throws PersistentException {
 		System.out.println("Listing PersonalTrainer...");
-		hrpersonaltrainer.PersonalTrainer[] hrpersonaltrainerPersonalTrainers = hrpersonaltrainer.PersonalTrainerDAO.listPersonalTrainerByQuery(null, null);
-		int length = Math.min(hrpersonaltrainerPersonalTrainers.length, ROW_COUNT);
+		hrpersonaltrainer.PersonalTrainer[] hRPersonalTrainerPersonalTrainers = hrpersonaltrainer.PersonalTrainerDAO.listPersonalTrainerByQuery(null, null);
+		int length = Math.min(hRPersonalTrainerPersonalTrainers.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
-			System.out.println(hrpersonaltrainerPersonalTrainers[i]);
+			System.out.println(hRPersonalTrainerPersonalTrainers[i]);
 		}
 		System.out.println(length + " record(s) retrieved.");
 		
 		System.out.println("Listing Client...");
-		hrpersonaltrainer.Client[] hrpersonaltrainerClients = hrpersonaltrainer.ClientDAO.listClientByQuery(null, null);
-		length = Math.min(hrpersonaltrainerClients.length, ROW_COUNT);
+		hrpersonaltrainer.Client[] hRPersonalTrainerClients = hrpersonaltrainer.ClientDAO.listClientByQuery(null, null);
+		length = Math.min(hRPersonalTrainerClients.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
-			System.out.println(hrpersonaltrainerClients[i]);
+			System.out.println(hRPersonalTrainerClients[i]);
+		}
+		System.out.println(length + " record(s) retrieved.");
+		
+		System.out.println("Listing User...");
+		hrpersonaltrainer.User[] hRPersonalTrainerUsers = hrpersonaltrainer.UserDAO.listUserByQuery(null, null);
+		length = Math.min(hRPersonalTrainerUsers.length, ROW_COUNT);
+		for (int i = 0; i < length; i++) {
+			System.out.println(hRPersonalTrainerUsers[i]);
 		}
 		System.out.println(length + " record(s) retrieved.");
 		
@@ -29,28 +37,40 @@ public class ListDiagramasData {
 	
 	public void listByCriteria() throws PersistentException {
 		System.out.println("Listing PersonalTrainer by Criteria...");
-		hrpersonaltrainer.PersonalTrainerCriteria lhrpersonaltrainerPersonalTrainerCriteria = new hrpersonaltrainer.PersonalTrainerCriteria();
+		hrpersonaltrainer.PersonalTrainerCriteria hRPersonalTrainerPersonalTrainerCriteria = new hrpersonaltrainer.PersonalTrainerCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
-		//lhrpersonaltrainerPersonalTrainerCriteria.username.eq();
-		lhrpersonaltrainerPersonalTrainerCriteria.setMaxResults(ROW_COUNT);
-		hrpersonaltrainer.PersonalTrainer[] hrpersonaltrainerPersonalTrainers = lhrpersonaltrainerPersonalTrainerCriteria.listPersonalTrainer();
-		int length =hrpersonaltrainerPersonalTrainers== null ? 0 : Math.min(hrpersonaltrainerPersonalTrainers.length, ROW_COUNT); 
+		//hRPersonalTrainerPersonalTrainerCriteria.username.eq();
+		hRPersonalTrainerPersonalTrainerCriteria.setMaxResults(ROW_COUNT);
+		hrpersonaltrainer.PersonalTrainer[] hRPersonalTrainerPersonalTrainers = hRPersonalTrainerPersonalTrainerCriteria.listPersonalTrainer();
+		int length =hRPersonalTrainerPersonalTrainers== null ? 0 : Math.min(hRPersonalTrainerPersonalTrainers.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
-			 System.out.println(hrpersonaltrainerPersonalTrainers[i]);
+			 System.out.println(hRPersonalTrainerPersonalTrainers[i]);
 		}
 		System.out.println(length + " PersonalTrainer record(s) retrieved."); 
 		
 		System.out.println("Listing Client by Criteria...");
-		hrpersonaltrainer.ClientCriteria lhrpersonaltrainerClientCriteria = new hrpersonaltrainer.ClientCriteria();
+		hrpersonaltrainer.ClientCriteria hRPersonalTrainerClientCriteria = new hrpersonaltrainer.ClientCriteria();
 		// Please uncomment the follow line and fill in parameter(s) 
-		//lhrpersonaltrainerClientCriteria.username.eq();
-		lhrpersonaltrainerClientCriteria.setMaxResults(ROW_COUNT);
-		hrpersonaltrainer.Client[] hrpersonaltrainerClients = lhrpersonaltrainerClientCriteria.listClient();
-		length =hrpersonaltrainerClients== null ? 0 : Math.min(hrpersonaltrainerClients.length, ROW_COUNT); 
+		//hRPersonalTrainerClientCriteria.username.eq();
+		hRPersonalTrainerClientCriteria.setMaxResults(ROW_COUNT);
+		hrpersonaltrainer.Client[] hRPersonalTrainerClients = hRPersonalTrainerClientCriteria.listClient();
+		length =hRPersonalTrainerClients== null ? 0 : Math.min(hRPersonalTrainerClients.length, ROW_COUNT); 
 		for (int i = 0; i < length; i++) {
-			 System.out.println(hrpersonaltrainerClients[i]);
+			 System.out.println(hRPersonalTrainerClients[i]);
 		}
 		System.out.println(length + " Client record(s) retrieved."); 
+		
+		System.out.println("Listing User by Criteria...");
+		hrpersonaltrainer.UserCriteria hRPersonalTrainerUserCriteria = new hrpersonaltrainer.UserCriteria();
+		// Please uncomment the follow line and fill in parameter(s) 
+		//hRPersonalTrainerUserCriteria.username.eq();
+		hRPersonalTrainerUserCriteria.setMaxResults(ROW_COUNT);
+		hrpersonaltrainer.User[] hRPersonalTrainerUsers = hRPersonalTrainerUserCriteria.listUser();
+		length =hRPersonalTrainerUsers== null ? 0 : Math.min(hRPersonalTrainerUsers.length, ROW_COUNT); 
+		for (int i = 0; i < length; i++) {
+			 System.out.println(hRPersonalTrainerUsers[i]);
+		}
+		System.out.println(length + " User record(s) retrieved."); 
 		
 	}
 	

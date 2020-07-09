@@ -1,7 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import hrpersonaltrainer.HRPersonalTrainerFacade;
-import hrpersonaltrainer.InvalidPasswordException;
+import hrpersonaltrainer.*;
 
 public class Main {
 
@@ -19,7 +18,6 @@ public class Main {
                 "}";
 
         System.out.println(pt);
-        System.exit(1);
 
         try {
             System.out.println( HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt) );
@@ -29,7 +27,7 @@ public class Main {
 
         String ptToken = null;
         try {
-            String oldNewToken = HRPersonalTrainerFacade.getInstance().loginPersonalTrainer("{ \"username\": \"ricardo\", \"password\": \"newpassword\" }");
+            String oldNewToken = HRPersonalTrainerFacade.getInstance().loginPersonalTrainer("{ \"username\": \"ricardo\", \"password\": \"password\" }");
             System.out.println(oldNewToken);
             JsonObject jsonObject = new Gson().fromJson(oldNewToken, JsonObject.class);
             ptToken = jsonObject.get("newToken").getAsString();
@@ -41,9 +39,16 @@ public class Main {
         }
 
         try {
-            HRPersonalTrainerFacade.getInstance().updateClientToken("{ \"token\": \"token\", \"username\": \"jose\" }");
+            HRPersonalTrainerFacade.getInstance().createClient("{ \"token\": \"token\", \"username\": \"jose\" }");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        try {
+            HRPersonalTrainerFacade.getInstance().updateClientToken("{ \"currentToken\": \"token\", \"oldToken\": \"token\", \"username\": \"jose\" }");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
         }
 
         try {
@@ -97,7 +102,6 @@ public class Main {
         String newPtInfo = "{ " +
                 "\"username\": \"ricardo\", " +
                 "\"token\": \"" + ptToken + "\", " +
-                "\"password\": \"newpassword\", " +
                 "\"sex\": \"f\", " +
                 "\"skill\": \"muscle\", " +
                 "\"price\": 200" +
@@ -114,5 +118,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.exit(1);
     }
 }

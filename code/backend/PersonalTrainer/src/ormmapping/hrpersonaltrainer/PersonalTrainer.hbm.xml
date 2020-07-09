@@ -18,10 +18,10 @@ License Type: Academic
 		<property name="email" column="Email" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="sex" column="Sex" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="birthday" column="Birthday" type="date" not-null="false" lazy="false"/>
-		<property name="token" column="Token" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="numberOfClassifications" column="NumberOfClassifications" type="integer" length="10" not-null="true" lazy="false"/>
 		<property name="numberOfClients" column="NumberOfClients" type="integer" length="10" not-null="true" lazy="false"/>
 		<property name="numberOfCreatedPlans" column="NumberOfCreatedPlans" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="certified" column="Certified" type="boolean" length="1" not-null="true" lazy="false"/>
 		<set name="ORM_Clients" lazy="true" cascade="save-update,lock" inverse="false">
 			<key column="PersonalTrainerUsername" not-null="true"/>
 			<one-to-many class="hrpersonaltrainer.Client"/>

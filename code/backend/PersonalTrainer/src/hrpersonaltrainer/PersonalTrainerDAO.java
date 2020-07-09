@@ -21,7 +21,7 @@ import java.util.List;
 public class PersonalTrainerDAO {
 	public static PersonalTrainer loadPersonalTrainerByORMID(String username) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return loadPersonalTrainerByORMID(session, username);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer getPersonalTrainerByORMID(String username) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return getPersonalTrainerByORMID(session, username);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer loadPersonalTrainerByORMID(String username, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return loadPersonalTrainerByORMID(session, username, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer getPersonalTrainerByORMID(String username, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return getPersonalTrainerByORMID(session, username, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class PersonalTrainerDAO {
 	
 	public static List queryPersonalTrainer(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return queryPersonalTrainer(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class PersonalTrainerDAO {
 	
 	public static List queryPersonalTrainer(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return queryPersonalTrainer(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer[] listPersonalTrainerByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return listPersonalTrainerByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer[] listPersonalTrainerByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return listPersonalTrainerByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer loadPersonalTrainerByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return loadPersonalTrainerByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class PersonalTrainerDAO {
 	
 	public static PersonalTrainer loadPersonalTrainerByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return loadPersonalTrainerByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class PersonalTrainerDAO {
 	
 	public static java.util.Iterator iteratePersonalTrainerByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return iteratePersonalTrainerByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class PersonalTrainerDAO {
 	
 	public static java.util.Iterator iteratePersonalTrainerByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = DiagramasPersistentManager.instance().getSession();
+			PersistentSession session = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession();
 			return iteratePersonalTrainerByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class PersonalTrainerDAO {
 	
 	public static boolean save(hrpersonaltrainer.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
-			DiagramasPersistentManager.instance().saveObject(personalTrainer);
+			hrpersonaltrainer.DiagramasPersistentManager.instance().saveObject(personalTrainer);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class PersonalTrainerDAO {
 	
 	public static boolean delete(hrpersonaltrainer.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
-			DiagramasPersistentManager.instance().deleteObject(personalTrainer);
+			hrpersonaltrainer.DiagramasPersistentManager.instance().deleteObject(personalTrainer);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class PersonalTrainerDAO {
 	
 	public static boolean refresh(hrpersonaltrainer.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
-			DiagramasPersistentManager.instance().getSession().refresh(personalTrainer);
+			hrpersonaltrainer.DiagramasPersistentManager.instance().getSession().refresh(personalTrainer);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class PersonalTrainerDAO {
 	
 	public static boolean evict(hrpersonaltrainer.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
-			DiagramasPersistentManager.instance().getSession().evict(personalTrainer);
+			hrpersonaltrainer.DiagramasPersistentManager.instance().getSession().evict(personalTrainer);
 			return true;
 		}
 		catch (Exception e) {

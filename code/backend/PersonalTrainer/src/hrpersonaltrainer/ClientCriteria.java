@@ -31,7 +31,7 @@ public class ClientCriteria extends AbstractORMCriteria {
 	}
 	
 	public ClientCriteria() throws PersistentException {
-		this(DiagramasPersistentManager.instance().getSession());
+		this(hrpersonaltrainer.DiagramasPersistentManager.instance().getSession());
 	}
 	
 	public Client uniqueClient() {

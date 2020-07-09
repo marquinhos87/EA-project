@@ -2,7 +2,6 @@ package rest;
 
 import hrpersonaltrainer.*;
 import org.orm.PersistentException;
-import redis.clients.jedis.exceptions.JedisConnectionException;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,8 +40,8 @@ public class HRPersonalTrainerController extends HttpServlet {
 					case "login":
 						login(response, getDataFromPost(request));
 						break;
-					case "register":
-						register(response, getDataFromPost(request));
+					case "registerPersonalTrainer":
+						registerPersonalTrainer(response, getDataFromPost(request));
 						break;
 					case "getPersonalTrainerProfileByPersonalTrainer":
 						getPersonalTrainerProfileByPersonalTrainer(response, getDataFromPost(request));
@@ -65,6 +64,9 @@ public class HRPersonalTrainerController extends HttpServlet {
 					case "addClientToPersonalTrainer":
 						addClientToPersonalTrainer(response, getDataFromPost(request));
 						break;
+					case "registerClient":
+						updateClientToken(response, getDataFromPost(request));
+						break;
 					case "updateClientToken":
 						updateClientToken(response, getDataFromPost(request));
 						break;
@@ -84,10 +86,6 @@ public class HRPersonalTrainerController extends HttpServlet {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			out.print(Utils.makeError(HttpServletResponse.SC_BAD_REQUEST, "json key in fault - " + e.getMessage() + "."));
-		} catch (JedisConnectionException e) {
-			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "could not connect to redis server."));
 		} catch (PersonalTrainerNotExistsException e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -102,10 +100,21 @@ public class HRPersonalTrainerController extends HttpServlet {
 			e.printStackTrace();
 		} catch (TokenIsInvalidException e) {
 			e.printStackTrace();
+		} catch (UserNotExistsException e) {
+			e.printStackTrace();
+		} catch (UserAlreadyExistsException e) {
+			e.printStackTrace();
 		}
 	}
 
-	private void updateClientToken(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, TokenIsInvalidException {
+	private void registerClient(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, PersistentException, PersonalTrainerAlreadyExistsException, UserAlreadyExistsException {
+		PrintWriter out = response.getWriter();
+		HRPersonalTrainerFacade.getInstance().createClient(json);
+		response.setStatus(HttpServletResponse.SC_OK);
+		out.print(Utils.makeSuccess200(null));
+	}
+
+	private void updateClientToken(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, TokenIsInvalidException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		HRPersonalTrainerFacade.getInstance().updateClientToken(json);
 		response.setStatus(HttpServletResponse.SC_OK);
@@ -161,14 +170,14 @@ public class HRPersonalTrainerController extends HttpServlet {
 		out.print(Utils.makeSuccess200(profile));
 	}
 
-	private void register(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, PersistentException, PersonalTrainerAlreadyExistsException {
+	private void registerPersonalTrainer(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, PersistentException, PersonalTrainerAlreadyExistsException, UserAlreadyExistsException {
 		PrintWriter out = response.getWriter();
 		String oldNewToken = HRPersonalTrainerFacade.getInstance().createPersonalTrainer(json);
 		response.setStatus(HttpServletResponse.SC_OK);
 		out.print(Utils.makeSuccess200(oldNewToken));
 	}
 
-	private static void login(HttpServletResponse response, String json) throws IOException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, InvalidPasswordException {
+	private static void login(HttpServletResponse response, String json) throws IOException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, InvalidPasswordException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		String token = HRPersonalTrainerFacade.getInstance().loginPersonalTrainer(json);
 		response.setStatus(HttpServletResponse.SC_OK);

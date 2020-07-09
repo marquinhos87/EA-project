@@ -10,13 +10,13 @@ public interface HRPersonalTrainerFacadeBeanLocal {
 	 * 
 	 * @param infoPTAsJSON
 	 */
-	String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException;
+	String createPersonalTrainer(String infoPTAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException, UserAlreadyExistsException;
 
 	/**
 	 * 
 	 * @param infoAsJSON
 	 */
-	String loginPersonalTrainer(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, InvalidPasswordException;
+	String loginPersonalTrainer(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, InvalidPasswordException, UserNotExistsException;
 
 	/**
 	 * 
@@ -60,5 +60,7 @@ public interface HRPersonalTrainerFacadeBeanLocal {
 	 */
 	void addClientToPersonalTrainer(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, TokenIsInvalidException;
 
-	void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException;
+	void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException;
+
+    void createClient(String json) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException;
 }

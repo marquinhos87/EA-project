@@ -19,5 +19,6 @@ License Type: Academic
 		<!-- mapping files -->
 		<mapping resource="ormmapping/hrpersonaltrainer/Client.hbm.xml" />
 		<mapping resource="ormmapping/hrpersonaltrainer/PersonalTrainer.hbm.xml" />
+		<mapping resource="ormmapping/hrpersonaltrainer/User.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

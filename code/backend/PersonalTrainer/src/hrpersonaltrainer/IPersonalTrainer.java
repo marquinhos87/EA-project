@@ -75,9 +75,4 @@ public interface IPersonalTrainer {
 	void setSkill(String skill);
 
 	String getSkill();
-
-	void setToken(String token);
-
-	String getToken();
-
 }

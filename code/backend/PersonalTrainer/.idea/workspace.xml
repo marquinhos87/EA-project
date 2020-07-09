@@ -26,16 +26,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fc7ce52c-ec6c-4e91-8c2d-08173f40c004" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/PersonalTrainer_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/PersonalTrainer_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/jedis_3_3_0.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PersonalTrainer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PersonalTrainer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/orm.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/orm.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBeanBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBeanBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/HRPersonalTrainerFacadeBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databasescripts/RunSample.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/RunSample.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databasescripts/diagramas.ddl" beforeDir="false" afterPath="$PROJECT_DIR$/src/databasescripts/diagramas.ddl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/ClientCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/ClientCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/ClientDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/ClientDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/ClientSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/ClientSetCollection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/HRPersonalTrainerFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/IPersonalTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/IPersonalTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainerCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainerCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainerDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/PersonalTrainerDetachedCriteria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hrpersonaltrainer/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/hrpersonaltrainer/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.cfg.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/Diagramas.erd.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ormmapping/hrpersonaltrainer/Client.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/hrpersonaltrainer/Client.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormmapping/hrpersonaltrainer/PersonalTrainer.hbm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormmapping/hrpersonaltrainer/PersonalTrainer.hbm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/CreateDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/DeleteDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/ListDiagramasData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ormsamples/RetrieveAndUpdateDiagramasData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rest/HRPersonalTrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/rest/HRPersonalTrainerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +91,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/jedis-3.3.0.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/orm.jar!/" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -79,17 +99,17 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.1741683" />
     <property name="project.structure.side.proportion" value="0.3534994" />
     <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/databasescripts" />
-    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="hrpersonaltrainer" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/databasescripts" />
     </key>
   </component>
   <component name="RunManager" selected="JBoss Server.JBoss 16.0.0.Final">
@@ -231,9 +251,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.CreateDiagramasDatabaseSchema" />
         <item itemvalue="Shell Script.RunCreateDiagramasData.sh" />
         <item itemvalue="Shell Script.CompileAll.sh" />
-        <item itemvalue="Application.CreateDiagramasDatabaseSchema" />
         <item itemvalue="Shell Script.RunCreateDiagramasDatabaseSchema.sh" />
       </list>
     </recent_temporary>
@@ -259,7 +279,7 @@
       <workItem from="1594220000921" duration="2698000" />
       <workItem from="1594222734420" duration="40000" />
       <workItem from="1594228520814" duration="2673000" />
-      <workItem from="1594291690910" duration="4259000" />
+      <workItem from="1594291690910" duration="7824000" />
     </task>
     <servers />
   </component>
@@ -306,12 +326,12 @@
       <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state x="545" y="305" width="430" height="309" key="#com.intellij.framework.addSupport.AddSupportForSingleFrameworkDialog/72.27.1368.873@72.27.1368.873" timestamp="1594216908502" />
-    <state x="808" y="266" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1594292950678">
+    <state x="808" y="266" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1594298389426">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1594053210366" />
     <state x="617" y="225" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/72.27.1368.873@72.27.1368.873" timestamp="1594215751804" />
-    <state x="808" y="266" width="553" height="599" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1594292950678" />
+    <state x="808" y="266" width="553" height="599" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1594298389426" />
     <state x="484" y="245" width="524" height="451" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1594214848581">
       <screen x="72" y="27" width="1368" height="873" />
     </state>
@@ -328,36 +348,36 @@
       <screen x="72" y="27" width="1368" height="873" />
     </state>
     <state x="429" y="326" width="643" height="282" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/72.27.1368.873@72.27.1368.873" timestamp="1594214160635" />
-    <state x="713" y="291" width="735" height="520" key="FileChooserDialogImpl" timestamp="1594220104344">
+    <state x="713" y="291" width="735" height="520" key="FileChooserDialogImpl" timestamp="1594298230561">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="666" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593957813069" />
     <state x="547" y="246" width="735" height="520" key="FileChooserDialogImpl/72.27.1368.873@72.27.1368.873" timestamp="1594216844043" />
-    <state x="713" y="291" width="735" height="520" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1594220104344" />
-    <state width="1448" height="451" key="GridCell.Tab.0.bottom" timestamp="1594296159118">
+    <state x="713" y="291" width="735" height="520" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1594298230561" />
+    <state width="1802" height="350" key="GridCell.Tab.0.bottom" timestamp="1594300755051">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
     <state width="1105" height="342" key="GridCell.Tab.0.bottom/72.27.1368.873@72.27.1368.873" timestamp="1594217372529" />
-    <state width="1448" height="451" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1594296159118" />
-    <state width="1448" height="451" key="GridCell.Tab.0.center" timestamp="1594296159117">
+    <state width="1802" height="350" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1594300755051" />
+    <state width="1802" height="350" key="GridCell.Tab.0.center" timestamp="1594300755050">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
     <state width="1105" height="342" key="GridCell.Tab.0.center/72.27.1368.873@72.27.1368.873" timestamp="1594217372528" />
-    <state width="1448" height="451" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1594296159117" />
-    <state width="1448" height="451" key="GridCell.Tab.0.left" timestamp="1594296159116">
+    <state width="1802" height="350" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1594300755050" />
+    <state width="1802" height="350" key="GridCell.Tab.0.left" timestamp="1594300755050">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
     <state width="1105" height="342" key="GridCell.Tab.0.left/72.27.1368.873@72.27.1368.873" timestamp="1594217372528" />
-    <state width="1448" height="451" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1594296159116" />
-    <state width="1448" height="451" key="GridCell.Tab.0.right" timestamp="1594296159117">
+    <state width="1802" height="350" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1594300755050" />
+    <state width="1802" height="350" key="GridCell.Tab.0.right" timestamp="1594300755051">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
     <state width="1105" height="342" key="GridCell.Tab.0.right/72.27.1368.873@72.27.1368.873" timestamp="1594217372528" />
-    <state width="1448" height="451" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1594296159117" />
+    <state width="1802" height="350" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1594300755051" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1594061308124">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -374,12 +394,12 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594061308124" />
-    <state x="201" y="109" width="1133" height="712" key="SettingsEditor" timestamp="1594216987934">
-      <screen x="72" y="27" width="1368" height="873" />
+    <state x="496" y="122" width="1133" height="712" key="SettingsEditor" timestamp="1594298233778">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1594042679471" />
     <state x="201" y="109" width="1133" height="712" key="SettingsEditor/72.27.1368.873@72.27.1368.873" timestamp="1594216987934" />
-    <state x="496" y="122" width="1024" height="852" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1594123838165" />
+    <state x="496" y="122" width="1024" height="852" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1594298233778" />
     <state x="775" y="311" width="423" height="492" key="refactoring.ChangeSignatureDialog" timestamp="1594136257450">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>

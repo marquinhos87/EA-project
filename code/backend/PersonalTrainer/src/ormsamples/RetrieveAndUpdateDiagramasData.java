@@ -9,12 +9,15 @@ public class RetrieveAndUpdateDiagramasData {
 	public void retrieveAndUpdateTestData() throws PersistentException {
 		PersistentTransaction t = hrpersonaltrainer.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
-			hrpersonaltrainer.PersonalTrainer lhrpersonaltrainerPersonalTrainer = hrpersonaltrainer.PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
+			hrpersonaltrainer.PersonalTrainer hRPersonalTrainerPersonalTrainer = hrpersonaltrainer.PersonalTrainerDAO.loadPersonalTrainerByQuery(null, null);
 			// Update the properties of the persistent object
-			hrpersonaltrainer.PersonalTrainerDAO.save(lhrpersonaltrainerPersonalTrainer);
-			hrpersonaltrainer.Client lhrpersonaltrainerClient = hrpersonaltrainer.ClientDAO.loadClientByQuery(null, null);
+			hrpersonaltrainer.PersonalTrainerDAO.save(hRPersonalTrainerPersonalTrainer);
+			hrpersonaltrainer.Client hRPersonalTrainerClient = hrpersonaltrainer.ClientDAO.loadClientByQuery(null, null);
 			// Update the properties of the persistent object
-			hrpersonaltrainer.ClientDAO.save(lhrpersonaltrainerClient);
+			hrpersonaltrainer.ClientDAO.save(hRPersonalTrainerClient);
+			hrpersonaltrainer.User hRPersonalTrainerUser = hrpersonaltrainer.UserDAO.loadUserByQuery(null, null);
+			// Update the properties of the persistent object
+			hrpersonaltrainer.UserDAO.save(hRPersonalTrainerUser);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -25,16 +28,22 @@ public class RetrieveAndUpdateDiagramasData {
 	
 	public void retrieveByCriteria() throws PersistentException {
 		System.out.println("Retrieving PersonalTrainer by PersonalTrainerCriteria");
-		hrpersonaltrainer.PersonalTrainerCriteria lhrpersonaltrainerPersonalTrainerCriteria = new hrpersonaltrainer.PersonalTrainerCriteria();
+		hrpersonaltrainer.PersonalTrainerCriteria hRPersonalTrainerPersonalTrainerCriteria = new hrpersonaltrainer.PersonalTrainerCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
-		//lhrpersonaltrainerPersonalTrainerCriteria.username.eq();
-		System.out.println(lhrpersonaltrainerPersonalTrainerCriteria.uniquePersonalTrainer());
+		//hRPersonalTrainerPersonalTrainerCriteria.username.eq();
+		System.out.println(hRPersonalTrainerPersonalTrainerCriteria.uniquePersonalTrainer());
 		
 		System.out.println("Retrieving Client by ClientCriteria");
-		hrpersonaltrainer.ClientCriteria lhrpersonaltrainerClientCriteria = new hrpersonaltrainer.ClientCriteria();
+		hrpersonaltrainer.ClientCriteria hRPersonalTrainerClientCriteria = new hrpersonaltrainer.ClientCriteria();
 		// Please uncomment the follow line and fill in parameter(s)
-		//lhrpersonaltrainerClientCriteria.username.eq();
-		System.out.println(lhrpersonaltrainerClientCriteria.uniqueClient());
+		//hRPersonalTrainerClientCriteria.username.eq();
+		System.out.println(hRPersonalTrainerClientCriteria.uniqueClient());
+		
+		System.out.println("Retrieving User by UserCriteria");
+		hrpersonaltrainer.UserCriteria hRPersonalTrainerUserCriteria = new hrpersonaltrainer.UserCriteria();
+		// Please uncomment the follow line and fill in parameter(s)
+		//hRPersonalTrainerUserCriteria.username.eq();
+		System.out.println(hRPersonalTrainerUserCriteria.uniqueUser());
 		
 	}
 	

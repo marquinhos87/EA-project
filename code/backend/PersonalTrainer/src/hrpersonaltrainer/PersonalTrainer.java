@@ -13,8 +13,6 @@
  */
 package hrpersonaltrainer;
 
-import java.util.Date;
-
 public class PersonalTrainer implements hrpersonaltrainer.IPersonalTrainer {
 	public PersonalTrainer() {
 	}
@@ -37,7 +35,7 @@ public class PersonalTrainer implements hrpersonaltrainer.IPersonalTrainer {
 	}
 	
 	private java.util.Set this_getSet (int key) {
-		if (key == ORMConstants.KEY_PERSONALTRAINER_CLIENTS) {
+		if (key == hrpersonaltrainer.ORMConstants.KEY_PERSONALTRAINER_CLIENTS) {
 			return ORM_clients;
 		}
 		
@@ -67,16 +65,15 @@ public class PersonalTrainer implements hrpersonaltrainer.IPersonalTrainer {
 	
 	private String sex;
 	
-	private Date birthday;
-	
-	private String token;
+	private java.util.Date birthday;
 	
 	private int numberOfClassifications;
-
-	// TODO remover esta variavel do diagrama de classes
+	
 	private int numberOfClients;
 	
 	private int numberOfCreatedPlans;
+	
+	private boolean certified;
 	
 	private java.util.Set ORM_clients = new java.util.HashSet();
 	
@@ -148,20 +145,12 @@ public class PersonalTrainer implements hrpersonaltrainer.IPersonalTrainer {
 		return sex;
 	}
 	
-	public void setBirthday(Date value) {
+	public void setBirthday(java.util.Date value) {
 		this.birthday = value;
 	}
 	
-	public Date getBirthday() {
+	public java.util.Date getBirthday() {
 		return birthday;
-	}
-	
-	public void setToken(String value) {
-		this.token = value;
-	}
-	
-	public String getToken() {
-		return token;
 	}
 	
 	public void setNumberOfClassifications(int value) {
@@ -188,6 +177,14 @@ public class PersonalTrainer implements hrpersonaltrainer.IPersonalTrainer {
 		return numberOfCreatedPlans;
 	}
 	
+	public void setCertified(boolean value) {
+		this.certified = value;
+	}
+	
+	public boolean getCertified() {
+		return certified;
+	}
+	
 	private void setORM_Clients(java.util.Set value) {
 		this.ORM_clients = value;
 	}
@@ -196,24 +193,10 @@ public class PersonalTrainer implements hrpersonaltrainer.IPersonalTrainer {
 		return ORM_clients;
 	}
 	
-	public final hrpersonaltrainer.ClientSetCollection clients = new hrpersonaltrainer.ClientSetCollection(this, _ormAdapter, ORMConstants.KEY_PERSONALTRAINER_CLIENTS, ORMConstants.KEY_MUL_ONE_TO_MANY);
-
-	@Override
+	public final hrpersonaltrainer.ClientSetCollection clients = new hrpersonaltrainer.ClientSetCollection(this, _ormAdapter, hrpersonaltrainer.ORMConstants.KEY_PERSONALTRAINER_CLIENTS, hrpersonaltrainer.ORMConstants.KEY_MUL_ONE_TO_MANY);
+	
 	public String toString() {
-		return "PersonalTrainer{" +
-				"name='" + name + '\'' +
-				", username='" + username + '\'' +
-				", email='" + email + '\'' +
-				", password='" + password + '\'' +
-				", birthday=" + birthday +
-				", sex='" + sex + '\'' +
-				", skill='" + skill + '\'' +
-				", price=" + price +
-				", token='" + token + '\'' +
-				", classification=" + classification +
-				", numberOfClassifications=" + numberOfClassifications +
-				", numberOfClients=" + numberOfClients +
-				", numberOfCreatedPlans=" + numberOfCreatedPlans +
-				'}';
+		return String.valueOf(getUsername());
 	}
+	
 }

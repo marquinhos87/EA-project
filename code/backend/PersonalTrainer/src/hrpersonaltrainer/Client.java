@@ -35,8 +35,6 @@ public class Client {
 	}
 	
 	private String username;
-
-	private String token;
 	
 	public void setUsername(String value) {
 		this.username = value;
@@ -45,25 +43,13 @@ public class Client {
 	public String getUsername() {
 		return username;
 	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
+	
 	public String getORMID() {
 		return getUsername();
 	}
-
-
-	@Override
+	
 	public String toString() {
-		return "Client{" +
-				"username='" + username + '\'' +
-				", token='" + token + '\'' +
-				'}';
+		return String.valueOf(getUsername());
 	}
+	
 }
