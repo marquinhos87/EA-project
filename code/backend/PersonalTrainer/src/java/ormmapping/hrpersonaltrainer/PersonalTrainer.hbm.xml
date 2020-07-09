@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Ricardo Petronilho(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="hrpersonaltrainer.PersonalTrainer" table="PersonalTrainer" lazy="false">
+		<id name="username" column="Username" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="price" column="Price" type="float" length="10" not-null="true" lazy="false"/>
+		<property name="classification" column="Classification" type="float" length="10" not-null="true" lazy="false"/>
+		<property name="skill" column="Skill" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="password" column="Password" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="name" column="Name" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="email" column="Email" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="sex" column="Sex" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="birthday" column="Birthday" type="date" not-null="false" lazy="false"/>
+		<property name="numberOfClassifications" column="NumberOfClassifications" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="numberOfClients" column="NumberOfClients" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="numberOfCreatedPlans" column="NumberOfCreatedPlans" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="certified" column="Certified" type="boolean" length="1" not-null="true" lazy="false"/>
+		<set name="ORM_Clients" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="PersonalTrainerUsername" not-null="true"/>
+			<one-to-many class="hrpersonaltrainer.Client"/>
+		</set>
+	</class>
+</hibernate-mapping>
