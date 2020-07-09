@@ -61,7 +61,7 @@ public class HRPersonalTrainerFacade {
 		personalTrainerFacadeBean.addClientToPersonalTrainer(infoAsJson);
 	}
 
-	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException {
+	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException {
 		personalTrainerFacadeBean.updateClientToken(usernameAndTokenAsJson);
 	}
 

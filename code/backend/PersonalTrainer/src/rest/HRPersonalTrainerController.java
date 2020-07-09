@@ -91,19 +91,21 @@ public class HRPersonalTrainerController extends HttpServlet {
 		} catch (PersonalTrainerNotExistsException e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			out.print(Utils.makeError(HttpServletResponse.SC_NOT_FOUND, "personal trainer with specified username does not exist -" + e.getMessage() +  "."));
+			out.print(Utils.makeError(HttpServletResponse.SC_NOT_FOUND, "personal trainer with specified username does not exist - " + e.getMessage() +  "."));
 		} catch (InvalidPasswordException e) {
 			e.printStackTrace();
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			out.print(Utils.makeError(HttpServletResponse.SC_UNAUTHORIZED, "invalid password - " + e.getMessage() + "."));
-		} catch (Exception e) {
+		} catch (ClientNotExistsException e) {
 			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "hibernate session error."));
+		} catch (ClientAlreadyExistsException e) {
+			e.printStackTrace();
+		} catch (TokenIsInvalidException e) {
+			e.printStackTrace();
 		}
 	}
 
-	private void updateClientToken(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException {
+	private void updateClientToken(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, TokenIsInvalidException {
 		PrintWriter out = response.getWriter();
 		HRPersonalTrainerFacade.getInstance().updateClientToken(json);
 		response.setStatus(HttpServletResponse.SC_OK);

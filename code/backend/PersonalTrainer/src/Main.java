@@ -18,6 +18,9 @@ public class Main {
                 "\"price\": 155.99" +
                 "}";
 
+        System.out.println(pt);
+        System.exit(1);
+
         try {
             System.out.println( HRPersonalTrainerFacade.getInstance().createPersonalTrainer(pt) );
         } catch (Exception e) {

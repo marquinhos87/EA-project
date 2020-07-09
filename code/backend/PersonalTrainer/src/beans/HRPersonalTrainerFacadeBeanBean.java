@@ -6,8 +6,6 @@ import com.google.gson.JsonObject;
 import hrpersonaltrainer.*;
 import org.orm.PersistentException;
 import parseJSON.PersonalTrainerSerializer;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.exceptions.JedisConnectionException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,9 +15,6 @@ import java.util.List;
 @javax.ejb.Local(HRPersonalTrainerFacadeBeanLocal.class)
 public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeBean, HRPersonalTrainerFacadeBeanLocal {
 
-	private static final String REDIS_HOST = "localhost";
-	private static final int REDIS_PORT = 6379;
-	private static final int MAX_RETRIES = 3;
 	private final Gson gson;
 
 	private PersonalTrainerFactory personalTrainerFactory;
@@ -29,11 +24,6 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 				.setDateFormat("yyyy-MM-dd")
 				.registerTypeAdapter(PersonalTrainer.class, new PersonalTrainerSerializer())
 				.create();
-		initRedis();
-	}
-
-	private void initRedis() throws PersistentException {
-		//HRPersonalTrainerFacade.getSession().createQuery("select username from PersonalTrainer").list();
 	}
 
 	/**
@@ -48,12 +38,10 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		Utils.validateJson(gson, infoAsJSON, Arrays.asList("name", "username", "email", "password", "birthday", "sex", "skill", "price"));
 		PersonalTrainer pt = gson.fromJson(infoAsJSON, PersonalTrainer.class);
 		if (PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), pt.getUsername()) != null) throw new PersonalTrainerAlreadyExistsException(pt.getUsername());
-		PersonalTrainerDAO.save(pt);
 		String token = Utils.tokenGenerate(pt.getUsername());
-		Jedis redis = new Jedis(REDIS_HOST, REDIS_PORT);
-		if (redis.exists(pt.getUsername())) throw new PersonalTrainerAlreadyExistsException(pt.getUsername() + " on redis");
-		redis.set(pt.getUsername(), token); // creates and saves token on redis
+		pt.setToken(token);
 		System.err.println(pt);
+		PersonalTrainerDAO.save(pt);
 		System.err.println("PersonalTrainer saved to database. Token saved to redis...");
 		return "{ \"token\": \"" + token + "\" }";
 	}
@@ -74,11 +62,10 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), username)) == null) throw new PersonalTrainerNotExistsException(username);
 		String password = jsonObject.get("password").getAsString();
 		if (pt.getPassword().equals(password) == false) throw new InvalidPasswordException(password);
-		Jedis redis = new Jedis(REDIS_HOST, REDIS_PORT);
-		if (redis.exists(pt.getUsername()) == false) throw new PersonalTrainerNotExistsException(pt.getUsername()+ " on redis");
-		String oldToken = redis.get(username);
+		String oldToken = pt.getToken();
 		String newToken = Utils.tokenGenerate(username);
-		redis.set(pt.getUsername(), newToken); // creates and saves new token on redis
+		pt.setToken(newToken); // creates and saves new token on redis
+		PersonalTrainerDAO.save(pt);
 		System.err.println("PersonalTrainer's token updated...");
 		return "{ \"oldToken\": \"" + oldToken + "\", " +
 				"\"newToken\": \"" + newToken + "\" }";
@@ -98,7 +85,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("clientToken", "clientUsername", "personalTrainerUsername"));
 		String clientToken = jsonObject.get("clientToken").getAsString();
 		String clientUsername = jsonObject.get("clientUsername").getAsString();
-		Utils.validateClientToken(clientToken, clientUsername, new Jedis(REDIS_HOST, REDIS_PORT));
+		Utils.validateClientToken(clientToken, clientUsername);
 		String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
 		PersonalTrainer pt;
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
@@ -117,7 +104,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validatePersonalTrainerToken(token, username, new Jedis(REDIS_HOST, REDIS_PORT));
+		Utils.validatePersonalTrainerToken(token, username);
 		PersonalTrainer pt;
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), username)) == null) throw new PersonalTrainerNotExistsException(username);
 		return gson.toJson(pt);
@@ -135,7 +122,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validatePersonalTrainerToken(token, username, new Jedis(REDIS_HOST, REDIS_PORT));
+		Utils.validatePersonalTrainerToken(token, username);
 		PersonalTrainer editedPt = gson.fromJson(infoAsJSON, PersonalTrainer.class);
 		PersonalTrainer databasePt;
 		if ( (databasePt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), editedPt.getUsername())) == null) throw new PersonalTrainerNotExistsException(editedPt.getUsername());
@@ -162,7 +149,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validateClientToken(token, username, new Jedis(REDIS_HOST, REDIS_PORT));
+		Utils.validateClientToken(token, username);
 		List<PersonalTrainer> personalTrainers = (List<PersonalTrainer>) HRPersonalTrainerFacade.getSession().createQuery("from PersonalTrainer").list();
 		return gson.toJson(personalTrainers);
 	}
@@ -180,7 +167,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("clientToken", "clientUsername", "personalTrainerUsername", "classification"));
 		String clientToken = jsonObject.get("clientToken").getAsString();
 		String clientUsername = jsonObject.get("clientUsername").getAsString();
-		Utils.validateClientToken(clientToken, clientUsername, new Jedis(REDIS_HOST, REDIS_PORT));
+		Utils.validateClientToken(clientToken, clientUsername);
 		String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
 		PersonalTrainer pt;
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
@@ -202,7 +189,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validatePersonalTrainerToken(token, username, new Jedis(REDIS_HOST, REDIS_PORT));
+		Utils.validatePersonalTrainerToken(token, username);
 		PersonalTrainer pt;
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), username)) == null) throw new PersonalTrainerNotExistsException(username);
 		return gson.toJson(pt.clients.toArray());
@@ -221,7 +208,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJson, Arrays.asList("personalTrainerToken", "personalTrainerUsername", "clientUsername"));
 		String personalTrainerToken = jsonObject.get("personalTrainerToken").getAsString();
 		String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
-		Utils.validatePersonalTrainerToken(personalTrainerToken, personalTrainerUsername, new Jedis(REDIS_HOST, REDIS_PORT));
+		Utils.validatePersonalTrainerToken(personalTrainerToken, personalTrainerUsername);
 		String clientUsername = jsonObject.get("clientUsername").getAsString();
 		if ( ClientDAO.getClientByORMID(HRPersonalTrainerFacade.getSession(), clientUsername) != null) throw new ClientAlreadyExistsException(clientUsername);
 		Client client = new Client();
@@ -234,18 +221,21 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		System.err.println("Client saved to database...");
 	}
 
-
 	/**
-	 * Updates client's token in redis.
-	 * @param usernameAndTokenAsJson client's username and token as json.
+	 * Updates client's token.
+	 * @param usernameAndTokenAsJson client's username, old token and current token as json.
 	 * @throws JsonKeyInFaultException if any json key is in fault.
 	 */
-	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException {
-		JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("token", "username"));
-		String token = jsonObject.get("token").getAsString();
+	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException {
+		JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "currentToken", "username"));
+		String oldToken = jsonObject.get("oldToken").getAsString();
+		String currentToken = jsonObject.get("currentToken").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Jedis redis = new Jedis(REDIS_HOST, REDIS_PORT);
-		redis.set(username, token); // creates and saves client's token on redis
+		Utils.validateClientToken(oldToken, username);
+		Client client = new Client();
+		client.setUsername(username);
+		client.setToken(currentToken);
+		ClientDAO.save(client);
 		System.err.println("Client's token updated...");
 	}
 }
