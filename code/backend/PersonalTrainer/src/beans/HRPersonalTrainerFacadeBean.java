@@ -60,5 +60,5 @@ public interface HRPersonalTrainerFacadeBean {
 	 */
 	void addClientToPersonalTrainer(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, TokenIsInvalidException;
 
-	void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException;
+	void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException;
 }
