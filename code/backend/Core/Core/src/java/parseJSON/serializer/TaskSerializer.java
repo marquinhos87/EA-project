@@ -9,22 +9,24 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import core.Week;
+import core.Task;
 import java.lang.reflect.Type;
 
 /**
  *
  * @author joaomarques
  */
-public class WeekSerializer implements JsonSerializer<Week> {
-    
+public class TaskSerializer implements JsonSerializer<Task> {
+
     @Override
-    public JsonElement serialize(Week week, Type type, JsonSerializationContext jsc) {
+    public JsonElement serialize(Task task, Type type, JsonSerializationContext jsc) {
         final JsonObject jsonObj = new JsonObject();
-        jsonObj.add("number",jsc.serialize(week.getNumber()));
-        jsonObj.add("initialDate",jsc.serialize(week.getInitialDate()));
-        jsonObj.add("finalDate",jsc.serialize(week.getFinalDate()));
-        jsonObj.add("workouts",jsc.serialize(week.workouts.toArray()));
+        jsonObj.add("designation",jsc.serialize(task.getDesignation()));
+        jsonObj.add("duration", jsc.serialize(task.getDuration()));
+        jsonObj.add("rest", jsc.serialize(task.getRest()));
+        jsonObj.add("equipment", jsc.serialize(task.getEquipment()));
+        jsonObj.add("series", jsc.serialize(task.series.toArray()));
         return jsonObj;
     }
+    
 }

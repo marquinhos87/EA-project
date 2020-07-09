@@ -5,19 +5,15 @@
  */
 package parseJSON.deserializer;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import core.Serie;
-import core.Task;
 import core.Week;
 import core.Workout;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 /**
  *

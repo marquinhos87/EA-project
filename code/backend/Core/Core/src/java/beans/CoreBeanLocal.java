@@ -50,7 +50,7 @@ public interface CoreBeanLocal {
      * @throws UserDontExistsException if username given dont exists
      * @throws InvalidTokenException if for given user the token is invalid
      */
-    String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException, UserDontExistsException;
+    String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDontExistsException, InvalidTokenException, UserDontExistsException, InvalidWeekNumberException;
 
     /**
      * Get a week of a Client plan.
@@ -64,7 +64,7 @@ public interface CoreBeanLocal {
      * @throws InvalidTokenException if for given user the token is invalid
      * @throws ClientDontExistsException if Client dont exist
      */
-    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException, UserDontExistsException, ClientDontExistsException;
+    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDontExistsException, InvalidTokenException, UserDontExistsException, ClientDontExistsException, InvalidWeekNumberException;
 
     /**
      * Assign workouts as done.
@@ -92,6 +92,7 @@ public interface CoreBeanLocal {
      * @throws UserDontExistsException if username given dont exists
      * @throws ClientAlreadyHasAnPlanException if Client already has a Plan
      * @throws PlanDontExistException if given Plan dont exist
+     * @throws InvalidWeekNumberException if given number of the week is incorrect
      */
-    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException;
+    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException;
 }

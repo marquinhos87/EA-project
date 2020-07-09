@@ -69,7 +69,7 @@ public class CoreFacade {
      * 
      * @param usernameAndWeekAsJSON
      */
-    public String getWeekByClient(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException {
+    public String getWeekByClient(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException, InvalidWeekNumberException {
         return coreBean.getWeekByClient(usernameAndWeekAsJSON);
     }
 
@@ -77,7 +77,7 @@ public class CoreFacade {
      *
      * @param usernameAndWeekAsJSON
      */
-    public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientDontExistsException {
+    public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientDontExistsException, InvalidWeekNumberException {
         return coreBean.getWeekByPersonalTrainer(usernameAndWeekAsJSON);
     }
 
@@ -93,7 +93,7 @@ public class CoreFacade {
      * 
      * @param weekAsJson
      */
-    public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException {
+    public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException {
         coreBean.createWeek(weekAsJson);
     }
 }

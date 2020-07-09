@@ -149,6 +149,11 @@ public class CoreController extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             res = makeError(HttpServletResponse.SC_NOT_FOUND,"Plan with Id = " + e.getMessage() + " dont exists.");
         }
+        catch (InvalidWeekNumberException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            res = makeError(HttpServletResponse.SC_BAD_REQUEST,"Plan with Id = " + e.getMessage() + " dont exists.");
+        }
         catch (Exception e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
