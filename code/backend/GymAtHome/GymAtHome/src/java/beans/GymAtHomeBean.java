@@ -9,7 +9,6 @@ import utils.Http;
 import okhttp3.*;
 
 import javax.ejb.Stateless;
-import javax.ejb.Local;
 import java.io.IOException;
 
 /**
