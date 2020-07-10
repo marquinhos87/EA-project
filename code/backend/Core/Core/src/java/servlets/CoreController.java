@@ -187,7 +187,7 @@ public class CoreController extends HttpServlet {
         // Method get is not support for this API
         response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         response.setContentType("application/json");
-        response.getWriter().print(makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"Method not allowed."));
+        response.getWriter().print(makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"GET method is not allowed."));
     }
 
     /**
