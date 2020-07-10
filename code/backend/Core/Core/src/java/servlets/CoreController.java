@@ -53,8 +53,13 @@ public class CoreController extends HttpServlet {
         // Execute the correct method
         try {
             switch (target) {
-                case "createUserToken":
-                    coreFacade.createUserToken(data);
+                case "createUserTokenClient":
+                    coreFacade.createUserTokenClient(data);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    break;
+                case "createUserTokenPersonalTrainer":
+                    coreFacade.createUserTokenPersonalTrainer(data);
                     response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
@@ -110,7 +115,7 @@ public class CoreController extends HttpServlet {
         catch (InvalidWeekNumberException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            res = makeError(HttpServletResponse.SC_BAD_REQUEST,"Plan with Id = " + e.getMessage() + " dont exists.");
+            res = makeError(HttpServletResponse.SC_BAD_REQUEST,"Week with invalid number = " + e.getMessage());
         }
         catch (JsonKeyInFaultException e) {
             e.printStackTrace();
@@ -136,6 +141,11 @@ public class CoreController extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             res = makeError(HttpServletResponse.SC_NOT_FOUND,"User " + e.getMessage() + " dont exists.");
+        }
+        catch (UsernameDontBelongToClientException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            res = makeError(HttpServletResponse.SC_CONFLICT,"Username " + e.getMessage() + " dont belong to a Client.");
         }
         catch (WorkoutAlreadyDoneException e) {
             e.printStackTrace();
