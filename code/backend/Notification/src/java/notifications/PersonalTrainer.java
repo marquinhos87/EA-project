@@ -75,16 +75,6 @@ public class PersonalTrainer {
 	
 	public final notifications.NotificationSetCollection notifications = new notifications.NotificationSetCollection(this, _ormAdapter, ORMConstants.KEY_PERSONALTRAINER_NOTIFICATIONS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
-	public String getToken() {
-		//TODO: Implement Method
-		throw new UnsupportedOperationException();
-	}
-	
-	public void setToken(String token) {
-		//TODO: Implement Method
-		throw new UnsupportedOperationException();
-	}
-	
 	public String toString() {
 		return String.valueOf(getUsername());
 	}

@@ -65,7 +65,7 @@ public class HRPersonalTrainerController extends HttpServlet {
 						addClientToPersonalTrainer(response, getDataFromPost(request));
 						break;
 					case "registerClient":
-						updateClientToken(response, getDataFromPost(request));
+						registerClient(response, getDataFromPost(request));
 						break;
 					case "updateClientToken":
 						updateClientToken(response, getDataFromPost(request));
@@ -75,36 +75,50 @@ public class HRPersonalTrainerController extends HttpServlet {
 						response.getWriter().print(Utils.makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "target is not allowed."));
 				}
 		} catch (PersistentException e) {
-			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "hibernate session error."));
-		} catch (PersonalTrainerAlreadyExistsException e) {
-			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_CONFLICT);
-			out.print(Utils.makeError(HttpServletResponse.SC_CONFLICT, "personal trainer with specified username already exists - " + e.getMessage() + "."));
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "hibernate session error."));
+                } catch (PersonalTrainerAlreadyExistsException e) {
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                    out.print(Utils.makeError(HttpServletResponse.SC_CONFLICT, "personal trainer with specified username already exists - " + e.getMessage() + "."));
 		} catch (JsonKeyInFaultException e) {
-			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			out.print(Utils.makeError(HttpServletResponse.SC_BAD_REQUEST, "json key in fault - " + e.getMessage() + "."));
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    out.print(Utils.makeError(HttpServletResponse.SC_BAD_REQUEST, "json key in fault - " + e.getMessage() + "."));
 		} catch (PersonalTrainerNotExistsException e) {
-			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-			out.print(Utils.makeError(HttpServletResponse.SC_NOT_FOUND, "personal trainer with specified username does not exist - " + e.getMessage() +  "."));
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    out.print(Utils.makeError(HttpServletResponse.SC_NOT_FOUND, "personal trainer with specified username does not exist - " + e.getMessage() +  "."));
 		} catch (InvalidPasswordException e) {
-			e.printStackTrace();
-			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			out.print(Utils.makeError(HttpServletResponse.SC_UNAUTHORIZED, "invalid password - " + e.getMessage() + "."));
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    out.print(Utils.makeError(HttpServletResponse.SC_UNAUTHORIZED, "invalid password - " + e.getMessage() + "."));
 		} catch (ClientNotExistsException e) {
-			e.printStackTrace();
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    out.print(Utils.makeError(HttpServletResponse.SC_NOT_FOUND, "client with specified username does not exist - " + e.getMessage() +  "."));
 		} catch (ClientAlreadyExistsException e) {
-			e.printStackTrace();
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                    out.print(Utils.makeError(HttpServletResponse.SC_CONFLICT, "client with specified username already exists - " + e.getMessage() +  "."));
 		} catch (TokenIsInvalidException e) {
-			e.printStackTrace();
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    out.print(Utils.makeError(HttpServletResponse.SC_UNAUTHORIZED, "token is invalid - " + e.getMessage() +  "."));
 		} catch (UserNotExistsException e) {
-			e.printStackTrace();
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    out.print(Utils.makeError(HttpServletResponse.SC_NOT_FOUND, "user with specified username does not exist - " + e.getMessage() +  "."));
 		} catch (UserAlreadyExistsException e) {
-			e.printStackTrace();
-		}
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_CONFLICT);
+                    out.print(Utils.makeError(HttpServletResponse.SC_CONFLICT, "user with specified username already exists - " + e.getMessage() +  "."));
+		}  catch (Exception e) {
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "unexpected error occurred."));
+                }
 	}
 
 	private void registerClient(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, PersistentException, PersonalTrainerAlreadyExistsException, UserAlreadyExistsException {

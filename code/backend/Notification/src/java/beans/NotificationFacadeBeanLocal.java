@@ -6,21 +6,16 @@ import org.orm.PersistentException;
 @javax.ejb.Local
 public interface NotificationFacadeBeanLocal {
 
-	/**
-	 * 
-	 * @param usernameAnddescriptionAsJson
-	 */
-	void createNotification(String usernameAnddescriptionAsJson);
+	void createNotificationToPersonalTrainer(String infoAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException;
+        void createNotificationToClient(String infoAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, ClientNotExistsException;
 
-	/**
-	 * 
-	 * @param usernameAndIdsAsJson
-	 */
-	String markAsReadNotifications(String usernameAndIdsAsJson);
+	void markAsReadNotificationsByPersonalTrainer(String infoAsJson) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException;
+        void markAsReadNotificationsByClient(String infoAsJson) throws JsonKeyInFaultException, ClientNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException;
 
-	String getNotificationsByPersonalTrainer(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException;
+
+	String getNotificationsByPersonalTrainer(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException;
         
-        String getNotificationsByClient(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException;
+        String getNotificationsByClient(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException;
         
         /**
          * 
