@@ -13,4 +13,10 @@
             30
         </session-timeout>
     </session-config>
+    <ejb-local-ref>
+        <ejb-ref-name>RequestFacadeBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>requests.RequestFacadeBeanLocal</local>
+        <ejb-link>RequestFacadeBean</ejb-link>
+    </ejb-local-ref>
 </web-app>
