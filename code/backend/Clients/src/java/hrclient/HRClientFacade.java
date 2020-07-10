@@ -12,76 +12,77 @@ public class HRClientFacade {
 
     HRClientFacadeBeanLocal hRClientFacadeBean = lookupHRClientFacadeBeanLocal();
 
-    private static HRClientFacade hrClientFacade;
-    private static PersistentSession session;
+	private HRClientFacadeBean clientFacadeBean;
+	private static HRClientFacade rhClientFacade;
+        private static PersistentSession session;
 
-    public static HRClientFacade getInstance() {
-            if(hrClientFacade == null)
-                hrClientFacade = new HRClientFacade();
-            return hrClientFacade;
-    }
-
-    public static PersistentSession getSession() throws PersistentException {
+	public static HRClientFacade getInstance() {
+            if(rhClientFacade == null)
+                rhClientFacade = new HRClientFacade();
+            return rhClientFacade;
+	}
+        
+        public static PersistentSession getSession() throws PersistentException {
             if(session == null)
                     session = DiagramasPersistentManager.instance().getSession();
             return session;
     }
 
-    /**
-     * 
-     * @param usernameAndTokenAsJson
-     */
-    public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersonalTrainerDoesNotExistException {
-            hRClientFacadeBean.updateUserToken(usernameAndTokenAsJson);
-    }
+	/**
+	 * 
+	 * @param usernameAndTokenAsJson
+	 */
+	public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, UserDoesNotExistException, PersistentException {
+		hRClientFacadeBean.updateUserToken(usernameAndTokenAsJson);
+	}
 
-    /**
-     * 
-     * @param infoClientAsJSON
-     */
-    public String createClient(String infoClientAsJSON) throws PersistentException, JsonKeyInFaultException, ClientAlreadyExistsException {
-            return hRClientFacadeBean.createClient(infoClientAsJSON);
-    }
+	/**
+	 * 
+	 * @param infoClientAsJSON
+	 */
+	public String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, UserAlreadyExistsException {
+		return hRClientFacadeBean.createClient(infoClientAsJSON);
+	}
 
-    /**
-     * 
-     * @param infoAsJSON
-     */
-    public String loginClient(String infoAsJSON) throws InvalidPasswordException, PersistentException, JsonKeyInFaultException, ClientDoesNotExistException {
-            return hRClientFacadeBean.loginClient(infoAsJSON);
-    }
+	/**
+	 * 
+	 * @param infoAsJSON
+	 */
+	public String loginClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDoesNotExistException, InvalidPasswordException {
+		return hRClientFacadeBean.loginClient(infoAsJSON);
+	}
 
-    /**
-     * 
-     * @param usernameAsJSON
-     */
-    public String getClientProfileByClient(String usernameAsJSON) throws TokenIsInvalidException, PersistentException, JsonKeyInFaultException, ClientDoesNotExistException {
-            return hRClientFacadeBean.getClientProfileByClient(usernameAsJSON);
-    }
+	/**
+	 * 
+	 * @param usernameAsJSON
+	 */
+	public String getClientProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, BiometricDataDoesNotExistException {
+		return hRClientFacadeBean.getClientProfileByClient(usernameAsJSON);
+	}
 
-    /**
-     * 
-     * @param usernameAsJSON
-     */
-    public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws TokenIsInvalidException, PersonalTrainerDoesNotExistException, PersistentException, JsonKeyInFaultException, ClientDoesNotExistException {
-            return hRClientFacadeBean.getClientProfileByPersonalTrainer(usernameAsJSON);
-    }
+	/**
+	 * 
+	 * @param usernameAsJSON
+	 */
+	public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, PersonalTrainerDoesNotExistException, UserDoesNotExistException, BiometricDataDoesNotExistException {
+		return hRClientFacadeBean.getClientProfileByPersonalTrainer(usernameAsJSON);
+	}
 
-    /**
-     * 
-     * @param infoAsJSON
-     */
-    public void editClientProfile(String infoAsJSON) throws TokenIsInvalidException, PersistentException, JsonKeyInFaultException, ClientDoesNotExistException {
-            hRClientFacadeBean.editClientProfile(infoAsJSON);
-    }
+	/**
+	 * 
+	 * @param infoAsJSON
+	 */
+	public void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, UserDoesNotExistException {
+		hRClientFacadeBean.editClientProfile(infoAsJSON);
+	}
 
-    /**
-     * 
-     * @param usernameAsJSON
-     */
-    public String getBiometricData(String usernameAsJSON) throws TokenIsInvalidException, ClientDoesNotExistException, PersonalTrainerDoesNotExistException, JsonKeyInFaultException, PersistentException {
-            return hRClientFacadeBean.getBiometricData(usernameAsJSON);
-    }
+	/**
+	 * 
+	 * @param usernameAsJSON
+	 */
+	public String getBiometricData(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerDoesNotExistException, TokenIsInvalidException, PersistentException, ClientDoesNotExistException, UserDoesNotExistException, BiometricDataDoesNotExistException {
+		return hRClientFacadeBean.getBiometricData(usernameAsJSON);
+	}
 
     private HRClientFacadeBeanLocal lookupHRClientFacadeBeanLocal() {
         try {
@@ -92,4 +93,5 @@ public class HRClientFacade {
             throw new RuntimeException(ne);
         }
     }
+
 }

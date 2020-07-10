@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: jose(Universidade do Minho)
+ * Licensee: josepereira(Universidade do Minho)
  * License Type: Academic
  */
 package hrclient;

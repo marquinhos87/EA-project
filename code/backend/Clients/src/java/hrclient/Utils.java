@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.hibernate.Query;
 import org.orm.PersistentException;
-import redis.clients.jedis.Jedis;
 
 import java.util.*;
 
@@ -67,15 +66,11 @@ public class Utils {
         return jsonObject;
     }
 
-    public static void validateClientToken(String token, String username, Jedis redis) throws TokenIsInvalidException, ClientDoesNotExistException {
-        if (redis.exists(username) == false) throw new ClientDoesNotExistException(username);
-        String cachedToken = redis.get(username);
+    public static User validateUserToken(String token, String username) throws TokenIsInvalidException, UserDoesNotExistException, PersistentException {
+        User user;
+        if((user = UserDAO.getUserByORMID(HRClientFacade.getSession(), username)) == null) throw new UserDoesNotExistException(username);
+        String cachedToken = user.getToken();
         if(cachedToken.equals(token) == false) throw new TokenIsInvalidException(token);
-    }
-
-    public static void validatePersonalTrainerToken(String token, String username, Jedis redis) throws TokenIsInvalidException, PersonalTrainerDoesNotExistException {
-        if (redis.exists(username) == false) throw new PersonalTrainerDoesNotExistException(username);
-        String cachedToken = redis.get(username);
-        if(cachedToken.equals(token) == false) throw new TokenIsInvalidException(token);
+        return user;
     }
 }

@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: jose(Universidade do Minho)
+ * Licensee: josepereira(Universidade do Minho)
  * License Type: Academic
  */
 package hrclient;
@@ -128,11 +128,13 @@ public class Client implements hrclient.IClient {
 	public final hrclient.BiometricDataSetCollection biometricDatas = new hrclient.BiometricDataSetCollection(this, _ormAdapter, ORMConstants.KEY_CLIENT_BIOMETRICDATAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public Set<BiometricData> getBiometricDatas() {
-		return this.getORM_BiometricDatas();
+		//TODO: Implement Method
+		throw new UnsupportedOperationException();
 	}
 	
 	public void setBiometricDatas(Set<BiometricData> biometricDatas) {
-		this.setORM_BiometricDatas(biometricDatas);
+		//TODO: Implement Method
+		throw new UnsupportedOperationException();
 	}
 	
 	public String toString() {

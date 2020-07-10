@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class ClientFactoryTest {
     public static void main(String[] args) {
-        ClientFactory factory = ClientFactory.getInstance();
+        /*ClientFactory factory = ClientFactory.getInstance();
 
 
         //  create a normal user
@@ -25,6 +25,6 @@ public class ClientFactoryTest {
             c2.setUsername("isNull");
         }catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
     }
 }

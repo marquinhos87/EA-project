@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: jose(Universidade do Minho)
+ * Licensee: josepereira(Universidade do Minho)
  * License Type: Academic
  */
 package hrclient;
@@ -130,21 +130,9 @@ public class BiometricData {
 	public float getBMI() {
 		return BMI;
 	}
-
-	@Override
+	
 	public String toString() {
-		return "BiometricData{" +
-				"ID=" + ID +
-				", height=" + height +
-				", weight=" + weight +
-				", wrist=" + wrist +
-				", chest=" + chest +
-				", tricep=" + tricep +
-				", waist=" + waist +
-				", quadricep=" + quadricep +
-				", twin=" + twin +
-				", date=" + date +
-				", BMI=" + BMI +
-				'}';
+		return String.valueOf(getID());
 	}
+	
 }

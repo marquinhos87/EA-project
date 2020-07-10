@@ -13,4 +13,10 @@
             30
         </session-timeout>
     </session-config>
+    <ejb-local-ref>
+        <ejb-ref-name>HRClientFacadeBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>hrclient.HRClientFacadeBeanLocal</local>
+        <ejb-link>HRClientFacadeBean</ejb-link>
+    </ejb-local-ref>
 </web-app>

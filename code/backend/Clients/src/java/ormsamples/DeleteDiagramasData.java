@@ -1,5 +1,5 @@
 /**
- * Licensee: jose(Universidade do Minho)
+ * Licensee: josepereira(Universidade do Minho)
  * License Type: Academic
  */
 package ormsamples;
@@ -15,6 +15,9 @@ public class DeleteDiagramasData {
 			hrclient.BiometricData lhrclientBiometricData = hrclient.BiometricDataDAO.loadBiometricDataByQuery(null, null);
 			// Delete the persistent object
 			hrclient.BiometricDataDAO.delete(lhrclientBiometricData);
+			hrclient.User lhrclientUser = hrclient.UserDAO.loadUserByQuery(null, null);
+			// Delete the persistent object
+			hrclient.UserDAO.delete(lhrclientUser);
 			t.commit();
 		}
 		catch (Exception e) {

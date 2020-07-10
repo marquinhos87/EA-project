@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class DatabaseTest {
     public static void main(String[] args) {
-        ClientFactory factory = ClientFactory.getInstance();
+        /*ClientFactory factory = ClientFactory.getInstance();
         IClient c1 = factory.createIClient("Client");
 
         c1.setUsername("username");
@@ -21,6 +21,6 @@ public class DatabaseTest {
             ClientDAO.save((Client) c1);
         } catch (PersistentException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

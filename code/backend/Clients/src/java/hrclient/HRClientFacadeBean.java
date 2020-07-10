@@ -10,9 +10,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import javax.ejb.Stateless;
+import org.hibernate.Query;
 import org.orm.PersistentException;
-import redis.clients.jedis.Jedis;
+import org.orm.PersistentSession;
 
 /**
  *
@@ -27,9 +29,6 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
     private final Gson gson = new GsonBuilder()
                             .setDateFormat("yyyy-MM-dd")
                             .create();
-    private static final String REDIS_HOST = "localhost";
-    private static final int REDIS_PORT = 6379;
-    private final Jedis redis = new Jedis(REDIS_HOST, REDIS_PORT);
     
     @Override
     public String sayHello(String name) {
@@ -40,29 +39,39 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * Update token of other entities associated with Client, at the moment only Personal Trainer.
      * @param usernameAndTokenAsJson json with username, old token and new token of personal trainer
      */
-    public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersonalTrainerDoesNotExistException{
+    public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, UserDoesNotExistException, PersistentException{
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJson , Arrays.asList("username", "oldToken", "newToken"));
         String oldToken = json.get("oldToken").getAsString(), username = json.get("username").getAsString(), newToken = json.get("newToken").getAsString();
-        Utils.validatePersonalTrainerToken(oldToken, username, redis);
-        redis.set(username, newToken);
+        User user = Utils.validateUserToken(oldToken, username);
+        user.setToken(newToken);
+        UserDAO.save(user);     //  update new token
+        
     }
 
     /**
      * 
      * @param infoClientAsJSON
      */
-    public String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException {
-            Utils.validateJson(gson , infoClientAsJSON , Arrays.asList("username", "password", "name", "email", "sex", "birthday", "height", "weight"));
+    public String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, UserAlreadyExistsException {
+            JsonObject json = Utils.validateJson(gson , infoClientAsJSON , Arrays.asList("username", "password", "name", "email", "sex", "birthday", "height", "weight"));
             Client client = gson.fromJson(infoClientAsJSON, Client.class);
             String username = client.getUsername();
             if(ClientDAO.getClientByORMID(HRClientFacade.getSession(),  username) != null) throw new ClientAlreadyExistsException(username);
+            if(UserDAO.getUserByORMID(HRClientFacade.getSession(),  username) != null) throw new UserAlreadyExistsException(username);
+            
             BiometricData biometricData = gson.fromJson(infoClientAsJSON, BiometricData.class);
             biometricData.setDate(new Date());
+            float height = (float) (json.get("height").getAsInt())/100; float weight = json.get("weight").getAsFloat();
+            biometricData.setBMI((float) (weight/(height*height)));
             client.biometricDatas.add(biometricData);
+            
             String token = Utils.tokenGenerate(client.getUsername());
-            if(redis.exists(username) == true)
-                throw new ClientAlreadyExistsException(username + "on redis database");
-            redis.set(username, token);
+            
+            User user = new User();
+            user.setUsername(username);
+            user.setToken(token);
+            
+            UserDAO.save(user);
             ClientDAO.save(client);
             return "{\"token\":\"" + token + "\"}";
     }
@@ -77,12 +86,14 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             Client client = null;
             if ( (client = ClientDAO.getClientByORMID(HRClientFacade.getSession(),username)) == null) throw new ClientDoesNotExistException(username);
             if(!client.getPassword().equals(password)) throw new InvalidPasswordException(password);
-            if(!redis.exists(username))
-                    throw new ClientDoesNotExistException(username + "on redis database");
-            oldToken = redis.get(username);
+            User user;
+            if((user = UserDAO.getUserByORMID(username)) == null)
+                throw new ClientDoesNotExistException(username);
+            oldToken = user.getToken();
             String newToken = Utils.tokenGenerate(client.getUsername());
-            redis.set(username, newToken);
-            ClientDAO.save(client);
+            user.setToken(newToken);
+            UserDAO.save(user);                     //  update token
+            ClientDAO.save(client);                 //  update username of client
             return "{ \"oldToken\": \"" + oldToken + "\", " +
                             "\"newToken\": \"" + newToken + "\" }";
     }
@@ -91,27 +102,24 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * 
      * @param usernameAsJSON
      */
-    public String getClientProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException {
+    public String getClientProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, BiometricDataDoesNotExistException {
             JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("username", "token"));
             String token = json.get("token").getAsString(), username = json.get("username").getAsString();
-            Utils.validateClientToken(token, json.get("username").getAsString(), redis);
+            Utils.validateUserToken(token, json.get("username").getAsString());
             Client client;
             if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
 
             //	get last biometric data using ID
-            BiometricData biometricData ;
-            int maxID = -1, elemID, index = 0, maxIDIndex = 0;
-            BiometricData[] biometricDatas = client.biometricDatas.toArray();
-            for(BiometricData elem : biometricDatas) {
-                    if ((elemID = elem.getID()) > maxID) {
-                            maxID = elemID;					//	save value of max id at the moment
-                            maxIDIndex = index;				//	save current position at maxIDIndex (index of array with max Id at the moment)
-                    }
-                    index++;							//	increment array index
+            Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + username + "\'");
+            Iterator it = q.list().iterator();
+            BiometricData biometricData = null;
+            int maxId = 0;
+            if(it.hasNext()){
+                maxId = (Integer) it.next();
+                biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
             }
-            if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
-            else biometricData = new BiometricData();									//	empty
-            //	TODO neste momento esta forma não é a melhor de construir o JSON, mas vou avançar e depois melhoro isto
+            if(biometricData == null) throw new BiometricDataDoesNotExistException();
+            
             return "{ \"username\": \"" + client.getUsername() + "\", " +
                             "\"password\": \"" + client.getPassword() + "\", " +
                             "\"name\": \"" + client.getName() + "\", " +
@@ -123,34 +131,34 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
                             "\"tricep\": \"" + biometricData.getTricep() + "\", " +
                             "\"waist\": \"" + biometricData.getWaist()+ "\", " +
                             "\"quadricep\": \"" + biometricData.getQuadricep() + "\", " +
-                            "\"twin\": \"" + biometricData.getTwin() + "\"}";
+                            "\"twin\": \"" + biometricData.getTwin() + "\", " +
+                            "\"date\": \"" + biometricData.getDate() + "\", " +
+                            "\"BMI\": \"" + biometricData.getBMI() + "\"}";
     }
 
     /**
      * 
      * @param usernameAsJSON
      */
-    public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, PersonalTrainerDoesNotExistException {
+    public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, PersonalTrainerDoesNotExistException, UserDoesNotExistException, BiometricDataDoesNotExistException {
             JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("clientUsername", "username" , "token"));
             String token = json.get("token").getAsString(), username = json.get("username").getAsString(), clientUsername = json.get("clientUsername").getAsString();
-            Utils.validatePersonalTrainerToken(token, username, redis);
+            Utils.validateUserToken(token, username);
             Client client;
             if((client = ClientDAO.getClientByORMID(clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
 
             //	get last biometric data using ID
-            BiometricData biometricData ;
-            int maxID = -1, elemID, index = 0, maxIDIndex = 0;
-            BiometricData[] biometricDatas = client.biometricDatas.toArray();
-            for(BiometricData elem : biometricDatas) {
-                    if ((elemID = elem.getID()) > maxID) {
-                            maxID = elemID;					//	save value of max id at the moment
-                            maxIDIndex = index;				//	save current position at maxIDIndex (index of array with max Id at the moment)
-                    }
-                    index++;							//	increment array index
+            Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + clientUsername + "\'");
+            Iterator it = q.list().iterator();
+            BiometricData biometricData = null;
+            int maxId = 0;
+            if(it.hasNext()){
+                maxId = (Integer) it.next();
+                biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
             }
-            if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
-            else biometricData = new BiometricData();									//	empty
-            //	TODO neste momento esta forma não é a melhor de construir o JSON, mas vou avançar e depois melhoro isto
+            if(biometricData == null) throw new BiometricDataDoesNotExistException();
+            
+            //  to unsend password
             return "{\"name\": \"" + client.getName() + "\", " +
                             "\"email\": \"" + client.getEmail() + "\", " +
                             "\"sex\": \"" + client.getSex() + "\", " +
@@ -162,17 +170,19 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
                             "\"tricep\": \"" + biometricData.getTricep() + "\", " +
                             "\"waist\": \"" + biometricData.getWaist()+ "\", " +
                             "\"quadricep\": \"" + biometricData.getQuadricep() + "\", " +
-                            "\"twin\": \"" + biometricData.getTwin() + "\"}";
+                            "\"twin\": \"" + biometricData.getTwin() + "\", " +
+                            "\"date\": \"" + biometricData.getDate() + "\", " +
+                            "\"BMI\": \"" + biometricData.getBMI() + "\"}";
     }
 
     /**
      * 
      * @param infoAsJSON
      */
-    public void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException {
+    public void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, UserDoesNotExistException{
             JsonObject json = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "token"));
             String token = json.get("token").getAsString(), username = json.get("username").getAsString();
-            Utils.validateClientToken(token, json.get("username").getAsString(), redis);
+            Utils.validateUserToken(token, json.get("username").getAsString());
             Client client = null;
             if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
 
@@ -187,6 +197,9 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
                     client.setSex(json.get("sex").getAsString());
 
             BiometricData biometricData = gson.fromJson(infoAsJSON, BiometricData.class);
+            float height = (float) (json.get("height").getAsInt())/100; float weight = json.get("weight").getAsFloat();
+            biometricData.setBMI((float) (weight/(height*height)));
+            biometricData.setDate(new Date());
             client.biometricDatas.add(biometricData);
             ClientDAO.save(client);
     }
@@ -195,35 +208,23 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * Returns biometric data fields
      * @param usernameAsJSON JSON with clientUsername of biometric data to search, username and token of requester
      */
-    public String getBiometricData(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerDoesNotExistException, TokenIsInvalidException, PersistentException, ClientDoesNotExistException {
+    public String getBiometricData(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerDoesNotExistException, TokenIsInvalidException, PersistentException, ClientDoesNotExistException, UserDoesNotExistException, BiometricDataDoesNotExistException {
             JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("clientUsername", "username" , "token"));
             String token = json.get("token").getAsString(), username = json.get("username").getAsString(), clientUsername = json.get("clientUsername").getAsString();
-            Utils.validatePersonalTrainerToken(token, username, redis);
+            Utils.validateUserToken(token, username);
             Client client;
-            //	TODO não está da melhor forma, pois vamos buscar o client à base de dados, depois verei uma forma mais eficiente
             if((client = ClientDAO.getClientByORMID(clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
 
-            //	get last biometric data using ID
-            BiometricData biometricData ;
-            int maxID = -1, elemID, index = 0, maxIDIndex = 0;
-            BiometricData[] biometricDatas = client.biometricDatas.toArray();
-            for(BiometricData elem : biometricDatas) {
-                    if ((elemID = elem.getID()) > maxID) {
-                            maxID = elemID;					//	save value of max id at the moment
-                            maxIDIndex = index;				//	save current position at maxIDIndex (index of array with max Id at the moment)
-                    }
-                    index++;							//	increment array index
+            Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + clientUsername + "\'");
+            Iterator it = q.list().iterator();
+            BiometricData biometricData = null;
+            int maxId = 0;
+            if(it.hasNext()){
+                maxId = (Integer) it.next();
+                biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
             }
-            if(biometricDatas.length != 0)biometricData = biometricDatas[maxIDIndex];	//	get last register
-            else biometricData = new BiometricData();									//	empty
-            //	TODO neste momento esta forma não é a melhor de construir o JSON, mas vou avançar e depois melhoro isto
-            return "{\"height\": \"" + biometricData.getHeight() + "\", " +
-                            "\"weight\": \"" + biometricData.getWeight() + "\", " +
-                            "\"wrist\": \"" + biometricData.getWrist() + "\", " +
-                            "\"chest\": \"" + biometricData.getChest() + "\", " +
-                            "\"tricep\": \"" + biometricData.getTricep() + "\", " +
-                            "\"waist\": \"" + biometricData.getWaist()+ "\", " +
-                            "\"quadricep\": \"" + biometricData.getQuadricep() + "\", " +
-                            "\"twin\": \"" + biometricData.getTwin() + "\"}";
+            if(biometricData == null) throw new BiometricDataDoesNotExistException();
+            
+            return gson.toJson(biometricData);
     }
 }

@@ -5,6 +5,7 @@
  */
 package web;
 
+import hrclient.BiometricDataDoesNotExistException;
 import hrclient.ClientAlreadyExistsException;
 import hrclient.ClientDoesNotExistException;
 import hrclient.HRClientFacade;
@@ -12,6 +13,8 @@ import hrclient.InvalidPasswordException;
 import hrclient.JsonKeyInFaultException;
 import hrclient.PersonalTrainerDoesNotExistException;
 import hrclient.TokenIsInvalidException;
+import hrclient.UserAlreadyExistsException;
+import hrclient.UserDoesNotExistException;
 import hrclient.Utils;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -22,7 +25,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.orm.PersistentException;
-import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
  *
@@ -43,6 +45,8 @@ public class HRClientAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("aplication/json");
+        response.getWriter().print(Utils.makeError(404, "Method GET not allowed."));
     }
 
     /**
@@ -74,38 +78,56 @@ public class HRClientAPI extends HttpServlet {
                 try{
                     facade.updateUserToken(json);
                 } catch (JsonKeyInFaultException ex){
-                    response.getWriter().print(Utils.makeError(404, "Json key in fault: " + ex.getMessage()));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
                 } catch (TokenIsInvalidException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Token is invalid."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
                     break;
-                } catch (PersonalTrainerDoesNotExistException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Personal Trainer with username " + ex.getMessage() + " does not exist on redis server."));
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (PersistentException ex) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
+                    break;
+                }catch (Exception ex){
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
                     break;
                 }
-                response.getWriter().print(Utils.makeSuccess(200, "Token updated successfully."));
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,"\"User token updated with success.\""));
                 break;
             case "createClient":
             {
                 try {
                     json = facade.createClient(json);
                 } catch (PersistentException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Error with session."));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session. " + ex.getMessage()));
                     break;
                 } catch (JsonKeyInFaultException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Json key in fault: " + ex.getMessage()));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
                 } catch (ClientAlreadyExistsException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Client with username " + ex.getMessage() + " already exist."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(16, "Client with username " + ex.getMessage() + " already exist."));
                     break;
-                }catch (JedisConnectionException e){
-                    response.getWriter().print(Utils.makeError(404, "Redis is not running."));
+                } catch (UserAlreadyExistsException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(15, "User with username " + ex.getMessage() + " already exist."));
                     break;
-                }catch (Exception e){
-                    response.getWriter().print(Utils.makeError(404, "Internal error."));
+                } catch (Exception e){
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
                     break;
                 }
-                response.getWriter().print(Utils.makeSuccess(200,json));
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
                 break;
             }
             case "loginClient":
@@ -113,25 +135,28 @@ public class HRClientAPI extends HttpServlet {
                 try {
                     json = facade.loginClient(json);
                 } catch (InvalidPasswordException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Invalid password."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(22, "Invalid password."));
                     break;
                 } catch (PersistentException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Error with session."));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
                 } catch (JsonKeyInFaultException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Json key in fault: " + ex.getMessage()));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
                 } catch (ClientDoesNotExistException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Client with username " + ex.getMessage() + " does not exist."));
-                    break;
-                }catch (JedisConnectionException e){
-                    response.getWriter().print(Utils.makeError(404, "Redis is not running."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(20, "Client with username " + ex.getMessage() + " does not exist on database."));
                     break;
                 }catch (Exception e){
-                    response.getWriter().print(Utils.makeError(404, "Internal error."));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
                     break;
                 }
-                response.getWriter().print(Utils.makeSuccess(200,json));
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
                 break;
             }
             case "getClientProfileByClient":
@@ -139,25 +164,36 @@ public class HRClientAPI extends HttpServlet {
                 try {
                     json = facade.getClientProfileByClient(json);
                 } catch (TokenIsInvalidException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Token is invalid."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
                     break;
                 } catch (PersistentException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Error with session."));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
                 } catch (JsonKeyInFaultException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Json key in fault: " + ex.getMessage()));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
                 } catch (ClientDoesNotExistException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Client with username " + ex.getMessage() + " does not exist."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(20, "Client with username " + ex.getMessage() + " does not exist on database."));
                     break;
-                }catch (JedisConnectionException e){
-                    response.getWriter().print(Utils.makeError(404, "Redis is not running."));
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
                     break;
-                }catch (Exception e){
-                    response.getWriter().print(Utils.makeError(404, "Internal error."));
+                } catch (BiometricDataDoesNotExistException ex){
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
+                    break;
+                } catch (Exception e){
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
                     break;
                 }
-                response.getWriter().print(Utils.makeSuccess(200,json));
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
                 break;
             }
             case "getClientProfileByPersonalTrainer":
@@ -165,28 +201,69 @@ public class HRClientAPI extends HttpServlet {
                 try {
                     json = facade.getClientProfileByPersonalTrainer(json);
                 } catch (TokenIsInvalidException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Token is invalid."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
                     break;
                 } catch (PersonalTrainerDoesNotExistException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Personal Trainer with username " + ex.getMessage() + " does not exist on redis server."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(17, "PersonalTrainer with username " + ex.getMessage() + " does not exist on database."));
                     break;
                 } catch (PersistentException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Error with session."));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
                 } catch (JsonKeyInFaultException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Json key in fault: " + ex.getMessage()));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
                 } catch (ClientDoesNotExistException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Client with username " + ex.getMessage() + " does not exist."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(20, "Client with username " + ex.getMessage() + " does not exist on database."));
                     break;
-                }catch (JedisConnectionException e){
-                    response.getWriter().print(Utils.makeError(404, "Redis is not running."));
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
                     break;
-                }catch (Exception e){
-                    response.getWriter().print(Utils.makeError(404, "Internal error."));
+                } catch (BiometricDataDoesNotExistException ex){
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
+                    break;
+                } catch (Exception e){
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
                     break;
                 }
-                response.getWriter().print(Utils.makeSuccess(200,json));
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
+                break;
+            }
+            case "editClientProfile":
+            {
+                try {
+                    facade.editClientProfile(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
+                    break;
+                } catch (ClientDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(20, "Client with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (PersistentException ex) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
+                    break;
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,"\"Profile edited with success.\""));
                 break;
             }
             case "getBiometricData":
@@ -194,32 +271,45 @@ public class HRClientAPI extends HttpServlet {
                 try {
                     json = facade.getBiometricData(json);
                 } catch (TokenIsInvalidException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Token is invalid."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
                     break;
                 } catch (ClientDoesNotExistException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Client with username " + ex.getMessage() + " does not exist."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(20, "Client with username " + ex.getMessage() + " does not exist on database."));
                     break;
                 } catch (PersonalTrainerDoesNotExistException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Personal Trainer with username " + ex.getMessage() + " does not exist on redis server."));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(17, "PersonalTrainer with username " + ex.getMessage() + " does not exist on database."));
                     break;
                 } catch (JsonKeyInFaultException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Json key in fault: " + ex.getMessage()));
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
                 } catch (PersistentException ex) {
-                    response.getWriter().print(Utils.makeError(404, "Error with session."));
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
-                }catch (JedisConnectionException e){
-                    response.getWriter().print(Utils.makeError(404, "Redis is not running."));
+                }catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
                     break;
-                }catch (Exception e){
-                    response.getWriter().print(Utils.makeError(404, "Internal error."));
+                } catch (BiometricDataDoesNotExistException ex){
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
+                    break;
+                } catch (Exception e){
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
                     break;
                 }
-                response.getWriter().print(Utils.makeSuccess(200,json));
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
                 break;
             }
             default:
-                response.getWriter().print(Utils.makeError(404,"There is no such method."));
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                response.getWriter().print(Utils.makeError(404,"There is no such target for " + target + "."));
                 break;
         }
     }
@@ -234,4 +324,27 @@ public class HRClientAPI extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    //  LANGUAGE OF SERVICE
+    /**
+     * SUCCESS: 1 to 10
+     * 
+     * 1 - normal success
+     * 
+     * 
+     * ERRORS: 11 to ...
+     * 
+     * 11 - JsonKeyInFaultException
+     * 12 - UserDoesNotExistException
+     * 13 - TokenIsInvalidException
+     * 14 - PersistentException
+     * 15 - UserAlreadyExistsException
+     * 16 - ClientAlreadyExistsException
+     * 17 - PersonalTrainerDoesNotExistException
+     * 18 - PersonalTrainerAlreadyExistsException
+     * 19 - Probably json not validated format
+     * 20 - ClientDoesNotExistException
+     * 21 - RequestDoesNotExsistException
+     * 22 - InvalidPasswordException
+     * 23 - BiometricDataDoesNotExistException
+     */
 }

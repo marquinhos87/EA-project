@@ -1,5 +1,5 @@
 /**
- * Licensee: jose(Universidade do Minho)
+ * Licensee: josepereira(Universidade do Minho)
  * License Type: Academic
  */
 package ormsamples;
@@ -15,6 +15,9 @@ public class CreateDiagramasData {
 			hrclient.BiometricData lhrclientBiometricData = hrclient.BiometricDataDAO.createBiometricData();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : BMI, twin, quadricep, waist, tricep, chest, wrist, weight, height
 			hrclient.BiometricDataDAO.save(lhrclientBiometricData);
+			hrclient.User lhrclientUser = hrclient.UserDAO.createUser();
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
+			hrclient.UserDAO.save(lhrclientUser);
 			t.commit();
 		}
 		catch (Exception e) {

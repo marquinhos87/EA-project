@@ -1,5 +1,5 @@
 /**
- * Licensee: jose(Universidade do Minho)
+ * Licensee: josepereira(Universidade do Minho)
  * License Type: Academic
  */
 package ormsamples;
@@ -22,6 +22,14 @@ public class ListDiagramasData {
 		length = Math.min(hrclientBiometricDatas.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			System.out.println(hrclientBiometricDatas[i]);
+		}
+		System.out.println(length + " record(s) retrieved.");
+		
+		System.out.println("Listing User...");
+		hrclient.User[] hrclientUsers = hrclient.UserDAO.listUserByQuery(null, null);
+		length = Math.min(hrclientUsers.length, ROW_COUNT);
+		for (int i = 0; i < length; i++) {
+			System.out.println(hrclientUsers[i]);
 		}
 		System.out.println(length + " record(s) retrieved.");
 		
@@ -51,6 +59,18 @@ public class ListDiagramasData {
 			 System.out.println(hrclientBiometricDatas[i]);
 		}
 		System.out.println(length + " BiometricData record(s) retrieved."); 
+		
+		System.out.println("Listing User by Criteria...");
+		hrclient.UserCriteria lhrclientUserCriteria = new hrclient.UserCriteria();
+		// Please uncomment the follow line and fill in parameter(s) 
+		//lhrclientUserCriteria.username.eq();
+		lhrclientUserCriteria.setMaxResults(ROW_COUNT);
+		hrclient.User[] hrclientUsers = lhrclientUserCriteria.listUser();
+		length =hrclientUsers== null ? 0 : Math.min(hrclientUsers.length, ROW_COUNT); 
+		for (int i = 0; i < length; i++) {
+			 System.out.println(hrclientUsers[i]);
+		}
+		System.out.println(length + " User record(s) retrieved."); 
 		
 	}
 	

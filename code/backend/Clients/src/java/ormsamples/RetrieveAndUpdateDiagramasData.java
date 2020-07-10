@@ -1,5 +1,5 @@
 /**
- * Licensee: jose(Universidade do Minho)
+ * Licensee: josepereira(Universidade do Minho)
  * License Type: Academic
  */
 package ormsamples;
@@ -15,6 +15,9 @@ public class RetrieveAndUpdateDiagramasData {
 			hrclient.BiometricData lhrclientBiometricData = hrclient.BiometricDataDAO.loadBiometricDataByQuery(null, null);
 			// Update the properties of the persistent object
 			hrclient.BiometricDataDAO.save(lhrclientBiometricData);
+			hrclient.User lhrclientUser = hrclient.UserDAO.loadUserByQuery(null, null);
+			// Update the properties of the persistent object
+			hrclient.UserDAO.save(lhrclientUser);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -35,6 +38,12 @@ public class RetrieveAndUpdateDiagramasData {
 		// Please uncomment the follow line and fill in parameter(s)
 		//lhrclientBiometricDataCriteria.ID.eq();
 		System.out.println(lhrclientBiometricDataCriteria.uniqueBiometricData());
+		
+		System.out.println("Retrieving User by UserCriteria");
+		hrclient.UserCriteria lhrclientUserCriteria = new hrclient.UserCriteria();
+		// Please uncomment the follow line and fill in parameter(s)
+		//lhrclientUserCriteria.username.eq();
+		System.out.println(lhrclientUserCriteria.uniqueUser());
 		
 	}
 	

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: jose(Universidade do Minho)
+Licensee: josepereira(Universidade do Minho)
 License Type: Academic
 -->
 <!DOCTYPE hibernate-configuration PUBLIC
@@ -19,5 +19,6 @@ License Type: Academic
 		<!-- mapping files -->
 		<mapping resource="ormmapping/hrclient/BiometricData.hbm.xml" />
 		<mapping resource="ormmapping/hrclient/Client.hbm.xml" />
+		<mapping resource="ormmapping/hrclient/User.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
