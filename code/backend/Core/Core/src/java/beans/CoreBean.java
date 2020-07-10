@@ -20,6 +20,7 @@ import utils.Utils;
 import core.*;
 import exceptions.*;
 import java.util.*;
+import org.hibernate.Query;
 import parseJSON.deserializer.*;
 import parseJSON.serializer.*;
 
@@ -47,7 +48,7 @@ public class CoreBean implements CoreBeanLocal {
                 .registerTypeAdapter(Task.class, new TaskDeserializer())
                 .create();
     }
-
+    
     /**
      * Create a User.
      *
@@ -56,8 +57,7 @@ public class CoreBean implements CoreBeanLocal {
      * @throws UserAlreadyExistsException if users token already register
      * @throws JsonKeyInFaultException if has some keys in fault 
      */
-    @Override
-    public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
+    private String createUser(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
         JsonObject json = Utils.validateJson(gson, usernameAsJson, Arrays.asList("token", "username"));
 
         // Verify if User is already registered
@@ -70,6 +70,40 @@ public class CoreBean implements CoreBeanLocal {
         user.setUsername(json.get("username").getAsString());
         user.setToken(json.get("token").getAsString());
         UserDAO.save(user);
+        session.flush();
+        
+        return json.get("username").getAsString();
+    }
+
+    /**
+     * Create a User (Client).
+     *
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws UserAlreadyExistsException if users token already register
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     */
+    @Override
+    public void createUserTokenClient(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
+        createUser(usernameAsJson);
+    }
+    
+    /**
+     * Create a User (PersonalTrainer).
+     *
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws UserAlreadyExistsException if users token already register
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     */
+    @Override
+    public void createUserTokenPersonalTrainer(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {        
+        PersistentSession session = CoreFacade.getSession();
+        
+        // Add PersonalTrainer to database
+        PersonalTrainer pt = new PersonalTrainer();
+        pt.setUsername(createUser(usernameAsJson));
+        PersonalTrainerDAO.save(pt);
         session.flush();
     }
 
@@ -112,7 +146,6 @@ public class CoreBean implements CoreBeanLocal {
      * @throws InvalidWeekNumberException if given number of the week is incorrect
      */
     @Override
-    @SuppressWarnings("empty-statement")
     public String getWeekByClient(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, PersistentException, InvalidTokenException, UserDontExistsException, ClientDontExistsException, InvalidWeekNumberException {
         JsonObject json = Utils.validateJson(gson, usernameAndWeekAsJSON, Arrays.asList("token", "username"));
 
@@ -129,16 +162,20 @@ public class CoreBean implements CoreBeanLocal {
             throw new ClientDontExistsException(username);
         
         // Get week to return to Client
-        Week week = null;
         Plan plan = client.getPlan();
-        Iterator weeks = plan.weeks.getIterator();
         
         int weekNumber = json.has("week") ? json.get("week").getAsInt() : plan.getCurrentWeek();
         
         if(weekNumber > plan.weeks.size())
             throw new InvalidWeekNumberException(Integer.toString(weekNumber));
         
-        for( int i = 0 ; i < weekNumber ; week = (Week) weeks.next());
+        Week week = null;
+        Iterator weeks = plan.weeks.getIterator();
+        while(weeks.hasNext()) {
+            week = (Week) weeks.next();
+            if (week.getNumber() == weekNumber)
+                break;
+        }
 
         return gson.toJson(week,Week.class);
     }
@@ -156,7 +193,6 @@ public class CoreBean implements CoreBeanLocal {
      * @throws InvalidWeekNumberException if given number of the week is incorrect
      */
     @Override
-    @SuppressWarnings("empty-statement")
     public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws JsonKeyInFaultException, InvalidTokenException, UserDontExistsException, PersistentException, ClientDontExistsException, InvalidWeekNumberException {
         JsonObject json = Utils.validateJson(gson, usernameAndWeekAsJSON, Arrays.asList("token", "username", "clientUsername"));
 
@@ -173,16 +209,20 @@ public class CoreBean implements CoreBeanLocal {
             throw new ClientDontExistsException(json.get("clientUsername").getAsString());
 
         // Get week to return to PersonalTrainer
-        Week week = null;
         Plan plan = client.getPlan();
-        Iterator weeks = plan.weeks.getIterator();
         
         int weekNumber = json.has("week") ? json.get("week").getAsInt() : plan.getCurrentWeek();
         
         if(weekNumber > plan.weeks.size())
             throw new InvalidWeekNumberException(Integer.toString(weekNumber));
         
-        for( int i = 0 ; i < weekNumber ; week = (Week) weeks.next());
+        Week week = null;
+        Iterator weeks = plan.weeks.getIterator();
+        while(weeks.hasNext()) {
+            week = (Week) weeks.next();
+            if (week.getNumber() == weekNumber)
+                break;
+        }
 
         return gson.toJson(week,Week.class);
     }
@@ -225,16 +265,37 @@ public class CoreBean implements CoreBeanLocal {
             throw new WorkoutDontExistException(Integer.toString(workoutId));
 
         // Verify if workout belong to Client and if is already done or not
-        Iterator it = plan.weeks.getIterator();
+        Iterator weeks = plan.weeks.getIterator();
         Week week;
-        while(it.hasNext()) {
-            week = (Week) it.next();
+        while(weeks.hasNext()) {
+            week = (Week) weeks.next();
             if(week.workouts.contains(workout)) {
+                // Verify if the workout is already done
                 if(workout.isDone())
                     throw new WorkoutAlreadyDoneException(Integer.toString(workoutId));
                 workout.setDone(true);
                 WorkoutDAO.save(workout);
                 session.flush();
+                
+                if(plan.getCurrentWeek() == week.getNumber()) {
+                    // Check if its the last workout of the week isDone
+                    Iterator workouts = week.workouts.getIterator();
+                    Workout lastWorkout = (Workout) workouts.next();
+                    while(workouts.hasNext()) {
+                        Workout work = (Workout) workouts.next();
+                        if(lastWorkout.getDate().compareTo(work.getDate()) < 0)
+                            lastWorkout = work;
+                    }
+
+                    // If lastWorkout isDone avance to the next week (if exists)
+                    if(lastWorkout.isDone()) {
+                        if(week.getNumber() != plan.weeks.size())
+                            plan.setCurrentWeek(plan.getCurrentWeek()+1);
+                    }
+
+                    PlanDAO.save(plan);
+                    session.flush();
+                }
                 return;
             }
         }
@@ -254,10 +315,11 @@ public class CoreBean implements CoreBeanLocal {
      * @throws ClientAlreadyHasAnPlanException if Client already has a Plan
      * @throws PlanDontExistException if given Plan dont exist
      * @throws InvalidWeekNumberException if given number of the week is incorrect
+     * @throws UsernameDontBelongToClientException if given username belong to a PersonalTrainer
      */
     @Override
     @SuppressWarnings("empty-statement")
-    public void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException {
+    public void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException, UsernameDontBelongToClientException {
         JsonObject json = Utils.validateJson(gson, weekAsJson, Arrays.asList("token", "username", "week"));
 
         String username = json.get("username").getAsString();
@@ -285,10 +347,16 @@ public class CoreBean implements CoreBeanLocal {
             // Verify if Client's username is given
             if(!json.has("clientUsername"))
                 throw new JsonKeyInFaultException("clientUsername");
+            String clientUsername = json.get("clientUsername").getAsString();
+            
+            // Verify if Client's username belong to a PersonalTrainer
+            Query query = session.createQuery("select PersonalTrainer.Username from PersonalTrainer where Username='" + clientUsername + "'");
+            if(query.list().isEmpty())
+                throw new UsernameDontBelongToClientException(clientUsername);
             
             // Verify if Client exists
-            String clientUsername = json.get("clientUsername").getAsString();
-            if(ClientDAO.getClientByORMID(session,clientUsername) != null)
+            query = session.createQuery("select Client.Username from Client where Username='" + clientUsername + "'");
+            if(!query.list().isEmpty())
                 throw new ClientAlreadyHasAnPlanException(clientUsername);
             
             // Verify if the number of week is valid
@@ -305,8 +373,7 @@ public class CoreBean implements CoreBeanLocal {
             // This code purpose is to detect the next SUNDAY (init of the week)
             ZoneId defaultZoneId = ZoneId.systemDefault();
             LocalDate localDate = LocalDate.now();
-            if(localDate.getDayOfWeek() != SUNDAY)
-                localDate = localDate.with(next(SUNDAY));
+            localDate = localDate.with(next(SUNDAY));
             plan.setInitialDate(Date.from(localDate.atStartOfDay(defaultZoneId).toInstant()));
             
             // Create Client to associate with the Plan
@@ -337,17 +404,26 @@ public class CoreBean implements CoreBeanLocal {
             
             // Get the lastWeek to check if the new week becomes the currentWeek for Client
             Iterator weeks = plan.weeks.getIterator();
-            Week lastWeek = null;
-            for( ; weeks.hasNext() ; lastWeek = (Week) weeks.next());
-            
-            // Get the lastWorkout to check if is done
-            Iterator workouts = lastWeek.workouts.getIterator();
-            Workout lastWorkout = null;
-            for( ; workouts.hasNext() ; lastWorkout = (Workout) workouts.next());
-            
-            // If lastWorkout isDone the new week becomes the currentWeek
-            if(lastWorkout.isDone())
-                plan.setCurrentWeek(week.getNumber());
+            Week lastWeek;
+            while(weeks.hasNext()) {
+                lastWeek = (Week) weeks.next();
+                // Verify if is the current week
+                if(lastWeek.getNumber() == plan.getCurrentWeek()) {
+                    // Get the lastWorkout of the current Week
+                    Iterator workouts = lastWeek.workouts.getIterator();
+                    Workout lastWorkout = (Workout) workouts.next();
+                    while(workouts.hasNext()) {
+                        Workout work = (Workout) workouts.next();
+                        if(lastWorkout.getDate().compareTo(work.getDate()) < 0)
+                            lastWorkout = work;
+                    }
+                    // Verify if lastWorkout is Done
+                    if (lastWorkout.isDone())
+                        // Set new current Week
+                        plan.setCurrentWeek(week.getNumber());
+                    break;
+                }
+            }
             
             // Save the new state of plan
             plan.weeks.add(week);

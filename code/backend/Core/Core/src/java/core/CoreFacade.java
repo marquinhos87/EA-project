@@ -65,15 +65,27 @@ public class CoreFacade {
     }
 
     /**
-     * Create a User.
+     * Create a User (Client).
      * 
      * @param usernameAsJson
      * @throws PersistentException if some error occur with hibernate
      * @throws UserAlreadyExistsException if users token already register
      * @throws JsonKeyInFaultException if has some keys in fault 
      */
-    public void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
-        coreBean.createUserToken(usernameAsJson);
+    public void createUserTokenClient(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
+        coreBean.createUserTokenClient(usernameAsJson);
+    }
+    
+    /**
+     * Create a User (PersonalTrainer).
+     * 
+     * @param usernameAsJson
+     * @throws PersistentException if some error occur with hibernate
+     * @throws UserAlreadyExistsException if users token already register
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     */
+    public void createUserTokenPersonalTrainer(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
+        coreBean.createUserTokenPersonalTrainer(usernameAsJson);
     }
 
     /**
@@ -151,8 +163,9 @@ public class CoreFacade {
      * @throws ClientAlreadyHasAnPlanException if Client already has a Plan
      * @throws PlanDontExistException if given Plan dont exist
      * @throws InvalidWeekNumberException if given number of the week is incorrect
+     * @throws UsernameDontBelongToClientException if given username belong to a PersonalTrainer
      */
-    public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException {
+    public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException, UsernameDontBelongToClientException {
         coreBean.createWeek(weekAsJson);
     }
 }

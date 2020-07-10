@@ -18,14 +18,24 @@ import javax.ejb.Local;
 public interface CoreBeanLocal {
     
     /**
-     * Create a User.
+     * Create a User (Client).
      *
      * @param usernameAsJson User username and token as a json string.
      * @throws PersistentException if some error occur with hibernate
      * @throws UserAlreadyExistsException if users token already register
      * @throws JsonKeyInFaultException if has some keys in fault 
      */
-    void createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException;
+    void createUserTokenClient(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException;
+
+    /**
+     * Create a User (PersonalTrainer).
+     *
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws UserAlreadyExistsException if users token already register
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     */
+    void createUserTokenPersonalTrainer(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException;
 
     /**
      * Update a User token.
@@ -94,6 +104,7 @@ public interface CoreBeanLocal {
      * @throws ClientAlreadyHasAnPlanException if Client already has a Plan
      * @throws PlanDontExistException if given Plan dont exist
      * @throws InvalidWeekNumberException if given number of the week is incorrect
+     * @throws UsernameDontBelongToClientException if given username belong to a PersonalTrainer
      */
-    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException;
+    void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException, UsernameDontBelongToClientException;
 }
