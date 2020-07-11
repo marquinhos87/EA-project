@@ -80,7 +80,7 @@
             <div class="col-md-6 d-inline-flex">
                 <label class="col-md-5 col-form-label">Certificado:</label>
                 <div class="col-sm-7 custom-file">
-                    <input type="file" class="custom-file-input" name="certificate" onchange="document.getElementById('metodoA').innerHTML = this.value.substring(this.value.lastIndexOf('\\') + 1, this.value.length)" required>
+                    <input type="file" class="form-control custom-file-input" name="certificate" onchange="document.getElementById('metodoA').innerHTML = this.value.substring(this.value.lastIndexOf('\\') + 1, this.value.length)" required>
                     <label class="custom-file-label">Ex: <span class="text-primary">cert-pt.cert</span></label>
                 </div>
             </div>
