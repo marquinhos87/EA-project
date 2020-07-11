@@ -52,8 +52,10 @@
                             </div>
                         </form>
                     </c:when>
-                    <c:when test="">
-
+                    <c:when test="true">
+                        <div class="d-flex justify-content-center my-5">
+                            <h1>GymAtHome</h1>
+                        </div>
                     </c:when>
                 </c:choose>
                 </div>
@@ -62,7 +64,7 @@
             <!-- main -->
             <div class="row">
                 <c:choose>
-                    <c:when test="${requestScope.page=='Login'}">
+                    <c:when test="${requestScope.page==null ||requestScope.page=='Login'}">
                         <jsp:include page="common/Login.jsp" />
                     </c:when>
                     <c:when test="${requestScope.page=='Notification'}">
@@ -108,9 +110,9 @@
             </div>
 
             <!-- footer -->
-            <footer class="main-footer">
+            <footer class="main-footer fixed-bottom">
                 <div class="container">
-                    <div class="row align-items-center p-4 text-muted small">
+                    <div class="row align-items-center p-4 text-muted small bg-light">
                         <div class="col">
                             Developed by .
                         </div>

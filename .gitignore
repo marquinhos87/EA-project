@@ -10,9 +10,6 @@ modelos-tarefas/~$*.docx
 /code/backend/PersonalTrainer/wildfly-12.0.0.Final/
 /code/backend/Notification/wildfly-12.0.0.Final/
 wildfly-12.0.0.Final/*
-/code/backend/Core/GymAtHome/GymAtHome/nbproject/private/
-/code/backend/Core/GymAtHome/GymAtHome/dist/
-/code/backend/Core/GymAtHome/GymAtHome/build/
 /code/backend/GymAtHome/GymAtHome/nbproject/private/
 /code/backend/GymAtHome/GymAtHome/dist/
 /code/backend/GymAtHome/GymAtHome/build/
@@ -22,3 +19,4 @@ wildfly-12.0.0.Final/*
 /code/backend/Notification/nbproject/private/
 /code/backend/Notification/build/
 /code/backend/Notification/dist/
+/code/frontend/wildfly-16.0.0.Final/
