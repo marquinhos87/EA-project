@@ -1,14 +1,16 @@
 package beans;
 
-import notifications.UserAlreadyExistsException;
-import notifications.UserNotExistsException;
+import notifications.NotificationNotExistsException;
+import notifications.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import notifications.*;
 import org.orm.PersistentException;
 
@@ -20,47 +22,141 @@ public class NotificationFacadeBeanBean implements NotificationFacadeBean, Notif
     private final Gson gson;
 
     public NotificationFacadeBeanBean() {
-        gson = new GsonBuilder().create();
+        gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd")
+                .create();
     }
 
     /**
      * 
-     * @param usernameAnddescriptionAsJson
+     * @param infoAsJson
      */
-    public void createNotification(String usernameAnddescriptionAsJson) {
-            // TODO - implement NotificationsFacadeBean.createNotification
-            throw new UnsupportedOperationException();
+    public void createNotificationToPersonalTrainer(String infoAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException {
+        JsonObject jo = Utils.validateJson(gson, infoAsJson, Arrays.asList("token", "username", "description"));
+        User user = gson.fromJson(infoAsJson, User.class);
+        PersonalTrainer pt;
+        if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(NotificationFacade.getSession(), user.getUsername())) == null)  {
+            throw new PersonalTrainerNotExistsException(user.getUsername());
+        }
+        //Utils.validateToken(user.getToken(), user.getUsername());
+        Notification notification = new Notification();
+        notification.setDate(new Date());
+        notification.setDescription(jo.get("description").getAsString());
+        notification.setRead(false);
+        pt.notifications.add(notification);
+        PersonalTrainerDAO.save(pt);
+        System.err.println("notification added to personal trainer...");
+    }
+    
+    /**
+     * 
+     * @param infoAsJson
+     */
+    public void createNotificationToClient(String infoAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, ClientNotExistsException {
+        JsonObject jo = Utils.validateJson(gson, infoAsJson, Arrays.asList("token", "username", "description"));
+        User user = gson.fromJson(infoAsJson, User.class);
+        Client client;
+        if ( (client = ClientDAO.getClientByORMID(NotificationFacade.getSession(), user.getUsername())) == null)  {
+            throw new ClientNotExistsException(user.getUsername());
+        }
+        //Utils.validateToken(user.getToken(), user.getUsername());
+        Notification notification = new Notification();
+        notification.setDate(new Date());
+        notification.setDescription(jo.get("description").getAsString());
+        notification.setRead(false);
+        client.notifications.add(notification);
+        ClientDAO.save(client);
+        System.err.println("notification added to client...");
     }
 
     /**
      * 
-     * @param usernameAndIdsAsJson
+     * @param infoAsJson
      */
-    public String markAsReadNotifications(String usernameAndIdsAsJson) {
-            // TODO - implement NotificationsFacadeBean.markAsReadNotifications
-            throw new UnsupportedOperationException();
+    public void markAsReadNotificationsByClient(String infoAsJson) throws JsonKeyInFaultException, ClientNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException {
+        JsonObject jo = Utils.validateJson(gson, infoAsJson, Arrays.asList("token", "username", "ids"));
+        User user = gson.fromJson(infoAsJson, User.class);
+        Client client;
+        if ( (client = ClientDAO.getClientByORMID(NotificationFacade.getSession(), user.getUsername())) == null)  {
+            throw new ClientNotExistsException(user.getUsername());
+        }
+        Utils.validateToken(user.getToken(), user.getUsername());
+        JsonArray arr = jo.get("ids").getAsJsonArray();
+        for (JsonElement je: arr) {
+            int id = je.getAsInt();
+            Notification n;
+            if ( (n = NotificationDAO.getNotificationByORMID(id)) == null) {
+                throw new NotificationNotExistsException(Integer.toString(id));
+            }
+            n.setRead(true);
+            NotificationDAO.save(n);
+        }
+    }
+    
+    /**
+     * 
+     * @param infoAsJson
+     */
+    public void markAsReadNotificationsByPersonalTrainer(String infoAsJson) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException {
+        JsonObject jo = Utils.validateJson(gson, infoAsJson, Arrays.asList("token", "username", "ids"));
+        User user = gson.fromJson(infoAsJson, User.class);
+        PersonalTrainer pt;
+        if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(NotificationFacade.getSession(), user.getUsername())) == null)  {
+            throw new PersonalTrainerNotExistsException(user.getUsername());
+        }
+        Utils.validateToken(user.getToken(), user.getUsername());
+        JsonArray arr = jo.get("ids").getAsJsonArray();
+        for (JsonElement je: arr) {
+            int id = je.getAsInt();
+            Notification n;
+            if ( (n = NotificationDAO.getNotificationByORMID(id)) == null) {
+                throw new NotificationNotExistsException(Integer.toString(id));
+            }
+            n.setRead(true);
+            NotificationDAO.save(n);
+        }
     }
     
     /**
      * 
      * @param usernameAsJson
      */
-    public String getNotificationsByPersonalTrainer(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException {
+    public String getNotificationsByPersonalTrainer(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException {
         Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("token", "username"));
         User user = gson.fromJson(usernameAndTokenAsJson, User.class);
-        List<Notification> notifications = (List<Notification>) NotificationFacade.getSession().createQuery("from Notification where PersonalTrainerUsername='" + user.getUsername() + "'").list();
-        return gson.toJson(notifications);
+        PersonalTrainer pt;
+        if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(user.getUsername())) == null)  {
+            throw new PersonalTrainerNotExistsException(user.getUsername());
+        }
+        Utils.validateToken(user.getToken(), user.getUsername());
+        List<Notification> notifications = new ArrayList<>();
+        for (Notification n: pt.notifications.toArray()) {
+            if (n.getRead() == false) {
+                notifications.add(n);
+            }
+        }
+        return gson.toJson( notifications.toArray(new Notification[notifications.size()]) );
     }
 
     /**
      * 
      * @param usernameAsJson
      */
-    public String getNotificationsByClient(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException {
+    public String getNotificationsByClient(String usernameAndTokenAsJson) throws PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException {
         Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("token", "username"));
         User user = gson.fromJson(usernameAndTokenAsJson, User.class);
-        List<Notification> notifications = (List<Notification>) NotificationFacade.getSession().createQuery("from Notification where ClientUsername='" + user.getUsername() + "'").list();
-        return gson.toJson(notifications);
+        Client client;
+        if ( (client = ClientDAO.getClientByORMID(user.getUsername())) == null)  {
+            throw new ClientNotExistsException(user.getUsername());
+        }
+        Utils.validateToken(user.getToken(), user.getUsername());
+        List<Notification> notifications = new ArrayList<>();
+        for (Notification n: client.notifications.toArray()) {
+            if (n.getRead() == false) {
+                notifications.add(n);
+            }
+        }
+        return gson.toJson( notifications.toArray(new Notification[notifications.size()]) );
     }
 
     /**
@@ -117,8 +213,11 @@ public class NotificationFacadeBeanBean implements NotificationFacadeBean, Notif
     public void createClient(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException {
         Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("token", "username"));
         User user = gson.fromJson(usernameAndTokenAsJson, User.class);
-        if (UserDAO.getUserByORMID(NotificationFacade.getSession(), user.getUsername()) != null) throw new UserAlreadyExistsException(user.getUsername());
+        if (UserDAO.getUserByORMID(NotificationFacade.getSession(), user.getUsername()) != null || ClientDAO.getClientByORMID(NotificationFacade.getSession(), user.getUsername()) != null) throw new UserAlreadyExistsException(user.getUsername());
         UserDAO.save(user);
+        Client client = new Client();
+        client.setUsername(user.getUsername());
+        ClientDAO.save(client);
         System.err.println("Client created...");
     }
 
@@ -133,8 +232,11 @@ public class NotificationFacadeBeanBean implements NotificationFacadeBean, Notif
     public void createPersonalTrainer(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException {
         Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("token", "username"));
         User user = gson.fromJson(usernameAndTokenAsJson, User.class);
-        if (UserDAO.getUserByORMID(NotificationFacade.getSession(), user.getUsername()) != null) throw new UserAlreadyExistsException(user.getUsername());
+        if (UserDAO.getUserByORMID(NotificationFacade.getSession(), user.getUsername()) != null || PersonalTrainerDAO.getPersonalTrainerByORMID(NotificationFacade.getSession(), user.getUsername()) != null) throw new UserAlreadyExistsException(user.getUsername());
         UserDAO.save(user);
+        PersonalTrainer pt = new PersonalTrainer();
+        pt.setUsername(user.getUsername());
+        PersonalTrainerDAO.save(pt);
         System.err.println("Personal Trainer created...");
     }
 

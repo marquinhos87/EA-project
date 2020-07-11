@@ -13,10 +13,10 @@ public class CreateDiagramasData {
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : read
 			notifications.NotificationDAO.save(notificationsNotification);
 			notifications.Client notificationsClient = notifications.ClientDAO.createClient();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : notifications, username
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
 			notifications.ClientDAO.save(notificationsClient);
 			notifications.PersonalTrainer notificationsPersonalTrainer = notifications.PersonalTrainerDAO.createPersonalTrainer();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : notifications, username
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
 			notifications.PersonalTrainerDAO.save(notificationsPersonalTrainer);
 			notifications.User notificationsUser = notifications.UserDAO.createUser();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username

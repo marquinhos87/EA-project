@@ -57,7 +57,7 @@ public class CoreBean implements CoreBeanLocal {
      * @throws UserAlreadyExistsException if users token already register
      * @throws JsonKeyInFaultException if has some keys in fault 
      */
-    private String createUser(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
+    private String createUserToken(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
         JsonObject json = Utils.validateJson(gson, usernameAsJson, Arrays.asList("token", "username"));
 
         // Verify if User is already registered
@@ -85,7 +85,7 @@ public class CoreBean implements CoreBeanLocal {
      */
     @Override
     public void createUserTokenClient(String usernameAsJson) throws UserAlreadyExistsException, JsonKeyInFaultException, PersistentException {
-        createUser(usernameAsJson);
+        createUserToken(usernameAsJson);
     }
     
     /**
@@ -102,7 +102,7 @@ public class CoreBean implements CoreBeanLocal {
         
         // Add PersonalTrainer to database
         PersonalTrainer pt = new PersonalTrainer();
-        pt.setUsername(createUser(usernameAsJson));
+        pt.setUsername(createUserToken(usernameAsJson));
         PersonalTrainerDAO.save(pt);
         session.flush();
     }

@@ -11,7 +11,7 @@ License Type: Academic
 			</generator>
 		</id>
 		<set name="ORM_Notifications" lazy="true" cascade="save-update,lock" inverse="false">
-			<key column="ClientUsername" not-null="true"/>
+			<key column="ClientUsername" not-null="false"/>
 			<one-to-many class="notifications.Notification"/>
 		</set>
 	</class>

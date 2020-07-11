@@ -13,12 +13,9 @@ import javax.naming.NamingException;
 
 public class HRPersonalTrainerFacade {
 
-    HRPersonalTrainerFacadeBeanLocal hRPersonalTrainerFacadeBean = lookupHRPersonalTrainerFacadeBeanLocal();
-    //HRPersonalTrainerFacadeBeanLocal hRPersonalTrainerFacadeBean = new HRPersonalTrainerFacadeBeanBean();
-
     private static HRPersonalTrainerFacade rhPersonalTrainerFacade = null;
     private static PersistentSession session = null;
-    private final HRPersonalTrainerFacadeBeanLocal personalTrainerFacadeBean = new HRPersonalTrainerFacadeBeanBean();
+    private final HRPersonalTrainerFacadeBeanLocal personalTrainerFacadeBean = lookupHRPersonalTrainerFacadeBeanLocal();
 
     private HRPersonalTrainerFacade() throws PersistentException {}
 
