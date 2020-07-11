@@ -1,6 +1,6 @@
-#/bin/sh
+#/usr/bin/sh
 
-HOST_IP=192.168.1.35
+HOST_IP=192.168.1.53
 
 #   Clients service
 cp -rf Clients/dist/Clients.war wildfly-12.0.0.Final/standalone/deployments
