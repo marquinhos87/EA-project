@@ -132,7 +132,6 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             if(biometricData == null) throw new BiometricDataDoesNotExistException();
             
             return "{ \"username\": \"" + client.getUsername() + "\", " +
-                            "\"password\": \"" + client.getPassword() + "\", " +
                             "\"name\": \"" + client.getName() + "\", " +
                             "\"sex\": \"" + client.getSex() + "\", " +
                             "\"height\": \"" + biometricData.getHeight() + "\", " +
