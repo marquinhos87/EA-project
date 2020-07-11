@@ -168,13 +168,13 @@ public class NotificationFacadeBeanBean implements NotificationFacadeBean, Notif
      * @throws UserNotExistsException 
      */
     public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException {
-        JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "currentToken", "username"));
+        JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "newToken", "username"));
         String oldToken = jsonObject.get("oldToken").getAsString();
         String username = jsonObject.get("username").getAsString();
         User user;
         if ((user = UserDAO.getUserByORMID(NotificationFacade.getSession(), username) ) == null) throw new UserNotExistsException(username);
         Utils.validateToken(oldToken, username);
-        String currentToken = jsonObject.get("currentToken").getAsString();
+        String currentToken = jsonObject.get("newToken").getAsString();
         user.setToken(currentToken);
         UserDAO.save(user);
         System.err.println("Client's token updated...");
@@ -190,13 +190,13 @@ public class NotificationFacadeBeanBean implements NotificationFacadeBean, Notif
      */
     @Override
     public void updatePersonalTrainerToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException  {
-        JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "currentToken", "username"));
+        JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "newToken", "username"));
         String oldToken = jsonObject.get("oldToken").getAsString();
         String username = jsonObject.get("username").getAsString();
         User user;
         if ((user = UserDAO.getUserByORMID(NotificationFacade.getSession(), username) ) == null) throw new UserNotExistsException(username);
         Utils.validateToken(oldToken, username);
-        String currentToken = jsonObject.get("currentToken").getAsString();
+        String currentToken = jsonObject.get("newToken").getAsString();
         user.setToken(currentToken);
         UserDAO.save(user);
         System.err.println("Personal Trainer's token updated...");

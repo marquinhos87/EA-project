@@ -117,7 +117,7 @@ public class HRPersonalTrainerController extends HttpServlet {
 		}  catch (Exception e) {
                     e.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "unexpected error occurred."));
+                    out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage()));
                 }
 	}
 

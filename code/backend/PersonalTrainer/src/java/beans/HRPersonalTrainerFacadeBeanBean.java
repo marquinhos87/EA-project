@@ -247,13 +247,13 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws JsonKeyInFaultException if any json key is in fault.
 	 */
 	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException {
-		JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "currentToken", "username"));
+		JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "newToken", "username"));
 		String oldToken = jsonObject.get("oldToken").getAsString();
 		String username = jsonObject.get("username").getAsString();
 		User user;
 		if ((user = UserDAO.getUserByORMID(HRPersonalTrainerFacade.getSession(), username) ) == null) throw new UserNotExistsException(username);
 		Utils.validateClientToken(oldToken, username);
-		String currentToken = jsonObject.get("currentToken").getAsString();
+		String currentToken = jsonObject.get("newToken").getAsString();
 		user.setToken(currentToken);
 		UserDAO.save(user);
 		System.err.println("Client's token updated...");
