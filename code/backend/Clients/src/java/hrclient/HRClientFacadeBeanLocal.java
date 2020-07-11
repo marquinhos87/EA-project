@@ -17,6 +17,7 @@ public interface HRClientFacadeBeanLocal {
     String sayHello(String name);
     void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, UserDoesNotExistException, PersistentException;
     String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, UserAlreadyExistsException;
+    void createUser(String usernameAndTokenAsJSON) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException;
     String loginClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDoesNotExistException, InvalidPasswordException;
     String getClientProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, BiometricDataDoesNotExistException;
     String getClientProfileByPersonalTrainer(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, PersonalTrainerDoesNotExistException, UserDoesNotExistException, BiometricDataDoesNotExistException;

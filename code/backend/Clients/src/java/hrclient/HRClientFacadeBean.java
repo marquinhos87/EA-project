@@ -75,6 +75,17 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             ClientDAO.save(client);
             return "{\"token\":\"" + token + "\"}";
     }
+    
+    public void createUser(String usernameAndTokenAsJSON) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException{
+        JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJSON , Arrays.asList("username", "token"));
+        String username = json.get("username").getAsString(), token = json.get("token").getAsString();
+        User user;
+        if((user = UserDAO.getUserByORMID(username)) != null) throw new UserAlreadyExistsException(username);
+        user = new User();
+        user.setUsername(username);
+        user.setToken(token);
+        UserDAO.save(user);
+    }
 
     /**
      * 

@@ -96,7 +96,7 @@ public class HRClientAPI extends HttpServlet {
                     break;
                 }catch (Exception ex){
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
+                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
                     break;
                 }
                 response.setStatus(200);
@@ -122,13 +122,34 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(15, "User with username " + ex.getMessage() + " already exist."));
                     break;
-                } catch (Exception e){
+                } catch (Exception ex){
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
+                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
                     break;
                 }
                 response.setStatus(200);
                 response.getWriter().print(Utils.makeSuccess(1,json));
+                break;
+            }
+            case "createUser":
+            {
+                try {
+                    facade.createUser(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
+                    break;
+                } catch (PersistentException ex) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session. " + ex.getMessage()));
+                    break;
+                } catch (UserAlreadyExistsException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(15, "User with username " + ex.getMessage() + " already exist."));
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,"\"User was created with success.\""));
                 break;
             }
             case "loginClient":
@@ -151,9 +172,9 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(20, "Client with username " + ex.getMessage() + " does not exist on database."));
                     break;
-                }catch (Exception e){
+                }catch (Exception ex){
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
+                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
                     break;
                 }
                 response.setStatus(200);
@@ -188,9 +209,9 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
                     break;
-                } catch (Exception e){
+                } catch (Exception ex){
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
+                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
                     break;
                 }
                 response.setStatus(200);
@@ -229,9 +250,9 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
                     break;
-                } catch (Exception e){
+                } catch (Exception ex){
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
+                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
                     break;
                 }
                 response.setStatus(200);
@@ -261,6 +282,10 @@ public class HRClientAPI extends HttpServlet {
                 } catch (UserDoesNotExistException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
+                    break;
+                } catch (Exception ex){
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
                     break;
                 }
                 response.setStatus(200);
@@ -301,7 +326,7 @@ public class HRClientAPI extends HttpServlet {
                     break;
                 } catch (Exception e){
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Probably json doesn't have a valid format. Or other internal error"));
+                    response.getWriter().print(Utils.makeError(19, "Exception: " + e.getMessage()));
                     break;
                 }
                 response.setStatus(200);

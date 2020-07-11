@@ -43,7 +43,10 @@ public class HRClientFacade {
     public String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, UserAlreadyExistsException {
         return hRClientFacadeBean.createClient(infoClientAsJSON);
     }
-
+    
+    public void createUser(String usernameAndTokenAsJSON) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException{
+        hRClientFacadeBean.createUser(usernameAndTokenAsJSON);
+    }
     /**
      * 
      * @param infoAsJSON
