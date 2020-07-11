@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3'
 
 services:
 
@@ -7,19 +7,19 @@ services:
     image: adminer
     restart: always
     ports:
-      - 8000:8080
+      - "8000:8080"
 
-  frontend:
-    image: frontend
-    build: frontend/
-    ports:
-      - 8080:8080
+  #frontend:
+    #image: frontend
+    #build: frontend/
+    #ports:
+      #- 8080:8080
 
   gymathome:
-    image: gymathome
-    build: gymathome/
-    ports:
-      - 8081:8080
+      image: gymathome
+      build: gymathome/
+      ports:
+        - 8081:8080
 
   coredb:
     image: mysql
@@ -80,7 +80,6 @@ services:
     build: request/
     ports:
       - 8085:8080
-
   notificationdb:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -89,9 +88,9 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: notification
     ports: 
-      - 5006:3306
+      - "5006:3306"
   notification:
     image: notification
     build: notification/
     ports:
-      - 8086:8080
+      - "8086:8080"

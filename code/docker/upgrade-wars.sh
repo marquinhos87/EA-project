@@ -1,4 +1,5 @@
-update_wars:
+#/usr/bin/sh
+	# remove old and copy new war
 	rm -rf client/Clients.war
 	cp -rf ../backend/Clients/dist/Clients.war client
 	rm -rf core/Core.war
