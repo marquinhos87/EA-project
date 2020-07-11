@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "PersonalTrainerRegisterServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/PersonalTrainerRegister")
+@WebServlet(name = "PersonalTrainerRegisterServlet", urlPatterns = "/PersonalTrainerRegister")
 public class PersonalTrainerRegisterServlet extends HttpServlet {
 
     /**
@@ -33,6 +33,7 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setAttribute("page","PersonalTrainerRegister");
+        getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request, response);
     }
 }

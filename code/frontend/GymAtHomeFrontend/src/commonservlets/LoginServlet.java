@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setAttribute("page","Login");
+        getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request, response);
     }
 }
