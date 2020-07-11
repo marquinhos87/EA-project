@@ -79,12 +79,22 @@ public class CoreController extends HttpServlet {
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 case "getWeekByClient":
-                    response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK, coreFacade.getWeekByClient(data));
+                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "getWeekByPersonalTrainer":
-                    response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK, coreFacade.getWeekByPersonalTrainer(data));
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    break;
+                case "removeUserTokenClient":
+                    coreFacade.removeUserTokenClient(data);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    break;
+                case "removeUserTokenPersonalTrainer":
+                    coreFacade.removeUserTokenPersonalTrainer(data);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);

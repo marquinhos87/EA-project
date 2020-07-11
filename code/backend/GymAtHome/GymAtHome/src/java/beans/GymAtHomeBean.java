@@ -6,13 +6,17 @@
 package beans;
 
 import exceptions.GymAtHomeException;
+import exceptions.JsonKeyInFaultException;
 import utils.Http;
-import utils.Utils;
 import okhttp3.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import javax.ejb.Stateless;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+import parseJSON.ResponseJSON;
 
 /**
  *
@@ -21,7 +25,37 @@ import javax.servlet.http.HttpServletResponse;
 @Stateless
 public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
+    private final Gson gson;
+    
+    private static String IP = "";
+    
+    private static String IPclients = "188.250.36.239";
+    private static String IPpts = "37.189.223.35";
+    private static String IPcore = "192.168.1.139";
+    private static String IPrequests = "188.250.36.239";
+    private static String IPnotifications = "37.189.223.35";
+    
+    private static String clients;
+    private static String pts;
+    private static String core;
+    private static String requests;
+    private static String notifications;
+    
+    
     public GymAtHomeBean() {
+        gson = new GsonBuilder().create();
+        if(!IP.equals("")) {
+            IPclients = IP;
+            IPpts = IP;
+            IPcore = IP;
+            IPrequests = IP;
+            IPnotifications = IP;
+        }
+        clients = "http://" + IPclients + ":8080/Clients/api/";
+        pts = "http://" + IPpts + ":8080/PersonalTrainer/";
+        core = "http://" + IPcore + ":8080/Core/api/";
+        requests = "http://" + IPrequests + ":8080/Request/api/";
+        notifications = "http://" + IPnotifications + ":8080/Notification/";
     }
 
     /**
@@ -30,23 +64,57 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param infoClientAsJSON All Client info as json string.
      * @return A Client in json string.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String createClient(String infoClientAsJSON) throws IOException, GymAtHomeException {
-        String urlHRClient = "http://localhost:8080/api/v1/GymAtHome/HRClient/createClient";
+    public String createClient(String infoClientAsJSON) throws IOException {
+        String urlHRClient = clients + "createClient";
         Response responseHRClient = Http.post(urlHRClient,infoClientAsJSON);
+        String initialBody = responseHRClient.body().string();
+        String body = initialBody;
         // Test if something fails on external service
-        Utils.testHTTPCode(responseHRClient,HttpServletResponse.SC_OK);
-
-        // TODO concatenate
-        String coreJSON = infoClientAsJSON + responseHRClient.body().string();
-        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/createUserToken";
-        Response responseCore = Http.post(urlCore,coreJSON);
+        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
+        String token = response.data.getAsJsonObject().get("token").getAsString();
+        String username = gson.fromJson(infoClientAsJSON, JsonObject.class).get("username").getAsString();
+        
+        // JSON to send to other services
+        JsonObject jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+        
+        String json = jo.toString();
+        
+        String urlCore = core + "createUserTokenClient";
+        Response responseCore = Http.post(urlCore,json);
+        body = responseCore.body().string();
         // Test if something fails on external service
-        Utils.testHTTPCode(responseCore,HttpServletResponse.SC_OK);
-
-        return responseHRClient.body().string();
+        if(responseCore.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        String urlHRPT = pts + "registerClient";
+        Response responseHRPT = Http.post(urlHRPT,json);
+        body = responseHRPT.body().string();
+        // Test if something fails on external service
+        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        String urlRequest = requests + "createClient";
+        Response responseRequest = Http.post(urlRequest,json);
+        body = responseRequest.body().string();
+        // Test if something fails on external service
+        if(responseRequest.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        String urlNotification = notifications + "createClient";
+        Response responseNotification = Http.post(urlNotification,json);
+        body = responseNotification.body().string();
+        // Test if something fails on external service
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        return initialBody;
     }
 
     /**
@@ -55,23 +123,57 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param infoPTAsJSON All PersonalTrainer info as json string.
      * @return A PersonalTrainer in json string.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String createPersonalTrainer(String infoPTAsJSON) throws IOException, GymAtHomeException {
-        String urlHRPT = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/createPersonalTrainer";
+    public String createPersonalTrainer(String infoPTAsJSON) throws IOException {
+        String urlHRPT = pts + "registerPersonalTrainer";
         Response responseHRPT = Http.post(urlHRPT,infoPTAsJSON);
+        String initialBody = responseHRPT.body().string();
+        String body = initialBody;
         // Test if something fails on external service
-        Utils.testHTTPCode(responseHRPT,HttpServletResponse.SC_OK);
+        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            return body;
 
-        // TODO concatenate
-        String coreJSON = infoPTAsJSON + responseHRPT.body().string();
-        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/createUserToken";
-        Response responseCore = Http.post(urlCore,coreJSON);
+        ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
+        String token = response.data.getAsJsonObject().get("token").getAsString();
+        String username = gson.fromJson(infoPTAsJSON, JsonObject.class).get("username").getAsString();
+        
+        // JSON to send to other services
+        JsonObject jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+        
+        String json = jo.toString();
+        
+        String urlCore = core + "createUserTokenPersonalTrainer";
+        Response responseCore = Http.post(urlCore,json);
+        body = responseCore.body().string();
         // Test if something fails on external service
-        Utils.testHTTPCode(responseCore,HttpServletResponse.SC_OK);
+        if(responseCore.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlHRClient = clients + "createUser";
+        Response responseHRClient = Http.post(urlHRClient,json);
+        body = responseHRClient.body().string();
+        // Test if something fails on external service
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlRequest = requests + "createPersonalTrainer";
+        Response responseRequest = Http.post(urlRequest,json);
+        body = responseRequest.body().string();
+        // Test if something fails on external service
+        if(responseRequest.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlNotification = notifications + "createPersonalTrainer";
+        Response responseNotification = Http.post(urlNotification,json);
+        body = responseNotification.body().string();
+        // Test if something fails on external service
+        if(responseNotification.code() != HttpServletResponse.SC_OK) 
+            return body;
 
-        return responseHRPT.body().string();
+        return initialBody;
     }
 
     /**
@@ -80,23 +182,60 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param infoAsJSON Client credentials as json string.
      * @return A string with login status.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String loginClient(String infoAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/loginClient";
-        Response responseHRClient = Http.post(url,infoAsJSON);
+    public String loginClient(String infoAsJSON) throws IOException {
+        String urlHRClient = clients + "loginClient";
+        Response responseHRClient = Http.post(urlHRClient,infoAsJSON);
+        String initialBody = responseHRClient.body().string();
+        String body = initialBody;
         // Test if something fails on external service
-        Utils.testHTTPCode(responseHRClient,HttpServletResponse.SC_OK);
+        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+            return body;
 
-        // TODO concatenate
-        String coreJSON = infoAsJSON + responseHRClient.body().string();
-        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/updateToken";
-        Response responseCore = Http.post(urlCore,coreJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(responseCore,HttpServletResponse.SC_OK);
+        ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
+        String oldToken = response.data.getAsJsonObject().get("oldToken").getAsString();
+        String newToken = response.data.getAsJsonObject().get("newToken").getAsString();
+        String username = gson.fromJson(infoAsJSON, JsonObject.class).get("username").getAsString();
+        
+        // JSON to send to other services
+        JsonObject jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("oldToken", oldToken);
+        jo.addProperty("newToken", newToken);
+        
+        // To send to other services
+        String json = jo.toString();
+        
+        String urlCore = core + "updateToken";
+        Response responseCore = Http.post(urlCore,json);
+        body = responseCore.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseCore.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlHRPT = pts + "updateClientToken";
+        Response responseHRPT = Http.post(urlHRPT,json);
+        body = responseHRPT.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        String urlRequest = requests + "updateUserToken";
+        Response responseRequest = Http.post(urlRequest,json);
+        body = responseRequest.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseRequest.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlNotification = notifications + "updateClientToken";
+        Response responseNotification = Http.post(urlNotification,json);
+        body = responseNotification.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseNotification.code() != HttpServletResponse.SC_OK) 
+            return body;
 
-        return responseHRClient.body().string();
+        return initialBody;
     }
 
     /**
@@ -106,22 +245,61 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @return A string with login status.
      * @throws IOException if something fails on trying contact with external services.
      * @throws GymAtHomeException Exceptions throwed by external services.
+     * @throws JsonKeyInFaultException
      */
     @Override
-    public String loginPersonalTrainer(String infoAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/loginPersonalTrainer";
-        Response responseHRPT = Http.post(url,infoAsJSON);
+    public String loginPersonalTrainer(String infoAsJSON) throws IOException {
+        String urlHRPT = pts + "login";
+        Response responseHRPT = Http.post(urlHRPT,infoAsJSON);
+        String initialBody = responseHRPT.body().string();
+        String body = initialBody;
         // Test if something fails on external service
-        Utils.testHTTPCode(responseHRPT,HttpServletResponse.SC_OK);
+        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            return body;
 
-        // TODO concatenate
-        String coreJSON = infoAsJSON + responseHRPT.body().string();
-        String urlCore = "http://localhost:8080/api/v1/GymAtHome/Core/createUserToken";
-        Response responseCore = Http.post(urlCore,coreJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(responseCore,HttpServletResponse.SC_OK);
+        ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
+        String oldToken = response.data.getAsJsonObject().get("oldToken").getAsString();
+        String newToken = response.data.getAsJsonObject().get("newToken").getAsString();
+        String username = gson.fromJson(infoAsJSON, JsonObject.class).get("username").getAsString();
+        
+        // JSON to send to other services
+        JsonObject jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("oldToken", oldToken);
+        jo.addProperty("newToken", newToken);
+        
+        // To send to other services
+        String json = jo.toString();
+        
+        String urlCore = core + "updateToken";
+        Response responseCore = Http.post(urlCore,json);
+        body = responseCore.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseCore.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlHRClient = clients + "updateUserToken";
+        Response responseHRClient = Http.post(urlHRClient,json);
+        body = responseHRClient.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlRequest = requests + "updateUserToken";
+        Response responseRequest = Http.post(urlRequest,json);
+        body = responseRequest.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseRequest.code() != HttpServletResponse.SC_OK) 
+            return body;
+        
+        String urlNotification = notifications + "updatePersonalTrainerToken";
+        Response responseNotification = Http.post(urlNotification,json);
+        body = responseNotification.body().string();
+        // Test if something fails on external service, reverse previous services
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
 
-        return responseHRPT.body().string();
+        return initialBody;
     }
 
     /**
@@ -133,13 +311,10 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getClientProfile(String usernameAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/getClient";
+    public String getClientProfile(String usernameAsJSON) throws IOException {
+        String url = clients + "getClient";
         Response response = Http.post(url,usernameAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
-
-        return null;
+        return response.body().string();
     }
 
     /**
@@ -151,11 +326,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getPersonalTrainerProfile(String usernameAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainer";
+    public String getPersonalTrainerProfile(String usernameAsJSON) throws IOException {
+        String url = pts + "getPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
         
         return response.body().string();
     }
@@ -168,11 +341,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public void editClientProfile(String infoAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/editClientProfile";
+    public String editClientProfile(String infoAsJSON) throws IOException {
+        String url = clients + "editClientProfile";
         Response response = Http.post(url,infoAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
+        
+        return response.body().string();
     }
 
     /**
@@ -183,11 +356,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public void editPersonalTrainerProfile(String usernameAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/editPersonalTrainerProfile";
+    public String editPersonalTrainerProfile(String usernameAsJSON) throws IOException {
+        String url = pts + "editPersonalTrainerProfile";
         Response response = Http.post(url,usernameAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
+        
+        return response.body().string();
     }
 
     /**
@@ -199,11 +372,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/Core/getPlanByClient";
+    public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException {
+        String url = core + "getPlanByClient";
         Response response = Http.post(url,usernameAndWeekAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
         
         return response.body().string();
     }
@@ -217,11 +388,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/Core/getPlanByPersonalTrainer";
+    public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
+        String url = core + "getPlanByPersonalTrainer";
         Response response = Http.post(url,usernameAndWeekAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
         
         return response.body().string();
     }
@@ -235,11 +404,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getPersonalTrainers(String filtersAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainers";
+    public String getPersonalTrainers(String filtersAsJSON) throws IOException {
+        String url = pts + "getPersonalTrainers";
         Response response = Http.post(url,filtersAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
         
         return response.body().string();
     }
@@ -253,11 +420,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getBiometricData(String usernameAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRClient/getBiometricData";
+    public String getBiometricData(String usernameAsJSON) throws IOException {
+        String url = clients + "getBiometricData";
         Response response = Http.post(url,usernameAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
         
         return response.body().string();
     }
@@ -271,13 +436,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String submitClassification(String usernameAndClassificationAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/submitClassification";
+    public String submitClassification(String usernameAndClassificationAsJSON) throws IOException {
+        String url = pts + "submitClassification";
         Response response = Http.post(url,usernameAndClassificationAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
         
-        return null;
+        return response.body().string();
     }
 
     /**
@@ -288,11 +451,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/Core/finishWorkout";
+    public String finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException {
+        String url = core + "finishWorkout";
         Response response = Http.post(url,usernameAndWorkoutIdAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
+        
+        return response.body().string();
     }
 
     /**
@@ -304,11 +467,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getPersonalTrainerClients(String usernameAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/HRPersonalTrainer/getPersonalTrainerClients";
+    public String getPersonalTrainerClients(String usernameAsJSON) throws IOException {
+        String url = pts + "getPersonalTrainerClients";
         Response response = Http.post(url,usernameAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
         
         return response.body().string();
     }
@@ -321,11 +482,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public void submitRequest(String requestInfoAsJSON) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/Requests/submitRequest";
+    public String submitRequest(String requestInfoAsJSON) throws IOException {
+        String url = requests + "submitRequest";
         Response response = Http.post(url,requestInfoAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
+        
+        return response.body().string();
     }
 
     /**
@@ -336,11 +497,13 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public void createWeek(String weekAsJson) throws IOException, GymAtHomeException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/Core/createWeek";
+    public String createWeek(String weekAsJson) throws IOException {
+        String url = core + "createWeek";
         Response response = Http.post(url,weekAsJson);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
+        
+        //TODO criar notificação
+        
+        return null;
     }
 
     /**
@@ -351,10 +514,10 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public void replyToRequest(String requestIdAndResponseAsJSON) throws IOException, GymAtHomeException {
+    public String replyToRequest(String requestIdAndResponseAsJSON) throws IOException {
         String url = "http://localhost:8080/api/v1/GymAtHome/";
         Response response = Http.post(url,requestIdAndResponseAsJSON);
-        // Test if something fails on external service
-        Utils.testHTTPCode(response,HttpServletResponse.SC_OK);
+        
+        return response.body().string();
     }
 }

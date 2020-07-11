@@ -1,7 +1,11 @@
 package utils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import exceptions.GymAtHomeException;
+import exceptions.JsonKeyInFaultException;
 import java.io.IOException;
+import java.util.Collection;
 import okhttp3.Response;
 
 public class Utils {
@@ -37,16 +41,21 @@ public class Utils {
     }
     
     /**
-     * Check if HTTPCode is different from the code of the Response, if is different throw an Exception with response body.
+     * Validate if all mandatory keys passed on tags are in the json string.
      * 
-     * @param response Response from a remote invoke.
-     * @param HTTPCode HTTPCode to test.
-     * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
+     * @param gson The gson parser to convert a json string to a JsonObject.
+     * @param json The json string with info.
+     * @param tags Mandatory keys to check in json string.
+     * @return A JsonObject parsed from de json string.
+     * @throws JsonKeyInFaultException if some of the mandatory keys is in fault
      */
-    public static void testHTTPCode(Response response, int HTTPCode) throws IOException, GymAtHomeException {
-        if(response.code()!=HTTPCode) {
-            throw new GymAtHomeException(response.body().string());
+    public static JsonObject validateJson(Gson gson, String json, Collection<String> tags) throws JsonKeyInFaultException {
+        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+        for(String tag: tags) {
+            if (!jsonObject.has(tag)) {
+                throw new JsonKeyInFaultException(tag);
+            }
         }
+        return jsonObject;
     }
 }
