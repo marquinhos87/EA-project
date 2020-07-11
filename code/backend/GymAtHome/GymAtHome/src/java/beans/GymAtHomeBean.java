@@ -5,8 +5,6 @@
  */
 package beans;
 
-import exceptions.GymAtHomeException;
-import exceptions.JsonKeyInFaultException;
 import utils.Http;
 import okhttp3.*;
 
@@ -244,8 +242,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param infoAsJSON PersonalTrainer credentials as json string.
      * @return A string with login status.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
-     * @throws JsonKeyInFaultException
      */
     @Override
     public String loginPersonalTrainer(String infoAsJSON) throws IOException {
@@ -308,12 +304,27 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param usernameAsJSON Client username as json string.
      * @return Client info.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getClientProfile(String usernameAsJSON) throws IOException {
-        String url = clients + "getClient";
+    public String getClientProfileByClient(String usernameAsJSON) throws IOException {
+        String url = clients + "getClientProfileByClient";
         Response response = Http.post(url,usernameAsJSON);
+        
+        return response.body().string();
+    }
+    
+    /**
+     * Get a Client profile by Client username.
+     * 
+     * @param usernameAsJSON Client username as json string.
+     * @return Client info.
+     * @throws IOException if something fails on trying contact with external services.
+     */
+    @Override
+    public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
+        String url = clients + "getClientProfileByPersonalTrainer";
+        Response response = Http.post(url,usernameAsJSON);
+        
         return response.body().string();
     }
 
@@ -323,11 +334,25 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param usernameAsJSON PersonalTrainer username as json string.
      * @return PersonalTrainer info.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
-    public String getPersonalTrainerProfile(String usernameAsJSON) throws IOException {
-        String url = pts + "getPersonalTrainer";
+    public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws IOException {
+        String url = pts + "getPersonalTrainerByClient";
+        Response response = Http.post(url,usernameAsJSON);
+        
+        return response.body().string();
+    }
+    
+    /**
+     * Get a PersonalTrainer profile by PersonalTrainer username.
+     * 
+     * @param usernameAsJSON PersonalTrainer username as json string.
+     * @return PersonalTrainer info.
+     * @throws IOException if something fails on trying contact with external services.
+     */
+    @Override
+    public String getPersonalTrainerProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
+        String url = pts + "getPersonalTrainerByPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
         
         return response.body().string();
@@ -337,8 +362,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * Edit Client info with new info given.
      * 
      * @param infoAsJSON Client new infos as json string.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String editClientProfile(String infoAsJSON) throws IOException {
@@ -352,8 +377,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * Edit PersonalTrainer info with new info given.
      * 
      * @param usernameAsJSON PersonalTrainer new infos as json string.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String editPersonalTrainerProfile(String usernameAsJSON) throws IOException {
@@ -369,7 +394,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param usernameAndWeekAsJSON Client username and current week of plan as json string.
      * @return Client plan (actual week of the plan).
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException {
@@ -385,7 +409,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param usernameAndWeekAsJSON Client username and current week of plan as json string.
      * @return Client plan (actual week of the plan).
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
@@ -401,7 +424,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param filtersAsJSON Filters introduced by Client as json string.
      * @return PersonalTrainers filtered.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String getPersonalTrainers(String filtersAsJSON) throws IOException {
@@ -417,7 +439,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param usernameAsJSON Client username as json string.
      * @return Client BioMetric data.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String getBiometricData(String usernameAsJSON) throws IOException {
@@ -433,7 +454,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param usernameAndClassificationAsJSON PersonalTrainer username and classification attributed by Client as a json string.
      * @return
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String submitClassification(String usernameAndClassificationAsJSON) throws IOException {
@@ -447,8 +467,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * Client submit that as completed a workout.
      * 
      * @param usernameAndWorkoutIdAsJSON Client username and Workout Id as a json string.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException {
@@ -464,7 +484,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @param usernameAsJSON PersonalTrainer username.
      * @return PersonalTrainer clients.
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String getPersonalTrainerClients(String usernameAsJSON) throws IOException {
@@ -478,8 +497,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * Request submitted by a Client to a PersonalTrainer.
      * 
      * @param requestInfoAsJSON Request info submitted by Client.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String submitRequest(String requestInfoAsJSON) throws IOException {
@@ -493,8 +512,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * Create and add a week of workouts to a plan of a Client.
      * 
      * @param weekAsJson Week info created by PersonalTrainer.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String createWeek(String weekAsJson) throws IOException {
@@ -510,8 +529,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * Response given by a PersonalTrainer to a Request submitted to him by a Client.
      * 
      * @param requestIdAndResponseAsJSON Request Id and Response by PersonalTrainer to the request.
+     * @return 
      * @throws IOException if something fails on trying contact with external services.
-     * @throws GymAtHomeException Exceptions throwed by external services.
      */
     @Override
     public String replyToRequest(String requestIdAndResponseAsJSON) throws IOException {

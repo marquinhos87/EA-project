@@ -58,7 +58,16 @@ public interface GymAtHomeBeanLocal {
      * @return Client info.
      * @throws IOException if something fails on trying contact with external services.
      */
-    String getClientProfile(String usernameAsJSON) throws IOException;
+    String getClientProfileByClient(String usernameAsJSON) throws IOException;
+    
+    /**
+     * Get a Client profile by Client username.
+     * 
+     * @param usernameAsJSON Client username as json string.
+     * @return Client info.
+     * @throws IOException if something fails on trying contact with external services.
+     */
+    String getClientProfileByPersonalTrainer(String usernameAsJSON) throws IOException;
 
     /**
      * Get a PersonalTrainer profile by PersonalTrainer username.
@@ -67,7 +76,16 @@ public interface GymAtHomeBeanLocal {
      * @return PersonalTrainer info.
      * @throws IOException if something fails on trying contact with external services.
      */
-    String getPersonalTrainerProfile(String usernameAsJSON) throws IOException;
+    String getPersonalTrainerProfileByClient(String usernameAsJSON) throws IOException;
+    
+    /**
+     * Get a PersonalTrainer profile by PersonalTrainer username.
+     * 
+     * @param usernameAsJSON PersonalTrainer username as json string.
+     * @return PersonalTrainer info.
+     * @throws IOException if something fails on trying contact with external services.
+     */
+    String getPersonalTrainerProfileByPersonalTrainer(String usernameAsJSON) throws IOException;
 
     /**
      * Edit Client info with new info given.

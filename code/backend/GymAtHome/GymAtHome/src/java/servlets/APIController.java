@@ -52,23 +52,35 @@ public class APIController extends HttpServlet {
         String res = null;
         try {
             switch(target) {
+                    //TESTED
                 case "createClient":
                     res = gymAtHome.createClient(data);
                     break;
+                    //TESTED
                 case "createPersonalTrainer":
                     res = gymAtHome.createPersonalTrainer(data);
                     break;
+                    //TESTED
                 case "loginClient":
                     res = gymAtHome.loginClient(data);
                     break;
+                    //TESTED
                 case "loginPersonalTrainer":
                     res = gymAtHome.loginPersonalTrainer(data);
                     break;
-                case "getClientProfile":
-                    res = gymAtHome.getClientProfile(data);
+                    //TESTED
+                case "getClientProfileByClient":
+                    res = gymAtHome.getClientProfileByClient(data);
                     break;
-                case "getPersonalTrainerProfile":
-                    res = gymAtHome.getPersonalTrainerProfile(data);
+                    //TESTED
+                case "getClientProfileByPersonalTrainer":
+                    res = gymAtHome.getClientProfileByPersonalTrainer(data);
+                    break;
+                case "getPersonalTrainerProfileByClient":
+                    res = gymAtHome.getPersonalTrainerProfileByClient(data);
+                    break;
+                case "getPersonalTrainerProfileByPersonalTrainer":
+                    res = gymAtHome.getPersonalTrainerProfileByPersonalTrainer(data);
                     break;
                 case "getPersonalTrainers":
                     res = gymAtHome.getPersonalTrainers(data);

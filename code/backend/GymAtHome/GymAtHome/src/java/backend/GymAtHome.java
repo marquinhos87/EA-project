@@ -80,8 +80,19 @@ public class GymAtHome {
      * @return
      * @throws IOException if something fails on trying contact with external services.
      */
-    public String getClientProfile(String usernameAsJSON) throws IOException {
-            return gymAtHomeBean.getClientProfile(usernameAsJSON);
+    public String getClientProfileByClient(String usernameAsJSON) throws IOException {
+            return gymAtHomeBean.getClientProfileByClient(usernameAsJSON);
+    }
+    
+    /**
+     * Authenticate Client with the credentials provided.
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException if something fails on trying contact with external services.
+     */
+    public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
+            return gymAtHomeBean.getClientProfileByPersonalTrainer(usernameAsJSON);
     }
 
     /**
@@ -124,8 +135,19 @@ public class GymAtHome {
      * @return
      * @throws IOException if something fails on trying contact with external services.
      */
-    public String getPersonalTrainerProfile(String usernameAsJSON) throws IOException {
-            return gymAtHomeBean.getPersonalTrainerProfile(usernameAsJSON);
+    public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws IOException {
+            return gymAtHomeBean.getPersonalTrainerProfileByClient(usernameAsJSON);
+    }
+    
+    /**
+     * Edit Client info with new info given.
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException if something fails on trying contact with external services.
+     */
+    public String getPersonalTrainerProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
+            return gymAtHomeBean.getPersonalTrainerProfileByPersonalTrainer(usernameAsJSON);
     }
 
     /**
