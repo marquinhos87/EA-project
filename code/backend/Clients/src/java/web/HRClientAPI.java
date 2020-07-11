@@ -45,8 +45,9 @@ public class HRClientAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         response.setContentType("application/json");
-        response.getWriter().print(Utils.makeError(404, "Method GET not allowed."));
+        response.getWriter().print(Utils.makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method GET not allowed."));
     }
 
     /**
@@ -308,8 +309,8 @@ public class HRClientAPI extends HttpServlet {
                 break;
             }
             default:
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                response.getWriter().print(Utils.makeError(404,"There is no such target for " + target + "."));
+                response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+                response.getWriter().print(Utils.makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED,"There is no such target for " + target + "."));
                 break;
         }
     }
