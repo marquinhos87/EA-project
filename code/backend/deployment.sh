@@ -6,6 +6,7 @@ HOST_IP=192.168.1.35
 cp -rf Clients/dist/Clients.war wildfly-12.0.0.Final/standalone/deployments
 
 #   Request service
+cp -rf Request/Request/dist/Request.war wildfly-12.0.0.Final/standalone/deployments
 
 #   ...
 
