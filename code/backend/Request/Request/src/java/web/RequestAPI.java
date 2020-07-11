@@ -44,7 +44,7 @@ public class RequestAPI extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("aplication/json");
+        response.setContentType("application/json");
         response.getWriter().print(Utils.makeError(404, "Method GET not allowed."));
     }
 
@@ -62,7 +62,7 @@ public class RequestAPI extends HttpServlet {
         String[] url = request.getRequestURI().toString().split("/");
         String target = url[url.length-1], line = "";
 
-        response.setContentType("aplication/json");
+        response.setContentType("application/json");
 
         StringBuilder sb = new StringBuilder();
 
