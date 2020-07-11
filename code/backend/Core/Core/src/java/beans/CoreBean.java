@@ -431,4 +431,62 @@ public class CoreBean implements CoreBeanLocal {
         }
         session.flush();
     }
+    
+    /**
+     * Remove a User (Client).
+     * 
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     * @throws UserDontExistsException if username given dont exists
+     * @throws InvalidTokenException if for given user the token is invalid
+     */
+    @Override
+    public void removeUserTokenClient(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, UserDontExistsException, InvalidTokenException {
+        PersistentSession session = CoreFacade.getSession();
+        removeUserToken(usernameAsJson, session);
+    }
+    
+    /**
+     * Remove a User (PersonalTrainer).
+     * 
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     * @throws UserDontExistsException if username given dont exists
+     * @throws InvalidTokenException if for given user the token is invalid
+     */
+    @Override
+    public void removeUserTokenPersonalTrainer(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, UserDontExistsException, InvalidTokenException {
+        PersistentSession session = CoreFacade.getSession();
+        String username = removeUserToken(usernameAsJson, session);
+        PersonalTrainerDAO.delete(PersonalTrainerDAO.getPersonalTrainerByORMID(session,username));
+        session.flush();
+    }
+    
+    /**
+     * Remove a User.
+     * 
+     * @param usernameAsJson User username and token as a json string.
+     * @param session Persistent Session
+     * @return The user's username
+     * @throws PersistentException if some error occur with hibernate
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     * @throws UserDontExistsException if username given dont exists
+     * @throws InvalidTokenException if for given user the token is invalid
+     */
+    private String removeUserToken(String usernameAsJson, PersistentSession session) throws PersistentException, JsonKeyInFaultException, UserDontExistsException, InvalidTokenException {
+        JsonObject json = Utils.validateJson(gson, usernameAsJson, Arrays.asList("token", "username"));
+
+        String username = json.get("username").getAsString();
+        String token = json.get("token").getAsString();
+
+        // Validate given token
+        User user = Utils.validateToken(token,username,session);
+        
+        UserDAO.delete(user);
+        session.flush();
+        
+        return username;
+    }
 }

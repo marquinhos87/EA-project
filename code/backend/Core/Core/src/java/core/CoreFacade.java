@@ -67,7 +67,7 @@ public class CoreFacade {
     /**
      * Create a User (Client).
      * 
-     * @param usernameAsJson
+     * @param usernameAsJson User username and token as a json string.
      * @throws PersistentException if some error occur with hibernate
      * @throws UserAlreadyExistsException if users token already register
      * @throws JsonKeyInFaultException if has some keys in fault 
@@ -79,7 +79,7 @@ public class CoreFacade {
     /**
      * Create a User (PersonalTrainer).
      * 
-     * @param usernameAsJson
+     * @param usernameAsJson User username and token as a json string.
      * @throws PersistentException if some error occur with hibernate
      * @throws UserAlreadyExistsException if users token already register
      * @throws JsonKeyInFaultException if has some keys in fault 
@@ -91,7 +91,7 @@ public class CoreFacade {
     /**
      * Update a User token.
      * 
-     * @param usernameAndTokenAsJson
+     * @param usernameAndTokenAsJson User username and token as a json string.
      * @throws PersistentException if some error occur with hibernate
      * @throws JsonKeyInFaultException if has some keys in fault 
      * @throws InvalidTokenException if for given user the token is invalid
@@ -104,7 +104,7 @@ public class CoreFacade {
     /**
      * Get a week of a Client plan.
      * 
-     * @param usernameAndWeekAsJSON
+     * @param usernameAndWeekAsJSON Client's username and week as a json string.
      * @return A week as a json string.
      * @throws JsonKeyInFaultException if has some keys in fault 
      * @throws PersistentException if some error occur with hibernate
@@ -120,7 +120,7 @@ public class CoreFacade {
     /**
      * Get a week of a Client plan.
      *
-     * @param usernameAndWeekAsJSON
+     * @param usernameAndWeekAsJSON PersonalTrainer's username and week as a json string.
      * @return A week as a json string.
      * @throws JsonKeyInFaultException if has some keys in fault 
      * @throws PersistentException if some error occur with hibernate
@@ -137,7 +137,7 @@ public class CoreFacade {
     /**
      * Assign workouts as done.
      * 
-     * @param usernameAndWorkoutIdAsJSON
+     * @param usernameAndWorkoutIdAsJSON Client's username and workout Id as a json string.
      * @throws PersistentException if some error occur with hibernate
      * @throws ClientDontExistsException if Client dont exist
      * @throws InvalidTokenException if for given user the token is invalid
@@ -154,7 +154,7 @@ public class CoreFacade {
     /**
      * Create a new week for an existing plan or create a new week for a new plan.
      * 
-     * @param weekAsJson
+     * @param weekAsJson Week info as a json string.
      * @throws JsonKeyInFaultException if has some keys in fault 
      * @throws PersonalTrainerDontExistsException if given PersonalTrainer dont exist
      * @throws PersistentException if some error occur with hibernate
@@ -167,5 +167,31 @@ public class CoreFacade {
      */
     public void createWeek(String weekAsJson) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, PersonalTrainerDontExistsException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException, UsernameDontBelongToClientException {
         coreBean.createWeek(weekAsJson);
+    }
+    
+    /**
+     * Remove a User (Client).
+     * 
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     * @throws UserDontExistsException if username given dont exists
+     * @throws InvalidTokenException if for given user the token is invalid
+     */
+    public void removeUserTokenClient(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, UserDontExistsException, InvalidTokenException {
+        coreBean.removeUserTokenClient(usernameAsJson);
+    }
+    
+    /**
+     * Remove a User (PersonalTrainer).
+     * 
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     * @throws UserDontExistsException if username given dont exists
+     * @throws InvalidTokenException if for given user the token is invalid
+     */
+    public void removeUserTokenPersonalTrainer(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, UserDontExistsException, InvalidTokenException {
+        coreBean.removeUserTokenPersonalTrainer(usernameAsJson);
     }
 }

@@ -107,4 +107,26 @@ public interface CoreBeanLocal {
      * @throws UsernameDontBelongToClientException if given username belong to a PersonalTrainer
      */
     void createWeek(String weekAsJson) throws JsonKeyInFaultException, PersonalTrainerDontExistsException, PersistentException, InvalidTokenException, UserDontExistsException, ClientAlreadyHasAnPlanException, PlanDontExistException, InvalidWeekNumberException, UsernameDontBelongToClientException;
+
+    /**
+     * Remove a User (Client).
+     * 
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     * @throws UserDontExistsException if username given dont exists
+     * @throws InvalidTokenException if for given user the token is invalid
+     */
+    void removeUserTokenClient(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, UserDontExistsException, InvalidTokenException;
+    
+    /**
+     * Remove a User (PersonalTrainer).
+     * 
+     * @param usernameAsJson User username and token as a json string.
+     * @throws PersistentException if some error occur with hibernate
+     * @throws JsonKeyInFaultException if has some keys in fault 
+     * @throws UserDontExistsException if username given dont exists
+     * @throws InvalidTokenException if for given user the token is invalid
+     */
+    void removeUserTokenPersonalTrainer(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, UserDontExistsException, InvalidTokenException;
 }

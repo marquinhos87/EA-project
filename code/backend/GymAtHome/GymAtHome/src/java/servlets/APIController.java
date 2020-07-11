@@ -54,81 +54,58 @@ public class APIController extends HttpServlet {
             switch(target) {
                 case "createClient":
                     res = gymAtHome.createClient(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "createPersonalTrainer":
                     res = gymAtHome.createPersonalTrainer(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "loginClient":
                     res = gymAtHome.loginClient(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "loginPersonalTrainer":
                     res = gymAtHome.loginPersonalTrainer(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "getClientProfile":
                     res = gymAtHome.getClientProfile(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "getPersonalTrainerProfile":
                     res = gymAtHome.getPersonalTrainerProfile(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "getPersonalTrainers":
                     res = gymAtHome.getPersonalTrainers(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "editClientProfile":
-                    gymAtHome.editClientProfile(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    res = gymAtHome.editClientProfile(data);
                     break;
                 case "editPersonalTrainerProfile":
-                    gymAtHome.editPersonalTrainertProfile(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    res = gymAtHome.editPersonalTrainertProfile(data);
                     break;
                 case "getPlanByClient":
                     res = gymAtHome.getPlanByClient(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "getPlanByPersonalTrainer":
                     res = gymAtHome.getPlanByPersonalTrainer(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "getBiometricData":
                     res = gymAtHome.getBiometricData(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "submitClassification":
                     res = gymAtHome.submitClassification(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "finishWorkout":
-                    gymAtHome.finishWorkout(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    res = gymAtHome.finishWorkout(data);
                     break;
                 case "getPersonalTrainerClients":
                     res = gymAtHome.getPersonalTrainerClients(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
                     break;
                 case "submitRequest":
-                    gymAtHome.submitRequest(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    res = gymAtHome.submitRequest(data);
+                    res = null;
                     break;
                 case "createWeek":
-                    gymAtHome.createWeek(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    res = gymAtHome.createWeek(data);
                     break;
                 case "replyToRequest":
-                    gymAtHome.replyToRequest(data);
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    res = gymAtHome.replyToRequest(data);
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
