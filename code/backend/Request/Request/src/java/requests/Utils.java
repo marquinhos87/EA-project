@@ -72,4 +72,8 @@ public class Utils {
         if(cachedToken.equals(token) == false) throw new TokenIsInvalidException(token);
         return user;
     }
+    
+    public static boolean registerExists(String key, String value,  String table) throws PersistentException{
+        return RequestsFacade.getSession().createQuery("select " + key + " from " + table + " where " + key + "=\'" + value + "\'").list().size() == 1;
+    }
 }

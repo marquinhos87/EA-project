@@ -58,8 +58,8 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJSon , Arrays.asList("username", "token"));
         String username = json.get("username").getAsString(), token = json.get("token").getAsString();
         User user;Client client;
-        if(UserDAO.getUserByORMID(RequestsFacade.getSession(), username) != null) throw new UserAlreadyExistsException(username);
-        if((ClientDAO.getClientByORMID(RequestsFacade.getSession(), username) != null)) throw new ClientAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "User") == true) throw new UserAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "Client") == true) throw new ClientAlreadyExistsException(username);
         user = new User();
         user.setUsername(username);
         user.setToken(token);
@@ -83,8 +83,8 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJSon , Arrays.asList("username", "token"));
         String username = json.get("username").getAsString(), token = json.get("token").getAsString();
         User user;PersonalTrainer personalTrainer;
-        if(UserDAO.getUserByORMID(RequestsFacade.getSession(), username) != null) throw new UserAlreadyExistsException(username);
-        if(PersonalTrainerDAO.getPersonalTrainerByORMID(RequestsFacade.getSession(), username) != null) throw new PersonalTrainerAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "User") == true) throw new UserAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "PersonalTrainer") == true) throw new PersonalTrainerAlreadyExistsException(username);
         user = new User();
         user.setUsername(username);
         user.setToken(token);
@@ -136,7 +136,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
         Utils.validateToken(token, username);
         int requestId = json.get("requestId").getAsInt();
-        if(PersonalTrainerDAO.getPersonalTrainerByORMID(RequestsFacade.getSession(), username) == null) throw new PersonalTrainerDoesNotExistException(username);
+        if(Utils.registerExists("username", username, "PersonalTrainer") == false) throw new PersonalTrainerDoesNotExistException(username);
         Request request;
         if((request = RequestDAO.getRequestByORMID(RequestsFacade.getSession(), requestId)) == null) throw new RequestDoesNotExistException(String.valueOf(requestId));
         boolean accepted = json.get("accepted").getAsBoolean();
