@@ -118,15 +118,22 @@ public class APIController extends HttpServlet {
                 case "getPersonalTrainerClients":
                     res = gymAtHome.getPersonalTrainerClients(data);
                     break;
-                    
+                    //TESTED
                 case "submitRequest":
                     res = gymAtHome.submitRequest(data);
                     break;
                 case "createWeek":
                     res = gymAtHome.createWeek(data);
                     break;
+                    //TESTED
                 case "replyToRequest":
                     res = gymAtHome.replyToRequest(data);
+                    break;
+                case "getClientNotifications":
+                    res = gymAtHome.getClientNotifications(data);
+                    break;
+                case "getPersonalTrainerNotifications":
+                    res = gymAtHome.getPersonalTrainerNotifications(data);
                     break;
                     //TESTED
                 case "createdbs":
