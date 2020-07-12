@@ -102,8 +102,13 @@ public class HRClientAPI extends HttpServlet {
                     response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
                 }catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -130,8 +135,13 @@ public class HRClientAPI extends HttpServlet {
                     response.getWriter().print(Utils.makeError(15, "User with username " + ex.getMessage() + " already exist."));
                     break;
                 } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -153,6 +163,15 @@ public class HRClientAPI extends HttpServlet {
                 } catch (UserAlreadyExistsException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(15, "User with username " + ex.getMessage() + " already exist."));
+                    break;
+                }catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -180,8 +199,13 @@ public class HRClientAPI extends HttpServlet {
                     response.getWriter().print(Utils.makeError(20, "Client with username " + ex.getMessage() + " does not exist on database."));
                     break;
                 }catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -217,8 +241,13 @@ public class HRClientAPI extends HttpServlet {
                     response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
                     break;
                 } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -258,8 +287,13 @@ public class HRClientAPI extends HttpServlet {
                     response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
                     break;
                 } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -291,8 +325,13 @@ public class HRClientAPI extends HttpServlet {
                     response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
                     break;
                 } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Exception: " + ex.getMessage()));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -332,8 +371,13 @@ public class HRClientAPI extends HttpServlet {
                     response.getWriter().print(Utils.makeError(23, "BiometricData does not exist."));
                     break;
                 } catch (Exception e){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    e.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    e.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(19, "Exception: " + e.getMessage()));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -364,6 +408,15 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    break;
                 }
                 response.setStatus(200);
                 response.getWriter().print(Utils.makeSuccess(1,"\"Database was droped with success.\""));
@@ -392,6 +445,15 @@ public class HRClientAPI extends HttpServlet {
                 } catch (JsonKeyInFaultException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
+                    break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                     break;
                 }
                 response.setStatus(200);

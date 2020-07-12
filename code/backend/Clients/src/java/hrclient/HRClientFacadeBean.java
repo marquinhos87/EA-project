@@ -60,10 +60,13 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             if(UserDAO.getUserByORMID(HRClientFacade.getSession(),  username) != null) throw new UserAlreadyExistsException(username);
             
             BiometricData biometricData = gson.fromJson(infoClientAsJSON, BiometricData.class);
-            biometricData.setDate(new Date());
-            float height = (float) (json.get("height").getAsInt())/100; float weight = json.get("weight").getAsFloat();
-            biometricData.setBMI((float) (weight/(height*height)));
-            client.biometricDatas.add(biometricData);
+            
+            if(biometricData != null){
+                biometricData.setDate(new Date());
+                float height = (float) (json.get("height").getAsInt())/100; float weight = json.get("weight").getAsFloat();
+                biometricData.setBMI((float) (weight/(height*height)));
+                client.biometricDatas.add(biometricData);
+            }
             
             String token = Utils.tokenGenerate(client.getUsername());
             
@@ -207,10 +210,14 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
                     client.setSex(json.get("sex").getAsString());
 
             BiometricData biometricData = gson.fromJson(infoAsJSON, BiometricData.class);
-            float height = (float) (json.get("height").getAsInt())/100; float weight = json.get("weight").getAsFloat();
-            biometricData.setBMI((float) (weight/(height*height)));
-            biometricData.setDate(new Date());
-            client.biometricDatas.add(biometricData);
+            
+            if(biometricData != null){
+                float height = (float) (json.get("height").getAsInt())/100;
+                float weight = json.get("weight").getAsFloat();
+                biometricData.setBMI((float) (weight/(height*height)));
+                biometricData.setDate(new Date());
+                client.biometricDatas.add(biometricData);
+            }
             ClientDAO.save(client);
     }
 
