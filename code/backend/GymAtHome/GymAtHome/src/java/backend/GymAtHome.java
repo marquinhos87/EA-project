@@ -1,5 +1,7 @@
 package backend;
 
+import beans.GymAtHomeBean;
+import static beans.GymAtHomeBean.clients;
 import beans.GymAtHomeBeanLocal;
 import exceptions.GymAtHomeException;
 import exceptions.JsonKeyInFaultException;
@@ -10,6 +12,9 @@ import javax.naming.NamingException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
+import okhttp3.Response;
+import utils.Http;
 
 public class GymAtHome {
 
@@ -273,5 +278,13 @@ public class GymAtHome {
      */
     public String replyToRequest(String requestIdAndResponseAsJSON) throws IOException, GymAtHomeException {
             return gymAtHomeBean.replyToRequest(requestIdAndResponseAsJSON);
+    }
+
+    public String dropdbs(String data) throws IOException, Exception {
+        return gymAtHomeBean.dropdbs(data);
+    }
+
+    public String createdbs(String data) throws IOException, Exception {
+        return gymAtHomeBean.createdbs(data);
     }
 }

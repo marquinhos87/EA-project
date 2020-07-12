@@ -33,11 +33,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     private static String IPrequests = "188.250.36.239";
     private static String IPnotifications = "37.189.223.35";
     
-    private static String clients;
-    private static String pts;
-    private static String core;
-    private static String requests;
-    private static String notifications;
+    public static String clients;
+    public static String pts;
+    public static String core;
+    public static String requests;
+    public static String notifications;
     
     
     public GymAtHomeBean() {
@@ -49,9 +49,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             IPrequests = IP;
             IPnotifications = IP;
         }
-        clients = "http://" + IPclients + ":8083/Clients/api/";
+        clients = "http://" + IPclients + ":8080/Clients/api/";
         pts = "http://" + IPpts + ":8084/PersonalTrainer/api/";
-        core = "http://" + IPcore + ":8080/Core/api/";
+        core = "http://" + IPcore + ":8082/Core/api/";
         requests = "http://" + IPrequests + ":8080/Request/api/";
         notifications = "http://" + IPnotifications + ":8086/Notification/api/";
     }
@@ -91,7 +91,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         if(responseCore.code() != HttpServletResponse.SC_OK)
             return body;
         
-        String urlHRPT = pts + "registerClient";
+        String urlHRPT = pts + "createClient";
         Response responseHRPT = Http.post(urlHRPT,json);
         body = responseHRPT.body().string();
         // Test if something fails on external service
@@ -124,7 +124,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      */
     @Override
     public String createPersonalTrainer(String infoPTAsJSON) throws IOException {
-        String urlHRPT = pts + "registerPersonalTrainer";
+        String urlHRPT = pts + "createPersonalTrainer";
         Response responseHRPT = Http.post(urlHRPT,infoPTAsJSON);
         String initialBody = responseHRPT.body().string();
         String body = initialBody;
@@ -337,7 +337,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      */
     @Override
     public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws IOException {
-        String url = pts + "getPersonalTrainerByClient";
+        String url = pts + "getPersonalTrainerProfileByClient";
         Response response = Http.post(url,usernameAsJSON);
         
         return response.body().string();
@@ -352,7 +352,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      */
     @Override
     public String getPersonalTrainerProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
-        String url = pts + "getPersonalTrainerByPersonalTrainer";
+        String url = pts + "getPersonalTrainerProfileByPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
         
         return response.body().string();
@@ -502,10 +502,35 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      */
     @Override
     public String submitRequest(String requestInfoAsJSON) throws IOException {
-        String url = requests + "submitRequest";
-        Response response = Http.post(url,requestInfoAsJSON);
+        String urlRequest = requests + "submitRequest";
+        Response responseRequest = Http.post(urlRequest,requestInfoAsJSON);
+        String initialBody = responseRequest.body().string();
+        String body = initialBody;
+        if(responseRequest.code() != HttpServletResponse.SC_OK)
+            return body;
         
-        return response.body().string();
+        JsonObject jo = gson.fromJson(requestInfoAsJSON, JsonObject.class);
+        String username = jo.get("username").getAsString();
+        String token = jo.get("token").getAsString();
+        String personalTrainerUsername = jo.get("personalTrainerUsername").getAsString();
+        
+        
+        // JSON to send to other services
+        jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+        jo.addProperty("personalTrainerUsername",personalTrainerUsername);
+        jo.addProperty("description","Client with username " + username + " submitted a request.");
+        
+        String json = jo.toString();
+        
+        String urlNotification = notifications + "createNotificationToPersonalTrainer";
+        Response responseNotification = Http.post(urlNotification, json);
+        body = responseNotification.body().string();
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        return initialBody;
     }
 
     /**
@@ -518,7 +543,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     @Override
     public String createWeek(String weekAsJson) throws IOException {
         String url = core + "createWeek";
-        Response response = Http.post(url,weekAsJson);
+        Response responseCore = Http.post(url,weekAsJson);
+        String initialBody = responseCore.body().string();
+        String body = initialBody;
+        if(responseCore.code() != HttpServletResponse.SC_OK)
+            return body;
         
         //TODO criar notificação
         
@@ -534,9 +563,97 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      */
     @Override
     public String replyToRequest(String requestIdAndResponseAsJSON) throws IOException {
-        String url = "http://localhost:8080/api/v1/GymAtHome/";
-        Response response = Http.post(url,requestIdAndResponseAsJSON);
+        String urlRequest = requests + "replyToRequest";
+        Response responseRequest = Http.post(urlRequest,requestIdAndResponseAsJSON);
+        String initialBody = responseRequest.body().string();
+        String body = initialBody;
+        if(responseRequest.code() != HttpServletResponse.SC_OK)
+            return body;
         
-        return response.body().string();
+        JsonObject jo = gson.fromJson(requestIdAndResponseAsJSON, JsonObject.class);
+        String username = jo.get("username").getAsString();
+        String token = jo.get("token").getAsString();
+        String clientUsername = jo.get("clientUsername").getAsString();
+        boolean accepted = jo.get("accepted").getAsBoolean();
+        
+        // JSON to send to other services
+        jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+        jo.addProperty("clientUsername",clientUsername);
+        if(accepted)
+            jo.addProperty("description","Personal Trainer with username " + username + " accepted your request.");
+        else
+            jo.addProperty("description","Personal Trainer with username " + username + " declined your request.");
+        
+        String json = jo.toString();
+        
+        String urlNotification = notifications + "createNotificationToClient";
+        Response responseNotification = Http.post(urlNotification, json);
+        body = responseNotification.body().string();
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        return initialBody;
+    }
+    
+    @Override
+    public String dropdbs(String data) throws IOException, Exception {
+        String urlHRClient = clients + "dropdb";
+        Response responseHRClient = Http.post(urlHRClient,data);
+        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't drop db on client service.");
+        
+        String urlHRPT = pts + "dropdb";
+        Response responseHRPT = Http.post(urlHRPT,data);
+        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't drop db on personaltrainer service.");
+        
+        String urlCore = GymAtHomeBean.core + "dropdb";
+        Response responseCore = Http.post(urlCore,data);
+        if(responseCore.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't drop db on core service.");
+        
+        String urlRequest = requests + "dropdb";
+        Response responseRequest = Http.post(urlRequest,data);
+        if(responseRequest.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't drop db on requests service.");
+        
+        String urlNotification = notifications + "dropdb";
+        Response responseNotification = Http.post(urlNotification,data);
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't drop db on notifications service.");
+        
+        return "\"Databases were dropped with success.\"";
+    }
+
+    @Override
+    public String createdbs(String data) throws IOException, Exception {
+        String urlHRClient = clients + "createdb";
+        Response responseHRClient = Http.post(urlHRClient,data);
+        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't create db on client service.");
+        
+        String urlHRPT = pts + "createdb";
+        Response responseHRPT = Http.post(urlHRPT,data);
+        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't create db on personaltrainer service.");
+        
+        String urlCore = core + "createdb";
+        Response responseCore = Http.post(urlCore,data);
+        if(responseCore.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't create db on core service.");
+        
+        String urlRequest = requests + "createdb";
+        Response responseRequest = Http.post(urlRequest,data);
+        if(responseRequest.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't create db on requests service.");
+        
+        String urlNotification = notifications + "createdb";
+        Response responseNotification = Http.post(urlNotification,data);
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            throw new Exception("Couldn't create db on notifications service.");
+        
+        return "\"Databases were created with success.\"";
     }
 }

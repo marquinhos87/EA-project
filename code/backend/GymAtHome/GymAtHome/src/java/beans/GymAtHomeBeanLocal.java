@@ -188,4 +188,8 @@ public interface GymAtHomeBeanLocal {
      * @throws IOException if something fails on trying contact with external services.
      */
     String replyToRequest(String requestIdAndResponseAsJSON) throws IOException;
+    
+    String createdbs(String tokenAsJson) throws IOException, Exception;
+    
+    String dropdbs(String tokenAsJson) throws IOException, Exception;
 }

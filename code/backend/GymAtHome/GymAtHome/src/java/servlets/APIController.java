@@ -9,6 +9,8 @@ import backend.GymAtHome;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.GymAtHomeException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -76,18 +78,23 @@ public class APIController extends HttpServlet {
                 case "getClientProfileByPersonalTrainer":
                     res = gymAtHome.getClientProfileByPersonalTrainer(data);
                     break;
+                    //TESTED
                 case "getPersonalTrainerProfileByClient":
                     res = gymAtHome.getPersonalTrainerProfileByClient(data);
                     break;
+                    //TESTED
                 case "getPersonalTrainerProfileByPersonalTrainer":
                     res = gymAtHome.getPersonalTrainerProfileByPersonalTrainer(data);
                     break;
+                    //TESTED
                 case "getPersonalTrainers":
                     res = gymAtHome.getPersonalTrainers(data);
                     break;
+                    //TESTED
                 case "editClientProfile":
                     res = gymAtHome.editClientProfile(data);
                     break;
+                    //TESTED
                 case "editPersonalTrainerProfile":
                     res = gymAtHome.editPersonalTrainertProfile(data);
                     break;
@@ -97,9 +104,11 @@ public class APIController extends HttpServlet {
                 case "getPlanByPersonalTrainer":
                     res = gymAtHome.getPlanByPersonalTrainer(data);
                     break;
+                    //TESTED
                 case "getBiometricData":
                     res = gymAtHome.getBiometricData(data);
                     break;
+                    //TESTED
                 case "submitClassification":
                     res = gymAtHome.submitClassification(data);
                     break;
@@ -109,6 +118,7 @@ public class APIController extends HttpServlet {
                 case "getPersonalTrainerClients":
                     res = gymAtHome.getPersonalTrainerClients(data);
                     break;
+                    
                 case "submitRequest":
                     res = gymAtHome.submitRequest(data);
                     break;
@@ -117,6 +127,15 @@ public class APIController extends HttpServlet {
                     break;
                 case "replyToRequest":
                     res = gymAtHome.replyToRequest(data);
+                    break;
+                    //TESTED
+                case "createdbs":
+                    gymAtHome.dropdbs(data);
+                    res = makeSuccess(HttpServletResponse.SC_OK,gymAtHome.createdbs(data));
+                    break;
+                    //TESTED
+                case "dropdbs":
+                    res = makeSuccess(HttpServletResponse.SC_OK,gymAtHome.dropdbs(data));
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
@@ -138,9 +157,13 @@ public class APIController extends HttpServlet {
             res = e.getMessage();
         }
         catch(Exception e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTrace = sw.toString(); // stack trace as a string
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Unexcepted error. " + e.getMessage());
+            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpeted error.\n" + stackTrace);
         }
         finally {
             response.setContentType("application/json");

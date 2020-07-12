@@ -36,62 +36,62 @@ services:
     ports:
       - "8082:8080"
 
-  clientdb:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: client
-    ports: 
-      - "5003:3306"
-  client:
-    image: client
-    build: client/
-    ports:
-      - "8083:8080"
+  # clientdb:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: client
+  #   ports: 
+  #     - "5003:3306"
+  # client:
+  #   image: client
+  #   build: client/
+  #   ports:
+  #     - "8083:8080"
 
-  ptdb:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: personaltrainer
-    ports: 
-      - "5004:3306"
-  pt:
-    image: pt
-    build: pt/
-    ports:
-      - "8084:8080"
+  # ptdb:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: personaltrainer
+  #   ports: 
+  #     - "5004:3306"
+  # pt:
+  #   image: pt
+  #   build: pt/
+  #   ports:
+  #     - "8084:8080"
 
-  requestdb:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: request
-    ports: 
-      - "5005:3306"
-  request:
-    image: request
-    build: request/
-    ports:
-      - "8085:8080"
+  # requestdb:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: request
+  #   ports: 
+  #     - "5005:3306"
+  # request:
+  #   image: request
+  #   build: request/
+  #   ports:
+  #     - "8085:8080"
       
-  notificationdb:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: notification
-    ports: 
-      - "5006:3306"
-  notification:
-    image: notification
-    build: notification/
-    ports:
-      - "8086:8080"
+  # notificationdb:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: notification
+  #   ports: 
+  #     - "5006:3306"
+  # notification:
+  #   image: notification
+  #   build: notification/
+  #   ports:
+  #     - "8086:8080"

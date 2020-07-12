@@ -205,7 +205,7 @@ public class CoreController extends HttpServlet {
             res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Unexcepted error. " + e.getMessage());
         }
         finally {
-            response.setContentType("application/json");
+            response.setContentType("application/json; charset=utf-8");
             response.getWriter().print(res);
         }
     }
