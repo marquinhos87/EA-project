@@ -247,6 +247,6 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         }
         if(biometricData == null) throw new BiometricDataDoesNotExistException();
 
-        return gson.toJson(biometricData);
+        return "{\"username\":" + biometricData.getDate() + "}";
     }
 }

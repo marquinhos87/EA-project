@@ -106,13 +106,14 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public void submitRequest(String requestInfoAsJSON) throws JsonKeyInFaultException, TokenIsInvalidException, UserDoesNotExistException, PersistentException, ClientDoesNotExistException, PersonalTrainerDoesNotExistException {
-        JsonObject json = Utils.validateJson(gson, requestInfoAsJSON, Arrays.asList("token", "username", "personalTrainerUsername", "numberOfWeeks", "objective", "workoutPerWeek", "weekDays", "level", "accepted"));
+        JsonObject json = Utils.validateJson(gson, requestInfoAsJSON, Arrays.asList("token", "username", "personalTrainerUsername", "numberOfWeeks", "objective", "workoutPerWeek", "weekDays", "level"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString(), personalTrainer = json.get("personalTrainerUsername").getAsString();
         Utils.validateToken(token, username);
         Client client; PersonalTrainer pt;
         if((client = ClientDAO.getClientByORMID(RequestsFacade.getSession(), username)) == null) throw new ClientDoesNotExistException(username);
         if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(RequestsFacade.getSession(), personalTrainer)) == null) throw new PersonalTrainerDoesNotExistException(personalTrainer);
         Request request = gson.fromJson(requestInfoAsJSON, Request.class);
+        request.setAccepted(false);
         client.requests.add(request);
         pt.requests.add(request);
         ClientDAO.save(client);
