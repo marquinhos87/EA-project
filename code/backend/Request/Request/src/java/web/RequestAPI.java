@@ -381,8 +381,6 @@ public class RequestAPI extends HttpServlet {
         PrintWriter out = response.getWriter();
         ORMDatabaseInitiator.dropSchema(requests.DiagramasPersistentManager.instance());
         requests.DiagramasPersistentManager.instance().disposePersistentManager();
-        response.setStatus(HttpServletResponse.SC_OK);
-        out.print(Utils.makeSuccess200(null));
     }
     private static void createdb(HttpServletResponse response, String json) throws PersistentException, SQLException, IOException, TokenIsInvalidException, JsonKeyInFaultException {
         JsonObject jo = Utils.validateJson(new Gson(), json, Arrays.asList("token"));
@@ -392,8 +390,6 @@ public class RequestAPI extends HttpServlet {
         PrintWriter out = response.getWriter();
         ORMDatabaseInitiator.createSchema(requests.DiagramasPersistentManager.instance());
 	requests.DiagramasPersistentManager.instance().disposePersistentManager();
-        response.setStatus(HttpServletResponse.SC_OK);
-        out.print(Utils.makeSuccess200(null));
     }
 
     /**
