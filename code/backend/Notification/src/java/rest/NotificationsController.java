@@ -1,7 +1,12 @@
 package rest;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.annotation.WebServlet;
@@ -17,10 +22,14 @@ import notifications.TokenIsInvalidException;
 import notifications.UserAlreadyExistsException;
 import notifications.UserNotExistsException;
 import notifications.Utils;
+import org.orm.ORMDatabaseInitiator;
 import org.orm.PersistentException;
+import ormsamples.CreateDiagramasData;
+import ormsamples.CreateDiagramasDatabaseSchema;
+import ormsamples.DropDiagramasDatabaseSchema;
 
 
-@WebServlet(name = "NotificatiosController", urlPatterns = {"/*"})
+@WebServlet(name = "NotificatiosController", urlPatterns = {"/api/*"})
 public class NotificationsController extends HttpServlet {
 
     /**
@@ -47,6 +56,12 @@ public class NotificationsController extends HttpServlet {
             String[] url = request.getRequestURI().split("/");
             String target = url[url.length-1];
             switch (target) {
+                case "dropdb":
+                    dropdb(response, getDataFromPost(request));
+                    break;
+                case "createdb":
+                    createdb(response, getDataFromPost(request));
+                    break;
                 case "createNotificationToClient":
                     createNotificationToClient(response, getDataFromPost(request));
                     break;
@@ -79,7 +94,7 @@ public class NotificationsController extends HttpServlet {
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "target is not allowed."));
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "target is not allowed - " + target + "."));
             }
         } catch (JsonKeyInFaultException e) {
             e.printStackTrace();
@@ -90,9 +105,13 @@ public class NotificationsController extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             out.print(Utils.makeError(HttpServletResponse.SC_UNAUTHORIZED, "token is invalid - " + e.getMessage() +  "."));
         } catch (PersistentException e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTrace = sw.toString(); // stack trace as a string
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage()));
+            out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
         } catch (ClientNotExistsException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -113,10 +132,22 @@ public class NotificationsController extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             out.print(Utils.makeError(HttpServletResponse.SC_NOT_FOUND, "user with specified username does not exist - " + e.getMessage() +  "."));
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTrace = sw.toString(); // stack trace as a string
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage()));
+            out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+        } catch (Exception e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTrace = sw.toString(); // stack trace as a string
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
         }
     }
     
@@ -195,6 +226,30 @@ public class NotificationsController extends HttpServlet {
     private void updatePersonalTrainerToken(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException {
         PrintWriter out = response.getWriter();
         NotificationFacade.getInstance().updatePersonalTrainerToken(json);
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.print(Utils.makeSuccess200(null));
+    }
+    
+    private static void dropdb(HttpServletResponse response, String json) throws PersistentException, SQLException, IOException, TokenIsInvalidException, JsonKeyInFaultException {
+        JsonObject jo = Utils.validateJson(new Gson(), json, Arrays.asList("token"));
+        String token = jo.get("token").getAsString();
+        if (token.equals("admin") == false) 
+            throw new TokenIsInvalidException(token);
+        PrintWriter out = response.getWriter();
+        ORMDatabaseInitiator.dropSchema(notifications.DiagramasPersistentManager.instance());
+        notifications.DiagramasPersistentManager.instance().disposePersistentManager();
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.print(Utils.makeSuccess200(null));
+    }
+
+    private static void createdb(HttpServletResponse response, String json) throws PersistentException, SQLException, IOException, TokenIsInvalidException, JsonKeyInFaultException {
+        JsonObject jo = Utils.validateJson(new Gson(), json, Arrays.asList("token"));
+        String token = jo.get("token").getAsString();
+        if (token.equals("admin") == false) 
+            throw new TokenIsInvalidException(token);
+        PrintWriter out = response.getWriter();
+        ORMDatabaseInitiator.createSchema(notifications.DiagramasPersistentManager.instance());
+	notifications.DiagramasPersistentManager.instance().disposePersistentManager();
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(null));
     }

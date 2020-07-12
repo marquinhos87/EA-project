@@ -57,7 +57,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: pt
+      MYSQL_DATABASE: personaltrainer
     ports: 
       - "5004:3306"
   pt:
@@ -80,6 +80,7 @@ services:
     build: request/
     ports:
       - "8085:8080"
+      
   notificationdb:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
