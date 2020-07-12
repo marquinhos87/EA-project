@@ -49,11 +49,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             IPrequests = IP;
             IPnotifications = IP;
         }
-        clients = "http://" + IPclients + ":8080/Clients/api/";
-        pts = "http://" + IPpts + ":8080/PersonalTrainer/";
+        clients = "http://" + IPclients + ":8083/Clients/api/";
+        pts = "http://" + IPpts + ":8084/PersonalTrainer/api/";
         core = "http://" + IPcore + ":8080/Core/api/";
         requests = "http://" + IPrequests + ":8080/Request/api/";
-        notifications = "http://" + IPnotifications + ":8080/Notification/";
+        notifications = "http://" + IPnotifications + ":8086/Notification/api/";
     }
 
     /**

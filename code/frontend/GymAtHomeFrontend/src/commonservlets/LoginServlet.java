@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         jo.addProperty("username",username);
         jo.addProperty("password",password);
 
-        Response responseHttp = Http.post("http://localhost:8080/GymAtHome/" + target,jo.toString());
+        Response responseHttp = Http.post("http://localhost:8081/GymAtHome/" + target,jo.toString());
 
         String responseBody = responseHttp.body().string();
         ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
@@ -52,12 +52,14 @@ public class LoginServlet extends HttpServlet {
 
         if(username.startsWith("u")) {
             login(request,response,"loginClient");
+            getServletConfig().getServletContext().getRequestDispatcher("/MyClientProfile").forward(request,response);
         }
         else if(username.startsWith("pt")) {
-            login(request,response,"loginPersonalTrainer");
+            getServletConfig().getServletContext().getRequestDispatcher("/MyPersonalTrainerProfile").forward(request,response);
         }
         else {
             request.setAttribute("page","Login");
+            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
         }
     }
 

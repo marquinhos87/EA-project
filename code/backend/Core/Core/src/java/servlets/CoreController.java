@@ -5,17 +5,23 @@
  */
 package servlets;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import core.CoreFacade;
 import exceptions.*;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.orm.ORMDatabaseInitiator;
 import org.orm.PersistentException;
 import static utils.Utils.makeError;
 import static utils.Utils.makeSuccess;
+import static utils.Utils.validateJson;
 
 /**
  *
@@ -96,11 +102,31 @@ public class CoreController extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_OK);
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
+                case "createdb":
+                    createdb(data);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    break;
+                case "dropdb":
+                    dropdb(data);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    break;
                 default:
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
                     res = makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method not allowed.");
                     break;
             }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"I/O error. " + e.getMessage());
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"SQL error. " + e.getMessage());
         }
         catch (PersistentException e) {
             e.printStackTrace();
@@ -209,4 +235,21 @@ public class CoreController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    private static void dropdb(String json) throws PersistentException, SQLException, IOException, InvalidTokenException, JsonKeyInFaultException {
+        JsonObject jo = validateJson(new Gson(), json, Arrays.asList("token"));
+        String token = jo.get("token").getAsString();
+        if (token.equals("admin") == false)
+            throw new InvalidTokenException(token);
+        ORMDatabaseInitiator.dropSchema(core.DiagramasPersistentManager.instance());
+        core.DiagramasPersistentManager.instance().disposePersistentManager();
+    }
+    private static void createdb(String json) throws PersistentException, SQLException, IOException, InvalidTokenException, JsonKeyInFaultException {
+        JsonObject jo = validateJson(new Gson(), json, Arrays.asList("token"));
+        String token = jo.get("token").getAsString();
+        if (token.equals("admin") == false)
+            throw new InvalidTokenException(token);
+        ORMDatabaseInitiator.createSchema(core.DiagramasPersistentManager.instance());
+	core.DiagramasPersistentManager.instance().disposePersistentManager();
+    }
 }

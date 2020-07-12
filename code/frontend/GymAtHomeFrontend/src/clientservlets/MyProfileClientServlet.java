@@ -18,6 +18,7 @@ import java.io.IOException;
 public class MyProfileClientServlet extends HttpServlet {
 
     private final Gson gson = new GsonBuilder().create();
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -59,7 +60,7 @@ public class MyProfileClientServlet extends HttpServlet {
             jo.addProperty("username",username);
             jo.addProperty("token",token);
 
-            Response responseHttp = Http.post("http://localhost:8080/GymAtHome/api/getClientProfileByClient",jo.toString());
+            Response responseHttp = Http.post("http://localhost:8081/GymAtHome/api/getClientProfileByClient",jo.toString());
 
             String responseBody = responseHttp.body().string();
             ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);

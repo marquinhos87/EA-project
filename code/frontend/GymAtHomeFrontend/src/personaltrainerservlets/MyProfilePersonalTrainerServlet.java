@@ -1,5 +1,12 @@
 package personaltrainerservlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import okhttp3.Response;
+import parseJSON.ResponseJSON;
+import utils.Http;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +16,8 @@ import java.io.IOException;
 
 @WebServlet(name = "MyProfilePersonalTrainerServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/MyProfilePersonalTrainer")
 public class MyProfilePersonalTrainerServlet extends HttpServlet {
+
+    private final Gson gson = new GsonBuilder().create();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -20,7 +29,11 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String username = (String) request.getSession().getAttribute("username");
+        if(username == null) {
+            request.setAttribute("logged", false);
+            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+        }
     }
 
     /**
@@ -33,6 +46,28 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = (String) request.getSession().getAttribute("username");
+        if(username == null) {
+            request.setAttribute("logged", false);
+            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+        }
+        else {
+            String token = (String) request.getSession().getAttribute("token");
+            JsonObject jo = new JsonObject();
+            jo.addProperty("username",username);
+            jo.addProperty("token",token);
 
+            Response responseHttp = Http.post("http://localhost:8081/GymAtHome/api/getPersonalTrainerProfileByPersonalTrainer",jo.toString());
+
+            String responseBody = responseHttp.body().string();
+            ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
+
+            if(responseHttp.code() == HttpServletResponse.SC_OK) {
+                // TODO
+            }
+            else {
+                // TODO
+            }
+        }
     }
 }
