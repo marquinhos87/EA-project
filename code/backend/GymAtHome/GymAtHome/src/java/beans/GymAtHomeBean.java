@@ -694,6 +694,34 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     
     /**
      * 
+     * @param usernameAndIdsAsJSON
+     * @return
+     * @throws IOException 
+     */
+    @Override
+    public String markNotificationsAsReadByClient(String usernameAndIdsAsJSON) throws IOException {
+        String url = notifications + "markAsReadNotificationsByClient";
+        Response response = Http.post(url,usernameAndIdsAsJSON);
+        
+        return response.body().string();
+    }
+    
+    /**
+     * 
+     * @param usernameAndIdsAsJSON
+     * @return
+     * @throws IOException 
+     */
+    @Override
+    public String markNotificationsAsReadByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException {
+        String url = notifications + "markAsReadNotificationsByPersonalTrainer";
+        Response response = Http.post(url,usernameAndIdsAsJSON);
+        
+        return response.body().string();
+    }
+    
+    /**
+     * 
      * @param tokenAsJSON
      * @return
      * @throws IOException

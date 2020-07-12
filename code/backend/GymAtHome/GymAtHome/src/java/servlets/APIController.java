@@ -132,6 +132,12 @@ public class APIController extends HttpServlet {
                 case "getPersonalTrainerNotifications":
                     res = gymAtHome.getPersonalTrainerNotifications(data);
                     break;
+                case "markNotificationsAsReadByClient":
+                    res = gymAtHome.markNotificationsAsReadByClient(data);
+                    break;
+                case "markNotificationsAsReadByPersonalTrainer":
+                    res = gymAtHome.markNotificationsAsReadByPersonalTrainer(data);
+                    break;
                     //TESTED
                 case "createdbs":
                     gymAtHome.dropdbs(data);
@@ -142,6 +148,7 @@ public class APIController extends HttpServlet {
                     res = makeSuccess(HttpServletResponse.SC_OK,gymAtHome.dropdbs(data));
                     break;
                 default:
+                    //TESTED
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
                     res = makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method not allowed - " + target + ".");
                     break;

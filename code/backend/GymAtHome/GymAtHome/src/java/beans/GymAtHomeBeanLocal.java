@@ -213,6 +213,22 @@ public interface GymAtHomeBeanLocal {
     
     /**
      * 
+     * @param usernameAndIdsAsJSON
+     * @return
+     * @throws IOException 
+     */
+    String markNotificationsAsReadByClient(String usernameAndIdsAsJSON) throws IOException;
+    
+    /**
+     * 
+     * @param usernameAndIdsAsJSON
+     * @return
+     * @throws IOException 
+     */
+    String markNotificationsAsReadByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException;
+    
+    /**
+     * 
      * @param tokenAsJson
      * @return
      * @throws IOException

@@ -271,6 +271,7 @@ public class GymAtHome {
     
     /**
      * 
+     * 
      * @param usernameAsJSON
      * @return
      * @throws IOException 
@@ -281,6 +282,7 @@ public class GymAtHome {
     
     /**
      * 
+     * 
      * @param usernameAsJSON
      * @return
      * @throws IOException 
@@ -288,8 +290,31 @@ public class GymAtHome {
     public String getPersonalTrainerNotifications(String usernameAsJSON) throws IOException {
         return gymAtHomeBean.getPersonalTrainerNotifications(usernameAsJSON);
     }
+    
+    /**
+     * 
+     * 
+     * @param usernameAndIdsAsJSON
+     * @return
+     * @throws IOException 
+     */
+    public String markNotificationsAsReadByClient(String usernameAndIdsAsJSON) throws IOException {
+        return gymAtHomeBean.markNotificationsAsReadByClient(usernameAndIdsAsJSON);
+    }
+    
+    /**
+     * 
+     * 
+     * @param usernameAndIdsAsJSON
+     * @return
+     * @throws IOException 
+     */
+    public String markNotificationsAsReadByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException {
+        return gymAtHomeBean.markNotificationsAsReadByPersonalTrainer(usernameAndIdsAsJSON);
+    }
 
     /**
+     * 
      * 
      * @param data
      * @return
@@ -301,6 +326,7 @@ public class GymAtHome {
     }
 
     /**
+     * 
      * 
      * @param data
      * @return
