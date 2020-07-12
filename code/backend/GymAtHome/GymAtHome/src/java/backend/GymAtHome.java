@@ -1,10 +1,7 @@
 package backend;
 
-import beans.GymAtHomeBean;
-import static beans.GymAtHomeBean.clients;
 import beans.GymAtHomeBeanLocal;
 import exceptions.GymAtHomeException;
-import exceptions.JsonKeyInFaultException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -12,13 +9,10 @@ import javax.naming.NamingException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpServletResponse;
-import okhttp3.Response;
-import utils.Http;
 
 public class GymAtHome {
 
-    GymAtHomeBeanLocal gymAtHomeBean = lookupGymAtHomeBeanLocal();
+    private final GymAtHomeBeanLocal gymAtHomeBean = lookupGymAtHomeBeanLocal();
 
     private static GymAtHome gymAtHome;
 
@@ -64,7 +58,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String createClient(String infoClientAsJSON) throws IOException {
-            return gymAtHomeBean.createClient(infoClientAsJSON);
+        return gymAtHomeBean.createClient(infoClientAsJSON);
     }
 
     /**
@@ -75,7 +69,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String loginClient(String infoAsJSON) throws IOException {
-            return gymAtHomeBean.loginClient(infoAsJSON);
+        return gymAtHomeBean.loginClient(infoAsJSON);
     }
 
     /**
@@ -86,7 +80,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String getClientProfileByClient(String usernameAsJSON) throws IOException {
-            return gymAtHomeBean.getClientProfileByClient(usernameAsJSON);
+        return gymAtHomeBean.getClientProfileByClient(usernameAsJSON);
     }
     
     /**
@@ -97,7 +91,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
-            return gymAtHomeBean.getClientProfileByPersonalTrainer(usernameAsJSON);
+        return gymAtHomeBean.getClientProfileByPersonalTrainer(usernameAsJSON);
     }
 
     /**
@@ -108,7 +102,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String getPersonalTrainers(String filtersAsJSON) throws IOException {
-            return gymAtHomeBean.getPersonalTrainers(filtersAsJSON);
+        return gymAtHomeBean.getPersonalTrainers(filtersAsJSON);
     }
 
     /**
@@ -119,7 +113,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String createPersonalTrainer(String infoPTAsJSON) throws IOException {
-            return gymAtHomeBean.createPersonalTrainer(infoPTAsJSON);
+        return gymAtHomeBean.createPersonalTrainer(infoPTAsJSON);
     }
 
     /**
@@ -130,7 +124,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String loginPersonalTrainer(String infoAsJSON) throws IOException {
-            return gymAtHomeBean.loginPersonalTrainer(infoAsJSON);
+        return gymAtHomeBean.loginPersonalTrainer(infoAsJSON);
     }
 
     /**
@@ -141,7 +135,7 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws IOException {
-            return gymAtHomeBean.getPersonalTrainerProfileByClient(usernameAsJSON);
+        return gymAtHomeBean.getPersonalTrainerProfileByClient(usernameAsJSON);
     }
     
     /**
@@ -152,28 +146,30 @@ public class GymAtHome {
      * @throws IOException if something fails on trying contact with external services.
      */
     public String getPersonalTrainerProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
-            return gymAtHomeBean.getPersonalTrainerProfileByPersonalTrainer(usernameAsJSON);
+        return gymAtHomeBean.getPersonalTrainerProfileByPersonalTrainer(usernameAsJSON);
     }
 
     /**
      * Edit PersonalTrainer info with new info given.
      * 
      * @param infoAsJSON
+     * @return
      * @throws IOException if something fails on trying contact with external services.
      */
     public String editClientProfile(String infoAsJSON) throws IOException {
-            return gymAtHomeBean.editClientProfile(infoAsJSON);
+        return gymAtHomeBean.editClientProfile(infoAsJSON);
     }
 
     /**
      * Retrieves tha actual week of plan of that Client.
      * 
      * @param usernameAsJSON
+     * @return 
      * @throws IOException if something fails on trying contact with external services.
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String editPersonalTrainertProfile(String usernameAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.editPersonalTrainerProfile(usernameAsJSON);
+        return gymAtHomeBean.editPersonalTrainerProfile(usernameAsJSON);
     }
 
     /**
@@ -185,7 +181,7 @@ public class GymAtHome {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.getPlanByClient(usernameAndWeekAsJSON);
+        return gymAtHomeBean.getPlanByClient(usernameAndWeekAsJSON);
     }
 
     /**
@@ -197,7 +193,7 @@ public class GymAtHome {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.getPlanByPersonalTrainer(usernameAndWeekAsJSON);
+        return gymAtHomeBean.getPlanByPersonalTrainer(usernameAndWeekAsJSON);
     }
 
     /**
@@ -209,7 +205,7 @@ public class GymAtHome {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String getBiometricData(String usernameAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.getBiometricData(usernameAsJSON);
+        return gymAtHomeBean.getBiometricData(usernameAsJSON);
     }
 
     /**
@@ -221,18 +217,19 @@ public class GymAtHome {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String submitClassification(String usernameAndClassificationAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.submitClassification(usernameAndClassificationAsJSON);
+        return gymAtHomeBean.submitClassification(usernameAndClassificationAsJSON);
     }
 
     /**
      * Client submit that as completed a workout.
      * 
      * @param usernameAndWorkoutIdAsJSON
+     * @return 
      * @throws IOException if something fails on trying contact with external services.
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.finishWorkout(usernameAndWorkoutIdAsJSON);
+        return gymAtHomeBean.finishWorkout(usernameAndWorkoutIdAsJSON);
     }
 
     /**
@@ -244,46 +241,83 @@ public class GymAtHome {
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String getPersonalTrainerClients(String usernameAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.getPersonalTrainerClients(usernameAsJSON);
+        return gymAtHomeBean.getPersonalTrainerClients(usernameAsJSON);
     }
 
     /**
      * Request submitted by a Client to a PersonalTrainer.
      * 
      * @param requestInfoAsJSON
+     * @return 
      * @throws IOException if something fails on trying contact with external services.
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String submitRequest(String requestInfoAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.submitRequest(requestInfoAsJSON);
+        return gymAtHomeBean.submitRequest(requestInfoAsJSON);
     }
 
     /**
      * Create and add a week of workouts to a plan of a Client.
      * 
      * @param weekAsJson
+     * @return 
      * @throws IOException if something fails on trying contact with external services.
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String createWeek(String weekAsJson) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.createWeek(weekAsJson);
+        return gymAtHomeBean.createWeek(weekAsJson);
     }
 
     /**
      * Response given by a PersonalTrainer to a Request submitted to him by a Client.
      * 
      * @param requestIdAndResponseAsJSON
+     * @return 
      * @throws IOException if something fails on trying contact with external services.
      * @throws GymAtHomeException Exceptions throwed by external services.
      */
     public String replyToRequest(String requestIdAndResponseAsJSON) throws IOException, GymAtHomeException {
-            return gymAtHomeBean.replyToRequest(requestIdAndResponseAsJSON);
+        return gymAtHomeBean.replyToRequest(requestIdAndResponseAsJSON);
+    }
+    
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException 
+     */
+    public String getClientNotifications(String usernameAsJSON) throws IOException {
+        return gymAtHomeBean.getClientNotifications(usernameAsJSON);
+    }
+    
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException 
+     */
+    public String getPersonalTrainerNotifications(String usernameAsJSON) throws IOException {
+        return gymAtHomeBean.getPersonalTrainerNotifications(usernameAsJSON);
     }
 
+    /**
+     * 
+     * @param data
+     * @return
+     * @throws IOException
+     * @throws Exception 
+     */
     public String dropdbs(String data) throws IOException, Exception {
         return gymAtHomeBean.dropdbs(data);
     }
 
+    /**
+     * 
+     * @param data
+     * @return
+     * @throws IOException
+     * @throws Exception 
+     */
     public String createdbs(String data) throws IOException, Exception {
         return gymAtHomeBean.createdbs(data);
     }

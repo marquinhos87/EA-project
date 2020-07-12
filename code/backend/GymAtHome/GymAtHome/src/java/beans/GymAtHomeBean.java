@@ -549,9 +549,27 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         if(responseCore.code() != HttpServletResponse.SC_OK)
             return body;
         
-        //TODO criar notificação
+        JsonObject jo = gson.fromJson(weekAsJson, JsonObject.class);
+        String username = jo.get("username").getAsString();
+        String token = jo.get("token").getAsString();
+        String clientUsername = jo.get("clientUsername").getAsString();
         
-        return null;
+        // JSON to send to other services
+        jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+        jo.addProperty("clientUsername",clientUsername);
+        jo.addProperty("description","Your Personal Trainer added a week of workouts to your plan.");
+        
+        String json = jo.toString();
+        
+        String urlNotification = notifications + "createNotificationToClient";
+        Response responseNotification = Http.post(urlNotification, json);
+        body = responseNotification.body().string();
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        return initialBody;
     }
 
     /**
@@ -595,6 +613,34 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             return body;
         
         return initialBody;
+    }
+    
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException 
+     */
+    @Override
+    public String getClientNotifications(String usernameAsJSON) throws IOException {
+        String url = notifications + "getClientNotifications";
+        Response response = Http.post(url,usernameAsJSON);
+        
+        return response.body().string();
+    }
+    
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException 
+     */
+    @Override
+    public String getPersonalTrainerNotifications(String usernameAsJSON) throws IOException {
+        String url = notifications + "getPersonalTrainerNotifications";
+        Response response = Http.post(url,usernameAsJSON);
+        
+        return response.body().string();
     }
     
     @Override

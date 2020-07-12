@@ -91,6 +91,7 @@ public interface GymAtHomeBeanLocal {
      * Edit Client info with new info given.
      * 
      * @param infoAsJSON Client new infos as json string.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
      */
     String editClientProfile(String infoAsJSON) throws IOException;
@@ -99,6 +100,7 @@ public interface GymAtHomeBeanLocal {
      * Edit PersonalTrainer info with new info given.
      * 
      * @param usernameAsJSON PersonalTrainer new infos as json string.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
      */
     String editPersonalTrainerProfile(String usernameAsJSON) throws IOException;
@@ -152,6 +154,7 @@ public interface GymAtHomeBeanLocal {
      * Client submit that as completed a workout.
      * 
      * @param usernameAndWorkoutIdAsJSON Client username and Workout Id as a json string.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
      */
     String finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException;
@@ -169,6 +172,7 @@ public interface GymAtHomeBeanLocal {
      * Request submitted by a Client to a PersonalTrainer.
      * 
      * @param requestInfoAsJSON Request info submitted by Client.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
      */
     String submitRequest(String requestInfoAsJSON) throws IOException;
@@ -177,6 +181,7 @@ public interface GymAtHomeBeanLocal {
      * Create and add a week of workouts to a plan of a Client.
      * 
      * @param weekAsJson Week info created by PersonalTrainer.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
      */
     String createWeek(String weekAsJson) throws IOException;
@@ -185,11 +190,42 @@ public interface GymAtHomeBeanLocal {
      * Response given by a PersonalTrainer to a Request submitted to him by a Client.
      * 
      * @param requestIdAndResponseAsJSON Request Id and Response by PersonalTrainer to the request.
+     * @return
      * @throws IOException if something fails on trying contact with external services.
      */
     String replyToRequest(String requestIdAndResponseAsJSON) throws IOException;
     
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException 
+     */
+    String getClientNotifications(String usernameAsJSON) throws IOException;
+    
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException 
+     */
+    String getPersonalTrainerNotifications(String usernameAsJSON) throws IOException;
+    
+    /**
+     * 
+     * @param tokenAsJson
+     * @return
+     * @throws IOException
+     * @throws Exception 
+     */
     String createdbs(String tokenAsJson) throws IOException, Exception;
     
+    /**
+     * 
+     * @param tokenAsJson
+     * @return
+     * @throws IOException
+     * @throws Exception 
+     */
     String dropdbs(String tokenAsJson) throws IOException, Exception;
 }
