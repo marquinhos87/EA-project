@@ -25,7 +25,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
     private final Gson gson;
     
-    private static String IP = "";
+    private final static String IP = "";
     
     private static String IPclients = "188.250.36.239";
     private static String IPpts = "37.189.223.35";
@@ -458,9 +458,34 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     @Override
     public String submitClassification(String usernameAndClassificationAsJSON) throws IOException {
         String url = pts + "submitClassification";
-        Response response = Http.post(url,usernameAndClassificationAsJSON);
+        Response responseHRPT = Http.post(url,usernameAndClassificationAsJSON);
+        String initialBody = responseHRPT.body().string();
+        String body = initialBody;
+        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            return body;
         
-        return response.body().string();
+        JsonObject jo = gson.fromJson(usernameAndClassificationAsJSON, JsonObject.class);
+        String username = jo.get("username").getAsString();
+        String token = jo.get("token").getAsString();
+        String personalTrainerUsername = jo.get("personalTrainerUsername").getAsString();
+        String classification = jo.get("classification").getAsString();
+        
+        // JSON to send to other services
+        jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+        jo.addProperty("personalTrainerUsername",personalTrainerUsername);
+        jo.addProperty("description","Client with username " + username + " submit a classification to you with value " + classification + ".");
+        
+        String json = jo.toString();
+        
+        String urlNotification = notifications + "createNotificationToPersonalTrainer";
+        Response responseNotification = Http.post(urlNotification, json);
+        body = responseNotification.body().string();
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        return initialBody;
     }
 
     /**
@@ -472,10 +497,34 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      */
     @Override
     public String finishWorkout(String usernameAndWorkoutIdAsJSON) throws IOException {
-        String url = core + "finishWorkout";
-        Response response = Http.post(url,usernameAndWorkoutIdAsJSON);
+        String urlCore = core + "finishWorkout";
+        Response responseCore = Http.post(urlCore,usernameAndWorkoutIdAsJSON);
+        String initialBody = responseCore.body().string();
+        String body = initialBody;
+        if(responseCore.code() != HttpServletResponse.SC_OK)
+            return body;
         
-        return response.body().string();
+        JsonObject jo = gson.fromJson(usernameAndWorkoutIdAsJSON, JsonObject.class);
+        String username = jo.get("username").getAsString();
+        String token = jo.get("token").getAsString();
+        String personalTrainerUsername = jo.get("personalTrainerUsername").getAsString();
+        
+        // JSON to send to other services
+        jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+        jo.addProperty("personalTrainerUsername",personalTrainerUsername);
+        jo.addProperty("description","Client with username " + username + " finish a workout.");
+        
+        String json = jo.toString();
+        
+        String urlNotification = notifications + "createNotificationToPersonalTrainer";
+        Response responseNotification = Http.post(urlNotification, json);
+        body = responseNotification.body().string();
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        return initialBody;
     }
 
     /**
@@ -643,60 +692,74 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         return response.body().string();
     }
     
+    /**
+     * 
+     * @param tokenAsJSON
+     * @return
+     * @throws IOException
+     * @throws Exception 
+     */
     @Override
-    public String dropdbs(String data) throws IOException, Exception {
+    public String dropdbs(String tokenAsJSON) throws IOException, Exception {
         String urlHRClient = clients + "dropdb";
-        Response responseHRClient = Http.post(urlHRClient,data);
+        Response responseHRClient = Http.post(urlHRClient,tokenAsJSON);
         if(responseHRClient.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't drop db on client service.");
         
         String urlHRPT = pts + "dropdb";
-        Response responseHRPT = Http.post(urlHRPT,data);
+        Response responseHRPT = Http.post(urlHRPT,tokenAsJSON);
         if(responseHRPT.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't drop db on personaltrainer service.");
         
         String urlCore = GymAtHomeBean.core + "dropdb";
-        Response responseCore = Http.post(urlCore,data);
+        Response responseCore = Http.post(urlCore,tokenAsJSON);
         if(responseCore.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't drop db on core service.");
         
         String urlRequest = requests + "dropdb";
-        Response responseRequest = Http.post(urlRequest,data);
+        Response responseRequest = Http.post(urlRequest,tokenAsJSON);
         if(responseRequest.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't drop db on requests service.");
         
         String urlNotification = notifications + "dropdb";
-        Response responseNotification = Http.post(urlNotification,data);
+        Response responseNotification = Http.post(urlNotification,tokenAsJSON);
         if(responseNotification.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't drop db on notifications service.");
         
         return "\"Databases were dropped with success.\"";
     }
 
+    /**
+     * 
+     * @param tokenAsJSON
+     * @return
+     * @throws IOException
+     * @throws Exception 
+     */
     @Override
-    public String createdbs(String data) throws IOException, Exception {
+    public String createdbs(String tokenAsJSON) throws IOException, Exception {
         String urlHRClient = clients + "createdb";
-        Response responseHRClient = Http.post(urlHRClient,data);
+        Response responseHRClient = Http.post(urlHRClient,tokenAsJSON);
         if(responseHRClient.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't create db on client service.");
         
         String urlHRPT = pts + "createdb";
-        Response responseHRPT = Http.post(urlHRPT,data);
+        Response responseHRPT = Http.post(urlHRPT,tokenAsJSON);
         if(responseHRPT.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't create db on personaltrainer service.");
         
         String urlCore = core + "createdb";
-        Response responseCore = Http.post(urlCore,data);
+        Response responseCore = Http.post(urlCore,tokenAsJSON);
         if(responseCore.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't create db on core service.");
         
         String urlRequest = requests + "createdb";
-        Response responseRequest = Http.post(urlRequest,data);
+        Response responseRequest = Http.post(urlRequest,tokenAsJSON);
         if(responseRequest.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't create db on requests service.");
         
         String urlNotification = notifications + "createdb";
-        Response responseNotification = Http.post(urlNotification,data);
+        Response responseNotification = Http.post(urlNotification,tokenAsJSON);
         if(responseNotification.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't create db on notifications service.");
         
