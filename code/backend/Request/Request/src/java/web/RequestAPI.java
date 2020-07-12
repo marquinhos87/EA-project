@@ -5,7 +5,13 @@
  */
 package web;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -13,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.orm.ORMDatabaseInitiator;
 import org.orm.PersistentException;
 import requests.ClientAlreadyExistsException;
 import requests.ClientDoesNotExistException;
@@ -300,12 +307,93 @@ public class RequestAPI extends HttpServlet {
                 response.getWriter().print(Utils.makeSuccess(1,json));
                 break;
             }
+            case "dropdb":
+            {
+                try {
+                    RequestAPI.dropdb(response, json);
+                } catch (PersistentException ex) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
+                    break;
+                } catch (SQLException ex) {
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,"\"Database was droped with success.\""));
+                break;
+            }
+            case "createdb":
+            {
+                try {
+                    RequestAPI.createdb(response, json);
+                } catch (PersistentException ex) {
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(14, "Error with session."));
+                    break;
+                } catch (SQLException ex) {
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,"\"Database was created with success.\""));
+                break;
+            }
             
             default:
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 response.getWriter().print(Utils.makeError(404,"There is no such target for " + target + "."));
                 break;
         }
+    }
+    
+    private static void dropdb(HttpServletResponse response, String json) throws PersistentException, SQLException, IOException, TokenIsInvalidException, JsonKeyInFaultException {
+        JsonObject jo = Utils.validateJson(new Gson(), json, Arrays.asList("token"));
+        String token = jo.get("token").getAsString();
+        if (token.equals("admin") == false)
+            throw new TokenIsInvalidException(token);
+        PrintWriter out = response.getWriter();
+        ORMDatabaseInitiator.dropSchema(requests.DiagramasPersistentManager.instance());
+        requests.DiagramasPersistentManager.instance().disposePersistentManager();
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.print(Utils.makeSuccess200(null));
+    }
+    private static void createdb(HttpServletResponse response, String json) throws PersistentException, SQLException, IOException, TokenIsInvalidException, JsonKeyInFaultException {
+        JsonObject jo = Utils.validateJson(new Gson(), json, Arrays.asList("token"));
+        String token = jo.get("token").getAsString();
+        if (token.equals("admin") == false)
+            throw new TokenIsInvalidException(token);
+        PrintWriter out = response.getWriter();
+        ORMDatabaseInitiator.createSchema(requests.DiagramasPersistentManager.instance());
+	requests.DiagramasPersistentManager.instance().disposePersistentManager();
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.print(Utils.makeSuccess200(null));
     }
 
     /**
