@@ -22,7 +22,7 @@ public class RequestsFacade {
 	}
         
         public static PersistentSession getSession() throws PersistentException {
-            if(session == null)
+            if(session == null || !session.isConnected())
                     session = DiagramasPersistentManager.instance().getSession();
             return session;
     }
