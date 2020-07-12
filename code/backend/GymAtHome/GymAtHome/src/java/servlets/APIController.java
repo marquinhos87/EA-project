@@ -6,12 +6,9 @@
 package servlets;
 
 import backend.GymAtHome;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.GymAtHomeException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -146,7 +143,7 @@ public class APIController extends HttpServlet {
                     break;
                 default:
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-                    res = makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method not allowed.");
+                    res = makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Method not allowed - " + target + ".");
                     break;
             }
         }
@@ -154,14 +151,6 @@ public class APIController extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Couldn't connect to external service.");
-        }
-        catch(GymAtHomeException e) {
-            e.printStackTrace();
-            // Use of ObjectMapper because is a lightweight unlike gson
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, String> map = mapper.readValue(e.getMessage(), Map.class);
-            response.setStatus(Integer.parseInt(map.get("code")));
-            res = e.getMessage();
         }
         catch(Exception e) {
             StringWriter sw = new StringWriter();
