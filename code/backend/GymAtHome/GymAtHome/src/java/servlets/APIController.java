@@ -111,7 +111,6 @@ public class APIController extends HttpServlet {
                     break;
                 case "submitRequest":
                     res = gymAtHome.submitRequest(data);
-                    res = null;
                     break;
                 case "createWeek":
                     res = gymAtHome.createWeek(data);

@@ -58,7 +58,7 @@
                 <label class="col-md-5 col-form-label">Data de Nascimento:</label>
                 <div class="col-md-7">
                     <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
-                        <input type="text" class="form-control" name="birthday" placeholder="Selecione a data">
+                        <input type="text" class="form-control" name="birthday" placeholder="Selecione a data" required>
                         <i class="fas fa-calendar input-prefix"></i>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <!--<div class="form-group row">
             <div class="col-md-6 d-inline-flex">
                 <label class="col-md-5 col-form-label">Certificado:</label>
                 <div class="col-sm-7 custom-file">
@@ -84,7 +84,7 @@
                     <label class="custom-file-label">Ex: <span class="text-primary">cert-pt.cert</span></label>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="form-group row">
             <div class="col-md-6 d-inline-flex">
                 <label class="col-md-5 col-form-label">Especialidade:</label>
