@@ -10,6 +10,7 @@ import okhttp3.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import javax.ejb.Stateless;
 import java.io.IOException;
@@ -27,10 +28,10 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     
     private final static String IP = "";
     
-    private static String IPclients = "188.250.36.239";
+    private static String IPclients = "188.250.39.126";
     private static String IPpts = "37.189.223.35";
     private static String IPcore = "192.168.1.139";
-    private static String IPrequests = "188.250.36.239";
+    private static String IPrequests = "188.250.39.126";
     private static String IPnotifications = "37.189.223.35";
     
     public static String clients;
@@ -49,10 +50,10 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             IPrequests = IP;
             IPnotifications = IP;
         }
-        clients = "http://" + IPclients + ":8080/Clients/api/";
+        clients = "http://" + IPclients + ":8083/Clients/api/";
         pts = "http://" + IPpts + ":8084/PersonalTrainer/api/";
         core = "http://" + IPcore + ":8082/Core/api/";
-        requests = "http://" + IPrequests + ":8080/Request/api/";
+        requests = "http://" + IPrequests + ":8085/Request/api/";
         notifications = "http://" + IPnotifications + ":8086/Notification/api/";
     }
 
@@ -551,6 +552,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      */
     @Override
     public String submitRequest(String requestInfoAsJSON) throws IOException {
+        
+        // TODO inverter ordem para um request ter uma notificação associada
+        
         String urlRequest = requests + "submitRequest";
         Response responseRequest = Http.post(urlRequest,requestInfoAsJSON);
         String initialBody = responseRequest.body().string();
@@ -641,6 +645,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String username = jo.get("username").getAsString();
         String token = jo.get("token").getAsString();
         String clientUsername = jo.get("clientUsername").getAsString();
+        JsonArray ids = jo.get("ids").getAsJsonArray();
         boolean accepted = jo.get("accepted").getAsBoolean();
         
         // JSON to send to other services
@@ -658,6 +663,17 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String urlNotification = notifications + "createNotificationToClient";
         Response responseNotification = Http.post(urlNotification, json);
         body = responseNotification.body().string();
+        if(responseNotification.code() != HttpServletResponse.SC_OK)
+            return body;
+        
+        jo.remove("clientUsername");
+        jo.remove("description");
+        jo.addProperty("ids",gson.toJson(ids));
+        
+        json = jo.toString();
+        
+        urlNotification = notifications + "markNotificationsAsReadByPersonalTrainer";
+        responseNotification = Http.post(urlNotification,json);
         if(responseNotification.code() != HttpServletResponse.SC_OK)
             return body;
         
@@ -739,7 +755,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         if(responseHRPT.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't drop db on personaltrainer service.");
         
-        String urlCore = GymAtHomeBean.core + "dropdb";
+        String urlCore = core + "dropdb";
         Response responseCore = Http.post(urlCore,tokenAsJSON);
         if(responseCore.code() != HttpServletResponse.SC_OK)
             throw new Exception("Couldn't drop db on core service.");

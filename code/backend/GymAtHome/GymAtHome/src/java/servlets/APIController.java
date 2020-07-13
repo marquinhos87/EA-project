@@ -95,9 +95,11 @@ public class APIController extends HttpServlet {
                 case "editPersonalTrainerProfile":
                     res = gymAtHome.editPersonalTrainertProfile(data);
                     break;
+                    
                 case "getPlanByClient":
                     res = gymAtHome.getPlanByClient(data);
                     break;
+                    
                 case "getPlanByPersonalTrainer":
                     res = gymAtHome.getPlanByPersonalTrainer(data);
                     break;
@@ -109,9 +111,11 @@ public class APIController extends HttpServlet {
                 case "submitClassification":
                     res = gymAtHome.submitClassification(data);
                     break;
+                    
                 case "finishWorkout":
                     res = gymAtHome.finishWorkout(data);
                     break;
+                    
                 case "getPersonalTrainerClients":
                     res = gymAtHome.getPersonalTrainerClients(data);
                     break;
@@ -119,6 +123,7 @@ public class APIController extends HttpServlet {
                 case "submitRequest":
                     res = gymAtHome.submitRequest(data);
                     break;
+                    
                 case "createWeek":
                     res = gymAtHome.createWeek(data);
                     break;
@@ -126,15 +131,19 @@ public class APIController extends HttpServlet {
                 case "replyToRequest":
                     res = gymAtHome.replyToRequest(data);
                     break;
+                    
                 case "getClientNotifications":
                     res = gymAtHome.getClientNotifications(data);
                     break;
+                    
                 case "getPersonalTrainerNotifications":
                     res = gymAtHome.getPersonalTrainerNotifications(data);
                     break;
+                    
                 case "markNotificationsAsReadByClient":
                     res = gymAtHome.markNotificationsAsReadByClient(data);
                     break;
+                    
                 case "markNotificationsAsReadByPersonalTrainer":
                     res = gymAtHome.markNotificationsAsReadByPersonalTrainer(data);
                     break;
