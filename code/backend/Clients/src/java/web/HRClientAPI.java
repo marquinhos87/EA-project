@@ -97,10 +97,6 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
                     break;
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session."));
-                    break;
                 }catch (Exception ex){
                     StringWriter sw = new StringWriter();
                     PrintWriter pw = new PrintWriter(sw);
@@ -108,7 +104,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -118,10 +114,6 @@ public class HRClientAPI extends HttpServlet {
             {
                 try {
                     json = facade.createClient(json);
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session. " + ex.getMessage()));
-                    break;
                 } catch (JsonKeyInFaultException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
@@ -141,7 +133,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -156,10 +148,6 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session. " + ex.getMessage()));
-                    break;
                 } catch (UserAlreadyExistsException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(15, "User with username " + ex.getMessage() + " already exist."));
@@ -171,7 +159,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -185,10 +173,6 @@ public class HRClientAPI extends HttpServlet {
                 } catch (InvalidPasswordException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(22, "Invalid password."));
-                    break;
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
                 } catch (JsonKeyInFaultException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -205,7 +189,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -219,10 +203,6 @@ public class HRClientAPI extends HttpServlet {
                 } catch (TokenIsInvalidException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(13, "Token is invalid."));
-                    break;
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
                 } catch (JsonKeyInFaultException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -247,7 +227,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -266,10 +246,6 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(17, "PersonalTrainer with username " + ex.getMessage() + " does not exist on database."));
                     break;
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session."));
-                    break;
                 } catch (JsonKeyInFaultException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
@@ -293,7 +269,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -316,10 +292,6 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(13, "Token is invalid."));
                     break;
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session."));
-                    break;
                 } catch (UserDoesNotExistException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
@@ -331,7 +303,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -358,10 +330,6 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage()) + ".");
                     break;
-                } catch (PersistentException ex) {
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(14, "Error with session."));
-                    break;
                 }catch (UserDoesNotExistException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist."));
@@ -377,7 +345,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     e.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -392,14 +360,6 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
-                } catch (SQLException ex) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    ex.printStackTrace(pw);
-                    String stackTrace = sw.toString(); // stack trace as a string
-                    ex.printStackTrace();
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                 } catch (TokenIsInvalidException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(13, "Token is invalid."));
@@ -415,7 +375,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
@@ -430,14 +390,6 @@ public class HRClientAPI extends HttpServlet {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     response.getWriter().print(Utils.makeError(14, "Error with session."));
                     break;
-                } catch (SQLException ex) {
-                    StringWriter sw = new StringWriter();
-                    PrintWriter pw = new PrintWriter(sw);
-                    ex.printStackTrace(pw);
-                    String stackTrace = sw.toString(); // stack trace as a string
-                    ex.printStackTrace();
-                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
                 } catch (TokenIsInvalidException ex) {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     response.getWriter().print(Utils.makeError(13, "Token is invalid."));
@@ -453,7 +405,7 @@ public class HRClientAPI extends HttpServlet {
                     String stackTrace = sw.toString(); // stack trace as a string
                     ex.printStackTrace();
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    response.getWriter().print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
                     break;
                 }
                 response.setStatus(200);
