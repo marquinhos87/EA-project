@@ -15,41 +15,41 @@ services:
     #ports:
       #- "8080:8080"
 
-  gymathome:
-      image: gymathome
-      build: gymathome/
-      ports:
-        - "8081:8080"
+  # gymathome:
+  #     image: gymathome
+  #     build: gymathome/
+  #     ports:
+  #       - "8081:8080"
 
-  coredb:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: core
-    ports: 
-      - "5002:3306"
-  core:
-    image: core
-    build: core/
-    ports:
-      - "8082:8080"
-
-  # clientdb:
+  # coredb:
   #   image: mysql
   #   command: --default-authentication-plugin=mysql_native_password
   #   restart: always
   #   environment:
   #     MYSQL_ROOT_PASSWORD: password
-  #     MYSQL_DATABASE: client
+  #     MYSQL_DATABASE: core
   #   ports: 
-  #     - "5003:3306"
-  # client:
-  #   image: client
-  #   build: client/
+  #     - "5002:3306"
+  # core:
+  #   image: core
+  #   build: core/
   #   ports:
-  #     - "8083:8080"
+  #     - "8082:8080"
+
+  clientdb:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: client
+    ports: 
+      - "5003:3306"
+  client:
+    image: client
+    build: client/
+    ports:
+      - "8083:8080"
 
   # ptdb:
   #   image: mysql
@@ -66,20 +66,20 @@ services:
   #   ports:
   #     - "8084:8080"
 
-  # requestdb:
-  #   image: mysql
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: password
-  #     MYSQL_DATABASE: request
-  #   ports: 
-  #     - "5005:3306"
-  # request:
-  #   image: request
-  #   build: request/
-  #   ports:
-  #     - "8085:8080"
+  requestdb:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: request
+    ports: 
+      - "5005:3306"
+  request:
+    image: request
+    build: request/
+    ports:
+      - "8085:8080"
       
   # notificationdb:
   #   image: mysql
