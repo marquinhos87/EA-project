@@ -672,7 +672,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         
         json = jo.toString();
         
-        urlNotification = notifications + "markNotificationsAsReadByPersonalTrainer";
+        urlNotification = notifications + "markAsReadNotificationsByPersonalTrainer";
         responseNotification = Http.post(urlNotification,json);
         if(responseNotification.code() != HttpServletResponse.SC_OK)
             return body;
@@ -715,7 +715,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws IOException 
      */
     @Override
-    public String markNotificationsAsReadByClient(String usernameAndIdsAsJSON) throws IOException {
+    public String markAsReadNotificationsByClient(String usernameAndIdsAsJSON) throws IOException {
         String url = notifications + "markAsReadNotificationsByClient";
         Response response = Http.post(url,usernameAndIdsAsJSON);
         
@@ -729,7 +729,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws IOException 
      */
     @Override
-    public String markNotificationsAsReadByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException {
+    public String markAsReadNotificationsByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException {
         String url = notifications + "markAsReadNotificationsByPersonalTrainer";
         Response response = Http.post(url,usernameAndIdsAsJSON);
         

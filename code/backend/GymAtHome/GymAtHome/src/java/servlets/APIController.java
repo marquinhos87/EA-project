@@ -140,12 +140,12 @@ public class APIController extends HttpServlet {
                     res = gymAtHome.getPersonalTrainerNotifications(data);
                     break;
                     
-                case "markNotificationsAsReadByClient":
-                    res = gymAtHome.markNotificationsAsReadByClient(data);
+                case "markAsReadNotificationsByClient":
+                    res = gymAtHome.markAsReadNotificationsByClient(data);
                     break;
                     
-                case "markNotificationsAsReadByPersonalTrainer":
-                    res = gymAtHome.markNotificationsAsReadByPersonalTrainer(data);
+                case "markAsReadNotificationsByPersonalTrainer":
+                    res = gymAtHome.markAsReadNotificationsByPersonalTrainer(data);
                     break;
                     //TESTED
                 case "createdbs":

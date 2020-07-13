@@ -298,8 +298,8 @@ public class GymAtHome {
      * @return
      * @throws IOException 
      */
-    public String markNotificationsAsReadByClient(String usernameAndIdsAsJSON) throws IOException {
-        return gymAtHomeBean.markNotificationsAsReadByClient(usernameAndIdsAsJSON);
+    public String markAsReadNotificationsByClient(String usernameAndIdsAsJSON) throws IOException {
+        return gymAtHomeBean.markAsReadNotificationsByClient(usernameAndIdsAsJSON);
     }
     
     /**
@@ -309,8 +309,8 @@ public class GymAtHome {
      * @return
      * @throws IOException 
      */
-    public String markNotificationsAsReadByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException {
-        return gymAtHomeBean.markNotificationsAsReadByPersonalTrainer(usernameAndIdsAsJSON);
+    public String markAsReadNotificationsByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException {
+        return gymAtHomeBean.markAsReadNotificationsByPersonalTrainer(usernameAndIdsAsJSON);
     }
 
     /**

@@ -217,7 +217,7 @@ public interface GymAtHomeBeanLocal {
      * @return
      * @throws IOException 
      */
-    String markNotificationsAsReadByClient(String usernameAndIdsAsJSON) throws IOException;
+    String markAsReadNotificationsByClient(String usernameAndIdsAsJSON) throws IOException;
     
     /**
      * 
@@ -225,7 +225,7 @@ public interface GymAtHomeBeanLocal {
      * @return
      * @throws IOException 
      */
-    String markNotificationsAsReadByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException;
+    String markAsReadNotificationsByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException;
     
     /**
      * 
