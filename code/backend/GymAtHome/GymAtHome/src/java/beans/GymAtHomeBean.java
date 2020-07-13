@@ -10,7 +10,6 @@ import okhttp3.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import javax.ejb.Stateless;
 import java.io.IOException;
@@ -645,7 +644,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String username = jo.get("username").getAsString();
         String token = jo.get("token").getAsString();
         String clientUsername = jo.get("clientUsername").getAsString();
-        JsonArray ids = jo.get("ids").getAsJsonArray();
         boolean accepted = jo.get("accepted").getAsBoolean();
         
         // JSON to send to other services
@@ -653,27 +651,27 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         jo.addProperty("username", username);
         jo.addProperty("token", token);
         jo.addProperty("clientUsername",clientUsername);
-        if(accepted)
-            jo.addProperty("description","Personal Trainer with username " + username + " accepted your request.");
-        else
-            jo.addProperty("description","Personal Trainer with username " + username + " declined your request.");
         
         String json = jo.toString();
+        
+        if(accepted) {
+            String urlHRPT = pts + "addClientToPersonalTrainer";
+            Response responseHRPT = Http.post(urlHRPT,json);
+            body = initialBody;
+            if(responseHRPT.code() != HttpServletResponse.SC_OK)
+                return body;
+            jo.addProperty("description","Personal Trainer with username " + username + " accepted your request.");
+        }
+        else {
+            jo.addProperty("description","Personal Trainer with username " + username + " declined your request.");
+        }
+            
+        
+        json = jo.toString();
         
         String urlNotification = notifications + "createNotificationToClient";
         Response responseNotification = Http.post(urlNotification, json);
         body = responseNotification.body().string();
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
-            return body;
-        
-        jo.remove("clientUsername");
-        jo.remove("description");
-        jo.addProperty("ids",gson.toJson(ids));
-        
-        json = jo.toString();
-        
-        urlNotification = notifications + "markAsReadNotificationsByPersonalTrainer";
-        responseNotification = Http.post(urlNotification,json);
         if(responseNotification.code() != HttpServletResponse.SC_OK)
             return body;
         
@@ -687,8 +685,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws IOException 
      */
     @Override
-    public String getClientNotifications(String usernameAsJSON) throws IOException {
-        String url = notifications + "getClientNotifications";
+    public String getNotificationsByClient(String usernameAsJSON) throws IOException {
+        String url = notifications + "getNotificationsByClient";
         Response response = Http.post(url,usernameAsJSON);
         
         return response.body().string();
@@ -701,8 +699,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws IOException 
      */
     @Override
-    public String getPersonalTrainerNotifications(String usernameAsJSON) throws IOException {
-        String url = notifications + "getPersonalTrainerNotifications";
+    public String getNotificationsByPersonalTrainer(String usernameAsJSON) throws IOException {
+        String url = notifications + "getNotificationsByPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
         
         return response.body().string();

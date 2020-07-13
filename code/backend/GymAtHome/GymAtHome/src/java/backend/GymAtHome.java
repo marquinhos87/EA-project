@@ -276,8 +276,8 @@ public class GymAtHome {
      * @return
      * @throws IOException 
      */
-    public String getClientNotifications(String usernameAsJSON) throws IOException {
-        return gymAtHomeBean.getClientNotifications(usernameAsJSON);
+    public String getNotificationsByClient(String usernameAsJSON) throws IOException {
+        return gymAtHomeBean.getNotificationsByClient(usernameAsJSON);
     }
     
     /**
@@ -287,8 +287,8 @@ public class GymAtHome {
      * @return
      * @throws IOException 
      */
-    public String getPersonalTrainerNotifications(String usernameAsJSON) throws IOException {
-        return gymAtHomeBean.getPersonalTrainerNotifications(usernameAsJSON);
+    public String getNotificationsByPersonalTrainer(String usernameAsJSON) throws IOException {
+        return gymAtHomeBean.getNotificationsByPersonalTrainer(usernameAsJSON);
     }
     
     /**

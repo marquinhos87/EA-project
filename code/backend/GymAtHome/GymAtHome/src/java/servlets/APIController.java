@@ -115,7 +115,7 @@ public class APIController extends HttpServlet {
                 case "finishWorkout":
                     res = gymAtHome.finishWorkout(data);
                     break;
-                    
+                    //TESTED
                 case "getPersonalTrainerClients":
                     res = gymAtHome.getPersonalTrainerClients(data);
                     break;
@@ -131,19 +131,19 @@ public class APIController extends HttpServlet {
                 case "replyToRequest":
                     res = gymAtHome.replyToRequest(data);
                     break;
-                    
-                case "getClientNotifications":
-                    res = gymAtHome.getClientNotifications(data);
+                    //TESTED
+                case "getNotificationsByClient":
+                    res = gymAtHome.getNotificationsByClient(data);
                     break;
-                    
-                case "getPersonalTrainerNotifications":
-                    res = gymAtHome.getPersonalTrainerNotifications(data);
+                    //TESTED
+                case "getNotificationsByPersonalTrainer":
+                    res = gymAtHome.getNotificationsByPersonalTrainer(data);
                     break;
-                    
+                    //TESTED
                 case "markAsReadNotificationsByClient":
                     res = gymAtHome.markAsReadNotificationsByClient(data);
                     break;
-                    
+                    //TESTED
                 case "markAsReadNotificationsByPersonalTrainer":
                     res = gymAtHome.markAsReadNotificationsByPersonalTrainer(data);
                     break;
@@ -164,9 +164,13 @@ public class APIController extends HttpServlet {
             }
         }
         catch(IOException e) {
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String stackTrace = sw.toString(); // stack trace as a string
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,"Couldn't connect to external service.");
+            res = makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "I/O error.\n" + stackTrace);
         }
         catch(Exception e) {
             StringWriter sw = new StringWriter();
