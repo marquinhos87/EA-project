@@ -30,7 +30,7 @@ public class NotificationFacade {
     }
 
     public static PersistentSession getSession() throws PersistentException {
-        if (session == null) session = DiagramasPersistentManager.instance().getSession();
+        if (session == null || session.isConnected() == false) session = DiagramasPersistentManager.instance().getSession();
         return session;
     }
 
@@ -38,7 +38,7 @@ public class NotificationFacade {
      * 
      * @param usernameAnddescriptionAsJson
      */
-    public void createNotificationToClient(String usernameAnddescriptionAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, ClientNotExistsException {
+    public void createNotificationToClient(String usernameAnddescriptionAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, ClientNotExistsException, PersonalTrainerNotExistsException, UserNotExistsException {
         notificationFacadeBean.createNotificationToClient(usernameAnddescriptionAsJson);
     }
     
@@ -47,7 +47,7 @@ public class NotificationFacade {
      * 
      * @param usernameAnddescriptionAsJson
      */
-    public void createNotificationToPersonalTrainer(String usernameAnddescriptionAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException {
+    public void createNotificationToPersonalTrainer(String usernameAnddescriptionAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException, ClientNotExistsException, UserNotExistsException {
         notificationFacadeBean.createNotificationToPersonalTrainer(usernameAnddescriptionAsJson);
     }
     
@@ -55,7 +55,7 @@ public class NotificationFacade {
      * 
      * @param usernameAndIdsAsJson
      */
-    public void markAsReadNotificationsByPersonalTrainer(String usernameAndIdsAsJson) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException {
+    public void markAsReadNotificationsByPersonalTrainer(String usernameAndIdsAsJson) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException, UserNotExistsException, NotificationDoesNotBelongToUser {
         notificationFacadeBean.markAsReadNotificationsByPersonalTrainer(usernameAndIdsAsJson);
     }
 
@@ -63,7 +63,7 @@ public class NotificationFacade {
      * 
      * @param usernameAndIdsAsJson
      */
-    public void markAsReadNotificationsByClient(String usernameAndIdsAsJson) throws JsonKeyInFaultException, JsonKeyInFaultException, ClientNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException {
+    public void markAsReadNotificationsByClient(String usernameAndIdsAsJson) throws JsonKeyInFaultException, JsonKeyInFaultException, ClientNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException, UserNotExistsException, NotificationDoesNotBelongToUser {
         notificationFacadeBean.markAsReadNotificationsByClient(usernameAndIdsAsJson);
     }
     
@@ -71,7 +71,7 @@ public class NotificationFacade {
      * 
      * @param usernameAsJson
      */
-    public String getNotificationsByPersonalTrainer(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException {
+    public String getNotificationsByPersonalTrainer(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException, UserNotExistsException {
         return notificationFacadeBean.getNotificationsByPersonalTrainer(usernameAsJson);
     }
 
@@ -79,7 +79,7 @@ public class NotificationFacade {
      * 
      * @param usernameAsJson
      */
-    public String getNotificationsByClient(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException {
+    public String getNotificationsByClient(String usernameAsJson) throws PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, UserNotExistsException {
         return notificationFacadeBean.getNotificationsByClient(usernameAsJson);
     }
 

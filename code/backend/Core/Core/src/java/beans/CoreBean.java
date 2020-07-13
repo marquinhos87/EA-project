@@ -19,6 +19,8 @@ import javax.ejb.Stateless;
 import utils.Utils;
 import core.*;
 import exceptions.*;
+import java.time.DayOfWeek;
+import java.time.Instant;
 import java.util.*;
 import org.hibernate.Query;
 import parseJSON.deserializer.*;
@@ -264,12 +266,17 @@ public class CoreBean implements CoreBeanLocal {
         if((workout = WorkoutDAO.getWorkoutByORMID(session,workoutId)) == null)
             throw new WorkoutDontExistException(Integer.toString(workoutId));
 
+        boolean workOutBelongToUser = false;
+        
         // Verify if workout belong to Client and if is already done or not
         Iterator weeks = plan.weeks.getIterator();
-        Week week;
         while(weeks.hasNext()) {
-            week = (Week) weeks.next();
+            
+            Week week = (Week) weeks.next();
             if(week.workouts.contains(workout)) {
+                
+                workOutBelongToUser = true;
+                
                 // Verify if the workout is already done
                 if(workout.isDone())
                     throw new WorkoutAlreadyDoneException(Integer.toString(workoutId));
@@ -277,31 +284,32 @@ public class CoreBean implements CoreBeanLocal {
                 WorkoutDAO.save(workout);
                 session.flush();
                 
-                if(plan.getCurrentWeek() == week.getNumber()) {
-                    // Check if its the last workout of the week isDone
+                boolean isLastWeek = true;
+                
+                if(week.getNumber() == plan.getCurrentWeek()) {
                     Iterator workouts = week.workouts.getIterator();
-                    Workout lastWorkout = (Workout) workouts.next();
                     while(workouts.hasNext()) {
-                        Workout work = (Workout) workouts.next();
-                        if(lastWorkout.getDate().compareTo(work.getDate()) < 0)
-                            lastWorkout = work;
+                        Workout lastWorkout = (Workout) workouts.next();
+                         // Verify if there is any workout not done
+                        if (lastWorkout.isDone() == false) {
+                            isLastWeek = false;
+                            break;
+                        }
                     }
-
-                    // If lastWorkout isDone avance to the next week (if exists)
-                    if(lastWorkout.isDone()) {
-                        if(week.getNumber() != plan.weeks.size())
-                            plan.setCurrentWeek(plan.getCurrentWeek()+1);
-                    }
-
-                    PlanDAO.save(plan);
-                    session.flush();
                 }
-                return;
+                           
+                if (isLastWeek && week.getNumber() != plan.weeks.size())
+                    plan.setCurrentWeek(week.getNumber()+1);    
+                
+                PlanDAO.save(plan);
+                session.flush();
+                break;
             }
         }
         
-        //if reaches this is because the workout dont belong to the user
-        throw new WorkoutDontBelongToUserException(json.get("workoutId").getAsString() + '\t' + username);
+        if (workOutBelongToUser == false) {
+            throw new WorkoutDontBelongToUserException(json.get("workoutId").getAsString() + '\t' + username);
+        }
     }
 
     /**
@@ -329,19 +337,14 @@ public class CoreBean implements CoreBeanLocal {
         PersistentSession session = CoreFacade.getSession();
         Utils.validateToken(token,username,session);
         
-        // Verify if PersonalTrainer exists and if not create him (is the first
-        // week of plan that builds)
-        PersonalTrainer pt;
-        if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(session,username)) == null) {
-            pt = new PersonalTrainer();
-            pt.setUsername(username);
-        }
+        // no need to check if exists because we create it before
+        PersonalTrainer pt = PersonalTrainerDAO.getPersonalTrainerByORMID(session,username);
         
         Plan plan;
-        Week week = gson.fromJson(json.get("week").toString(), Week.class);
+        Week week = gson.fromJson(json.get("week").toString(), Week.class); // evoques custom serializer from package parseJSON
         
-        // Verify if createWeek has called to create a new plan or to add a new
-        // week to an existing plan
+        // Verify if createWeek has been called to create a new plan (planId doesn't exist yet)
+        // or to add a new week to an existing plan
         if(!json.has("planId")) {
             
             // Verify if Client's username is given
@@ -350,18 +353,28 @@ public class CoreBean implements CoreBeanLocal {
             String clientUsername = json.get("clientUsername").getAsString();
             
             // Verify if Client's username belong to a PersonalTrainer
-            Query query = session.createQuery("select PersonalTrainer.Username from PersonalTrainer where Username='" + clientUsername + "'");
-            if(query.list().isEmpty())
+            Query query = session.createQuery("from PersonalTrainer where username='" + clientUsername + "'");
+            if(query.list().isEmpty() == false) // it's a PersonalTrainer username
                 throw new UsernameDontBelongToClientException(clientUsername);
             
             // Verify if Client exists
-            query = session.createQuery("select Client.Username from Client where Username='" + clientUsername + "'");
+            query = session.createQuery("from Client where username='" + clientUsername + "'");
             if(!query.list().isEmpty())
                 throw new ClientAlreadyHasAnPlanException(clientUsername);
             
-            // Verify if the number of week is valid
-            if(week.getNumber()!=1)
-                throw new InvalidWeekNumberException(Integer.toString(week.getNumber()));
+             // This code purpose is to detect the next SUNDAY (init of the week)
+            ZoneId defaultZoneId = ZoneId.systemDefault();
+            Date firstDay = Date.from(LocalDate.now().with(next(DayOfWeek.MONDAY)).atStartOfDay(defaultZoneId).toInstant());
+                    
+            week.setNumber(1); // first plan week
+            week.setInitialDate(firstDay);
+            week.setFinalDate(Date.from(LocalDate.now().with(next(DayOfWeek.MONDAY)).with(next(SUNDAY)).atStartOfDay(defaultZoneId).toInstant()));
+            
+            Iterator workouts = week.workouts.getIterator();
+            while(workouts.hasNext()) {
+                Workout workout = (Workout) workouts.next();
+                workout.setDate( new Date(week.getInitialDate().getTime()+(60*60*24*1000*(workout.getWeekDay()-1))) );
+            }
             
             // Create a new plan
             plan = new Plan();
@@ -369,12 +382,7 @@ public class CoreBean implements CoreBeanLocal {
             plan.setCurrentWeek(1);
             plan.setDone(false);
             plan.setModified(false);
-            
-            // This code purpose is to detect the next SUNDAY (init of the week)
-            ZoneId defaultZoneId = ZoneId.systemDefault();
-            LocalDate localDate = LocalDate.now();
-            localDate = localDate.with(next(SUNDAY));
-            plan.setInitialDate(Date.from(localDate.atStartOfDay(defaultZoneId).toInstant()));
+            plan.setInitialDate(firstDay);
             
             // Create Client to associate with the Plan
             Client client = new Client();
@@ -384,46 +392,57 @@ public class CoreBean implements CoreBeanLocal {
             pt.plans.add(plan);
 
             // Only save PersonalTrainer and Client because plan belongs to
-            // PersonalTrainer so when save PersonalTrainer the Plan is save too
+            // PersonalTrainer so when we save PersonalTrainer the Plan is saved too
             PersonalTrainerDAO.save(pt);
             session.flush();
             
             ClientDAO.save(client);
         }
-        //Here dont need to associate Client and PersonalTrainer because
-        //here adds a new week to an existing plan already associated with the previous ones
+        //Here we don't need to associate Client and PersonalTrainer to Plan because
+        // it adds a new week to an existing plan already associated with the previous ones
         else {
             
-            // Verify if the planId is valid
+            // Verify if the plan exists in database
             if ((plan = PlanDAO.getPlanByORMID(CoreFacade.getSession(), json.get("planId").getAsInt())) == null)
                 throw new PlanDontExistException(json.get("planId").getAsString());
             
-            // Verify if the number of week is valid
-            if(week.getNumber()!=plan.weeks.size()+1)
-                throw new InvalidWeekNumberException(Integer.toString(week.getNumber()));
+            week.setNumber(plan.weeks.size()+1);
+            
+            boolean isLastWeek = true;
             
             // Get the lastWeek to check if the new week becomes the currentWeek for Client
             Iterator weeks = plan.weeks.getIterator();
-            Week lastWeek;
+            Week lastWeek = null;
             while(weeks.hasNext()) {
-                lastWeek = (Week) weeks.next();
-                // Verify if is the current week
-                if(lastWeek.getNumber() == plan.getCurrentWeek()) {
-                    // Get the lastWorkout of the current Week
-                    Iterator workouts = lastWeek.workouts.getIterator();
-                    Workout lastWorkout = (Workout) workouts.next();
+                Week tmp = (Week) weeks.next();
+                // Verify if it's the current week
+                if(tmp.getNumber() == plan.getCurrentWeek()) {
+                    Iterator workouts = tmp.workouts.getIterator();
                     while(workouts.hasNext()) {
-                        Workout work = (Workout) workouts.next();
-                        if(lastWorkout.getDate().compareTo(work.getDate()) < 0)
-                            lastWorkout = work;
+                        Workout workout = (Workout) workouts.next();
+                         // Verify if there is any workout not done
+                        if (workout.isDone() == false) {
+                            isLastWeek = false;
+                            break;
+                        }
                     }
-                    // Verify if lastWorkout is Done
-                    if (lastWorkout.isDone())
-                        // Set new current Week
-                        plan.setCurrentWeek(week.getNumber());
-                    break;
-                }
+                    // break; // caso seja a última semana (mais atual), no entanto NEM todos os workout estão feitos
+                } 
+                if (tmp.getNumber() == plan.weeks.size())
+                    lastWeek = tmp;
+            }    
+
+            week.setInitialDate( new Date(lastWeek.getFinalDate().getTime()+(60*60*24*1000)) );
+            week.setFinalDate( new Date(lastWeek.getFinalDate().getTime()+(60*60*24*1000*7)) );
+            
+            Iterator workouts = week.workouts.getIterator();
+            while(workouts.hasNext()) {
+                Workout workout = (Workout) workouts.next();
+                workout.setDate( new Date(week.getInitialDate().getTime()+(60*60*24*1000*(workout.getWeekDay()-1))) );
             }
+            
+            
+            if (isLastWeek) plan.setCurrentWeek(week.getNumber());           
             
             // Save the new state of plan
             plan.weeks.add(week);

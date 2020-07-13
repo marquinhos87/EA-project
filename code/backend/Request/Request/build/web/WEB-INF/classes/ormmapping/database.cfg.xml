@@ -24,7 +24,7 @@
     <URL>jdbc:mysql://requestdb:3306/requests?serverTimezone=UTC</URL>
     <UserName>root</UserName>
     <EncryptedPassword>86B5D09CD8912AF029972D274BBCBE9B</EncryptedPassword>
-    <HostName>localhost</HostName>
+    <HostName>requestdb</HostName>
     <PortNO>3306</PortNO>
     <DBName>requests?serverTimezone=UTC</DBName>
     <ServiceName></ServiceName>

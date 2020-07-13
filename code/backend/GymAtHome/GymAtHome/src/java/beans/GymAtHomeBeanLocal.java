@@ -106,22 +106,22 @@ public interface GymAtHomeBeanLocal {
     String editPersonalTrainerProfile(String usernameAsJSON) throws IOException;
 
     /**
-     * Retrieves tha actual week of plan of that Client.
+     * Retrieves the current week of plan of that Client.
      * 
      * @param usernameAndWeekAsJSON Client username and current week of plan as json string.
      * @return Client plan (actual week of the plan).
      * @throws IOException if something fails on trying contact with external services.
      */
-    String getPlanByClient(String usernameAndWeekAsJSON) throws IOException;
+    String getWeekByClient(String usernameAndWeekAsJSON) throws IOException;
 
     /**
-     * Retrieves tha actual week of plan of that Client.
+     * Retrieves the current week of plan of that Client.
      *
      * @param usernameAndWeekAsJSON Client username and current week of plan as json string.
      * @return Client plan (actual week of the plan).
      * @throws IOException if something fails on trying contact with external services.
      */
-    String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException;
+    String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException;
 
     /**
      * Retrieves the PersonalTrainers that corresponded to the filters given by Client.

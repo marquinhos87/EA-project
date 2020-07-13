@@ -22,43 +22,43 @@ public interface HRPersonalTrainerFacadeBeanLocal {
 	 * 
 	 * @param usernameAsJSON
 	 */
-	String getPersonalTrainerProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException, ClientNotExistsException;
+	String getPersonalTrainerProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException, ClientNotExistsException , UserNotExistsException;
 
 	/**
 	 *
 	 * @param infoAsJSON
 	 */
-	String getPersonalTrainerProfileByPersonalTrainer(String infoAsJSON) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException;
+	String getPersonalTrainerProfileByPersonalTrainer(String infoAsJSON) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException, UserNotExistsException;
 
 	/**
 	 * 
 	 * @param usernameAsJSON
 	 */
-	void editPersonalTrainertProfile(String usernameAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException;
+	void editPersonalTrainertProfile(String usernameAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException, UserNotExistsException;
 
 	/**
 	 * 
 	 * @param filtersAsJSON
 	 */
-	String getPersonalTrainers(String filtersAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException;
+	String getPersonalTrainers(String filtersAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, UserNotExistsException;
 
 	/**
 	 * 
 	 * @param usernameAndClassificationAsJSON
 	 */
-	void submitClassification(String usernameAndClassificationAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException;
+	void submitClassification(String usernameAndClassificationAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException, UserNotExistsException;
 
 	/**
 	 * 
 	 * @param usernameAsJSON
 	 */
-	String getPersonalTrainerClients(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException, PersistentException;
+	String getPersonalTrainerClients(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException, PersistentException, UserNotExistsException;
 
 	/**
 	 * 
 	 * @param usernameAndTokenAsJson
 	 */
-	void addClientToPersonalTrainer(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, TokenIsInvalidException;
+	void addClientToPersonalTrainer(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, TokenIsInvalidException, UserNotExistsException;
 
 	void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException;
 

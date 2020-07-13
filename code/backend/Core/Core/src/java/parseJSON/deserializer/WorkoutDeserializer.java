@@ -37,10 +37,9 @@ public class WorkoutDeserializer implements JsonDeserializer<Workout> {
             JsonObject wo = je.getAsJsonObject();
             workout = new Workout();
             workout.setDesignation(wo.get("designation").getAsString());
-            String date = wo.get("date").getAsString();
-            workout.setDate(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+            int weekDay = wo.get("weekDay").getAsInt();
+            workout.setWeekDay(weekDay);
             workout.setDone(wo.get("done").getAsBoolean());
-
             Task[] tasks = jdc.deserialize(wo.get("tasks"), Task[].class);
             for(Task task: tasks)
                 workout.tasks.add(task);

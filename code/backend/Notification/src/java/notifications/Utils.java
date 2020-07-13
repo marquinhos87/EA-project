@@ -67,9 +67,14 @@ public class Utils {
         return cal;
     }
 
-    public static void validateToken(String token, String username) throws TokenIsInvalidException, PersistentException {
+    public static void validateToken(String token, String username) throws TokenIsInvalidException, PersistentException, UserNotExistsException {
+        if (exists("username", username, "User") == false) throw new UserNotExistsException(username);
         List results = NotificationFacade.getSession().createQuery("select token from User where username='" + username + "' and token='" + token + "'").list();
         if (results.size() == 0) throw new TokenIsInvalidException(token);
+    }
+    
+    public static boolean exists(String key, String value,  String table) throws PersistentException {
+        return NotificationFacade.getSession().createQuery("select " + key + " from " + table + " where " + key + "=\'" + value + "\'").list().size() == 1;
     }
 
 }

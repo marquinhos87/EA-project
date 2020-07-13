@@ -20,10 +20,10 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	private PersonalTrainerFactory personalTrainerFactory;
 
 	public HRPersonalTrainerFacadeBeanBean() throws PersistentException {
-		gson = new GsonBuilder()
-				.setDateFormat("yyyy-MM-dd")
-				.registerTypeAdapter(PersonalTrainer.class, new PersonalTrainerSerializer())
-				.create();
+            gson = new GsonBuilder()
+                            .setDateFormat("yyyy-MM-dd")
+                            .registerTypeAdapter(PersonalTrainer.class, new PersonalTrainerSerializer())
+                            .create();
 	}
 
 	/**
@@ -35,18 +35,18 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws JsonKeyInFaultException if any json key is in fault.
 	 */
 	public String createPersonalTrainer(String infoAsJSON) throws PersistentException, PersonalTrainerAlreadyExistsException, JsonKeyInFaultException, UserAlreadyExistsException {
-		Utils.validateJson(gson, infoAsJSON, Arrays.asList("name", "username", "email", "password", "birthday", "sex", "skill", "price"));
-		PersonalTrainer pt = gson.fromJson(infoAsJSON, PersonalTrainer.class);
-		if (PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), pt.getUsername()) != null) throw new PersonalTrainerAlreadyExistsException(pt.getUsername());
-		if (UserDAO.getUserByORMID(HRPersonalTrainerFacade.getSession(), pt.getUsername()) != null) throw new UserAlreadyExistsException(pt.getUsername());
-		PersonalTrainerDAO.save(pt); // saves PersonalTrainer
-		String token = Utils.tokenGenerate(pt.getUsername());
-		User user = new User();
-		user.setUsername(pt.getUsername());
-		user.setToken(token);
-		UserDAO.save(user); // saves token information
-		System.err.println("PersonalTrainer and token saved to database...");
-		return "{ \"token\": \"" + token + "\" }";
+            Utils.validateJson(gson, infoAsJSON, Arrays.asList("name", "username", "email", "password", "birthday", "sex", "skill", "price"));
+            PersonalTrainer pt = gson.fromJson(infoAsJSON, PersonalTrainer.class);
+            if (Utils.exists("username", pt.getUsername(), "PersonalTrainer")) throw new PersonalTrainerAlreadyExistsException(pt.getUsername());
+            if (Utils.exists("username", pt.getUsername(), "User")) throw new UserAlreadyExistsException(pt.getUsername());
+            PersonalTrainerDAO.save(pt); // saves PersonalTrainer
+            String token = Utils.tokenGenerate(pt.getUsername());
+            User user = new User();
+            user.setUsername(pt.getUsername());
+            user.setToken(token);
+            UserDAO.save(user); // saves token information
+            System.err.println("PersonalTrainer and token saved to database...");
+            return "{ \"token\": \"" + token + "\" }";
 	}
 
 	/**
@@ -59,21 +59,21 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws InvalidPasswordException if password is invalid.
 	 */
 	public String loginPersonalTrainer(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, InvalidPasswordException, UserNotExistsException {
-		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "password"));
-		String username = jsonObject.get("username").getAsString();
-		PersonalTrainer pt;
-		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), username)) == null) throw new PersonalTrainerNotExistsException(username);
-		String password = jsonObject.get("password").getAsString();
-		if (pt.getPassword().equals(password) == false) throw new InvalidPasswordException(password);
-		User user;
-		if ((user = UserDAO.getUserByORMID(HRPersonalTrainerFacade.getSession(), pt.getUsername()) ) == null) throw new UserNotExistsException(pt.getUsername());
-		String oldToken = user.getToken();
-		String newToken = Utils.tokenGenerate(username);
-		user.setToken(newToken); // creates new token
-		UserDAO.save(user); // saves new token
-		System.err.println("PersonalTrainer logged in and token updated...");
-		return "{ \"oldToken\": \"" + oldToken + "\", " +
-				"\"newToken\": \"" + newToken + "\" }";
+            JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "password"));
+            String username = jsonObject.get("username").getAsString();
+            PersonalTrainer pt;
+            if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), username)) == null) throw new PersonalTrainerNotExistsException(username);
+            String password = jsonObject.get("password").getAsString();
+            if (pt.getPassword().equals(password) == false) throw new InvalidPasswordException(password);
+            User user;
+            if ((user = UserDAO.getUserByORMID(HRPersonalTrainerFacade.getSession(), pt.getUsername()) ) == null) throw new UserNotExistsException(pt.getUsername());
+            String oldToken = user.getToken();
+            String newToken = Utils.tokenGenerate(username);
+            user.setToken(newToken); // creates new token
+            UserDAO.save(user); // saves new token
+            System.err.println("PersonalTrainer logged in and token updated...");
+            return "{ \"oldToken\": \"" + oldToken + "\", " +
+                    "\"newToken\": \"" + newToken + "\" }";
 	}
 
 	/**
@@ -86,15 +86,15 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws TokenIsInvalidException if client's token is invalid.
 	 * @throws ClientNotExistsException if there isn't any client with specified username in redis.
 	 */
-	public String getPersonalTrainerProfileByClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException, ClientNotExistsException {
-		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("clientToken", "clientUsername", "personalTrainerUsername"));
-		String clientToken = jsonObject.get("clientToken").getAsString();
-		String clientUsername = jsonObject.get("clientUsername").getAsString();
-		Utils.validateClientToken(clientToken, clientUsername);
-		String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
-		PersonalTrainer pt;
-		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
-		return gson.toJson(pt);
+	public String getPersonalTrainerProfileByClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException, ClientNotExistsException, UserNotExistsException {
+            JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username", "personalTrainerUsername"));
+            String clientToken = jsonObject.get("token").getAsString();
+            String clientUsername = jsonObject.get("username").getAsString();
+            Utils.validateToken(clientToken, clientUsername);
+            String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
+            PersonalTrainer pt;
+            if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
+            return gson.toJson(pt);
 	}
 
 	/** Returns personal trainer's profile. Authenticates personal trainer's request with the given token.
@@ -105,11 +105,11 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws PersonalTrainerNotExistsException if there isn't any personal trainer with specified username in database or redis.
 	 * @throws TokenIsInvalidException if personal trainer's token is invalid.
 	 */
-	public String getPersonalTrainerProfileByPersonalTrainer(String infoAsJSON) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException {
+	public String getPersonalTrainerProfileByPersonalTrainer(String infoAsJSON) throws PersistentException, JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException, UserNotExistsException {
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validatePersonalTrainerToken(token, username);
+		Utils.validateToken(token, username);
 		PersonalTrainer pt;
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), username)) == null) throw new PersonalTrainerNotExistsException(username);
 		return gson.toJson(pt);
@@ -123,11 +123,11 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws PersonalTrainerNotExistsException if there isn't any personal trainer with specified username in database or redis.
 	 * @throws TokenIsInvalidException if personal trainer's token is invalid.
 	 */
-	public void editPersonalTrainertProfile(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException {
+	public void editPersonalTrainertProfile(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerNotExistsException, TokenIsInvalidException, UserNotExistsException {
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validatePersonalTrainerToken(token, username);
+		Utils.validateToken(token, username);
 		PersonalTrainer editedPt = gson.fromJson(infoAsJSON, PersonalTrainer.class);
 		PersonalTrainer databasePt;
 		if ( (databasePt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), editedPt.getUsername())) == null) throw new PersonalTrainerNotExistsException(editedPt.getUsername());
@@ -150,11 +150,11 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws TokenIsInvalidException if personal trainer's token is invalid.
 	 * @throws PersistentException if any error related to hibernate occurs.
 	 */
-	public String getPersonalTrainers(String infoAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException {
+	public String getPersonalTrainers(String infoAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, UserNotExistsException {
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validateClientToken(token, username);
+		Utils.validateToken(token, username);
 		List<PersonalTrainer> personalTrainers = (List<PersonalTrainer>) HRPersonalTrainerFacade.getSession().createQuery("from PersonalTrainer").list();
 		return gson.toJson(personalTrainers);
 	}
@@ -168,11 +168,11 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws PersistentException if any error related to hibernate occurs.
 	 * @throws PersonalTrainerNotExistsException if there isn't any personal trainer with specified username in database.
 	 */
-	public void submitClassification(String infoAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException {
-		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("clientToken", "clientUsername", "personalTrainerUsername", "classification"));
-		String clientToken = jsonObject.get("clientToken").getAsString();
-		String clientUsername = jsonObject.get("clientUsername").getAsString();
-		Utils.validateClientToken(clientToken, clientUsername);
+	public void submitClassification(String infoAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException, UserNotExistsException {
+		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username", "personalTrainerUsername", "classification"));
+		String clientToken = jsonObject.get("token").getAsString();
+		String clientUsername = jsonObject.get("username").getAsString();
+		Utils.validateToken(clientToken, clientUsername);
 		String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
 		PersonalTrainer pt;
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
@@ -190,11 +190,11 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws TokenIsInvalidException if personal trainer's token is invalid.
 	 * @throws PersistentException if any error related to hibernate occurs.
 	 */
-	public String getPersonalTrainerClients(String infoAsJSON) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException, PersistentException {
+	public String getPersonalTrainerClients(String infoAsJSON) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, TokenIsInvalidException, PersistentException, UserNotExistsException {
 		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
 		String token = jsonObject.get("token").getAsString();
 		String username = jsonObject.get("username").getAsString();
-		Utils.validatePersonalTrainerToken(token, username);
+		Utils.validateToken(token, username);
 		PersonalTrainer pt;
 		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), username)) == null) throw new PersonalTrainerNotExistsException(username);
 		return gson.toJson(pt.clients.toArray());
@@ -209,21 +209,21 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws PersonalTrainerNotExistsException if there isn't any personal trainer with specified username in database or redis.
 	 * @throws TokenIsInvalidException if personal trainer's token is invalid.
 	 */
-	public void addClientToPersonalTrainer(String infoAsJson) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, TokenIsInvalidException {
-		JsonObject jsonObject = Utils.validateJson(gson, infoAsJson, Arrays.asList("personalTrainerToken", "personalTrainerUsername", "clientUsername"));
-		String personalTrainerToken = jsonObject.get("personalTrainerToken").getAsString();
-		String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
-		Utils.validatePersonalTrainerToken(personalTrainerToken, personalTrainerUsername);
-		String clientUsername = jsonObject.get("clientUsername").getAsString();
-		if ( ClientDAO.getClientByORMID(HRPersonalTrainerFacade.getSession(), clientUsername) != null) throw new ClientAlreadyExistsException(clientUsername);
-		Client client = new Client();
-		client.setUsername(clientUsername);
-		PersonalTrainer pt;
-		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
-		pt.clients.add(client);
-		PersonalTrainerDAO.save(pt);
-		System.err.println(client);
-		System.err.println("Client saved to database...");
+	public void addClientToPersonalTrainer(String infoAsJson) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, TokenIsInvalidException, UserNotExistsException {
+            JsonObject jsonObject = Utils.validateJson(gson, infoAsJson, Arrays.asList("token", "username", "clientUsername"));
+            String personalTrainerToken = jsonObject.get("token").getAsString();
+            String personalTrainerUsername = jsonObject.get("username").getAsString();
+            Utils.validateToken(personalTrainerToken, personalTrainerUsername);
+            String clientUsername = jsonObject.get("clientUsername").getAsString();
+            if ( ClientDAO.getClientByORMID(HRPersonalTrainerFacade.getSession(), clientUsername) != null) throw new ClientAlreadyExistsException(clientUsername);
+            Client client = new Client();
+            client.setUsername(clientUsername);
+            PersonalTrainer pt;
+            if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
+            pt.clients.add(client);
+            PersonalTrainerDAO.save(pt);
+            System.err.println(client);
+            System.err.println("Client saved to database...");
 	}
 
 	/**
@@ -233,12 +233,12 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws PersistentException
 	 * @throws UserAlreadyExistsException
 	 */
-	public void createClient(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException {
-		Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("token", "username"));
-		User user = gson.fromJson(usernameAndTokenAsJson, User.class);
-		if (UserDAO.getUserByORMID(HRPersonalTrainerFacade.getSession(), user.getUsername()) != null) throw new UserAlreadyExistsException(user.getUsername());
-		UserDAO.save(user);
-		System.err.println("Client created...");
+	public void createClient(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException  {
+            Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("token", "username"));
+            User user = gson.fromJson(usernameAndTokenAsJson, User.class);
+            if (Utils.exists("username", user.getUsername(), "User")) throw new UserAlreadyExistsException(user.getUsername());
+            UserDAO.save(user);
+            System.err.println("Client created...");
 	}
 
 	/**
@@ -246,16 +246,15 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @param usernameAndTokenAsJson client's username, old token and current token as json.
 	 * @throws JsonKeyInFaultException if any json key is in fault.
 	 */
-	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException {
-		JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "newToken", "username"));
-		String oldToken = jsonObject.get("oldToken").getAsString();
-		String username = jsonObject.get("username").getAsString();
-		User user;
-		if ((user = UserDAO.getUserByORMID(HRPersonalTrainerFacade.getSession(), username) ) == null) throw new UserNotExistsException(username);
-		Utils.validateClientToken(oldToken, username);
-		String currentToken = jsonObject.get("newToken").getAsString();
-		user.setToken(currentToken);
-		UserDAO.save(user);
-		System.err.println("Client's token updated...");
+	public void updateClientToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, PersistentException, TokenIsInvalidException, UserNotExistsException, UserNotExistsException {
+            JsonObject jsonObject = Utils.validateJson(gson, usernameAndTokenAsJson, Arrays.asList("oldToken", "newToken", "username"));
+            String oldToken = jsonObject.get("oldToken").getAsString();
+            String username = jsonObject.get("username").getAsString();
+            Utils.validateToken(oldToken, username);
+            User user = UserDAO.getUserByORMID(HRPersonalTrainerFacade.getSession(), username);
+            String currentToken = jsonObject.get("newToken").getAsString();
+            user.setToken(currentToken);
+            UserDAO.save(user);
+            System.err.println("Client's token updated...");
 	}
 }

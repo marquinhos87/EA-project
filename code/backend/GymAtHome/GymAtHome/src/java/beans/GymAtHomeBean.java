@@ -27,10 +27,10 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     
     private final static String IP = "";
     
-    private static String IPclients = "188.250.39.126";
+    private static String IPclients = "37.189.223.35"; // "188.250.39.126";
     private static String IPpts = "37.189.223.35";
-    private static String IPcore = "192.168.1.139";
-    private static String IPrequests = "188.250.39.126";
+    private static String IPcore = "37.189.223.35"; //"192.168.1.139"; 
+    private static String IPrequests = "37.189.223.35"; // "188.250.39.126";
     private static String IPnotifications = "37.189.223.35";
     
     public static String clients;
@@ -396,8 +396,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws IOException if something fails on trying contact with external services.
      */
     @Override
-    public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException {
-        String url = core + "getPlanByClient";
+    public String getWeekByClient(String usernameAndWeekAsJSON) throws IOException {
+        String url = core + "getWeekByClient";
         Response response = Http.post(url,usernameAndWeekAsJSON);
         
         return response.body().string();
@@ -411,8 +411,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
      * @throws IOException if something fails on trying contact with external services.
      */
     @Override
-    public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
-        String url = core + "getPlanByPersonalTrainer";
+    public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
+        String url = core + "getWeekByPersonalTrainer";
         Response response = Http.post(url,usernameAndWeekAsJSON);
         
         return response.body().string();
@@ -504,11 +504,15 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         if(responseCore.code() != HttpServletResponse.SC_OK)
             return body;
         
+        //TODO no entanto falta mandar a notificação ao PT a informar que o cliente acabou o workout
+        /*
+        ResponseJSON rj = gson.fromJson(body, ResponseJSON.class);
+        String personalTrainerUsername = rj.data.getAsJsonObject().get("personalTrainerUsername").getAsString();
+        
         JsonObject jo = gson.fromJson(usernameAndWorkoutIdAsJSON, JsonObject.class);
         String username = jo.get("username").getAsString();
         String token = jo.get("token").getAsString();
-        String personalTrainerUsername = jo.get("personalTrainerUsername").getAsString();
-        
+             
         // JSON to send to other services
         jo = new JsonObject();
         jo.addProperty("username", username);
@@ -523,6 +527,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         body = responseNotification.body().string();
         if(responseNotification.code() != HttpServletResponse.SC_OK)
             return body;
+        */
         
         return initialBody;
     }

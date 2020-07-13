@@ -1,12 +1,9 @@
 {
-  "number": 1,
-  "initialDate": "2020-07-05",
-  "finalDate": "2020-07-11",
   "workouts":
     [
       {
           "designation": "cardio",
-          "date": "2020-07-06",
+          "weekDay": 2,
           "done": false,
           "tasks":
             [

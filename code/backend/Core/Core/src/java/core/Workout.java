@@ -14,8 +14,21 @@
 package core;
 
 import java.util.Arrays;
+import javax.persistence.Transient;
 
 public class Workout {
+    
+    @Transient
+    private int weekDay;
+
+    public int getWeekDay() {
+        return weekDay;
+    }
+
+    public void setWeekDay(int weekDay) {
+        this.weekDay = weekDay;
+    }
+    
     public Workout() {
     }
 

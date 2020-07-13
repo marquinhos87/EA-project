@@ -35,13 +35,7 @@ public class WeekDeserializer implements JsonDeserializer<Week> {
         Week week = null;
         try {
             JsonObject jo = je.getAsJsonObject();
-            week = new Week();
-            week.setNumber(jo.get("number").getAsInt());
-            String initialDate = jo.get("initialDate").getAsString();
-            week.setInitialDate(new SimpleDateFormat("yyyy-MM-dd").parse(initialDate));
-            String finalDate = jo.get("finalDate").getAsString();
-            week.setFinalDate(new SimpleDateFormat("yyyy-MM-dd").parse(finalDate));
-            
+            week = new Week();          
             Workout[] workouts = jdc.deserialize(jo.get("workouts"), Workout[].class);
             for(Workout workout: workouts)
                 week.workouts.add(workout);

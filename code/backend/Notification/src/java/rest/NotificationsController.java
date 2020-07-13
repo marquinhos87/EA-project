@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import notifications.ClientNotExistsException;
 import notifications.JsonKeyInFaultException;
+import notifications.NotificationDoesNotBelongToUser;
 import notifications.NotificationFacade;
 import notifications.NotificationNotExistsException;
 import notifications.PersonalTrainerNotExistsException;
@@ -140,7 +141,12 @@ public class NotificationsController extends HttpServlet {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             out.print(Utils.makeError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, stackTrace));
-        } catch (Exception e) {
+        } catch (NotificationDoesNotBelongToUser e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            out.print(Utils.makeError(HttpServletResponse.SC_CONFLICT, e.getMessage()));
+        }  
+        catch (Exception e) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
@@ -160,44 +166,44 @@ public class NotificationsController extends HttpServlet {
         return sb.toString();
     }
 
-    private void createNotificationToClient(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, TokenIsInvalidException, PersistentException, ClientNotExistsException {
+    private void createNotificationToClient(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, TokenIsInvalidException, PersistentException, ClientNotExistsException, PersonalTrainerNotExistsException, UserNotExistsException {
         PrintWriter out = response.getWriter();
         NotificationFacade.getInstance().createNotificationToClient(json);
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(null));
     }
 
-    private void createNotificationToPersonalTrainer(HttpServletResponse response, String json) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException, IOException {
+    private void createNotificationToPersonalTrainer(HttpServletResponse response, String json) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException, IOException, ClientNotExistsException, UserNotExistsException {
         PrintWriter out = response.getWriter();
         NotificationFacade.getInstance().createNotificationToPersonalTrainer(json);
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(null));
     }
 
-    private void markAsReadNotificationsByClient(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, ClientNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException {
+    private void markAsReadNotificationsByClient(HttpServletResponse response, String json) throws IOException, JsonKeyInFaultException, ClientNotExistsException, PersistentException, TokenIsInvalidException, NotificationNotExistsException, UserNotExistsException, NotificationDoesNotBelongToUser {
         PrintWriter out = response.getWriter();
         NotificationFacade.getInstance().markAsReadNotificationsByClient(json);
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(null));
     }
 
-    private void markAsReadNotificationsByPersonalTrainer(HttpServletResponse response, String json) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, PersistentException, IOException, TokenIsInvalidException, NotificationNotExistsException {
+    private void markAsReadNotificationsByPersonalTrainer(HttpServletResponse response, String json) throws JsonKeyInFaultException, PersonalTrainerNotExistsException, PersistentException, IOException, TokenIsInvalidException, NotificationNotExistsException, UserNotExistsException, NotificationDoesNotBelongToUser {
         PrintWriter out = response.getWriter();
         NotificationFacade.getInstance().markAsReadNotificationsByPersonalTrainer(json);
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(null));
     }
 
-    private void getNotificationsByClient(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException {
+    private void getNotificationsByClient(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, UserNotExistsException {
         PrintWriter out = response.getWriter();
         String notifications = NotificationFacade.getInstance().getNotificationsByClient(json);
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(notifications));
     }
 
-    private void getNotificationsByPersonalTrainer(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException {
+    private void getNotificationsByPersonalTrainer(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, TokenIsInvalidException, UserNotExistsException, PersonalTrainerNotExistsException {
         PrintWriter out = response.getWriter();
-        String notifications = NotificationFacade.getInstance().getNotificationsByClient(json);
+        String notifications = NotificationFacade.getInstance().getNotificationsByPersonalTrainer(json);
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(notifications));
     }

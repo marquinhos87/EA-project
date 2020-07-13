@@ -95,13 +95,13 @@ public class APIController extends HttpServlet {
                 case "editPersonalTrainerProfile":
                     res = gymAtHome.editPersonalTrainertProfile(data);
                     break;
-                    
-                case "getPlanByClient":
-                    res = gymAtHome.getPlanByClient(data);
+                    //TESTED
+                case "getWeekByClient":
+                    res = gymAtHome.getWeekByClient(data);
                     break;
-                    
-                case "getPlanByPersonalTrainer":
-                    res = gymAtHome.getPlanByPersonalTrainer(data);
+                    //TESTED
+                case "getWeekByPersonalTrainer":
+                    res = gymAtHome.getWeekByPersonalTrainer(data);
                     break;
                     //TESTED
                 case "getBiometricData":
@@ -111,7 +111,7 @@ public class APIController extends HttpServlet {
                 case "submitClassification":
                     res = gymAtHome.submitClassification(data);
                     break;
-                    
+                    //TESTED (no entanto falta mandar a notificação ao PT a informar que o cliente acabou o workout)
                 case "finishWorkout":
                     res = gymAtHome.finishWorkout(data);
                     break;
@@ -123,7 +123,7 @@ public class APIController extends HttpServlet {
                 case "submitRequest":
                     res = gymAtHome.submitRequest(data);
                     break;
-                    
+                    //TESTED
                 case "createWeek":
                     res = gymAtHome.createWeek(data);
                     break;

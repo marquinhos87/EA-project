@@ -62,7 +62,7 @@ public class HRPersonalTrainerController extends HttpServlet {
                                     case "getPersonalTrainerProfileByPersonalTrainer":
                                             getPersonalTrainerProfileByPersonalTrainer(response, getDataFromPost(request));
                                             break;
-                                    case "getPersonalTrainerProfileByPersonalByClient":
+                                    case "getPersonalTrainerProfileByClient":
                                             getPersonalTrainerProfileByClient(response, getDataFromPost(request));
                                             break;
                                     case "editPersonalTrainerProfile":
@@ -167,49 +167,49 @@ public class HRPersonalTrainerController extends HttpServlet {
 		out.print(Utils.makeSuccess200(null));
 	}
 
-	private void addClientToPersonalTrainer(HttpServletResponse response, String json) throws IOException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, JsonKeyInFaultException, TokenIsInvalidException {
+	private void addClientToPersonalTrainer(HttpServletResponse response, String json) throws IOException, PersistentException, ClientAlreadyExistsException, PersonalTrainerNotExistsException, JsonKeyInFaultException, TokenIsInvalidException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		HRPersonalTrainerFacade.getInstance().addClientToPersonalTrainer(json);
 		response.setStatus(HttpServletResponse.SC_OK);
 		out.print(Utils.makeSuccess200(null));
 	}
 
-	private void getPersonalTrainerClients(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException {
+	private void getPersonalTrainerClients(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		String personalTrainerClients = HRPersonalTrainerFacade.getInstance().getPersonalTrainerClients(json);
 		response.setStatus(HttpServletResponse.SC_OK);
 		out.print(Utils.makeSuccess200(personalTrainerClients));
 	}
 
-	private void submitClassification(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, ClientNotExistsException, JsonKeyInFaultException, PersonalTrainerNotExistsException {
+	private void submitClassification(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, ClientNotExistsException, JsonKeyInFaultException, PersonalTrainerNotExistsException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		HRPersonalTrainerFacade.getInstance().submitClassification(json);
 		response.setStatus(HttpServletResponse.SC_OK);
 		out.print(Utils.makeSuccess200(null));
 	}
 
-	private void getPersonalTrainers(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, JsonKeyInFaultException, ClientNotExistsException {
+	private void getPersonalTrainers(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, JsonKeyInFaultException, ClientNotExistsException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		String personalTrainers = HRPersonalTrainerFacade.getInstance().getPersonalTrainers(json);
 		response.setStatus(HttpServletResponse.SC_OK);
 		out.print(Utils.makeSuccess200(personalTrainers));
 	}
 
-	private void editPersonalTrainerProfile(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException {
+	private void editPersonalTrainerProfile(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		HRPersonalTrainerFacade.getInstance().editPersonalTrainertProfile(json);
 		response.setStatus(HttpServletResponse.SC_OK);
 		out.print(Utils.makeSuccess200(null));
 	}
 
-	private void getPersonalTrainerProfileByClient(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException, ClientNotExistsException {
+	private void getPersonalTrainerProfileByClient(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException, ClientNotExistsException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		String profile = HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByClient(json);
 		response.setStatus(HttpServletResponse.SC_OK);
 		out.print(Utils.makeSuccess200(profile));
 	}
 
-	private void getPersonalTrainerProfileByPersonalTrainer(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException {
+	private void getPersonalTrainerProfileByPersonalTrainer(HttpServletResponse response, String json) throws IOException, PersistentException, TokenIsInvalidException, PersonalTrainerNotExistsException, JsonKeyInFaultException, UserNotExistsException {
 		PrintWriter out = response.getWriter();
 		String profile = HRPersonalTrainerFacade.getInstance().getPersonalTrainerProfileByPersonalTrainer(json);
 		response.setStatus(HttpServletResponse.SC_OK);

@@ -27,7 +27,7 @@ public class HRPersonalTrainerFacade {
     }
 
     public static PersistentSession getSession() throws PersistentException {
-            if (session == null) session = DiagramasPersistentManager.instance().getSession();
+            if (session == null || session.isConnected() == false) session = DiagramasPersistentManager.instance().getSession();
             return session;
     }
 
@@ -39,27 +39,27 @@ public class HRPersonalTrainerFacade {
             return personalTrainerFacadeBean.loginPersonalTrainer(infoAsJSON);
     }
 
-    public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, TokenIsInvalidException, ClientNotExistsException {
+    public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws PersistentException, PersonalTrainerNotExistsException, JsonKeyInFaultException, TokenIsInvalidException, ClientNotExistsException, UserNotExistsException {
             return personalTrainerFacadeBean.getPersonalTrainerProfileByClient(usernameAsJSON);
     }
 
-    public void editPersonalTrainertProfile(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException {
+    public void editPersonalTrainertProfile(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, UserNotExistsException {
             personalTrainerFacadeBean.editPersonalTrainertProfile(infoAsJson);
     }
 
-    public String getPersonalTrainers(String infoAsJson) throws TokenIsInvalidException, PersistentException, JsonKeyInFaultException, ClientNotExistsException {
+    public String getPersonalTrainers(String infoAsJson) throws TokenIsInvalidException, PersistentException, JsonKeyInFaultException, ClientNotExistsException, UserNotExistsException {
             return personalTrainerFacadeBean.getPersonalTrainers(infoAsJson);
     }
 
-    public void submitClassification(String infoAsJSON) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, ClientNotExistsException {
+    public void submitClassification(String infoAsJSON) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, ClientNotExistsException, UserNotExistsException {
             personalTrainerFacadeBean.submitClassification(infoAsJSON);
     }
 
-    public String getPersonalTrainerClients(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException {
+    public String getPersonalTrainerClients(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, UserNotExistsException {
             return personalTrainerFacadeBean.getPersonalTrainerClients(infoAsJson);
     }
 
-    public void addClientToPersonalTrainer(String infoAsJson) throws ClientAlreadyExistsException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, TokenIsInvalidException {
+    public void addClientToPersonalTrainer(String infoAsJson) throws ClientAlreadyExistsException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, TokenIsInvalidException, UserNotExistsException {
             personalTrainerFacadeBean.addClientToPersonalTrainer(infoAsJson);
     }
 
@@ -67,7 +67,7 @@ public class HRPersonalTrainerFacade {
             personalTrainerFacadeBean.updateClientToken(usernameAndTokenAsJson);
     }
 
-    public String getPersonalTrainerProfileByPersonalTrainer(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException {
+    public String getPersonalTrainerProfileByPersonalTrainer(String infoAsJson) throws TokenIsInvalidException, PersonalTrainerNotExistsException, PersistentException, JsonKeyInFaultException, UserNotExistsException {
                 return personalTrainerFacadeBean.getPersonalTrainerProfileByPersonalTrainer(infoAsJson);
     }
 

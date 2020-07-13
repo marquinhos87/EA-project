@@ -177,8 +177,8 @@ public class GymAtHome {
      * @return
      * @throws IOException if something fails on trying contact with external services.
      */
-    public String getPlanByClient(String usernameAndWeekAsJSON) throws IOException {
-        return gymAtHomeBean.getPlanByClient(usernameAndWeekAsJSON);
+    public String getWeekByClient(String usernameAndWeekAsJSON) throws IOException {
+        return gymAtHomeBean.getWeekByClient(usernameAndWeekAsJSON);
     }
 
     /**
@@ -188,8 +188,8 @@ public class GymAtHome {
      * @return 
      * @throws IOException if something fails on trying contact with external services.
      */
-    public String getPlanByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
-        return gymAtHomeBean.getPlanByPersonalTrainer(usernameAndWeekAsJSON);
+    public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
+        return gymAtHomeBean.getWeekByPersonalTrainer(usernameAndWeekAsJSON);
     }
 
     /**
