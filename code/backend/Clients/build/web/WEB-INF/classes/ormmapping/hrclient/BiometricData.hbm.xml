@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: josepereira(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="hrclient.BiometricData" table="BiometricData" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="height" column="Height" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="weight" column="Weight" type="float" not-null="true" lazy="false"/>
+		<property name="wrist" column="Wrist" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="chest" column="Chest" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="tricep" column="Tricep" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="waist" column="Waist" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="quadricep" column="Quadricep" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="twin" column="Twin" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="date" column="`Date`" type="date" not-null="false" lazy="false"/>
+		<property name="BMI" column="BMI" type="float" not-null="true" lazy="false"/>
+	</class>
+</hibernate-mapping>
