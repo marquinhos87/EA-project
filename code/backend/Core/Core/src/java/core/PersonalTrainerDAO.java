@@ -321,6 +321,39 @@ public class PersonalTrainerDAO {
 		}
 	}
 	
+	public static boolean deleteAndDissociate(core.PersonalTrainer personalTrainer)throws PersistentException {
+		try {
+			core.Plan[] lPlanss = personalTrainer.plans.toArray();
+			for(int i = 0; i < lPlanss.length; i++) {
+				lPlanss[i].setPersonalTrainer(null);
+			}
+			return delete(personalTrainer);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
+	public static boolean deleteAndDissociate(core.PersonalTrainer personalTrainer, org.orm.PersistentSession session)throws PersistentException {
+		try {
+			core.Plan[] lPlanss = personalTrainer.plans.toArray();
+			for(int i = 0; i < lPlanss.length; i++) {
+				lPlanss[i].setPersonalTrainer(null);
+			}
+			try {
+				session.delete(personalTrainer);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
 	public static boolean refresh(core.PersonalTrainer personalTrainer) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(personalTrainer);

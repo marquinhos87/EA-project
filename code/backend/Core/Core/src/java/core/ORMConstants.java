@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Ricardo Petronilho(Universidade do Minho)
+ * Licensee: joaomarques(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -17,6 +17,8 @@ public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	final int KEY_CLIENT_PLAN = 1494064893;
 	
 	final int KEY_PERSONALTRAINER_PLANS = -1489616928;
+	
+	final int KEY_PLAN_PERSONALTRAINER = -1027593889;
 	
 	final int KEY_PLAN_WEEKS = -1544919415;
 	

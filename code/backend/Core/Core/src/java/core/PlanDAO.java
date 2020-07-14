@@ -321,6 +321,39 @@ public class PlanDAO {
 		}
 	}
 	
+	public static boolean deleteAndDissociate(core.Plan plan)throws PersistentException {
+		try {
+			if (plan.getPersonalTrainer() != null) {
+				plan.getPersonalTrainer().plans.remove(plan);
+			}
+			
+			return delete(plan);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
+	public static boolean deleteAndDissociate(core.Plan plan, org.orm.PersistentSession session)throws PersistentException {
+		try {
+			if (plan.getPersonalTrainer() != null) {
+				plan.getPersonalTrainer().plans.remove(plan);
+			}
+			
+			try {
+				session.delete(plan);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
 	public static boolean refresh(core.Plan plan) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(plan);

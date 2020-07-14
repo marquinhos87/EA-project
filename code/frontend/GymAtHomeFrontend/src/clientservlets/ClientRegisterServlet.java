@@ -86,7 +86,7 @@ public class ClientRegisterServlet extends HttpServlet {
                     if(!tmp.equals(""))
                         jo.addProperty("wrist",Integer.parseInt(tmp));
 
-                    Response responseHttp = Http.post("http://gymathome:8081/GymAtHome",jo.toString());
+                    Response responseHttp = Http.post("http://gymathome:8081/GymAtHome/api/createClient",jo.toString());
 
                     String body = responseHttp.body().string();
                     ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
