@@ -1,5 +1,5 @@
 /**
- * Licensee: Ricardo Petronilho(Universidade do Minho)
+ * Licensee: joaomarques(Universidade do Minho)
  * License Type: Academic
  */
 package ormsamples;
@@ -10,7 +10,7 @@ public class CreateDiagramasData {
 		PersistentTransaction t = core.DiagramasPersistentManager.instance().getSession().beginTransaction();
 		try {
 			core.Plan lcorePlan = core.PlanDAO.createPlan();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : weeks, currentWeek, modified
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : weeks, currentWeek, modified, personalTrainer
 			core.PlanDAO.save(lcorePlan);
 			core.Workout lcoreWorkout = core.WorkoutDAO.createWorkout();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : tasks, done, week

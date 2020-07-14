@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Ricardo Petronilho(Universidade do Minho)
+ * Licensee: joaomarques(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -20,6 +20,8 @@ import org.orm.criteria.*;
 
 public class PlanDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression ID;
+	public final StringExpression personalTrainerId;
+	public final AssociationExpression personalTrainer;
 	public final BooleanExpression done;
 	public final BooleanExpression modified;
 	public final DateExpression initialDate;
@@ -29,6 +31,8 @@ public class PlanDetachedCriteria extends AbstractORMDetachedCriteria {
 	public PlanDetachedCriteria() {
 		super(core.Plan.class, core.PlanCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
+		personalTrainerId = new StringExpression("personalTrainer.username", this.getDetachedCriteria());
+		personalTrainer = new AssociationExpression("personalTrainer", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		modified = new BooleanExpression("modified", this.getDetachedCriteria());
 		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
@@ -39,11 +43,17 @@ public class PlanDetachedCriteria extends AbstractORMDetachedCriteria {
 	public PlanDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, core.PlanCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
+		personalTrainerId = new StringExpression("personalTrainer.username", this.getDetachedCriteria());
+		personalTrainer = new AssociationExpression("personalTrainer", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		modified = new BooleanExpression("modified", this.getDetachedCriteria());
 		initialDate = new DateExpression("initialDate", this.getDetachedCriteria());
 		currentWeek = new IntegerExpression("currentWeek", this.getDetachedCriteria());
 		weeks = new CollectionExpression("ORM_Weeks", this.getDetachedCriteria());
+	}
+	
+	public PersonalTrainerDetachedCriteria createPersonalTrainerCriteria() {
+		return new PersonalTrainerDetachedCriteria(createCriteria("personalTrainer"));
 	}
 	
 	public WeekDetachedCriteria createWeeksCriteria() {

@@ -1,5 +1,5 @@
 /**
- * Licensee: Ricardo Petronilho(Universidade do Minho)
+ * Licensee: joaomarques(Universidade do Minho)
  * License Type: Academic
  */
 package ormsamples;

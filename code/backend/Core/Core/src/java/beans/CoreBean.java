@@ -20,9 +20,7 @@ import utils.Utils;
 import core.*;
 import exceptions.*;
 import java.time.DayOfWeek;
-import java.time.Instant;
 import java.util.*;
-import org.hibernate.LockMode;
 import org.hibernate.Query;
 import parseJSON.deserializer.*;
 import parseJSON.serializer.*;
@@ -288,7 +286,7 @@ public class CoreBean implements CoreBeanLocal {
         PlanDAO.save(plan);
         session.flush();
         
-        return "{ \"username\": \"ptricardao\" }";
+        return "{ \"username\": \"" + plan.getPersonalTrainer().getUsername() + "\" }";
     }
 
     /**
@@ -368,6 +366,7 @@ public class CoreBean implements CoreBeanLocal {
             plan.setDone(false);
             plan.setModified(false);
             plan.setInitialDate(firstDay);
+            plan.setPersonalTrainer(pt);
             
             // Create Client to associate with the Plan
             Client client = new Client();

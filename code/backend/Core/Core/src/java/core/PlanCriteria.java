@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Ricardo Petronilho(Universidade do Minho)
+ * Licensee: joaomarques(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -20,6 +20,8 @@ import org.orm.criteria.*;
 
 public class PlanCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
+	public final StringExpression personalTrainerId;
+	public final AssociationExpression personalTrainer;
 	public final BooleanExpression done;
 	public final BooleanExpression modified;
 	public final DateExpression initialDate;
@@ -29,6 +31,8 @@ public class PlanCriteria extends AbstractORMCriteria {
 	public PlanCriteria(Criteria criteria) {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
+		personalTrainerId = new StringExpression("personalTrainer.username", this);
+		personalTrainer = new AssociationExpression("personalTrainer", this);
 		done = new BooleanExpression("done", this);
 		modified = new BooleanExpression("modified", this);
 		initialDate = new DateExpression("initialDate", this);
@@ -42,6 +46,10 @@ public class PlanCriteria extends AbstractORMCriteria {
 	
 	public PlanCriteria() throws PersistentException {
 		this(DiagramasPersistentManager.instance().getSession());
+	}
+	
+	public PersonalTrainerCriteria createPersonalTrainerCriteria() {
+		return new PersonalTrainerCriteria(createCriteria("personalTrainer"));
 	}
 	
 	public WeekCriteria createWeeksCriteria() {
