@@ -74,7 +74,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = (String) request.getSession().getAttribute("username");
-        if(username == null) {
+        String token = (String) request.getSession().getAttribute("token");
+        if(username == null || token == null) {
             request.setAttribute("page","Login");
         }
         else {
