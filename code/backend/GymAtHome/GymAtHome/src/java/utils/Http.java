@@ -18,7 +18,7 @@ public class Http {
         Request request = new Request.Builder()
                 .url(url)
                 .get()
-                .addHeader("content-type", "application/JSON")
+                .addHeader("content-type", "application/json")
                 .build();
 
         return client.newCall(request).execute();
@@ -38,7 +38,7 @@ public class Http {
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
-                .addHeader("content-type", "application/JSON")
+                .addHeader("content-type", "application/json")
                 .build();
 
         return client.newCall(request).execute();

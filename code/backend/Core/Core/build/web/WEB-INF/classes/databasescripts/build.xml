@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-Licensee: joaomarques(Universidade do Minho)
+Licensee: Ricardo Petronilho(Universidade do Minho)
 License Type: Academic
 -->
 <project name="Diagramas" default="compile">

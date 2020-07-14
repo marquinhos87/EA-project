@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: joaomarques(Universidade do Minho)
+ * Licensee: Ricardo Petronilho(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -38,7 +38,7 @@ public class WorkoutSetCollection extends org.orm.util.ORMSet {
 	 */
 	public void add(Workout value) {
 		if (value != null) {
-			super.add(value, null);
+			super.add(value, value._ormAdapter);
 		}
 	}
 	
@@ -47,7 +47,7 @@ public class WorkoutSetCollection extends org.orm.util.ORMSet {
 	 * @param value the persistent object
 	 */
 	public void remove(Workout value) {
-		super.remove(value, null);
+		super.remove(value, value._ormAdapter);
 	}
 	
 	/**

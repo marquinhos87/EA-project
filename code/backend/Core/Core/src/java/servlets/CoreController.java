@@ -75,9 +75,8 @@ public class CoreController extends HttpServlet {
                     res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 case "finishWorkout":
-                    coreFacade.finishWorkout(data);
+                    res = makeSuccess(HttpServletResponse.SC_OK, coreFacade.finishWorkout(data));
                     response.setStatus(HttpServletResponse.SC_OK);
-                    res = makeSuccess(HttpServletResponse.SC_OK,null);
                     break;
                 case "createWeek":
                     coreFacade.createWeek(data);

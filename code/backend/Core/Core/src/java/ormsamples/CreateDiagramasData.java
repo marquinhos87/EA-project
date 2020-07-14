@@ -1,5 +1,5 @@
 /**
- * Licensee: joaomarques(Universidade do Minho)
+ * Licensee: Ricardo Petronilho(Universidade do Minho)
  * License Type: Academic
  */
 package ormsamples;
@@ -13,7 +13,7 @@ public class CreateDiagramasData {
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : weeks, currentWeek, modified
 			core.PlanDAO.save(lcorePlan);
 			core.Workout lcoreWorkout = core.WorkoutDAO.createWorkout();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : tasks, done
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : tasks, done, week
 			core.WorkoutDAO.save(lcoreWorkout);
 			core.Task lcoreTask = core.TaskDAO.createTask();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : series

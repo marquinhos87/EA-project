@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: joaomarques(Universidade do Minho)
+ * Licensee: Ricardo Petronilho(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -316,6 +316,39 @@ public class WorkoutDAO {
 			return true;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
+	public static boolean deleteAndDissociate(core.Workout workout)throws PersistentException {
+		try {
+			if (workout.getWeek() != null) {
+				workout.getWeek().workouts.remove(workout);
+			}
+			
+			return delete(workout);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
+	public static boolean deleteAndDissociate(core.Workout workout, org.orm.PersistentSession session)throws PersistentException {
+		try {
+			if (workout.getWeek() != null) {
+				workout.getWeek().workouts.remove(workout);
+			}
+			
+			try {
+				session.delete(workout);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 			throw new PersistentException(e);
 		}

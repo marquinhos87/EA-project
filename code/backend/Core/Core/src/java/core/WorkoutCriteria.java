@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: joaomarques(Universidade do Minho)
+ * Licensee: Ricardo Petronilho(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -20,6 +20,8 @@ import org.orm.criteria.*;
 
 public class WorkoutCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
+	public final IntegerExpression weekId;
+	public final AssociationExpression week;
 	public final StringExpression designation;
 	public final DateExpression date;
 	public final BooleanExpression done;
@@ -28,6 +30,8 @@ public class WorkoutCriteria extends AbstractORMCriteria {
 	public WorkoutCriteria(Criteria criteria) {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
+		weekId = new IntegerExpression("week.ID", this);
+		week = new AssociationExpression("week", this);
 		designation = new StringExpression("designation", this);
 		date = new DateExpression("date", this);
 		done = new BooleanExpression("done", this);
@@ -40,6 +44,10 @@ public class WorkoutCriteria extends AbstractORMCriteria {
 	
 	public WorkoutCriteria() throws PersistentException {
 		this(DiagramasPersistentManager.instance().getSession());
+	}
+	
+	public WeekCriteria createWeekCriteria() {
+		return new WeekCriteria(createCriteria("week"));
 	}
 	
 	public TaskCriteria createTasksCriteria() {

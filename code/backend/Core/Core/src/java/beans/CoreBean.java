@@ -172,18 +172,11 @@ public class CoreBean implements CoreBeanLocal {
         
         int weekNumber = json.has("week") ? json.get("week").getAsInt() : plan.getCurrentWeek();
         
-        if(weekNumber > plan.weeks.size())
+        List<Week> weeks = (List<Week>) session.createQuery("from Week where PlanID=" + plan.getID() + " and Number=" + weekNumber).list();
+        if (weeks.isEmpty())
             throw new InvalidWeekNumberException(Integer.toString(weekNumber));
-        
-        Week week = null;
-        Iterator weeks = plan.weeks.getIterator();
-        while(weeks.hasNext()) {
-            week = (Week) weeks.next();
-            if (week.getNumber() == weekNumber)
-                break;
-        }
 
-        return gson.toJson(week,Week.class);
+        return gson.toJson(weeks.get(0), Week.class);
     }
 
     /**
@@ -219,18 +212,11 @@ public class CoreBean implements CoreBeanLocal {
         
         int weekNumber = json.has("week") ? json.get("week").getAsInt() : plan.getCurrentWeek();
         
-        if(weekNumber > plan.weeks.size())
+        List<Week> weeks = (List<Week>) session.createQuery("from Week where PlanID=" + plan.getID() + " and Number=" + weekNumber).list();
+        if (weeks.isEmpty())
             throw new InvalidWeekNumberException(Integer.toString(weekNumber));
-        
-        Week week = null;
-        Iterator weeks = plan.weeks.getIterator();
-        while(weeks.hasNext()) {
-            week = (Week) weeks.next();
-            if (week.getNumber() == weekNumber)
-                break;
-        }
 
-        return gson.toJson(week,Week.class);
+        return gson.toJson(weeks.get(0), Week.class);
     }
 
     /**
@@ -247,7 +233,7 @@ public class CoreBean implements CoreBeanLocal {
      * @throws WorkoutDontExistException if given workout dont exist
      */
     @Override
-    public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, ClientDontExistsException, PersistentException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException {
+    public String finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, ClientDontExistsException, PersistentException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException {
         JsonObject json = Utils.validateJson(gson, usernameAndWorkoutIdAsJSON, Arrays.asList("token", "username", "workoutId"));
 
         String username = json.get("username").getAsString();
@@ -274,8 +260,7 @@ public class CoreBean implements CoreBeanLocal {
             throw new WorkoutAlreadyDoneException(Integer.toString(workoutId));
         
         // verify if workout belogns to client
-        int weekID = (int) session.createQuery("select W.weekID from Workout W where W.id=" + workoutId).list().get(0);
-        Week workoutWeek = WeekDAO.getWeekByORMID(session, weekID);
+        Week workoutWeek = workout.getWeek();
         if (plan.weeks.contains(workoutWeek) == false) {
             throw new WorkoutDontBelongToUserException(json.get("workoutId").getAsString() + '\t' + username);
         }
@@ -293,10 +278,17 @@ public class CoreBean implements CoreBeanLocal {
                 break;
             }
         }
-        if (hasDoneAllWorkouts && workoutWeek.getNumber() < plan.weeks.size()) plan.setCurrentWeek(workoutWeek.getNumber()+1);  
+        if (hasDoneAllWorkouts) {
+            if (workoutWeek.getNumber() < plan.weeks.size()) 
+                plan.setCurrentWeek(workoutWeek.getNumber()+1);
+            else if (workoutWeek.getNumber() == plan.weeks.size())
+                plan.setCurrentWeek(workoutWeek.getNumber());
+        }  
         
         PlanDAO.save(plan);
         session.flush();
+        
+        return "{ \"username\": \"ptricardao\" }";
     }
 
     /**
@@ -365,6 +357,8 @@ public class CoreBean implements CoreBeanLocal {
                 Workout workout = (Workout) workouts.next();
                 Date day = new Date(firstDay.getTime() + (DAY *(workout.getWeekDay()-1)));
                 workout.setDate(day);
+                workout.setWeek(week);
+                workout.setDone(false);
             }
             
             // Create a new plan
@@ -425,6 +419,8 @@ public class CoreBean implements CoreBeanLocal {
                 Workout workout = (Workout) workouts.next();
                 Date day = new Date(week.getInitialDate().getTime()+(DAY * (workout.getWeekDay()-1)));
                 workout.setDate(day);
+                workout.setWeek(week);
+                workout.setDone(false);
             }                            
     
             // Save the new state of plan

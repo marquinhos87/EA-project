@@ -26,13 +26,14 @@ public class Main {
         
         Response response = Http.post(url + "createdbs", "{ \"token\": \"admin\" }");
         if (response.code() != HttpServletResponse.SC_OK) {
-            System.err.println("Could now create DBs, HTTP status code != 200");
+            System.err.println("Could not create DBs, HTTP status code != 200");
             System.exit(1);
         } 
 
+        String clientUsername = "cjosepereira";
         String clientJSON = 
         "{" + 
-            "\"username\": \"josepereira\", " +
+            "\"username\": \"" + clientUsername + "\", " +
             "\"password\": \"password\", " +
             "\"name\": \"José Pereira\", " +
             "\"email\": \"jose@email.com\", " +
@@ -42,9 +43,10 @@ public class Main {
             "\"weight\": 87 " +
         "}";
 
-        String ptJSON = 
+        String ptUsername= "ptricardao";
+        String ptJSON =  
         "{ " +
-            "\"username\": \"ricardao\", " +
+            "\"username\": \"" + ptUsername + "\", " +
             "\"name\": \"ricardo\", " +
             "\"email\": \"rpetronilho98@gmail.com\", " +
             "\"password\": \"password\", " +
@@ -56,16 +58,28 @@ public class Main {
         
         
         Gson gson = new Gson();
-        String clientToken = gson.fromJson(Http.post(url + "createClient", clientJSON).body().string(), ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
+        
+        response = Http.post(url + "createClient", clientJSON);
+        if (response.code() != HttpServletResponse.SC_OK) {
+            System.err.println("Could not create client, HTTP status code != 200");
+            System.exit(1);
+        } 
+        String clientToken = gson.fromJson(response.body().string(), ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
         System.out.println("client token = " + clientToken);
-        String ptToken = gson.fromJson(Http.post(url + "createPersonalTrainer", ptJSON).body().string(), ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
+        
+        response = Http.post(url + "createPersonalTrainer", ptJSON);
+        if (response.code() != HttpServletResponse.SC_OK) {
+            System.err.println("Could not create personal trainer, HTTP status code != 200");
+            System.exit(1);
+        } 
+        String ptToken = gson.fromJson(response.body().string(), ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
         System.out.println("pt token = " + ptToken);       
     
         String fstJSON = 
         "{ " +
-            "\"username\" : \"ricardao\", " +
+            "\"username\" : \"" + ptUsername + "\", " +
             "\"token\" : \"" + ptToken + "\", " +
-            "\"clientUsername\": \"josepereira\", " +
+            "\"clientUsername\": \"" + clientUsername + "\", " +
             "\"week\" : { " +
                 "\"workouts\": " +
                     "[ " +
@@ -97,14 +111,15 @@ public class Main {
         
         response = Http.post(url + "createWeek", fstJSON);
         if (response.code() != HttpServletResponse.SC_OK) {
-            System.err.println("Could now create week, HTTP status code != 200");
+            System.err.println("Could not create week, HTTP status code != 200");
             System.exit(1);
         } 
         
         String weekJSON = 
         "{ " +
-            "\"username\" : \"ricardao\", " +
+            "\"username\" : \"" + ptUsername + "\", " +
             "\"token\" : \"" + ptToken + "\", " +
+            "\"clientUsername\": \"" + clientUsername + "\", " +
             "\"planId\": 1, " +
             "\"week\" : { " +
                 "\"workouts\": " +
@@ -134,11 +149,11 @@ public class Main {
                     "] " +
                 "} " + 
         "}";
-        
+                
         for (int i=0; i<5; i++) {
             response = Http.post(url + "createWeek", weekJSON);
             if (response.code() != HttpServletResponse.SC_OK) {
-                System.err.println("Could now create week on iteration - " + i + " - , HTTP status code != 200");
+                System.err.println("Could not create week on iteration - " + i + " - HTTP status code != 200");
                 System.exit(1);
             } 
         }

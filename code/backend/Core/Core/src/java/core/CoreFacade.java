@@ -147,8 +147,8 @@ public class CoreFacade {
      * @throws WorkoutDontBelongToUserException if workout dont belong to the given user
      * @throws WorkoutDontExistException if given workout dont exist
      */
-    public void finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException, WorkoutAlreadyDoneException, WorkoutDontExistException, WorkoutDontBelongToUserException {
-        coreBean.finishWorkout(usernameAndWorkoutIdAsJSON);
+    public String finishWorkout(String usernameAndWorkoutIdAsJSON) throws InvalidTokenException, PersistentException, JsonKeyInFaultException, ClientDontExistsException, UserDontExistsException, WorkoutAlreadyDoneException, WorkoutDontExistException, WorkoutDontBelongToUserException {
+        return coreBean.finishWorkout(usernameAndWorkoutIdAsJSON);
     }
 
     /**

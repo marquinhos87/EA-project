@@ -504,10 +504,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         if(responseCore.code() != HttpServletResponse.SC_OK)
             return body;
         
-        //TODO no entanto falta mandar a notificação ao PT a informar que o cliente acabou o workout
-        /*
         ResponseJSON rj = gson.fromJson(body, ResponseJSON.class);
-        String personalTrainerUsername = rj.data.getAsJsonObject().get("personalTrainerUsername").getAsString();
+        String personalTrainerUsername = rj.data.getAsJsonObject().get("username").getAsString();
         
         JsonObject jo = gson.fromJson(usernameAndWorkoutIdAsJSON, JsonObject.class);
         String username = jo.get("username").getAsString();
@@ -517,8 +515,8 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         jo = new JsonObject();
         jo.addProperty("username", username);
         jo.addProperty("token", token);
-        jo.addProperty("personalTrainerUsername",personalTrainerUsername);
-        jo.addProperty("description","Client with username " + username + " finish a workout.");
+        jo.addProperty("personalTrainerUsername", personalTrainerUsername);
+        jo.addProperty("description","Client with username " + username + " finished a workout.");
         
         String json = jo.toString();
         
@@ -527,7 +525,6 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         body = responseNotification.body().string();
         if(responseNotification.code() != HttpServletResponse.SC_OK)
             return body;
-        */
         
         return initialBody;
     }

@@ -90,7 +90,7 @@ public interface CoreBeanLocal {
      * @throws WorkoutDontBelongToUserException if workout dont belong to the given user
      * @throws WorkoutDontExistException if given workout dont exist
      */
-    void finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException;
+    String finishWorkout(String usernameAndWorkoutIdAsJSON) throws PersistentException, ClientDontExistsException, InvalidTokenException, JsonKeyInFaultException, UserDontExistsException, WorkoutDontExistException, WorkoutDontBelongToUserException, WorkoutAlreadyDoneException;
 
     /**
      * Create a new week for an existing plan or create a new week for a new plan.

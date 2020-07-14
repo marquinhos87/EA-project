@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: joaomarques(Universidade do Minho)
+ * Licensee: Ricardo Petronilho(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -25,5 +25,7 @@ public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	final int KEY_WEEK_WORKOUTS = -133200575;
 	
 	final int KEY_WORKOUT_TASKS = 833431372;
+	
+	final int KEY_WORKOUT_WEEK = -250117002;
 	
 }

@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: joaomarques(Universidade do Minho)
+ * Licensee: Ricardo Petronilho(Universidade do Minho)
  * License Type: Academic
  */
 package core;
@@ -20,6 +20,8 @@ import org.orm.criteria.*;
 
 public class WorkoutDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression ID;
+	public final IntegerExpression weekId;
+	public final AssociationExpression week;
 	public final StringExpression designation;
 	public final DateExpression date;
 	public final BooleanExpression done;
@@ -28,6 +30,8 @@ public class WorkoutDetachedCriteria extends AbstractORMDetachedCriteria {
 	public WorkoutDetachedCriteria() {
 		super(core.Workout.class, core.WorkoutCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
+		weekId = new IntegerExpression("week.ID", this.getDetachedCriteria());
+		week = new AssociationExpression("week", this.getDetachedCriteria());
 		designation = new StringExpression("designation", this.getDetachedCriteria());
 		date = new DateExpression("date", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
@@ -37,10 +41,16 @@ public class WorkoutDetachedCriteria extends AbstractORMDetachedCriteria {
 	public WorkoutDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, core.WorkoutCriteria.class);
 		ID = new IntegerExpression("ID", this.getDetachedCriteria());
+		weekId = new IntegerExpression("week.ID", this.getDetachedCriteria());
+		week = new AssociationExpression("week", this.getDetachedCriteria());
 		designation = new StringExpression("designation", this.getDetachedCriteria());
 		date = new DateExpression("date", this.getDetachedCriteria());
 		done = new BooleanExpression("done", this.getDetachedCriteria());
 		tasks = new CollectionExpression("ORM_Tasks", this.getDetachedCriteria());
+	}
+	
+	public WeekDetachedCriteria createWeekCriteria() {
+		return new WeekDetachedCriteria(createCriteria("week"));
 	}
 	
 	public TaskDetachedCriteria createTasksCriteria() {
