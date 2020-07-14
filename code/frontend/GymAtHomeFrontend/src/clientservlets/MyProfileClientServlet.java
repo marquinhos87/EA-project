@@ -6,30 +6,57 @@ import com.google.gson.JsonObject;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
 import utils.Http;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "MyProfileClientServlet", urlPatterns = "/MyProfileClient")
 public class MyProfileClientServlet extends HttpServlet {
 
+    private HttpSession session = null;
     private final Gson gson = new GsonBuilder().create();
+    private String action = null;
+    private String username = null;
+    private String token = null;
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
+    public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        session = request.getSession();
+        action = (String) request.getAttribute("action");
+        username = (String) request.getSession().getAttribute("username");
+        token = (String) request.getSession().getAttribute("token");
+
+        System.err.println(session);
+        System.err.println(action);
+        System.err.println(username);
+        System.err.println(token);
+
+        if(username == null || token == null){
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            return;
+        }
+
+        if(action == null){
+            viewProfile(request, response);
+        }
+
+        action = action.toLowerCase();
+
+        //  log out
+        if(action != null && action.equals("logout")){
+            session.setAttribute("username", null);
+            session.setAttribute("token", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+        }
+    }
+
+    public void editProfile(HttpServletRequest request, HttpServletResponse response){
+        /*String username = (String) request.getSession().getAttribute("username");
         String token = (String) request.getSession().getAttribute("token");
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
@@ -91,7 +118,69 @@ public class MyProfileClientServlet extends HttpServlet {
                 request.setAttribute("error",responseObject.msg);
                 getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
             }
+        }*/
+    }
+
+    public void viewProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        JsonObject jo = new JsonObject();
+        jo.addProperty("username",username);
+        jo.addProperty("token",token);
+
+        Response responseHttp = null;
+        try {
+            responseHttp = Http.post(Utils.SERVER + "getClientProfileByClient",jo.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            return ;
         }
+
+        String responseBody = responseHttp.body().string();
+        ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
+
+        System.err.println(responseBody);
+
+        if(responseObject.status.equals("success")) {
+            JsonObject responseJson = responseObject.data.getAsJsonObject();
+            request.setAttribute("username",responseJson.get("username").getAsString());
+            request.setAttribute("name",responseJson.get("name").getAsString());
+            request.setAttribute("email",responseJson.get("email").getAsString());
+            request.setAttribute("birthday",responseJson.get("birthday").getAsString());
+            request.setAttribute("genre",responseJson.get("sex").getAsString());
+            request.setAttribute("height",responseJson.get("height").getAsInt());
+            request.setAttribute("weight",responseJson.get("weight").getAsInt());
+            request.setAttribute("bci",responseJson.get("imc").getAsInt());
+
+            int tmp = 0;
+            if(responseJson.has("waist") && (tmp = responseJson.get("waist").getAsInt())!=0)
+                request.setAttribute("waist",tmp);
+            if(responseJson.has("chest") && (tmp = responseJson.get("chest").getAsInt())!=0)
+                request.setAttribute("chest",tmp);
+            if(responseJson.has("twin") && (tmp = responseJson.get("twin").getAsInt())!=0)
+                request.setAttribute("twin",tmp);
+            if(responseJson.has("quadriceo") && (tmp = responseJson.get("quadricep").getAsInt())!=0)
+                request.setAttribute("quadricep",tmp);
+            if(responseJson.has("tricep") && (tmp = responseJson.get("tricep").getAsInt())!=0)
+                request.setAttribute("tricep",tmp);
+            if(responseJson.has("wrist") && (tmp = responseJson.get("wrist").getAsInt())!=0)
+                request.setAttribute("wrist",tmp);
+        }
+        else request.setAttribute("errorMessage", "Não é possível o consultar o perfil neste momento, volte mais tarde.");
+        Utils.redirect(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
@@ -104,58 +193,6 @@ public class MyProfileClientServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
-        String token = (String) request.getSession().getAttribute("token");
-        String action = (String) request.getAttribute("action");
-        if(username == null || token == null) {
-            request.getSession().setAttribute("username",null);
-            request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-        }
-        else if(action!=null && action.equals("logout")){
-            request.setAttribute("username",null);
-            request.setAttribute("page","Login");
-        }
-        else {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("username",username);
-            jo.addProperty("token",token);
-
-            Response responseHttp = Http.post("http://gymathome:8081/GymAtHome/api/getClientProfileByClient",jo.toString());
-
-            String responseBody = responseHttp.body().string();
-            ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
-
-            if(responseHttp.code() == HttpServletResponse.SC_OK) {
-                JsonObject responseJson = responseObject.data.getAsJsonObject();
-                request.setAttribute("username",responseJson.get("username").getAsString());
-                request.setAttribute("name",responseJson.get("name").getAsString());
-                request.setAttribute("email",responseJson.get("email").getAsString());
-                request.setAttribute("birthday",responseJson.get("birthday").getAsString());
-                request.setAttribute("genre",responseJson.get("sex").getAsString());
-                request.setAttribute("height",responseJson.get("height").getAsInt());
-                request.setAttribute("weight",responseJson.get("weight").getAsInt());
-                request.setAttribute("bci",responseJson.get("imc").getAsInt());
-                int tmp = 0;
-                if(responseJson.has("waist") && (tmp = responseJson.get("waist").getAsInt())!=0)
-                    request.setAttribute("waist",tmp);
-                if(responseJson.has("chest") && (tmp = responseJson.get("chest").getAsInt())!=0)
-                    request.setAttribute("chest",tmp);
-                if(responseJson.has("twin") && (tmp = responseJson.get("twin").getAsInt())!=0)
-                    request.setAttribute("twin",tmp);
-                if(responseJson.has("quadriceo") && (tmp = responseJson.get("quadricep").getAsInt())!=0)
-                    request.setAttribute("quadricep",tmp);
-                if(responseJson.has("tricep") && (tmp = responseJson.get("tricep").getAsInt())!=0)
-                    request.setAttribute("tricep",tmp);
-                if(responseJson.has("wrist") && (tmp = responseJson.get("wrist").getAsInt())!=0)
-                    request.setAttribute("wrist",tmp);
-            }
-            else {
-                // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
-                request.setAttribute("error",responseObject.msg);
-            }
-            request.setAttribute("page","MyProfileClient");
-        }
-        getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+        processRequest(request, response);
     }
 }

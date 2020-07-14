@@ -6,35 +6,120 @@ import com.google.gson.JsonObject;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
 import utils.Http;
+import utils.Utils;
 
+import javax.rmi.CORBA.Util;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/Login")
 public class LoginServlet extends HttpServlet {
 
+    private HttpSession session = null;
     private final Gson gson = new GsonBuilder().create();
+    private String action = null;
+    private String username = null;
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        session = request.getSession();
+        action = request.getParameter("action");
+        username = (String) session.getAttribute("username");
+
+
+        //  test if user is logged
+        if(username != null && username.startsWith("c")) {
+            Utils.redirect(request, response, "/MyProfileClient", null, null);
+            return ;
+        }
+        else if(username != null && username.startsWith("pt")) {
+            Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null);
+            return ;
+        } else if (action == null){
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            return ;
+        }
+
+        action = action.toLowerCase();
+
+        if(action.equals("login")){
+            String usernameParam = request.getParameter("username"), passwordParam = request.getParameter("password");
+
+            if(usernameParam != null && usernameParam.startsWith("c")) { //   typeOfUser = 0 <=> Client
+                login(request,response,"loginClient");
+            }
+            else if(usernameParam != null && usernameParam.startsWith("pt")) { //     typeOfUser = 1 <=> PersonalTrainer
+                login(request,response,"loginPersonalTrainer");
+            }
+            else { //   error
+                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                return;
+            }
+        }
+    }
 
     private void login(HttpServletRequest request, HttpServletResponse response, String target) throws ServletException, IOException {
-        String username = (String) request.getAttribute("username");
-        String password = (String) request.getAttribute("password");
+
+        String username = request.getParameter("username"), message = "", password = request.getParameter("password");
         JsonObject jo = new JsonObject();
         jo.addProperty("username",username);
         jo.addProperty("password",password);
 
-        Response responseHttp = Http.post("http://localhost:8081/GymAtHome/" + target,jo.toString());
+        Response responseHttp = null;
+
+        try {
+            responseHttp = Http.post(Utils.SERVER + target,jo.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            return ;
+        }
 
         String responseBody = responseHttp.body().string();
-        ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
+        JsonObject data = null;
+        ResponseJSON responseJSON = null;
+        try{
+            responseJSON = gson.fromJson(responseBody, ResponseJSON.class);
+            data = responseJSON.data.getAsJsonObject();
+        } catch (Exception e){
+            e.printStackTrace();
+            message = "Erro interno do sistema.";
+            request.setAttribute("errorMessage", message);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            return ;
+        }
 
-        if(responseHttp.code() == HttpServletResponse.SC_OK) {
-            JsonObject data = responseObject.data.getAsJsonObject();
-            request.getSession().setAttribute("username",username);
-            request.getSession().setAttribute("token",data.get("token").getAsString());
+        if(data!= null && responseJSON.status.equals("success")) {
+            session.setAttribute("username",username);
+            session.setAttribute("token",data.get("newToken").getAsString());
+            //  redirect to different controllers
+            if(username.startsWith("c")) { //  client
+                Utils.redirect(request, response, "/MyProfileClient", null, null);
+                return ;
+            }else {                //  personal trainer
+                Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null);
+                return;
+            }
+        }else{  //  error
+            switch (responseJSON.code){
+                case 22:    //  invalid password
+                    message = "Credênciais inválidas.";
+                    break;
+                case 404:
+                    message = "Credênciais inválidas.";
+                    break;
+                default:    //  other errors
+                    message = "Erro interno do sistema.";
+                    break;
+            }
+            request.setAttribute("errorMessage", message);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            return ;
         }
     }
 
@@ -47,20 +132,8 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getAttribute("username");
-
-        if(username.startsWith("u")) {
-            login(request,response,"loginClient");
-            getServletConfig().getServletContext().getRequestDispatcher("/MyClientProfile").forward(request,response);
-        }
-        else if(username.startsWith("pt")) {
-            getServletConfig().getServletContext().getRequestDispatcher("/MyPersonalTrainerProfile").forward(request,response);
-        }
-        else {
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
-        }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        processRequest(request, response);
     }
 
     /**
@@ -73,22 +146,6 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
-        String token = (String) request.getSession().getAttribute("token");
-        if(username == null || token == null) {
-            request.setAttribute("page","Login");
-        }
-        else {
-            if(username.startsWith("u")) {
-                request.setAttribute("page","MyProfileClient");
-            }
-            else if(username.startsWith("pt")) {
-                request.setAttribute("page","MyProfilePersonalTrainer");
-            }
-            else {
-                request.setAttribute("page","Login");
-            }
-        }
-        getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request, response);
+        processRequest(request, response);
     }
 }

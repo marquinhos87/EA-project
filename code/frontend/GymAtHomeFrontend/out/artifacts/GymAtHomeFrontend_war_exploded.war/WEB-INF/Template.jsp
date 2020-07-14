@@ -59,9 +59,26 @@
                     </c:when>
                 </c:choose>
             </header>
-
+            <div class="row justify-content-center">
+                <c:choose>
+                    <c:when test="${requestScope.errorMessage!=null}">
+                        <div class="alert alert-danger" role="alert">${errorMessage}</div>
+                    </c:when>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${requestScope.successMessage!=null}">
+                        <div class="alert alert-success" role="alert">${successMessage}</div>
+                    </c:when>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${requestScope.warningMessage!=null}">
+                        <div class="alert alert-success" role="alert">${warningMessage}</div>
+                    </c:when>
+                </c:choose>
+            </div>
             <!-- main -->
             <div class="row">
+
                 <c:choose>
                     <c:when test="${requestScope.page==null ||requestScope.page=='Login'}">
                         <jsp:include page="common/Login.jsp" />
