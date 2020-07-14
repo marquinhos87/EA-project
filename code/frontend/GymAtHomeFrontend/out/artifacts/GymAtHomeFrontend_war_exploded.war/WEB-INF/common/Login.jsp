@@ -11,7 +11,7 @@
     <form method="post">
         <div class="form-group row">
             <div class="col-md-12">
-                <input required="required" type="text" class="form-control" placeholder="username" name="name">
+                <input required="required" pattern="(u|pt).*" type="text" class="form-control" placeholder="username" name="username">
             </div>
         </div>
         <div class="form-group row">

@@ -29,8 +29,8 @@
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='SearchPersonalTrainer' ? "disabled" : "value=\"searchPersonalTrainer\""} formaction="${pageContext.request.contextPath}\SearchPersonalTrainer">Procurar PersonalTrainer</button>
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='ClientPlan' ? "disabled" : "value=\"clientPlan\""} formaction="${pageContext.request.contextPath}\ClientPlan">Meu Plano</button>
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyClientProfile' ? "disabled" : "value=\"myClientProfile\""} formaction="${pageContext.request.contextPath}\MyClientProfile">Meu Perfil</button>
-                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='Notification' ? "disabled" : "value=\"notification\""} formaction="${pageContext.request.contextPath}\..\common\Notification">Notificações</button>
-                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" value="logout" formaction="${pageContext.request.contextPath}\AddGame">Logout</button>
+                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='Notification' ? "disabled" : "value=\"notification\""} formaction="${pageContext.request.contextPath}\Notification">Notificações</button>
+                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" name="action" value="logout" formaction="${pageContext.request.contextPath + '\\' + requestScope.page}">Logout</button>
                             </div>
                         </form>
                     </c:when>
@@ -40,7 +40,7 @@
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='SearchPersonalTrainer' ? "disabled" : "value=\"searchPersonalTrainer\""} formaction="${pageContext.request.contextPath}\MyRequests">Meus Pedidos</button>
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='ClientPlan' ? "disabled" : "value=\"clientPlan\""} formaction="${pageContext.request.contextPath}\MyRequests">Meus Clientes</button>
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyClientProfile' ? "disabled" : "value=\"myClientProfile\""} formaction="${pageContext.request.contextPath}\MyPersonalTrainerProfile">Meu Perfil</button>
-                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" value="logout" formaction="${pageContext.request.contextPath}\AddGame">Logout</button>
+                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" name="action" value="logout" formaction="${pageContext.request.contextPath + '\\' + requestScope.page}">Logout</button>
                             </div>
                         </form>
                     </c:when>
@@ -48,7 +48,7 @@
                         <form method="get" class="navbar navbar-expand-lg navbar-light bg-light border py-0 px-0 mb-3 d-flex align-content-center" style="overflow: hidden;">
                             <label class="col-form-label ml-4"><h4>Gym@Home</h4></label>
                             <div class="navbar-collapse d-flex justify-content-end mr-3">
-                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" value="login" formaction="${pageContext.request.contextPath}\Login">Login</button>
+                                <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" formaction="${pageContext.request.contextPath}\Login">Login</button>
                             </div>
                         </form>
                     </c:when>

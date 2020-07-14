@@ -1,5 +1,7 @@
 package clientservlets;
 
+import com.google.gson.JsonObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,10 +37,53 @@ public class ClientRegisterServlet extends HttpServlet {
                 request.setAttribute("page", "Login");
             }
             getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
-
         }
         else {
-            //TODO
+            String password = (String)request.getAttribute("password");
+            String confirmationPassword = (String)request.getAttribute("cpassword");
+
+            if(password.equals(confirmationPassword)) {
+                //TODO encrypt password
+                JsonObject jo = new JsonObject();
+                jo.addProperty("name", (String) request.getAttribute("name"));
+                jo.addProperty("username", (String) request.getAttribute("username"));
+                jo.addProperty("email", (String) request.getAttribute("email"));
+                jo.addProperty("password",password);
+                jo.addProperty("birthday",(String)request.getAttribute("birthday"));
+                jo.addProperty("sex",(String)request.getAttribute("genre"));
+                jo.addProperty("height",(String)request.getAttribute("height"));
+                jo.addProperty("weight",(String)request.getAttribute("weight"));
+
+                String tmp = (String) request.getAttribute("waist");
+                if(!tmp.equals(""))
+                    jo.addProperty("waist",Integer.parseInt(tmp));
+
+                tmp = (String) request.getAttribute("chest");
+                if(!tmp.equals(""))
+                    jo.addProperty("chest",Integer.parseInt(tmp));
+
+                tmp = (String) request.getAttribute("twin");
+                if(!tmp.equals(""))
+                    jo.addProperty("twin",Integer.parseInt(tmp));
+
+                tmp = (String) request.getAttribute("quadricep");
+                if(!tmp.equals(""))
+                    jo.addProperty("quadricep",Integer.parseInt(tmp));
+
+                tmp = (String) request.getAttribute("tricep");
+                if(!tmp.equals(""))
+                    jo.addProperty("tricep",Integer.parseInt(tmp));
+
+                tmp = (String) request.getAttribute("wrist");
+                if(!tmp.equals(""))
+                    jo.addProperty("wrist",Integer.parseInt(tmp));
+
+                getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            }
+            else {
+                request.setAttribute("error","Passwords não coincidem.");
+                doGet(request,response);
+            }
         }
     }
 
@@ -68,6 +113,8 @@ public class ClientRegisterServlet extends HttpServlet {
             }
         }
         else {
+            request.getSession().setAttribute("username", null);
+            request.getSession().setAttribute("token", null);
             request.setAttribute("page","ClientRegister");
         }
         getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);

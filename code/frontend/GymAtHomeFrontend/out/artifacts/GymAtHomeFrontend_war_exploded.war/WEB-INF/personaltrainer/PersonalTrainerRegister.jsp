@@ -101,7 +101,7 @@
             <div class="col-md-6 d-inline-flex">
                 <label class="col-md-5 col-form-label">Preço:</label>
                 <div class="col-md-7">
-                    <input type="number" pattern="\d+.dd" class="form-control" name="price" placeholder="Ex: 9.99" required>
+                    <input type="number" pattern="\d+(.\d\d)" class="form-control" name="price" placeholder="Ex: 9.99" required>
                 </div>
             </div>
         </div>
