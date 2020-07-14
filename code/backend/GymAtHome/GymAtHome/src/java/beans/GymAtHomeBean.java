@@ -27,11 +27,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     
     private final static String IP = "";
     
-    private static String IPclients = "37.189.223.35"; // "188.250.39.126";
-    private static String IPpts = "37.189.223.35";
-    private static String IPcore = "37.189.223.35"; //"192.168.1.139"; 
-    private static String IPrequests = "37.189.223.35"; // "188.250.39.126";
-    private static String IPnotifications = "37.189.223.35";
+    private static String IPclients = "188.250.39.126"; // "188.250.39.126";
+    private static String IPpts = "188.250.39.126";
+    private static String IPcore = "192.168.1.139"; //"192.168.1.139"; 
+    private static String IPrequests = "188.250.39.126"; // "188.250.39.126";
+    private static String IPnotifications = "188.250.39.126";
     
     public static String clients;
     public static String pts;
