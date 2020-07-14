@@ -1,6 +1,12 @@
 package clientservlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import okhttp3.Response;
+import parseJSON.ResponseJSON;
+import utils.Http;
+import utils.Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,10 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet(name = "ClientRegisterServlet", urlPatterns = "/ClientRegister")
 public class ClientRegisterServlet extends HttpServlet {
 
+    private final Gson gson = new GsonBuilder().create();
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -43,42 +51,63 @@ public class ClientRegisterServlet extends HttpServlet {
             String confirmationPassword = (String)request.getAttribute("cpassword");
 
             if(password.equals(confirmationPassword)) {
-                //TODO encrypt password
-                JsonObject jo = new JsonObject();
-                jo.addProperty("name", (String) request.getAttribute("name"));
-                jo.addProperty("username", (String) request.getAttribute("username"));
-                jo.addProperty("email", (String) request.getAttribute("email"));
-                jo.addProperty("password",password);
-                jo.addProperty("birthday",(String)request.getAttribute("birthday"));
-                jo.addProperty("sex",(String)request.getAttribute("genre"));
-                jo.addProperty("height",(String)request.getAttribute("height"));
-                jo.addProperty("weight",(String)request.getAttribute("weight"));
+                try {
+                    JsonObject jo = new JsonObject();
+                    jo.addProperty("name", (String) request.getAttribute("name"));
+                    jo.addProperty("username", (String) request.getAttribute("username"));
+                    jo.addProperty("email", (String) request.getAttribute("email"));
+                    jo.addProperty("password", Utils.hashPassword(password));
+                    jo.addProperty("birthday",(String)request.getAttribute("birthday"));
+                    jo.addProperty("sex",(String)request.getAttribute("genre"));
+                    jo.addProperty("height",(String)request.getAttribute("height"));
+                    jo.addProperty("weight",(String)request.getAttribute("weight"));
 
-                String tmp = (String) request.getAttribute("waist");
-                if(!tmp.equals(""))
-                    jo.addProperty("waist",Integer.parseInt(tmp));
+                    String tmp = (String) request.getAttribute("waist");
+                    if(!tmp.equals(""))
+                        jo.addProperty("waist",Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("chest");
-                if(!tmp.equals(""))
-                    jo.addProperty("chest",Integer.parseInt(tmp));
+                    tmp = (String) request.getAttribute("chest");
+                    if(!tmp.equals(""))
+                        jo.addProperty("chest",Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("twin");
-                if(!tmp.equals(""))
-                    jo.addProperty("twin",Integer.parseInt(tmp));
+                    tmp = (String) request.getAttribute("twin");
+                    if(!tmp.equals(""))
+                        jo.addProperty("twin",Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("quadricep");
-                if(!tmp.equals(""))
-                    jo.addProperty("quadricep",Integer.parseInt(tmp));
+                    tmp = (String) request.getAttribute("quadricep");
+                    if(!tmp.equals(""))
+                        jo.addProperty("quadricep",Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("tricep");
-                if(!tmp.equals(""))
-                    jo.addProperty("tricep",Integer.parseInt(tmp));
+                    tmp = (String) request.getAttribute("tricep");
+                    if(!tmp.equals(""))
+                        jo.addProperty("tricep",Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("wrist");
-                if(!tmp.equals(""))
-                    jo.addProperty("wrist",Integer.parseInt(tmp));
+                    tmp = (String) request.getAttribute("wrist");
+                    if(!tmp.equals(""))
+                        jo.addProperty("wrist",Integer.parseInt(tmp));
 
-                getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+                    Response responseHttp = Http.post("",jo.toString());
+
+                    String body = responseHttp.body().string();
+                    ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
+
+                    if (responseHttp.code() == HttpServletResponse.SC_OK) {
+                        JsonObject data = responseJSON.data.getAsJsonObject();
+                        request.getSession().setAttribute("username",request.getAttribute("username"));
+                        request.getSession().setAttribute("token",data.get("token").getAsString());
+                        getServletConfig().getServletContext().getRequestDispatcher("/MyProfileClient").forward(request,response);
+                    }
+                    else {
+                        request.setAttribute("error", responseJSON.msg);
+                        request.setAttribute("page","ClientRegister");
+                    }
+
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                    request.setAttribute("page","ClientRegister");
+                    getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+                }
+
             }
             else {
                 request.setAttribute("error","Passwords não coincidem.");
