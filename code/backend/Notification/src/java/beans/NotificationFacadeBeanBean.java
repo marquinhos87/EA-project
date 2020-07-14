@@ -41,10 +41,6 @@ public class NotificationFacadeBeanBean implements NotificationFacadeBean, Notif
         if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(NotificationFacade.getSession(), personalTrainerUsername)) == null)  {
             throw new PersonalTrainerNotExistsException(personalTrainerUsername);
         }
-        Client client;
-        if ( (client = ClientDAO.getClientByORMID(NotificationFacade.getSession(), user.getUsername())) == null)  {
-            throw new ClientNotExistsException(user.getUsername());
-        }
         Notification notification = new Notification();
         notification.setDate(new Date());
         notification.setDescription(jo.get("description").getAsString());
@@ -69,10 +65,6 @@ public class NotificationFacadeBeanBean implements NotificationFacadeBean, Notif
         Client client;
         if ( (client = ClientDAO.getClientByORMID(NotificationFacade.getSession(), clientUsername)) == null)  {
             throw new ClientNotExistsException(clientUsername);
-        }
-        PersonalTrainer pt;
-        if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(NotificationFacade.getSession(), user.getUsername())) == null)  {
-            throw new PersonalTrainerNotExistsException(user.getUsername());
         }
         Notification notification = new Notification();
         notification.setDate(new Date());
