@@ -140,6 +140,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         return "{\"name\": \"" + client.getName() + "\", " +
                         "\"email\": \"" + client.getEmail() + "\", " +
                         "\"sex\": \"" + client.getSex() + "\", " +
+                        "\"birthday\": \"" + client.getBirthday() + "\", " +
                         "\"age\": " + Utils.years(client.getBirthday(), new Date()) + ", " +
                         "\"height\": \"" + biometricData.getHeight() + "\", " +
                         "\"weight\": \"" + biometricData.getWeight() + "\", " +
@@ -179,6 +180,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         return "{\"name\": \"" + client.getName() + "\", " +
                         "\"email\": \"" + client.getEmail() + "\", " +
                         "\"sex\": \"" + client.getSex() + "\", " +
+                        "\"birthday\": \"" + client.getBirthday() + "\", " +
                         "\"age\": " + Utils.years(client.getBirthday(), new Date()) + ", " +
                         "\"height\": \"" + biometricData.getHeight() + "\", " +
                         "\"weight\": \"" + biometricData.getWeight() + "\", " +
