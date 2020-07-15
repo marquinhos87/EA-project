@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <td>Nº de avaliações</td>
-                    <td>${requestScope.nEvaluations}</td>
+                    <td>${requestScope.nClassifications}</td>
                 </tr>
                 <tr>
                     <td>Nº de clientes</td>

@@ -430,6 +430,35 @@ public class CoreBean implements CoreBeanLocal {
     }
     
     /**
+     * 
+     * @param usernameAsJSON
+     * @throws JsonKeyInFaultException
+     * @throws PersistentException
+     * @throws UserDontExistsException
+     * @throws InvalidTokenException 
+     */
+    @Override
+    public void finishPlan(String usernameAsJSON) throws JsonKeyInFaultException, PersistentException, UserDontExistsException, InvalidTokenException, ClientDontExistsException {
+        JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("token", "username"));
+
+        String username = json.get("username").getAsString();
+        String token = json.get("token").getAsString();
+
+        // Validate given token
+        PersistentSession session = CoreFacade.getSession();
+        Utils.validateToken(token,username,session);
+        
+        Client client;
+        if((client = ClientDAO.getClientByORMID(session,username)) == null)
+            throw new ClientDontExistsException(username);
+
+        ClientDAO.delete(client);
+        
+        //Query q = session.createQuery("delete Client where username=" + username);
+        //q.executeUpdate();
+    }
+    
+    /**
      * Remove a User (Client).
      * 
      * @param usernameAsJson User username and token as a json string.

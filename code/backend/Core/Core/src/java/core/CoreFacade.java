@@ -170,6 +170,18 @@ public class CoreFacade {
     }
     
     /**
+     * 
+     * @param usernameAsJSON
+     * @throws JsonKeyInFaultException
+     * @throws PersistentException
+     * @throws UserDontExistsException
+     * @throws InvalidTokenException 
+     */
+    public void finishPlan(String usernameAsJSON) throws JsonKeyInFaultException, PersistentException, UserDontExistsException, InvalidTokenException, ClientDontExistsException {
+        coreBean.finishPlan(usernameAsJSON);
+    }
+    
+    /**
      * Remove a User (Client).
      * 
      * @param usernameAsJson User username and token as a json string.

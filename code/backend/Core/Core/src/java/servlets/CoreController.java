@@ -91,6 +91,11 @@ public class CoreController extends HttpServlet {
                     res = makeSuccess(HttpServletResponse.SC_OK, coreFacade.getWeekByPersonalTrainer(data));
                     response.setStatus(HttpServletResponse.SC_OK);
                     break;
+                case "finishPlan":
+                    coreFacade.finishPlan(data);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    res = makeSuccess(HttpServletResponse.SC_OK,null);
+                    break;
                 case "removeUserTokenClient":
                     coreFacade.removeUserTokenClient(data);
                     response.setStatus(HttpServletResponse.SC_OK);
