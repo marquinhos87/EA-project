@@ -1,0 +1,72 @@
+version: '3'
+
+services:
+
+  # mysql database managment
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8000:8080"
+
+  #frontend:
+    #image: frontend
+    #build: frontend/
+    #ports:
+      #- "8080:8080"
+
+  backend:
+      image: backend
+      build: .
+      ports:
+        - "8081:8080"
+
+  coredb:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: core
+    ports: 
+      - "5002:3306"
+
+  clientdb:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: clients
+    ports: 
+      - "5003:3306"
+
+  ptdb:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: personaltrainer
+    ports: 
+      - "5004:3306"
+
+  requestdb:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: requests
+    ports: 
+      - "5005:3306"
+      
+  # notificationdb:
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: notification
+  #   ports: 
+  #     - "5006:3306"
