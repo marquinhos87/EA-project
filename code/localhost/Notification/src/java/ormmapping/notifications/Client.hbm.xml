@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Ricardo Petronilho(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="notifications.Client" table="Client" lazy="false">
+		<id name="username" column="Username" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<set name="ORM_Notifications" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="ClientUsername" not-null="false"/>
+			<one-to-many class="notifications.Notification"/>
+		</set>
+	</class>
+</hibernate-mapping>

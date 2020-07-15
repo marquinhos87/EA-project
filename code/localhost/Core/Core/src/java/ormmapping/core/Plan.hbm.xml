@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: joaomarques(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="core.Plan" table="`Plan`" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="personalTrainer" cascade="lock" column="PersonalTrainerUsername" class="core.PersonalTrainer" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="done" column="Done" type="boolean" length="1" not-null="false" lazy="false"/>
+		<property name="modified" column="Modified" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="initialDate" column="InitialDate" type="date" not-null="false" lazy="false"/>
+		<property name="currentWeek" column="CurrentWeek" type="integer" length="10" not-null="true" lazy="false"/>
+		<set name="ORM_Weeks" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="PlanID" not-null="true"/>
+			<one-to-many class="core.Week"/>
+		</set>
+	</class>
+</hibernate-mapping>

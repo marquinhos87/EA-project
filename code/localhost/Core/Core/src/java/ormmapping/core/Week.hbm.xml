@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: joaomarques(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="core.Week" table="Week" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="number" column="Number" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="initialDate" column="InitialDate" type="date" not-null="false" lazy="false"/>
+		<property name="finalDate" column="FinalDate" type="date" not-null="false" lazy="false"/>
+		<set name="ORM_Workouts" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="WeekID" not-null="true"/>
+			<one-to-many class="core.Workout"/>
+		</set>
+	</class>
+</hibernate-mapping>

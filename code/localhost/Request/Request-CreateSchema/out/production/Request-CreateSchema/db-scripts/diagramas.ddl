@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS PersonalTrainer;
+DROP TABLE IF EXISTS Request;
+DROP TABLE IF EXISTS `User`;
+CREATE TABLE Client (Username varchar(255) NOT NULL, PRIMARY KEY (Username));
+CREATE TABLE PersonalTrainer (Username varchar(255) NOT NULL, PRIMARY KEY (Username));
+CREATE TABLE Request (ID int(10) NOT NULL AUTO_INCREMENT, PersonalTrainerUsername varchar(255) NOT NULL, ClientUsername varchar(255) NOT NULL, NumberOfWeeks int(10) NOT NULL, Objective varchar(255), WorkoutPerWeek int(10) NOT NULL, WeekDays varchar(255), Level int(10) NOT NULL, Accepted tinyint(1) NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE `User` (Username varchar(255) NOT NULL, Token varchar(255), PRIMARY KEY (Username));
+ALTER TABLE Request ADD CONSTRAINT FKRequest728213 FOREIGN KEY (ClientUsername) REFERENCES Client (Username);
+ALTER TABLE Request ADD CONSTRAINT FKRequest981633 FOREIGN KEY (PersonalTrainerUsername) REFERENCES PersonalTrainer (Username);
+ALTER TABLE Request DROP FOREIGN KEY FKRequest728213;
+ALTER TABLE Request DROP FOREIGN KEY FKRequest981633;

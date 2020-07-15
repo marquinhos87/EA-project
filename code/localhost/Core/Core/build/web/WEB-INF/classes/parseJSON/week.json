@@ -1,0 +1,27 @@
+{
+  "workouts":
+    [
+      {
+          "designation": "cardio",
+          "weekDay": 2,
+          "done": false,
+          "tasks":
+            [
+              {
+                  "designation": "Correr",
+                  "rest": "2 min",
+                  "duration": "15 min",
+                  "equipment": "passadeira",
+                  "series":
+                    [
+                      {
+                          "description": "Correr",
+                          "repetitions": "10 min",
+                          "rest": "2 min"
+                      }
+                    ]
+              }
+            ]
+      }
+    ]
+}

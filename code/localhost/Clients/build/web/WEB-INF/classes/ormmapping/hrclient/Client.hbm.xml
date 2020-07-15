@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: josepereira(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="hrclient.Client" table="Client" lazy="false">
+		<id name="username" column="Username" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="password" column="Password" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="name" column="Name" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="email" column="Email" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="sex" column="Sex" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="birthday" column="Birthday" type="date" not-null="false" lazy="false"/>
+		<set name="ORM_BiometricDatas" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="ClientUsername" not-null="true"/>
+			<one-to-many class="hrclient.BiometricData"/>
+		</set>
+	</class>
+</hibernate-mapping>

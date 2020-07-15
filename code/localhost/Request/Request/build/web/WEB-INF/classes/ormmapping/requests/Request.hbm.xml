@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: josepereira(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="requests.Request" table="Request" lazy="false">
+		<id name="ID" column="ID" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="numberOfWeeks" column="NumberOfWeeks" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="objective" column="Objective" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="workoutPerWeek" column="WorkoutPerWeek" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="weekDays" column="WeekDays" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="level" column="Level" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="accepted" column="Accepted" type="boolean" length="1" not-null="true" lazy="false"/>
+	</class>
+</hibernate-mapping>

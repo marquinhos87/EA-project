@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Clients:ejb exploded" />
+      <artifact name="Clients:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="670b14e0-a360-4503-ba10-619897276302" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../deployment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../deployment.sh" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1eH9Ew2l980Vdq5St2zyQcHwU1R" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/orm.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="JBoss Server.JBoss 16.0.0.Final">
+    <configuration name="ClientAndBiometricDataRelationTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tests.ClientAndBiometricDataRelationTest" />
+      <module name="Clients" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClientFactoryTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tests.ClientFactoryTest" />
+      <module name="Clients" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DatabaseTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tests.DatabaseTest" />
+      <module name="Clients" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HRClientFacadeBeanTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="tests.HRClientFacadeBeanTest" />
+      <module name="Clients" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="hrclient.Main" />
+      <module name="Clients" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hrclient.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JBoss 16.0.0.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 16.0.0.Final" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/Clients_war_exploded" />
+      <deployment>
+        <artifact name="Clients:ejb exploded">
+          <settings />
+        </artifact>
+        <artifact name="Clients:war exploded">
+          <settings />
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="SERVER" value="" />
+        <option name="BINDING_SET_NAME" value="" />
+        <option name="DOMAIN" value="false" />
+        <option name="SERVER_GROUP" value="" />
+        <option name="USERNAME" value="" />
+        <option name="CREDENTIAL_ALIAS" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="JBoss" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="Clients:ejb exploded" />
+          <artifact name="Clients:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.HRClientFacadeBeanTest" />
+        <item itemvalue="Application.ClientAndBiometricDataRelationTest" />
+        <item itemvalue="Application.DatabaseTest" />
+        <item itemvalue="Application.ClientFactoryTest" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="670b14e0-a360-4503-ba10-619897276302" name="Default Changelist" comment="" />
+      <created>1593967542418</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593967542418</updated>
+      <workItem from="1593967548420" duration="6523000" />
+      <workItem from="1594031246795" duration="6784000" />
+      <workItem from="1594044965933" duration="12783000" />
+      <workItem from="1594118748171" duration="5781000" />
+      <workItem from="1594129007364" duration="11697000" />
+      <workItem from="1594143872205" duration="944000" />
+      <workItem from="1594144949366" duration="1538000" />
+      <workItem from="1594198955744" duration="716000" />
+      <workItem from="1594469175888" duration="31000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="714" y="257" width="563" height="599" key="#com.intellij.ide.util.MemberChooser" timestamp="1594134891578">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="714" y="257" width="563" height="599" key="#com.intellij.ide.util.MemberChooser/72.27.1848.1053@72.27.1848.1053" timestamp="1594134891578" />
+    <state x="729" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594130204326">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="729" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1594130204326" />
+    <state x="618" y="300" width="735" height="527" key="FileChooserDialogImpl" timestamp="1594469202250">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="618" y="300" width="735" height="527" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1594469202250" />
+    <state width="1240" height="275" key="GridCell.Tab.0.bottom" timestamp="1594248408281">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1240" height="275" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1594248408281" />
+    <state width="1240" height="275" key="GridCell.Tab.0.center" timestamp="1594248408281">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1240" height="275" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1594248408281" />
+    <state width="1240" height="275" key="GridCell.Tab.0.left" timestamp="1594248408280">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1240" height="275" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1594248408280" />
+    <state width="1240" height="275" key="GridCell.Tab.0.right" timestamp="1594248408281">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1240" height="275" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1594248408281" />
+    <state x="479" y="131" width="1024" height="852" key="SettingsEditor" timestamp="1594130018386">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="479" y="131" width="1024" height="852" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1594130018386" />
+    <state width="600" height="428" key="javadoc.popup" timestamp="1594055210810">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="600" height="428" key="javadoc.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1594055210810" />
+    <state x="305" y="118" width="1372" height="878" key="new project wizard" timestamp="1594469205042">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="305" y="118" width="1372" height="878" key="new project wizard/72.27.1848.1053@72.27.1848.1053" timestamp="1594469205042" />
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1594034521623">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1594034521623" />
+  </component>
+</project>

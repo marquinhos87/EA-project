@@ -1,0 +1,12 @@
+ALTER TABLE Notification DROP FOREIGN KEY FKNotificati448444;
+ALTER TABLE Notification DROP FOREIGN KEY FKNotificati813298;
+DROP TABLE IF EXISTS Notification;
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS PersonalTrainer;
+DROP TABLE IF EXISTS `User`;
+CREATE TABLE Notification (ID int(10) NOT NULL AUTO_INCREMENT, PersonalTrainerUsername varchar(255), ClientUsername varchar(255), `Date` date, `Read` tinyint(1) NOT NULL, Description varchar(255), PRIMARY KEY (ID));
+CREATE TABLE Client (Username varchar(255) NOT NULL, PRIMARY KEY (Username));
+CREATE TABLE PersonalTrainer (Username varchar(255) NOT NULL, PRIMARY KEY (Username));
+CREATE TABLE `User` (Username varchar(255) NOT NULL, Token varchar(255), PRIMARY KEY (Username));
+ALTER TABLE Notification ADD CONSTRAINT FKNotificati448444 FOREIGN KEY (ClientUsername) REFERENCES Client (Username);
+ALTER TABLE Notification ADD CONSTRAINT FKNotificati813298 FOREIGN KEY (PersonalTrainerUsername) REFERENCES PersonalTrainer (Username);

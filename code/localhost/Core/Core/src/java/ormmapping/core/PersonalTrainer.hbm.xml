@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: joaomarques(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="core.PersonalTrainer" table="PersonalTrainer" lazy="false">
+		<id name="username" column="Username" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<set name="ORM_Plans" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="PersonalTrainerUsername" not-null="true"/>
+			<one-to-many class="core.Plan"/>
+		</set>
+	</class>
+</hibernate-mapping>

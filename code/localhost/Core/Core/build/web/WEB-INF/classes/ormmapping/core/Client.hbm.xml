@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: joaomarques(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="core.Client" table="Client" lazy="false">
+		<id name="username" column="Username" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<many-to-one name="plan" column="PlanID" class="core.Plan" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+	</class>
+</hibernate-mapping>
