@@ -145,7 +145,7 @@ public class MyProfileClientServlet extends HttpServlet {
 
         if(responseObject.status.equals("success")) {
             JsonObject responseJson = responseObject.data.getAsJsonObject();
-            request.setAttribute("username",responseJson.get("username").getAsString());
+            request.setAttribute("username",username);
             request.setAttribute("name",responseJson.get("name").getAsString());
             request.setAttribute("email",responseJson.get("email").getAsString());
             request.setAttribute("birthday",responseJson.get("birthday").getAsString());
@@ -154,7 +154,7 @@ public class MyProfileClientServlet extends HttpServlet {
             request.setAttribute("weight",responseJson.get("weight").getAsInt());
             request.setAttribute("bci",responseJson.get("imc").getAsInt());
 
-            int tmp = 0;
+            int tmp;
             if(responseJson.has("waist") && (tmp = responseJson.get("waist").getAsInt())!=0)
                 request.setAttribute("waist",tmp);
             if(responseJson.has("chest") && (tmp = responseJson.get("chest").getAsInt())!=0)
