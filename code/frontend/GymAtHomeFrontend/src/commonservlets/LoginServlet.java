@@ -33,14 +33,14 @@ public class LoginServlet extends HttpServlet {
 
         //  test if user is logged
         if(username != null && username.startsWith("c")) {
-            Utils.redirect(request, response, "/MyProfileClient", null, null);
+            Utils.redirect(request, response, "/MyProfileClient", null, null, "client");
             return ;
         }
         else if(username != null && username.startsWith("pt")) {
-            Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null);
+            Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null, "pt");
             return ;
         } else if (action == null){
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
             return ;
         }
 
@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
                 login(request,response,"loginPersonalTrainer");
             }
             else { //   error
-                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
                 return;
             }
         }
@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
             return ;
         }
 
@@ -89,7 +89,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             message = "Erro interno do sistema.";
             request.setAttribute("errorMessage", message);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
             return ;
         }
 
@@ -101,21 +101,18 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
                 message = "Erro interno do sistema.";
                 request.setAttribute("errorMessage", message);
-                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
                 return ;
             }
             session.setAttribute("username",username);
             session.setAttribute("token",data.get("newToken").getAsString());
-            if(username.startsWith("c"))
-                session.setAttribute("userType", "client");
-            else
-                session.setAttribute("userType", "pt");
+
             //  redirect to different controllers
             if(username.startsWith("c")) { //  client
-                Utils.redirect(request, response, "/MyProfileClient", null, null);
+                Utils.redirect(request, response, "/MyProfileClient", null, null, "client");
                 return ;
             }else {                //  personal trainer
-                Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null);
+                Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null, "pt");
                 return;
             }
         }else{  //  error
@@ -130,7 +127,7 @@ public class LoginServlet extends HttpServlet {
                     break;
             }
             request.setAttribute("errorMessage", message);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
             return ;
         }
     }

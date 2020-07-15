@@ -37,7 +37,7 @@ public class MyProfileClientServlet extends HttpServlet {
         System.err.println(token);
 
         if(username == null || token == null){
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
             return;
         }
 
@@ -52,7 +52,7 @@ public class MyProfileClientServlet extends HttpServlet {
         if(action.equals("logout")){
             session.setAttribute("username", null);
             session.setAttribute("token", null);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
         }
         else if(action.equals("editprofile")) {
             editProfile(request,response);
@@ -65,7 +65,7 @@ public class MyProfileClientServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
         }
         else {
             JsonObject jo = new JsonObject();
@@ -113,12 +113,12 @@ public class MyProfileClientServlet extends HttpServlet {
             ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
 
             if(responseObject.status.equals("success")) {
-                Utils.redirect(request,response,"MyProfileClient",null,null);
+                Utils.redirect(request,response,"MyProfileClient",null,null, "client");
             }
             else {
                 // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
                 request.setAttribute("errorMessage",responseObject.msg);
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","MyProfileClient",null);
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","MyProfileClient",null, "client");
             }
         }
     }
@@ -134,7 +134,7 @@ public class MyProfileClientServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
             return ;
         }
 
@@ -169,7 +169,7 @@ public class MyProfileClientServlet extends HttpServlet {
                 request.setAttribute("wrist",tmp);
         }
         else request.setAttribute("errorMessage", "Não é possível consultar o perfil neste momento, volte mais tarde.");
-        Utils.redirect(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null);
+        Utils.redirect(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null, "client");
     }
 
     /**

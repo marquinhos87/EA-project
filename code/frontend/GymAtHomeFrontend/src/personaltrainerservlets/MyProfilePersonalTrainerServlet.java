@@ -37,7 +37,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
         System.err.println(token);
 
         if(username == null || token == null){
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, "pt");
             return;
         }
 
@@ -52,7 +52,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
         if(action.equals("logout")){
             session.setAttribute("username", null);
             session.setAttribute("token", null);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
         }
         else if(action.equals("editprofile")) {
             editProfile(request,response);
@@ -65,7 +65,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
         }
         else {
             JsonObject jo = new JsonObject();
@@ -88,12 +88,12 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
             ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
 
             if(responseObject.status.equals("success")) {
-                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
+                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null, "pt");
             }
             else {
                 // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
                 request.setAttribute("errorMessage",responseObject.msg);
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","MyProfilePersonalTrainer",null);
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","MyProfilePersonalTrainer",null, "pt");
             }
         }
     }
@@ -109,7 +109,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
             return;
         }
 
@@ -128,7 +128,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
             request.setAttribute("skill",responseJson.get("skill").getAsString());
         }
         else request.setAttribute("errorMessage", "Não é possível o consultar o perfil neste momento, volte mais tarde.");
-        Utils.redirect(request, response, "/WEB-INF/Template.jsp", "MyProfilePersonalTrainer", null);
+        Utils.redirect(request, response, "/WEB-INF/Template.jsp", "MyProfilePersonalTrainer", null, "pt");
     }
 
     /**

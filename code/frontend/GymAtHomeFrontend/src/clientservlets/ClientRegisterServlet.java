@@ -35,15 +35,16 @@ public class ClientRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("c")) {
-                Utils.redirect(request,response,"MyProfileClient",null,null);
+                Utils.redirect(request,response,"MyProfileClient",null,null, "client");
             }
             else if(username.startsWith("pt")) {
-                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
+                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null, "pt");
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null);
+                request.getSession().setAttribute("userType", null);
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null, null);
             }
         }
         else {
@@ -54,7 +55,7 @@ public class ClientRegisterServlet extends HttpServlet {
                 try {
                     JsonObject jo = new JsonObject();
                     jo.addProperty("name", request.getParameter("name"));
-                    jo.addProperty("username", request.getParameter("username"));
+                    jo.addProperty("username", "c" + request.getParameter("username"));
                     jo.addProperty("email", request.getParameter("email"));
                     jo.addProperty("password", Utils.hashPassword(password));
                     jo.addProperty("birthday", request.getParameter("birthday"));
@@ -93,24 +94,25 @@ public class ClientRegisterServlet extends HttpServlet {
 
                     if (responseJSON.status.equals("success")) {
                         JsonObject data = responseJSON.data.getAsJsonObject();
-                        request.getSession().setAttribute("username",request.getParameter("username"));
+                        request.getSession().setAttribute("userType","client");
+                        request.getSession().setAttribute("username","c" + request.getParameter("username"));
                         request.getSession().setAttribute("token",data.get("token").getAsString());
-                        Utils.redirect(request,response,"MyProfileClient",null,null);
+                        Utils.redirect(request,response,"MyProfileClient",null,null, "client");
                     }
                     else {
                         request.setAttribute("errorMessage", responseJSON.msg);
-                        Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
+                        Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                     request.setAttribute("errorMessage", "An internal error occurred.");
-                    Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
+                    Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
                 }
             }
             else {
                 request.setAttribute("errorMessage","Passwords não coincidem.");
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
             }
         }
     }
@@ -129,21 +131,21 @@ public class ClientRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("c")) {
-                Utils.redirect(request,response,"MyProfileClient",null,null);
+                Utils.redirect(request,response,"MyProfileClient",null,null, "client");
             }
             else if(username.startsWith("pt")) {
-                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
+                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null, "pt");
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null);
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null, null);
             }
         }
         else {
             request.getSession().setAttribute("username", null);
             request.getSession().setAttribute("token", null);
-            Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
+            Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
         }
     }
 }

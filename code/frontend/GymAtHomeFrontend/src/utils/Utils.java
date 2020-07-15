@@ -16,9 +16,9 @@ import java.util.Collection;
 public class Utils {
     public static final String PROTOCOL = "http";
 
-    //public static final String SERVER_URL = "192.168.1.139";
+    public static final String SERVER_URL = "192.168.1.139";
 
-    public static final String SERVER_URL = "192.168.1.56";
+    //public static final String SERVER_URL = "192.168.1.56";
 
     public static final String SERVER_PORT = "8081";
     public static final String SERVER_CONTROLLER = "GymAtHome";
@@ -30,9 +30,10 @@ public class Utils {
         return new String(hash);
     }
 
-    public static void redirect(HttpServletRequest request, HttpServletResponse response, String path, String page, String action) throws ServletException, IOException {
+    public static void redirect(HttpServletRequest request, HttpServletResponse response, String path, String page, String action, String userType) throws ServletException, IOException {
         request.setAttribute("action", action);
         request.setAttribute("page", page);
+        request.setAttribute("userType",userType);
         request.getRequestDispatcher(path).forward(request, response);
     }
 
