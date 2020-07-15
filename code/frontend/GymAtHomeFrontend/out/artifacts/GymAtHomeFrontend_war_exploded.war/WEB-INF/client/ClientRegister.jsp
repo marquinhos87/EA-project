@@ -36,7 +36,7 @@
                 <label class="col-md-5 col-form-label">Username:</label>
                 <div class="col-md-7 d-inline-flex">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">u</div>
+                        <div class="input-group-text">c</div>
                     </div>
                     <input type="text" class="form-control" name="username" placeholder="Ex: gervasio98" required>
                 </div>
