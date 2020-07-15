@@ -5,7 +5,7 @@
 	rm -rf Core.war
 	cp -rf ../backend/Core/Core/dist/Core.war .
 	rm -rf GymAtHome.war
-	cp -rf ../backend/GymAtHome/GymAtHome/dist/GymAtHome.war .
+	cp -rf GymAtHomeLocalhost/GymAtHome/dist/GymAtHome.war .
 	rm -rf Notification.war
 	cp -rf ../backend/Notification/dist/Notification.war .
 	rm -rf PersonalTrainer.war

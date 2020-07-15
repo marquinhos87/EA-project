@@ -70,3 +70,4 @@ services:
       MYSQL_DATABASE: notification
     ports: 
       - "5006:3306"
+
