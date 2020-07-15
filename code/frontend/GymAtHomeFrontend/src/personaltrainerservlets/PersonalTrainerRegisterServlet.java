@@ -1,14 +1,25 @@
 package personaltrainerservlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import okhttp3.Response;
+import parseJSON.ResponseJSON;
+import utils.Http;
+import utils.Utils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet(name = "PersonalTrainerRegisterServlet", urlPatterns = "/PersonalTrainerRegister")
 public class PersonalTrainerRegisterServlet extends HttpServlet {
+
+    private final Gson gson = new GsonBuilder().create();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -24,21 +35,57 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("u")) {
-                request.setAttribute("page","MyProfileClient");
+                Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
-                request.setAttribute("page","MyProfilePersonalTrainer");
+                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
-                request.setAttribute("page", "Login");
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
-
         }
         else {
-            //TODO
+            String password = (String)request.getAttribute("password");
+            String confirmationPassword = (String)request.getAttribute("cpassword");
+
+            if(password.equals(confirmationPassword)) {
+                try {
+                    JsonObject jo = new JsonObject();
+                    jo.addProperty("name", (String) request.getAttribute("name"));
+                    jo.addProperty("username", (String) request.getAttribute("username"));
+                    jo.addProperty("email", (String) request.getAttribute("email"));
+                    jo.addProperty("password", Utils.hashPassword(password));
+                    jo.addProperty("birthday",(String)request.getAttribute("birthday"));
+                    jo.addProperty("sex",(String)request.getAttribute("genre"));
+
+                    Response responseHttp = Http.post(Utils.SERVER + "createPersonalTrainer",jo.toString());
+
+                    String body = responseHttp.body().string();
+                    ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
+
+                    if (responseJSON.status.equals("success")) {
+                        JsonObject data = responseJSON.data.getAsJsonObject();
+                        request.getSession().setAttribute("username",request.getAttribute("username"));
+                        request.getSession().setAttribute("token",data.get("token").getAsString());
+                        Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
+                    }
+                    else {
+                        request.setAttribute("errorMessage", responseJSON.msg);
+                        Utils.redirect(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
+                    }
+
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                    request.setAttribute("errorMessage", "An internal error occurred.");
+                    Utils.redirect(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
+                }
+            }
+            else {
+                request.setAttribute("errorMessage","Passwords não coincidem.");
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
+            }
         }
     }
 
@@ -56,20 +103,19 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("u")) {
-                request.setAttribute("page","MyProfileClient");
+                Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
-                request.setAttribute("page","MyProfilePersonalTrainer");
+                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
-                request.setAttribute("page", "Login");
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
         else {
-            request.setAttribute("page","PersonalTrainerRegister");
+            Utils.redirect(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
         }
-        getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
     }
 }

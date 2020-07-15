@@ -43,26 +43,29 @@ public class MyProfileClientServlet extends HttpServlet {
 
         if(action == null){
             viewProfile(request, response);
+            return;
         }
 
         action = action.toLowerCase();
 
         //  log out
-        if(action != null && action.equals("logout")){
+        if(action.equals("logout")){
             session.setAttribute("username", null);
             session.setAttribute("token", null);
             Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
         }
+        else if(action.equals("editprofile")) {
+            editProfile(request,response);
+        }
     }
 
-    public void editProfile(HttpServletRequest request, HttpServletResponse response){
-        /*String username = (String) request.getSession().getAttribute("username");
+    public void editProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = (String) request.getSession().getAttribute("username");
         String token = (String) request.getSession().getAttribute("token");
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
         }
         else {
             JsonObject jo = new JsonObject();
@@ -104,21 +107,20 @@ public class MyProfileClientServlet extends HttpServlet {
             if(!tmp.equals(""))
                 jo.addProperty("wrist",Integer.parseInt(tmp));
 
-            Response responseHttp = Http.post("http://gymathome:8081/GymAtHome/api/editClientProfile",jo.toString());
+            Response responseHttp = Http.post(Utils.SERVER + "editClientProfile",jo.toString());
 
-            request.setAttribute("page","MyProfileClient");
+            String responseBody = responseHttp.body().string();
+            ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
 
-            if(responseHttp.code() == HttpServletResponse.SC_OK) {
-                doGet(request,response);
+            if(responseObject.status.equals("success")) {
+                Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else {
-                String responseBody = responseHttp.body().string();
-                ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
                 // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
-                request.setAttribute("error",responseObject.msg);
-                getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+                request.setAttribute("errorMessage",responseObject.msg);
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","MyProfileClient",null);
             }
-        }*/
+        }
     }
 
     public void viewProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

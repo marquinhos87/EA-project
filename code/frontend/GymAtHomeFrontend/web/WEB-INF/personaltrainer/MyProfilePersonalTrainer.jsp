@@ -82,6 +82,32 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-6 d-inline-flex">
+                    <label class="col-md-5 col-form-label">Especialidade:</label>
+                    <div class="col-md-7">
+                        <select class="custom-select" name="skill">
+                            <c:choose>
+                                <c:when test="${requestScope.skill=='musculacao'}">
+                                    <option value="musculacao" selected>Musculação</option>
+                                    <option value="cardio">Cardio</option>
+                                    <option value="ambos">Ambos</option>
+                                </c:when>
+                                <c:when test="${requestScope.skill=='cardio'}">
+                                    <option value="musculacao">Musculação</option>
+                                    <option value="cardio" selected>Cardio</option>
+                                    <option value="ambos">Ambos</option>
+                                </c:when>
+                                <c:when test="${requestScope.skill=='ambos'}">
+                                    <option value="musculacao">Musculação</option>
+                                    <option value="cardio">Cardio</option>
+                                    <option value="ambos" selected>Ambos</option>
+                                </c:when>
+                            </c:choose>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">Password Antiga:</label>
                     <div class="col-md-7">
                         <input type="password" class="form-control" name="oldpassword" placeholder="********">

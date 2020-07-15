@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 public class ClientRegisterServlet extends HttpServlet {
 
     private final Gson gson = new GsonBuilder().create();
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -34,17 +35,16 @@ public class ClientRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("u")) {
-                request.setAttribute("page","MyProfileClient");
+                Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
-                request.setAttribute("page","MyProfilePersonalTrainer");
+                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
-                request.setAttribute("page", "Login");
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
         }
         else {
             String password = (String)request.getAttribute("password");
@@ -63,55 +63,54 @@ public class ClientRegisterServlet extends HttpServlet {
                     jo.addProperty("weight",(String)request.getAttribute("weight"));
 
                     String tmp = (String) request.getAttribute("waist");
-                    if(!tmp.equals(""))
+                    if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("waist",Integer.parseInt(tmp));
 
                     tmp = (String) request.getAttribute("chest");
-                    if(!tmp.equals(""))
+                    if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("chest",Integer.parseInt(tmp));
 
                     tmp = (String) request.getAttribute("twin");
-                    if(!tmp.equals(""))
+                    if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("twin",Integer.parseInt(tmp));
 
                     tmp = (String) request.getAttribute("quadricep");
-                    if(!tmp.equals(""))
+                    if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("quadricep",Integer.parseInt(tmp));
 
                     tmp = (String) request.getAttribute("tricep");
-                    if(!tmp.equals(""))
+                    if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("tricep",Integer.parseInt(tmp));
 
                     tmp = (String) request.getAttribute("wrist");
-                    if(!tmp.equals(""))
+                    if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("wrist",Integer.parseInt(tmp));
 
-                    Response responseHttp = Http.post("http://gymathome:8081/GymAtHome/api/createClient",jo.toString());
+                    Response responseHttp = Http.post(Utils.SERVER + "createClient",jo.toString());
 
                     String body = responseHttp.body().string();
                     ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
-                    if (responseHttp.code() == HttpServletResponse.SC_OK) {
+                    if (responseJSON.status.equals("success")) {
                         JsonObject data = responseJSON.data.getAsJsonObject();
                         request.getSession().setAttribute("username",request.getAttribute("username"));
                         request.getSession().setAttribute("token",data.get("token").getAsString());
-                        getServletConfig().getServletContext().getRequestDispatcher("/MyProfileClient").forward(request,response);
+                        Utils.redirect(request,response,"MyProfileClient",null,null);
                     }
                     else {
-                        request.setAttribute("error", responseJSON.msg);
-                        request.setAttribute("page","ClientRegister");
+                        request.setAttribute("errorMessage", responseJSON.msg);
+                        Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                    request.setAttribute("page","ClientRegister");
-                    getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+                    request.setAttribute("errorMessage", "An internal error occurred.");
+                    Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                 }
-
             }
             else {
-                request.setAttribute("error","Passwords não coincidem.");
-                doGet(request,response);
+                request.setAttribute("errorMessage","Passwords não coincidem.");
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
             }
         }
     }
@@ -131,21 +130,22 @@ public class ClientRegisterServlet extends HttpServlet {
         if(username != null && token != null) {
             if(username.startsWith("u")) {
                 request.setAttribute("page","MyProfileClient");
+                Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
                 request.setAttribute("page","MyProfilePersonalTrainer");
+                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
-                request.setAttribute("page", "Login");
+                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
         else {
             request.getSession().setAttribute("username", null);
             request.getSession().setAttribute("token", null);
-            request.setAttribute("page","ClientRegister");
+            Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
         }
-        getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
     }
 }

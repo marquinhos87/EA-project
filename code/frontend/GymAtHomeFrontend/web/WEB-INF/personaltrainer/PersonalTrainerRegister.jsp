@@ -90,9 +90,9 @@
                 <label class="col-md-5 col-form-label">Especialidade:</label>
                 <div class="col-md-7">
                     <select class="custom-select" name="skill" required>
-                        <option value="c">Cardio</option>
-                        <option value="m">Musculação</option>
-                        <option value="a">Ambos</option>
+                        <option value="cardio">Cardio</option>
+                        <option value="musculacao">Musculação</option>
+                        <option value="ambos">Ambos</option>
                     </select>
                 </div>
             </div>
