@@ -61,12 +61,12 @@ services:
     ports: 
       - "5005:3306"
       
-  # notificationdb:
-  #   image: mysql
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: password
-  #     MYSQL_DATABASE: notification
-  #   ports: 
-  #     - "5006:3306"
+  notificationdb:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: notification
+    ports: 
+      - "5006:3306"
