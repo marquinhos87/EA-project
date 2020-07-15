@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Utils {
     public static final String PROTOCOL = "http";
-    public static final String SERVER_URL = "37.189.223.35";
+    public static final String SERVER_URL = "192.168.1.56";
     public static final String SERVER_PORT = "8081";
     public static final String SERVER_CONTROLLER = "GymAtHome";
     public static final String SERVER = PROTOCOL + "://" + SERVER_URL + ":" + SERVER_PORT + "/" + SERVER_CONTROLLER + "/api/";
