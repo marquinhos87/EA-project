@@ -3,6 +3,7 @@ package commonservlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import exceptions.JsonKeyInFaultException;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
 import utils.Http;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/Login")
 public class LoginServlet extends HttpServlet {
@@ -79,11 +81,10 @@ public class LoginServlet extends HttpServlet {
         }
 
         String responseBody = responseHttp.body().string();
-        JsonObject data = null;
-        ResponseJSON responseJSON = null;
+        JsonObject responseJSON = null;
         try{
-            responseJSON = gson.fromJson(responseBody, ResponseJSON.class);
-            data = responseJSON.data.getAsJsonObject();
+            Utils.validateJson(gson, responseBody, Arrays.asList("status", "code", "msg", "data"));
+            responseJSON = gson.fromJson(responseBody, JsonObject.class);
         } catch (Exception e){
             e.printStackTrace();
             message = "Erro interno do sistema.";
@@ -92,9 +93,23 @@ public class LoginServlet extends HttpServlet {
             return ;
         }
 
-        if(data!= null && responseJSON.status.equals("success")) {
+        if(responseJSON.get("status").getAsString().equals("success")) {
+            JsonObject data = responseJSON.get("data").getAsJsonObject();
+            try {
+                Utils.validateJson(gson,data.toString(), Arrays.asList("oldToken", "newToken"));
+            } catch (JsonKeyInFaultException e) {
+                e.printStackTrace();
+                message = "Erro interno do sistema.";
+                request.setAttribute("errorMessage", message);
+                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                return ;
+            }
             session.setAttribute("username",username);
             session.setAttribute("token",data.get("newToken").getAsString());
+            if(username.startsWith("c"))
+                session.setAttribute("userType", "client");
+            else
+                session.setAttribute("userType", "pt");
             //  redirect to different controllers
             if(username.startsWith("c")) { //  client
                 Utils.redirect(request, response, "/MyProfileClient", null, null);
@@ -104,11 +119,10 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
         }else{  //  error
-            switch (responseJSON.code){
-                case 22:    //  invalid password
-                    message = "Credênciais inválidas.";
-                    break;
+            switch (responseJSON.get("code").getAsInt()){
+                case 22:
                 case 404:
+                case 20:
                     message = "Credênciais inválidas.";
                     break;
                 default:    //  other errors

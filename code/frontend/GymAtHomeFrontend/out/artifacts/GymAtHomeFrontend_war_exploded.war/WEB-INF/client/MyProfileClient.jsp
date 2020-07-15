@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">IMC:</label>
-                    <label class="col-md-7 col-form-label">${requestScope.bci!=null ? requestScope.bci : ""}</label>
+                    <label class="col-md-7 col-form-label">${requestScope.bmi!=null ? requestScope.bmi : ""}</label>
                 </div>
             </div>
             <div class="form-group row">
@@ -81,7 +81,7 @@
                 <div class="col-sm-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">Peso (kg):</label>
                     <div class="col-md-7">
-                        <input type="number" pattern="\d+" min="0" class="form-control" name="weight" value="${requestScope.weight!=null ? requestScope.weight : ""}" placeholder="${requestScope.weight!=null ? requestScope.weight : "Ex: 75"}">
+                        <input type="number" pattern="\d+(\.|)" min="0" class="form-control" name="weight" value="${requestScope.weight!=null ? requestScope.weight : ""}" placeholder="${requestScope.weight!=null ? requestScope.weight : "Ex: 75"}">
                     </div>
                 </div>
             </div>

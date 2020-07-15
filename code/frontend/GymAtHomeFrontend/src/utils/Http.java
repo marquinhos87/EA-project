@@ -35,6 +35,7 @@ public class Http {
     public static Response post(String url, String jsonContent) throws IOException {
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(jsonContent,JSON);
+        System.err.println("[METHOD=POST]:" + url);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)

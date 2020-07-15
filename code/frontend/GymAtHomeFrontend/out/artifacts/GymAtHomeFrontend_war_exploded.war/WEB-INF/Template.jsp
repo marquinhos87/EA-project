@@ -23,7 +23,7 @@
             <!-- header and nav -->
             <header class="page-header">
                 <c:choose>
-                    <c:when test="${requestScope.user=='client'}">
+                    <c:when test="${requestScope.userType == 'client'}">
                         <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                             <div class="navbar-collapse d-flex justify-content-end">
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='SearchPersonalTrainer' ? "disabled" : "value=\"searchPersonalTrainer\""} formaction="${pageContext.request.contextPath}\SearchPersonalTrainer">Procurar PersonalTrainer</button>
@@ -34,7 +34,7 @@
                             </div>
                         </form>
                     </c:when>
-                    <c:when test="${requestScope.user=='personalTrainer'}">
+                    <c:when test="${requestScope.userType == 'pt'}">
                         <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                             <div class="navbar-collapse d-flex justify-content-end">
                                 <button type="submit" class="py-3 px-1 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='SearchPersonalTrainer' ? "disabled" : "value=\"searchPersonalTrainer\""} formaction="${pageContext.request.contextPath}\MyRequests">Meus Pedidos</button>
@@ -54,7 +54,7 @@
                     </c:when>
                     <c:when test="true">
                         <div class="d-flex justify-content-center my-5">
-                            <h1>GymAtHome</h1>
+                            <h1>Gym@Home</h1>
                         </div>
                     </c:when>
                 </c:choose>

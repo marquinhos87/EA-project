@@ -34,7 +34,7 @@ public class ClientRegisterServlet extends HttpServlet {
         String username = (String) request.getSession().getAttribute("username");
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
-            if(username.startsWith("u")) {
+            if(username.startsWith("c")) {
                 Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
@@ -128,12 +128,10 @@ public class ClientRegisterServlet extends HttpServlet {
         String username = (String) request.getSession().getAttribute("username");
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
-            if(username.startsWith("u")) {
-                request.setAttribute("page","MyProfileClient");
+            if(username.startsWith("c")) {
                 Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
-                request.setAttribute("page","MyProfilePersonalTrainer");
                 Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null);
             }
             else {

@@ -151,8 +151,8 @@ public class MyProfileClientServlet extends HttpServlet {
             request.setAttribute("birthday",responseJson.get("birthday").getAsString());
             request.setAttribute("genre",responseJson.get("sex").getAsString());
             request.setAttribute("height",responseJson.get("height").getAsInt());
-            request.setAttribute("weight",responseJson.get("weight").getAsInt());
-            request.setAttribute("bci",responseJson.get("imc").getAsInt());
+            request.setAttribute("weight",responseJson.get("weight").getAsFloat());
+            request.setAttribute("bmi",responseJson.get("BMI").getAsFloat());
 
             int tmp;
             if(responseJson.has("waist") && (tmp = responseJson.get("waist").getAsInt())!=0)
@@ -168,7 +168,7 @@ public class MyProfileClientServlet extends HttpServlet {
             if(responseJson.has("wrist") && (tmp = responseJson.get("wrist").getAsInt())!=0)
                 request.setAttribute("wrist",tmp);
         }
-        else request.setAttribute("errorMessage", "Não é possível o consultar o perfil neste momento, volte mais tarde.");
+        else request.setAttribute("errorMessage", "Não é possível consultar o perfil neste momento, volte mais tarde.");
         Utils.redirect(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null);
     }
 

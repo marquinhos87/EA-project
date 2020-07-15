@@ -31,10 +31,10 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
+        /*String username = (String) request.getSession().getAttribute("username");
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
-            if(username.startsWith("u")) {
+            if(username.startsWith("c")) {
                 Utils.redirect(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
@@ -86,7 +86,7 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                 request.setAttribute("errorMessage","Passwords não coincidem.");
                 Utils.redirect(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
             }
-        }
+        }*/
     }
 
     /**
@@ -99,7 +99,7 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
+        /*String username = (String) request.getSession().getAttribute("username");
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("u")) {
@@ -116,6 +116,6 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
         }
         else {
             Utils.redirect(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
-        }
+        }*/
     }
 }

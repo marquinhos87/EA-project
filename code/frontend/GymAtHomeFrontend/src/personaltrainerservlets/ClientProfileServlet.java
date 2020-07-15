@@ -18,7 +18,7 @@ import java.io.IOException;
 @WebServlet(name = "ClientProfileServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/ClientProfile")
 public class ClientProfileServlet extends HttpServlet {
 
-    private final Gson gson = new GsonBuilder().create();
+    /*private final Gson gson = new GsonBuilder().create();
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = (String) request.getSession().getAttribute("username");
@@ -76,7 +76,7 @@ public class ClientProfileServlet extends HttpServlet {
                 Utils.redirect(request,response,"/WEB-INF/Template.jsp",null,null);
             }
         }
-    }
+    }*/
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -88,7 +88,7 @@ public class ClientProfileServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request,response);
+        //processRequest(request,response);
     }
 
     /**
@@ -101,6 +101,6 @@ public class ClientProfileServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request,response);
+        //processRequest(request,response);
     }
 }
