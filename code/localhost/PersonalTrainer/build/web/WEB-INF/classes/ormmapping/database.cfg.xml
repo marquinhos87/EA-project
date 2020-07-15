@@ -22,14 +22,14 @@
     <Dialect>org.hibernate.dialect.MySQLDialect</Dialect>
     <DriverClass>com.mysql.jdbc.Driver</DriverClass>
     
-    <!--<URL>jdbc:mysql://localhost:3306/personaltrainer?serverTimezone=UTC</URL>-->
-    <URL>jdbc:mysql://ptdb:3306/personaltrainer?serverTimezone=UTC</URL>
+    <URL>jdbc:mysql://localhost:3306/personaltrainer?serverTimezone=UTC</URL>
+    <!--<URL>jdbc:mysql://ptdb:3306/personaltrainer?serverTimezone=UTC</URL>-->
     
     <UserName>root</UserName>
     <EncryptedPassword>86B5D09CD8912AF029972D274BBCBE9B</EncryptedPassword>
     
-    <!--<HostName>localhost</HostName>-->
-    <HostName>ptdb</HostName>
+    <HostName>localhost</HostName>
+    <!--<HostName>ptdb</HostName>-->
     
     <PortNO>3306</PortNO>
     <DBName>personaltrainer?serverTimezone=UTC</DBName>

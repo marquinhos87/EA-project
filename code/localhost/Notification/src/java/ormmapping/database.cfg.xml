@@ -22,14 +22,14 @@
     <Dialect>org.hibernate.dialect.MySQLDialect</Dialect>
     <DriverClass>com.mysql.jdbc.Driver</DriverClass>
     
-    <!--<URL>jdbc:mysql://localhost:3306/notification?serverTimezone=UTC</URL>-->
-    <URL>jdbc:mysql://notificationdb:3306/notification?serverTimezone=UTC</URL>
+    <URL>jdbc:mysql://localhost:3306/notification?serverTimezone=UTC</URL>
+    <!--<URL>jdbc:mysql://notificationdb:3306/notification?serverTimezone=UTC</URL>-->
     
     <UserName>root</UserName>
     <EncryptedPassword>86B5D09CD8912AF029972D274BBCBE9B</EncryptedPassword>
     
-    <!--<HostName>localhost</HostName>-->
-    <HostName>notificationdb</HostName>
+    <HostName>localhost</HostName>
+    <!--<HostName>notificationdb</HostName>-->
     
     <PortNO>3306</PortNO>
     <DBName>notification?serverTimezone=UTC</DBName>

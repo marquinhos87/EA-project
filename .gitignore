@@ -8,3 +8,9 @@ modelos-tarefas/~$*.docx
 /code/backend/Notification/wildfly-12.0.0.Final/
 wildfly-12.0.0.Final/*
 /code/frontend/wildfly-16.0.0.Final/
+/code/localhost/Notification/dist/
+/code/localhost/Notification/build/
+/code/localhost/PersonalTrainer/build/
+/code/localhost/PersonalTrainer/dist/
+/code/localhost/PersonalTrainer/nbproject/private/
+/code/localhost/Notification/nbproject/private/
