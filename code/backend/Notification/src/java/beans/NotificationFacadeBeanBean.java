@@ -8,12 +8,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import notifications.*;
 import org.orm.PersistentException;
+
+// ADORO O NESTOR
 
 @javax.ejb.Stateless(name="NotificationsFacadeBean")
 @javax.ejb.Remote(NotificationFacadeBean.class)

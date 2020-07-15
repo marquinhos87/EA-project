@@ -60,19 +60,21 @@ public class Main {
         Gson gson = new Gson();
         
         response = Http.post(url + "createClient", clientJSON);
-        if (response.code() != HttpServletResponse.SC_OK) {
+        String data = response.body().string();
+        if (gson.fromJson(data, ResponseJSON.class).code != 1) {
             System.err.println("Could not create client, HTTP status code != 200");
             System.exit(1);
         } 
-        String clientToken = gson.fromJson(response.body().string(), ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
+        String clientToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
         System.out.println("client token = " + clientToken);
         
         response = Http.post(url + "createPersonalTrainer", ptJSON);
-        if (response.code() != HttpServletResponse.SC_OK) {
+        data = response.body().string();
+        if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
             System.err.println("Could not create personal trainer, HTTP status code != 200");
             System.exit(1);
         } 
-        String ptToken = gson.fromJson(response.body().string(), ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
+        String ptToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
         System.out.println("pt token = " + ptToken);       
     
         String fstJSON = 
@@ -110,7 +112,8 @@ public class Main {
         "}";
         
         response = Http.post(url + "createWeek", fstJSON);
-        if (response.code() != HttpServletResponse.SC_OK) {
+        data = response.body().string();
+        if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
             System.err.println("Could not create week, HTTP status code != 200");
             System.exit(1);
         } 
@@ -152,7 +155,8 @@ public class Main {
                 
         for (int i=0; i<5; i++) {
             response = Http.post(url + "createWeek", weekJSON);
-            if (response.code() != HttpServletResponse.SC_OK) {
+            data = response.body().string();
+            if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
                 System.err.println("Could not create week on iteration - " + i + " - HTTP status code != 200");
                 System.exit(1);
             } 

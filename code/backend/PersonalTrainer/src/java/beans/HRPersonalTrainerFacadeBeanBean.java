@@ -215,7 +215,9 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
             String personalTrainerUsername = jsonObject.get("username").getAsString();
             Utils.validateToken(personalTrainerToken, personalTrainerUsername);
             String clientUsername = jsonObject.get("clientUsername").getAsString();
-            if ( ClientDAO.getClientByORMID(HRPersonalTrainerFacade.getSession(), clientUsername) != null) throw new ClientAlreadyExistsException(clientUsername);
+            if ( ClientDAO.getClientByORMID(HRPersonalTrainerFacade.getSession(), clientUsername) != null) {
+                throw new ClientAlreadyExistsException(clientUsername);
+            }
             Client client = new Client();
             client.setUsername(clientUsername);
             PersonalTrainer pt;

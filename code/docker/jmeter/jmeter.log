@@ -1,0 +1,519 @@
+2020/07/15 14:39:28 INFO  - jmeter.util.JMeterUtils: Setting Locale to en_US 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: Loading user properties from: /usr/share/jmeter/bin/user.properties 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: Loading system properties from: /usr/share/jmeter/bin/system.properties 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: Copyright (c) 1998-2015 The Apache Software Foundation 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: Version 2.13.20180731 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: java.version=11.0.7 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: java.vm.name=OpenJDK 64-Bit Server VM 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: os.name=Linux 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: os.arch=amd64 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: os.version=5.4.0-40-generic 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: file.encoding=UTF-8 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: Default Locale=English (United States) 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: JMeter  Locale=English (United States) 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: JMeterHome=/usr/share/jmeter 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: user.dir  =/home/ricardo/Desktop/EA-project/code/docker/jmeter 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: PWD       =/home/ricardo/Desktop/EA-project/code/docker/jmeter 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: IP: 127.0.1.1 Name: ubuntu-desktop FullName: ubuntu-desktop 
+2020/07/15 14:39:28 INFO  - jmeter.gui.action.LookAndFeelCommand: Using look and feel: javax.swing.plaf.metal.MetalLookAndFeel [Metal, CrossPlatform] 
+2020/07/15 14:39:28 INFO  - jmeter.JMeter: Loaded icon properties from org/apache/jmeter/images/icon.properties 
+2020/07/15 14:39:29 INFO  - jmeter.engine.util.CompoundVariable: Note: Function class names must contain the string: '.functions.' 
+2020/07/15 14:39:29 INFO  - jmeter.engine.util.CompoundVariable: Note: Function class names must not contain the string: '.gui.' 
+2020/07/15 14:39:29 INFO  - jmeter.util.BSFTestElement: Registering JMeter version of JavaScript engine as work-round for BSF-22 
+2020/07/15 14:39:29 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Cannot find .className property for htmlParser, using default 
+2020/07/15 14:39:29 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/html is  
+2020/07/15 14:39:29 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for application/xhtml+xml is  
+2020/07/15 14:39:29 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for application/xml is  
+2020/07/15 14:39:29 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/xml is  
+2020/07/15 14:39:29 INFO  - jmeter.protocol.http.sampler.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser 
+2020/07/15 14:39:29 INFO  - jmeter.gui.util.MenuFactory: Skipping org.apache.jmeter.protocol.http.modifier.gui.ParamModifierGui 
+2020/07/15 14:39:29 INFO  - jorphan.exec.KeyToolUtils: keytool found at 'keytool' 
+2020/07/15 14:39:29 INFO  - jmeter.protocol.http.proxy.ProxyControl: HTTP(S) Test Script Recorder SSL Proxy will use keys that support embedded 3rd party resources in file /usr/share/jmeter/bin/proxyserver.jks 
+2020/07/15 14:39:30 INFO  - jmeter.samplers.SampleResult: Note: Sample TimeStamps are START times 
+2020/07/15 14:39:30 INFO  - jmeter.samplers.SampleResult: sampleresult.default.encoding is set to ISO-8859-1 
+2020/07/15 14:39:30 INFO  - jmeter.samplers.SampleResult: sampleresult.useNanoTime=true 
+2020/07/15 14:39:30 INFO  - jmeter.samplers.SampleResult: sampleresult.nanoThreadSleep=5000 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: Listeners will be started after enabling running version 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: To revert to the earlier behaviour, define jmeterengine.startlistenerslater=false 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 14:44:44 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 14:44:44 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 14:44:44 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: Starting 1 threads for group Thread Group. 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 14:44:44 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 1 ramp-up 1 perThread 1000.0 delayedStart=false 
+2020/07/15 14:44:44 INFO  - jmeter.threads.JMeterThread: jmeterthread.startearlier=true (see jmeter.properties) 
+2020/07/15 14:44:44 INFO  - jmeter.threads.JMeterThread: Running PostProcessors in forward order 
+2020/07/15 14:44:44 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 14:44:44 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 14:44:44 INFO  - jmeter.protocol.http.sampler.HTTPHCAbstractImpl: Local host = ubuntu-desktop 
+2020/07/15 14:44:44 INFO  - jmeter.protocol.http.sampler.HTTPHC4Impl: HTTP request retry count = 0 
+2020/07/15 14:44:44 INFO  - jmeter.protocol.http.sampler.HTTPHC4Impl: Setting up HTTPS TrustAll scheme 
+2020/07/15 14:44:44 INFO  - jmeter.util.JsseSSLManager: Using default SSL protocol: TLS 
+2020/07/15 14:44:44 INFO  - jmeter.util.JsseSSLManager: SSL session context: per-thread 
+2020/07/15 14:44:44 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 14:44:44 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 14:44:44 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 14:44:44 INFO  - jmeter.services.FileServer: Default base='/home/ricardo/Desktop/EA-project/code/docker/jmeter' 
+2020/07/15 14:44:44 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 14:46:07 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 14:46:07 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 14:46:07 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 14:46:07 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 14:46:07 INFO  - jmeter.engine.StandardJMeterEngine: Starting 1 threads for group Thread Group. 
+2020/07/15 14:46:07 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 14:46:07 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 1 ramp-up 1 perThread 1000.0 delayedStart=false 
+2020/07/15 14:46:07 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 14:46:07 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 14:46:07 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 14:46:07 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 14:46:07 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 14:46:07 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 14:46:07 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 14:46:30 ERROR - jmeter.JMeter: Uncaught exception:  java.lang.NegativeArraySizeException: -159482076
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.getData(RespTimeGraphVisualizer.java:401)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.makeGraph(RespTimeGraphVisualizer.java:364)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.actionMakeGraph(RespTimeGraphVisualizer.java:583)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.access$700(RespTimeGraphVisualizer.java:76)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer$2.stateChanged(RespTimeGraphVisualizer.java:501)
+	at java.desktop/javax.swing.JTabbedPane.fireStateChanged(JTabbedPane.java:418)
+	at java.desktop/javax.swing.JTabbedPane$ModelListener.stateChanged(JTabbedPane.java:269)
+	at java.desktop/javax.swing.DefaultSingleSelectionModel.fireStateChanged(DefaultSingleSelectionModel.java:143)
+	at java.desktop/javax.swing.DefaultSingleSelectionModel.setSelectedIndex(DefaultSingleSelectionModel.java:74)
+	at java.desktop/javax.swing.JTabbedPane.setSelectedIndexImpl(JTabbedPane.java:622)
+	at java.desktop/javax.swing.JTabbedPane.setSelectedIndex(JTabbedPane.java:597)
+	at java.desktop/javax.swing.plaf.basic.BasicTabbedPaneUI$Handler.mousePressed(BasicTabbedPaneUI.java:4090)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6628)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6396)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2263)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:5007)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4839)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4918)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4544)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4488)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2772)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4839)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+2020/07/15 14:46:33 ERROR - jmeter.JMeter: Uncaught exception:  java.lang.NegativeArraySizeException: -159482076
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.getData(RespTimeGraphVisualizer.java:401)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.makeGraph(RespTimeGraphVisualizer.java:364)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.actionMakeGraph(RespTimeGraphVisualizer.java:583)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer.access$700(RespTimeGraphVisualizer.java:76)
+	at org.apache.jmeter.visualizers.RespTimeGraphVisualizer$2.stateChanged(RespTimeGraphVisualizer.java:501)
+	at java.desktop/javax.swing.JTabbedPane.fireStateChanged(JTabbedPane.java:418)
+	at java.desktop/javax.swing.JTabbedPane$ModelListener.stateChanged(JTabbedPane.java:269)
+	at java.desktop/javax.swing.DefaultSingleSelectionModel.fireStateChanged(DefaultSingleSelectionModel.java:143)
+	at java.desktop/javax.swing.DefaultSingleSelectionModel.setSelectedIndex(DefaultSingleSelectionModel.java:74)
+	at java.desktop/javax.swing.JTabbedPane.setSelectedIndexImpl(JTabbedPane.java:622)
+	at java.desktop/javax.swing.JTabbedPane.setSelectedIndex(JTabbedPane.java:597)
+	at java.desktop/javax.swing.plaf.basic.BasicTabbedPaneUI$Handler.mousePressed(BasicTabbedPaneUI.java:4090)
+	at java.desktop/java.awt.Component.processMouseEvent(Component.java:6628)
+	at java.desktop/javax.swing.JComponent.processMouseEvent(JComponent.java:3342)
+	at java.desktop/java.awt.Component.processEvent(Component.java:6396)
+	at java.desktop/java.awt.Container.processEvent(Container.java:2263)
+	at java.desktop/java.awt.Component.dispatchEventImpl(Component.java:5007)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2321)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4839)
+	at java.desktop/java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4918)
+	at java.desktop/java.awt.LightweightDispatcher.processMouseEvent(Container.java:4544)
+	at java.desktop/java.awt.LightweightDispatcher.dispatchEvent(Container.java:4488)
+	at java.desktop/java.awt.Container.dispatchEventImpl(Container.java:2307)
+	at java.desktop/java.awt.Window.dispatchEventImpl(Window.java:2772)
+	at java.desktop/java.awt.Component.dispatchEvent(Component.java:4839)
+	at java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:772)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:721)
+	at java.desktop/java.awt.EventQueue$4.run(EventQueue.java:715)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:95)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:745)
+	at java.desktop/java.awt.EventQueue$5.run(EventQueue.java:743)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:85)
+	at java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:742)
+	at java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)
+	at java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)
+	at java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)
+
+2020/07/15 14:57:34 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 14:57:34 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 14:57:34 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 14:57:34 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 14:57:34 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 14:57:34 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 14:57:34 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 14:57:34 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 14:57:34 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 14:57:34 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 14:57:34 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 14:57:34 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 14:57:34 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 14:57:35 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 14:57:35 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 14:57:35 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 14:57:35 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 14:57:35 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 14:57:35 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 14:59:15 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 14:59:15 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 14:59:15 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 14:59:15 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 14:59:15 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 14:59:15 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 14:59:15 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 14:59:15 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 14:59:15 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 14:59:15 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 14:59:15 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 14:59:15 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 14:59:15 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 14:59:16 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 14:59:16 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 14:59:16 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 14:59:16 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 14:59:16 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 14:59:16 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 14:59:57 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 14:59:57 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 14:59:57 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 14:59:58 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 14:59:58 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 14:59:58 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 14:59:58 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 14:59:58 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 14:59:58 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 14:59:58 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 14:59:58 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 14:59:58 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 14:59:58 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 14:59:58 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 14:59:58 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 14:59:58 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 14:59:58 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 14:59:58 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 14:59:58 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:03:42 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:03:42 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:03:42 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:03:43 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:03:43 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:03:43 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:03:43 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:03:43 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:03:43 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:03:43 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:03:43 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:03:43 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:03:43 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:03:43 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:03:43 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:03:43 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:03:43 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:03:43 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:03:43 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:27:56 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:27:56 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:27:56 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:27:56 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:27:56 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:27:56 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:27:56 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:27:56 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:27:56 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:27:56 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:27:56 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:27:56 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:27:56 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:27:57 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:27:57 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:27:57 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:27:57 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:27:57 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:27:57 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:28:57 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:28:57 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:28:57 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:28:57 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:28:57 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:28:57 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:28:57 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:28:57 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:28:57 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:28:57 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:28:57 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:28:57 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:28:57 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:28:58 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:28:58 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:28:58 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:28:58 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:28:58 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:28:58 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:30:34 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:30:34 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:30:34 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:30:34 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:30:34 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:30:34 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:30:34 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:30:34 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:30:34 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:30:34 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:30:34 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:30:34 WARN  - jmeter.functions.FileToString: Could not read file: { "username": "cjosepereira" File '{ "username": "cjosepereira"' does not exist java.io.FileNotFoundException: File '{ "username": "cjosepereira"' does not exist
+	at org.apache.commons.io.FileUtils.openInputStream(FileUtils.java:297)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1805)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1822)
+	at org.apache.jmeter.functions.FileToString.execute(FileToString.java:102)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:142)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:118)
+	at org.apache.jmeter.testelement.property.FunctionProperty.getStringValue(FunctionProperty.java:101)
+	at org.apache.jmeter.testelement.AbstractTestElement.getPropertyAsString(AbstractTestElement.java:274)
+	at org.apache.jmeter.config.Argument.getValue(Argument.java:146)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:236)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:217)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sendPostData(HTTPHC4Impl.java:1113)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.handleMethod(HTTPHC4Impl.java:453)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sample(HTTPHC4Impl.java:329)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy.sample(HTTPSamplerProxy.java:74)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1146)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1135)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:434)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:261)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2020/07/15 15:30:34 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:30:34 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:30:34 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:30:34 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:30:34 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:30:34 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:30:34 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:30:34 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:31:53 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:31:53 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:31:53 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:31:53 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:31:53 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:31:53 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:31:53 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:31:53 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:31:53 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:31:53 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:31:53 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:31:53 WARN  - jmeter.functions.FileToString: Could not read file: { "username": "cjosepereira", "token": "cjosepereirabv9M2j8tMEk8zouX6iYy" } File '{ "username": "cjosepereira", "token": "cjosepereirabv9M2j8tMEk8zouX6iYy" }' does not exist java.io.FileNotFoundException: File '{ "username": "cjosepereira", "token": "cjosepereirabv9M2j8tMEk8zouX6iYy" }' does not exist
+	at org.apache.commons.io.FileUtils.openInputStream(FileUtils.java:297)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1805)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1822)
+	at org.apache.jmeter.functions.FileToString.execute(FileToString.java:102)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:142)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:118)
+	at org.apache.jmeter.testelement.property.FunctionProperty.getStringValue(FunctionProperty.java:101)
+	at org.apache.jmeter.testelement.AbstractTestElement.getPropertyAsString(AbstractTestElement.java:274)
+	at org.apache.jmeter.config.Argument.getValue(Argument.java:146)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:236)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:217)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sendPostData(HTTPHC4Impl.java:1113)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.handleMethod(HTTPHC4Impl.java:453)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sample(HTTPHC4Impl.java:329)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy.sample(HTTPSamplerProxy.java:74)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1146)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1135)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:434)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:261)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2020/07/15 15:31:53 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:31:53 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:31:54 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:31:54 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:31:54 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:31:54 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:31:54 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:31:54 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:33:11 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:33:11 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:33:11 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:33:11 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:33:11 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:33:11 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:33:11 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:33:11 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:33:11 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:33:11 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:33:11 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:33:11 WARN  - jmeter.functions.FileToString: Could not read file: { "username": "cjosepereira", "token": "cjosepereiraJjy20ZBCcOSQ9WOLFXyf" } File '{ "username": "cjosepereira", "token": "cjosepereiraJjy20ZBCcOSQ9WOLFXyf" }' does not exist java.io.FileNotFoundException: File '{ "username": "cjosepereira", "token": "cjosepereiraJjy20ZBCcOSQ9WOLFXyf" }' does not exist
+	at org.apache.commons.io.FileUtils.openInputStream(FileUtils.java:297)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1805)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1822)
+	at org.apache.jmeter.functions.FileToString.execute(FileToString.java:102)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:142)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:118)
+	at org.apache.jmeter.testelement.property.FunctionProperty.getStringValue(FunctionProperty.java:101)
+	at org.apache.jmeter.testelement.AbstractTestElement.getPropertyAsString(AbstractTestElement.java:274)
+	at org.apache.jmeter.config.Argument.getValue(Argument.java:146)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:236)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:217)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sendPostData(HTTPHC4Impl.java:1113)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.handleMethod(HTTPHC4Impl.java:453)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sample(HTTPHC4Impl.java:329)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy.sample(HTTPSamplerProxy.java:74)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1146)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1135)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:434)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:261)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2020/07/15 15:33:11 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:33:11 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:33:12 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:33:12 WARN  - jmeter.functions.FileToString: Could not read file: { "username": "cjosepereira", "token": "cjosepereirabv9M2j8tMEk8zouX6iYy" } File '{ "username": "cjosepereira", "token": "cjosepereirabv9M2j8tMEk8zouX6iYy" }' does not exist java.io.FileNotFoundException: File '{ "username": "cjosepereira", "token": "cjosepereirabv9M2j8tMEk8zouX6iYy" }' does not exist
+	at org.apache.commons.io.FileUtils.openInputStream(FileUtils.java:297)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1805)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1822)
+	at org.apache.jmeter.functions.FileToString.execute(FileToString.java:102)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:142)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:118)
+	at org.apache.jmeter.testelement.property.FunctionProperty.getStringValue(FunctionProperty.java:101)
+	at org.apache.jmeter.testelement.AbstractTestElement.getPropertyAsString(AbstractTestElement.java:274)
+	at org.apache.jmeter.config.Argument.getValue(Argument.java:146)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:236)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:217)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sendPostData(HTTPHC4Impl.java:1113)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.handleMethod(HTTPHC4Impl.java:453)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sample(HTTPHC4Impl.java:329)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy.sample(HTTPSamplerProxy.java:74)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1146)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1135)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:434)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:261)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2020/07/15 15:33:12 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:33:12 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:33:12 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:33:12 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:33:12 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:33:44 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:33:44 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:33:44 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:33:44 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:33:44 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:33:44 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:33:44 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:33:44 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:33:44 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:33:44 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:33:44 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:33:44 WARN  - jmeter.functions.FileToString: Could not read file: { "username": "cjosepereira", "token": "cjosepereiraJjy20ZBCcOSQ9WOLFXyf" } File '{ "username": "cjosepereira", "token": "cjosepereiraJjy20ZBCcOSQ9WOLFXyf" }' does not exist java.io.FileNotFoundException: File '{ "username": "cjosepereira", "token": "cjosepereiraJjy20ZBCcOSQ9WOLFXyf" }' does not exist
+	at org.apache.commons.io.FileUtils.openInputStream(FileUtils.java:297)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1805)
+	at org.apache.commons.io.FileUtils.readFileToString(FileUtils.java:1822)
+	at org.apache.jmeter.functions.FileToString.execute(FileToString.java:102)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:142)
+	at org.apache.jmeter.engine.util.CompoundVariable.execute(CompoundVariable.java:118)
+	at org.apache.jmeter.testelement.property.FunctionProperty.getStringValue(FunctionProperty.java:101)
+	at org.apache.jmeter.testelement.AbstractTestElement.getPropertyAsString(AbstractTestElement.java:274)
+	at org.apache.jmeter.config.Argument.getValue(Argument.java:146)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:236)
+	at org.apache.jmeter.protocol.http.util.HTTPArgument.getEncodedValue(HTTPArgument.java:217)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sendPostData(HTTPHC4Impl.java:1113)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.handleMethod(HTTPHC4Impl.java:453)
+	at org.apache.jmeter.protocol.http.sampler.HTTPHC4Impl.sample(HTTPHC4Impl.java:329)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerProxy.sample(HTTPSamplerProxy.java:74)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1146)
+	at org.apache.jmeter.protocol.http.sampler.HTTPSamplerBase.sample(HTTPSamplerBase.java:1135)
+	at org.apache.jmeter.threads.JMeterThread.process_sampler(JMeterThread.java:434)
+	at org.apache.jmeter.threads.JMeterThread.run(JMeterThread.java:261)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+2020/07/15 15:33:44 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:33:44 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:33:45 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:33:45 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:33:45 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:33:45 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:33:45 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:33:45 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:34:54 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:34:54 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:34:54 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:34:54 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:34:54 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:34:54 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:34:54 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:34:54 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:34:54 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:34:54 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:34:54 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:34:54 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:34:54 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:34:55 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:34:55 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:34:55 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:34:55 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:34:55 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:34:55 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:35:25 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:35:25 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:35:25 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:35:25 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:35:25 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:35:25 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:35:25 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:35:25 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:35:25 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:35:26 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:35:26 INFO  - jmeter.services.FileServer: Stored: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:35:26 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:35:26 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:35:26 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:35:26 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:35:26 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:35:26 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:35:26 INFO  - jmeter.services.FileServer: Close: /home/ricardo/Desktop/EA-project/code/docker/jmeter/data.csv 
+2020/07/15 15:35:26 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 
+2020/07/15 15:35:55 INFO  - jmeter.engine.StandardJMeterEngine: Running the test! 
+2020/07/15 15:35:55 INFO  - jmeter.samplers.SampleEvent: List of sample_variables: [] 
+2020/07/15 15:35:55 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(true,*local*) 
+2020/07/15 15:35:55 INFO  - jmeter.engine.StandardJMeterEngine: Starting ThreadGroup: 1 : Thread Group 
+2020/07/15 15:35:55 INFO  - jmeter.engine.StandardJMeterEngine: Starting 2 threads for group Thread Group. 
+2020/07/15 15:35:55 INFO  - jmeter.engine.StandardJMeterEngine: Thread will continue on error 
+2020/07/15 15:35:55 INFO  - jmeter.threads.ThreadGroup: Starting thread group number 1 threads 2 ramp-up 1 perThread 500.0 delayedStart=false 
+2020/07/15 15:35:55 INFO  - jmeter.threads.ThreadGroup: Started thread group number 1 
+2020/07/15 15:35:55 INFO  - jmeter.engine.StandardJMeterEngine: All thread groups have been started 
+2020/07/15 15:35:55 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-1 
+2020/07/15 15:35:55 INFO  - jmeter.services.FileServer: Stored: data.csv 
+2020/07/15 15:35:55 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-1 
+2020/07/15 15:35:55 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-1 
+2020/07/15 15:35:55 INFO  - jmeter.threads.JMeterThread: Thread started: Thread Group 1-2 
+2020/07/15 15:35:55 INFO  - jmeter.threads.JMeterThread: Thread is done: Thread Group 1-2 
+2020/07/15 15:35:55 INFO  - jmeter.threads.JMeterThread: Thread finished: Thread Group 1-2 
+2020/07/15 15:35:55 INFO  - jmeter.engine.StandardJMeterEngine: Notifying test listeners of end of test 
+2020/07/15 15:35:55 INFO  - jmeter.services.FileServer: Close: data.csv 
+2020/07/15 15:35:55 INFO  - jmeter.gui.util.JMeterMenuBar: setRunning(false,*local*) 

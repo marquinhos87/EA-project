@@ -8,5 +8,3 @@ modelos-tarefas/~$*.docx
 /code/backend/Notification/wildfly-12.0.0.Final/
 wildfly-12.0.0.Final/*
 /code/frontend/wildfly-16.0.0.Final/
-/code/backend/Clients/dist/
-/code/backend/Notification/dist/
