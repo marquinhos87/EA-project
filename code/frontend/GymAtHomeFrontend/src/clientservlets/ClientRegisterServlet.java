@@ -35,16 +35,16 @@ public class ClientRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("c")) {
-                Utils.redirect(request,response,"MyProfileClient",null,null, "client");
+                Utils.forward(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
-                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null, "pt");
+                Utils.forward(request,response,"MyProfilePersonalTrainer",null,null);
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
                 request.getSession().setAttribute("userType", null);
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null, null);
+                Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
         else {
@@ -97,22 +97,22 @@ public class ClientRegisterServlet extends HttpServlet {
                         request.getSession().setAttribute("userType","client");
                         request.getSession().setAttribute("username","c" + request.getParameter("username"));
                         request.getSession().setAttribute("token",data.get("token").getAsString());
-                        Utils.redirect(request,response,"MyProfileClient",null,null, "client");
+                        Utils.forward(request,response,"MyProfileClient",null,null);
                     }
                     else {
                         request.setAttribute("errorMessage", responseJSON.msg);
-                        Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
+                        Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                     request.setAttribute("errorMessage", "An internal error occurred.");
-                    Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
+                    Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                 }
             }
             else {
                 request.setAttribute("errorMessage","Passwords não coincidem.");
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
+                Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
             }
         }
     }
@@ -131,21 +131,21 @@ public class ClientRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("c")) {
-                Utils.redirect(request,response,"MyProfileClient",null,null, "client");
+                Utils.forward(request,response,"MyProfileClient",null,null);
             }
             else if(username.startsWith("pt")) {
-                Utils.redirect(request,response,"MyProfilePersonalTrainer",null,null, "pt");
+                Utils.forward(request,response,"MyProfilePersonalTrainer",null,null);
             }
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login",null, null);
+                Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
         else {
             request.getSession().setAttribute("username", null);
             request.getSession().setAttribute("token", null);
-            Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientRegister",null, null);
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
         }
     }
 }

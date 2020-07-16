@@ -30,10 +30,9 @@ public class Utils {
         return new String(hash);
     }
 
-    public static void redirect(HttpServletRequest request, HttpServletResponse response, String path, String page, String action, String userType) throws ServletException, IOException {
+    public static void forward(HttpServletRequest request, HttpServletResponse response, String path, String page, String action) throws ServletException, IOException {
         request.setAttribute("action", action);
         request.setAttribute("page", page);
-        request.setAttribute("userType",userType);
         request.getRequestDispatcher(path).forward(request, response);
     }
 

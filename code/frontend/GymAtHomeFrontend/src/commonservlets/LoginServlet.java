@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import exceptions.JsonKeyInFaultException;
 import okhttp3.Response;
-import parseJSON.ResponseJSON;
 import utils.Http;
 import utils.Utils;
 import javax.servlet.ServletException;
@@ -33,14 +32,14 @@ public class LoginServlet extends HttpServlet {
 
         //  test if user is logged
         if(username != null && username.startsWith("c")) {
-            Utils.redirect(request, response, "/MyProfileClient", null, null, "client");
+            Utils.forward(request, response, "/MyProfileClient", null, null);
             return ;
         }
         else if(username != null && username.startsWith("pt")) {
-            Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null, "pt");
+            Utils.forward(request, response, "/MyProfilePersonalTrainer", null, null);
             return ;
         } else if (action == null){
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
 
@@ -56,7 +55,7 @@ public class LoginServlet extends HttpServlet {
                 login(request,response,"loginPersonalTrainer");
             }
             else { //   error
-                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                 return;
             }
         }
@@ -76,7 +75,7 @@ public class LoginServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
 
@@ -89,7 +88,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             message = "Erro interno do sistema.";
             request.setAttribute("errorMessage", message);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
 
@@ -101,7 +100,7 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
                 message = "Erro interno do sistema.";
                 request.setAttribute("errorMessage", message);
-                Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                 return ;
             }
             session.setAttribute("username",username);
@@ -109,10 +108,10 @@ public class LoginServlet extends HttpServlet {
 
             //  redirect to different controllers
             if(username.startsWith("c")) { //  client
-                Utils.redirect(request, response, "/MyProfileClient", null, null, "client");
+                Utils.forward(request, response, "/MyProfileClient", null, null);
                 return ;
             }else {                //  personal trainer
-                Utils.redirect(request, response, "/MyProfilePersonalTrainer", null, null, "pt");
+                Utils.forward(request, response, "/MyProfilePersonalTrainer", null, null);
                 return;
             }
         }else{  //  error
@@ -127,7 +126,7 @@ public class LoginServlet extends HttpServlet {
                     break;
             }
             request.setAttribute("errorMessage", message);
-            Utils.redirect(request, response, "/WEB-INF/Template.jsp", "Login", null, null);
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
     }
