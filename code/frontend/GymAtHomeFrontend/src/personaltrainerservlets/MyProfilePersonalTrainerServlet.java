@@ -100,8 +100,8 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
                 responseHttp.close();
 
                 if (responseObject.status.equals("success")) {
-                    request.setAttribute("successMessage","O seu perfil foi editado com sucesso!");
-                    Utils.forward(request, response, "MyProfilePersonalTrainer", null, null);
+                    request.getSession().setAttribute("successMessage","O seu perfil foi editado com sucesso!");
+                    Utils.redirect(request, response, "/MyProfilePersonalTrainer");
                 } else {
                     // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
                     request.setAttribute("errorMessage", responseObject.msg);

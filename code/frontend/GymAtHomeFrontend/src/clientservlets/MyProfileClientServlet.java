@@ -82,29 +82,23 @@ public class MyProfileClientServlet extends HttpServlet {
                 if(newPassword!=null)
                     jo.addProperty("password",newPassword);
 
-                String tmp = request.getParameter("waist");
-                System.out.println(tmp);
-                if (!tmp.equals(""))
+                String tmp;
+                if (!(tmp = request.getParameter("waist")).equals(""))
                     jo.addProperty("waist", Integer.parseInt(tmp));
 
-                tmp = request.getParameter("chest");
-                if (!tmp.equals(""))
+                if (!(tmp = request.getParameter("chest")).equals(""))
                     jo.addProperty("chest", Integer.parseInt(tmp));
 
-                tmp = request.getParameter("twin");
-                if (!tmp.equals(""))
+                if (!(tmp = request.getParameter("twin")).equals(""))
                     jo.addProperty("twin", Integer.parseInt(tmp));
 
-                tmp = request.getParameter("quadricep");
-                if (!tmp.equals(""))
+                if (!(tmp = request.getParameter("quadricep")).equals(""))
                     jo.addProperty("quadricep", Integer.parseInt(tmp));
 
-                tmp = request.getParameter("tricep");
-                if (!tmp.equals(""))
+                if (!(tmp = request.getParameter("tricep")).equals(""))
                     jo.addProperty("tricep", Integer.parseInt(tmp));
 
-                tmp = request.getParameter("wrist");
-                if (!tmp.equals(""))
+                if (!(tmp = request.getParameter("wrist")).equals(""))
                     jo.addProperty("wrist", Integer.parseInt(tmp));
 
                 Response responseHttp;
@@ -124,8 +118,8 @@ public class MyProfileClientServlet extends HttpServlet {
                 responseHttp.close();
 
                 if (responseObject.status.equals("success")) {
-                    request.setAttribute("successMessage","O seu perfil foi editado com sucesso!");
-                    Utils.forward(request, response, "MyProfileClient", null, null);
+                    request.getSession().setAttribute("successMessage","O seu perfil foi editado com sucesso!");
+                    Utils.redirect(request, response, "/MyProfileClient");
                 } else {
                     // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
                     request.setAttribute("errorMessage", "Erro interno.");
