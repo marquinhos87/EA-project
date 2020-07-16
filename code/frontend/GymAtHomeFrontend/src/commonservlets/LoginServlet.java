@@ -33,11 +33,13 @@ public class LoginServlet extends HttpServlet {
 
         //  test if user is logged
         if(username != null && username.startsWith("c")) {
-            Utils.forward(request, response, "/MyProfileClient", null, null);
+            session.setAttribute("userType","client");
+            Utils.redirect(request, response, "/MyProfileClient");
             return ;
         }
         else if(username != null && username.startsWith("pt")) {
-            Utils.forward(request, response, "/MyProfilePersonalTrainer", null, null);
+            session.setAttribute("userType","pt");
+            Utils.redirect(request, response, "/MyProfilePersonalTrainer");
             return ;
         } else if (action == null){
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
@@ -68,12 +70,12 @@ public class LoginServlet extends HttpServlet {
         JsonObject jo = new JsonObject();
         jo.addProperty("username",username);
         try {
-            jo.addProperty("password", Utils.hashPassword(password));
-        } catch (Exception e) {
+            jo.addProperty("password",Utils.hashPassword(password));
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Erro interno no sistema.");
+            request.setAttribute("errorMessage", "Erro interno do sistema.");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
-            return ;
+            return;
         }
 
         Response responseHttp = null;
@@ -116,11 +118,11 @@ public class LoginServlet extends HttpServlet {
 
             //  redirect to different controllers
             if(username.startsWith("c")) { //  client
-                Utils.forward(request, response, "/MyProfileClient", null, null);
-                return ;
+                session.setAttribute("userType","client");
+                Utils.redirect(request, response, "/MyProfileClient");
             }else {                //  personal trainer
-                Utils.forward(request, response, "/MyProfilePersonalTrainer", null, null);
-                return;
+                session.setAttribute("userType","pt");
+                Utils.redirect(request, response, "/MyProfilePersonalTrainer");
             }
         }else{  //  error
             switch (responseJSON.get("code").getAsInt()){
@@ -135,7 +137,6 @@ public class LoginServlet extends HttpServlet {
             }
             request.setAttribute("errorMessage", message);
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
-            return ;
         }
     }
 

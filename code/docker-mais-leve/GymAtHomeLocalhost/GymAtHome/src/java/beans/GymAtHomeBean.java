@@ -25,7 +25,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
     private final Gson gson;
     
-    private final static String IP = "localhost";
+    private final static String IP = "192.168.1.139";
     
     private static String IPclients = "188.250.39.126"; // "188.250.39.126";
     private static String IPpts = "188.250.39.126";
@@ -49,11 +49,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             IPrequests = IP;
             IPnotifications = IP;
         }
-        clients = "http://" + IPclients + ":8080/Clients/api/";
-        pts = "http://" + IPpts + ":8080/PersonalTrainer/api/";
-        core = "http://" + IPcore + ":8080/Core/api/";
-        requests = "http://" + IPrequests + ":8080/Request/api/";
-        notifications = "http://" + IPnotifications + ":8080/Notification/api/";
+        clients = "http://" + IPclients + ":8081/Clients/api/";
+        pts = "http://" + IPpts + ":8081/PersonalTrainer/api/";
+        core = "http://" + IPcore + ":8081/Core/api/";
+        requests = "http://" + IPrequests + ":8081/Request/api/";
+        notifications = "http://" + IPnotifications + ":8081/Notification/api/";
     }
 
     /**

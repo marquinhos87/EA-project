@@ -20,7 +20,7 @@ import utils.Http;
  */
 public class Main {
     
-    private static final String url = "http://37.189.223.35:8081/GymAtHome/api/";
+    private static final String url = "http://192.168.1.139:8081/GymAtHome/api/";
        
     public static void main(String[] args) throws IOException {
         
