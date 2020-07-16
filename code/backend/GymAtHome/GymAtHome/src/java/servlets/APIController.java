@@ -149,10 +149,10 @@ public class APIController extends HttpServlet {
                 case "markAsReadNotificationsByPersonalTrainer":
                     res = gymAtHome.markAsReadNotificationsByPersonalTrainer(data);
                     break;
-                case "listClientRequestsByPersonalTrainer":
+                case "listRequestsOfPersonalTrainer":
                     res = gymAtHome.listClientRequestsByPersonalTrainer(data);
                     break;
-                case "listClientRequestsByClient":
+                case "listRequestsOfClient":
                     res = gymAtHome.listClientRequestsByClient(data);
                     break;
                     //TESTED

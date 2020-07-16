@@ -811,14 +811,14 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     }
     
     public String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException{
-        String url = requests + "listClientRequestsByPersonalTrainer";
+        String url = requests + "listRequestsOfPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
         
         return response.body().string();
     }
     
     public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
-        String url = requests + "listClientRequestsByClient";
+        String url = requests + "listRequestsOfClient";
         Response response = Http.post(url,usernameAsJSON);
         
         return response.body().string();
