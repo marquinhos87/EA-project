@@ -68,56 +68,71 @@ public class MyProfileClientServlet extends HttpServlet {
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
         }
         else {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("username",username);
-            jo.addProperty("token",token);
-            jo.addProperty("name",(String)request.getAttribute("name"));
-            jo.addProperty("birthday",(String)request.getAttribute("birthday"));
-            jo.addProperty("sex",(String)request.getAttribute("genre"));
-            jo.addProperty("email",(String)request.getAttribute("email"));
-            jo.addProperty("height",(String)request.getAttribute("height"));
-            jo.addProperty("weight",(String)request.getAttribute("weight"));
+            String newPassword = (String) request.getAttribute("newpassword");
+            String confirmationPassword = (String) request.getAttribute("cpassword");
 
-            // TODO improve password by type the older's one and new's confirmation
-            String password = (String) request.getAttribute("password");
-            if (password != null)
-                jo.addProperty("password",password);
+            if((newPassword==null && confirmationPassword==null) || newPassword.equals(confirmationPassword)) {
+                JsonObject jo = new JsonObject();
+                jo.addProperty("username", username);
+                jo.addProperty("token", token);
+                jo.addProperty("name", (String) request.getAttribute("name"));
+                jo.addProperty("birthday", (String) request.getAttribute("birthday"));
+                jo.addProperty("sex", (String) request.getAttribute("genre"));
+                jo.addProperty("email", (String) request.getAttribute("email"));
+                jo.addProperty("height", (String) request.getAttribute("height"));
+                jo.addProperty("weight", (String) request.getAttribute("weight"));
 
-            String tmp = (String) request.getAttribute("waist");
-            if(!tmp.equals(""))
-                jo.addProperty("waist",Integer.parseInt(tmp));
+                if(newPassword!=null)
+                    jo.addProperty("password",newPassword);
 
-            tmp = (String) request.getAttribute("chest");
-            if(!tmp.equals(""))
-                jo.addProperty("chest",Integer.parseInt(tmp));
+                String tmp = (String) request.getAttribute("waist");
+                if (!tmp.equals(""))
+                    jo.addProperty("waist", Integer.parseInt(tmp));
 
-            tmp = (String) request.getAttribute("twin");
-            if(!tmp.equals(""))
-                jo.addProperty("twin",Integer.parseInt(tmp));
+                tmp = (String) request.getAttribute("chest");
+                if (!tmp.equals(""))
+                    jo.addProperty("chest", Integer.parseInt(tmp));
 
-            tmp = (String) request.getAttribute("quadricep");
-            if(!tmp.equals(""))
-                jo.addProperty("quadricep",Integer.parseInt(tmp));
+                tmp = (String) request.getAttribute("twin");
+                if (!tmp.equals(""))
+                    jo.addProperty("twin", Integer.parseInt(tmp));
 
-            tmp = (String) request.getAttribute("tricep");
-            if(!tmp.equals(""))
-                jo.addProperty("tricep",Integer.parseInt(tmp));
+                tmp = (String) request.getAttribute("quadricep");
+                if (!tmp.equals(""))
+                    jo.addProperty("quadricep", Integer.parseInt(tmp));
 
-            tmp = (String) request.getAttribute("wrist");
-            if(!tmp.equals(""))
-                jo.addProperty("wrist",Integer.parseInt(tmp));
+                tmp = (String) request.getAttribute("tricep");
+                if (!tmp.equals(""))
+                    jo.addProperty("tricep", Integer.parseInt(tmp));
 
-            Response responseHttp = Http.post(Utils.SERVER + "editClientProfile",jo.toString());
+                tmp = (String) request.getAttribute("wrist");
+                if (!tmp.equals(""))
+                    jo.addProperty("wrist", Integer.parseInt(tmp));
 
-            String responseBody = responseHttp.body().string();
-            ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
+                Response responseHttp = null;
 
-            if(responseObject.status.equals("success")) {
-                Utils.forward(request,response,"MyProfileClient",null,null);
+                try {
+                    responseHttp = Http.post(Utils.SERVER + "editClientProfile", jo.toString());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                    request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                    return ;
+                }
+                String responseBody = responseHttp.body().string();
+                ResponseJSON responseObject = gson.fromJson(responseBody, ResponseJSON.class);
+
+                if (responseObject.status.equals("success")) {
+                    Utils.forward(request, response, "MyProfileClient", null, null);
+                } else {
+                    // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
+                    request.setAttribute("errorMessage", "Erro interno.");
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null);
+                }
             }
             else {
-                // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
-                request.setAttribute("errorMessage",responseObject.msg);
+                request.setAttribute("errorMessage","Passwords não coincidem.");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","MyProfileClient",null);
             }
         }

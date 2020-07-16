@@ -68,31 +68,47 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
         }
         else {
-            JsonObject jo = new JsonObject();
-            jo.addProperty("username",username);
-            jo.addProperty("token",token);
-            jo.addProperty("name",(String)request.getAttribute("name"));
-            jo.addProperty("birthday",(String)request.getAttribute("birthday"));
-            jo.addProperty("sex",(String)request.getAttribute("genre"));
-            jo.addProperty("email",(String)request.getAttribute("email"));
-            jo.addProperty("skill",(String)request.getAttribute("skill"));
+            String newPassword = (String) request.getAttribute("newpassword");
+            String confirmationPassword = (String) request.getAttribute("cpassword");
 
-            // TODO improve password by type the older's one and new's confirmation
-            String password = (String) request.getAttribute("password");
-            if (password != null)
-                jo.addProperty("password",password);
+            if((newPassword==null && confirmationPassword==null) || newPassword.equals(confirmationPassword)) {
+                JsonObject jo = new JsonObject();
+                jo.addProperty("username", username);
+                jo.addProperty("token", token);
+                jo.addProperty("name", (String) request.getAttribute("name"));
+                jo.addProperty("birthday", (String) request.getAttribute("birthday"));
+                jo.addProperty("sex", (String) request.getAttribute("genre"));
+                jo.addProperty("email", (String) request.getAttribute("email"));
+                jo.addProperty("skill", (String) request.getAttribute("skill"));
 
-            Response responseHttp = Http.post(Utils.SERVER + "editPersonalTrainerProfile",jo.toString());
+                // TODO improve password by type the older's one and new's confirmation
+                if (newPassword != null)
+                    jo.addProperty("password", newPassword);
 
-            String responseBody = responseHttp.body().string();
-            ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
+                Response responseHttp = null;
 
-            if(responseObject.status.equals("success")) {
-                Utils.forward(request,response,"MyProfilePersonalTrainer",null,null);
+                try {
+                    responseHttp = Http.post(Utils.SERVER + "editPersonalTrainerProfile", jo.toString());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                    request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                    return ;
+                }
+                String responseBody = responseHttp.body().string();
+                ResponseJSON responseObject = gson.fromJson(responseBody, ResponseJSON.class);
+
+                if (responseObject.status.equals("success")) {
+                    Utils.forward(request, response, "MyProfilePersonalTrainer", null, null);
+                } else {
+                    // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
+                    request.setAttribute("errorMessage", responseObject.msg);
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyProfilePersonalTrainer", null);
+                }
             }
             else {
-                // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
-                request.setAttribute("errorMessage",responseObject.msg);
+                request.setAttribute("errorMessage","Passwords não coincidem.");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","MyProfilePersonalTrainer",null);
             }
         }
