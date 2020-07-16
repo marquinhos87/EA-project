@@ -319,6 +319,8 @@ public class CoreBean implements CoreBeanLocal {
         
         Plan plan;
         Week week = gson.fromJson(json.get("week").toString(), Week.class); // evoques custom serializer from package parseJSON
+        // we need to create a week copy to iterate and at the same time modify Workouts inside
+        Week weekCopy = gson.fromJson(json.get("week").toString(), Week.class); // evoques custom serializer from package parseJSON
         
         // Verify if createWeek has been called to create a new plan (planId doesn't exist yet)
         // or to add a new week to an existing plan
@@ -350,13 +352,16 @@ public class CoreBean implements CoreBeanLocal {
             week.setFinalDate(lastDay);
             
             // this code need to be here (order is important!) because only now we have set the week's initalDay
-            Iterator workouts = week.workouts.getIterator();
+            Iterator workouts = weekCopy.workouts.getIterator();
+            week.workouts.clear();
             while(workouts.hasNext()) {
                 Workout workout = (Workout) workouts.next();
                 Date day = new Date(firstDay.getTime() + (DAY *(workout.getWeekDay()-1)));
-                workout.setDate(day);
-                workout.setWeek(week);
-                workout.setDone(false);
+                Workout w = workout.clone();
+                w.setDate(day);
+                w.setWeek(week);
+                w.setDone(false);
+                week.workouts.add(w);
             }
             
             // Create a new plan
@@ -413,14 +418,17 @@ public class CoreBean implements CoreBeanLocal {
             week.setFinalDate(lastDay);
             
             // this code need to be here (order is important!) because only now we have set the week's initalDay
-            workouts = week.workouts.getIterator();
+            workouts = weekCopy.workouts.getIterator();
+            week.workouts.clear();
             while(workouts.hasNext()) {
                 Workout workout = (Workout) workouts.next();
-                Date day = new Date(week.getInitialDate().getTime()+(DAY * (workout.getWeekDay()-1)));
-                workout.setDate(day);
-                workout.setWeek(week);
-                workout.setDone(false);
-            }                            
+                Date day = new Date(firstDay.getTime() + (DAY *(workout.getWeekDay()-1)));
+                Workout w = workout.clone();
+                w.setDate(day);
+                w.setWeek(week);
+                w.setDone(false);
+                week.workouts.add(w);
+            }                         
     
             // Save the new state of plan
             plan.weeks.add(week);

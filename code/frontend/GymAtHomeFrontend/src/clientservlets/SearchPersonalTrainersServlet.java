@@ -1,5 +1,7 @@
 package clientservlets;
 
+import utils.Utils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SearchPersonalTrainersServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/SearchPersonalTrainer")
+@WebServlet(name = "SearchPersonalTrainersServlet", urlPatterns = "/SearchPersonalTrainer")
 public class SearchPersonalTrainersServlet extends HttpServlet {
 
     /**
@@ -25,11 +27,11 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            //TODO
+
         }
     }
 
@@ -48,11 +50,11 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            //TODO
+
         }
     }
 }
