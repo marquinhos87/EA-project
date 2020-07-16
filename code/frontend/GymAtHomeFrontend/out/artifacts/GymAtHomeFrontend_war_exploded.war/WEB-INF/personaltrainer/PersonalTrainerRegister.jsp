@@ -41,7 +41,7 @@
             <div class="col-md-6 d-inline-flex">
                 <label class="col-md-5 col-form-label">Password:</label>
                 <div class="col-md-7">
-                    <input type="password" class="form-control" name="password" placeholder="********" required>
+                    <input type="password" minlength="6" class="form-control" name="password" placeholder="********" required>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
             <div class="col-md-6 d-inline-flex">
                 <label class="col-md-5 col-form-label">Confirmar Password:</label>
                 <div class="col-md-7">
-                    <input type="password" class="form-control" name="cpassword" placeholder="********" required>
+                    <input type="password" minlength="6" class="form-control" name="cpassword" placeholder="********" required>
                 </div>
             </div>
         </div>
