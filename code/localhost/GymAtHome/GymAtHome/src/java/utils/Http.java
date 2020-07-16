@@ -38,7 +38,7 @@ public class Http {
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
-                .addHeader("content-type", "application/json; charset=utf-8")
+                .addHeader("content-type", "application/json")
                 .build();
 
         return client.newCall(request).execute();

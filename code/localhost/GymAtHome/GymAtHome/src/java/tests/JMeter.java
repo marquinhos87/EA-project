@@ -6,6 +6,8 @@
 package tests;
 
 import com.google.gson.Gson;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import okhttp3.Response;
@@ -17,148 +19,36 @@ import utils.Http;
  * @author ricardo
  */
 public class JMeter {
+    
     private static final String url = "http://37.189.223.35:8081/GymAtHome/api/";
-       
+    private static final int N = 250;   
+    private static final Gson gson = new Gson();
+    
     public static void main(String[] args) throws IOException {
         
         Response response = Http.post(url + "createdbs", "{ \"token\": \"admin\" }");
-        if (response.code() != HttpServletResponse.SC_OK) {
+        String data = response.body().string();
+        response.close();
+        if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
             System.err.println("Could not create DBs, HTTP status code != 200");
             System.exit(1);
         } 
-
-        String clientUsername = "cjosepereira";
-        String clientJSON = 
-        "{" + 
-            "\"username\": \"" + clientUsername + "\", " +
-            "\"password\": \"password\", " +
-            "\"name\": \"José Pereira\", " +
-            "\"email\": \"jose@email.com\", " +
-            "\"sex\": \"M\", " +
-            "\"birthday\": \"1997-06-19\", " +
-            "\"height\": 190, " +
-            "\"weight\": 87 " +
-        "}";
-
-        String ptUsername= "ptricardao";
-        String ptJSON =  
-        "{ " +
-            "\"username\": \"" + ptUsername + "\", " +
-            "\"name\": \"ricardo\", " +
-            "\"email\": \"rpetronilho98@gmail.com\", " +
-            "\"password\": \"password\", " +
-            "\"birthday\": \"1998-06-29\", " +
-            "\"sex\": \"m\", " +
-            "\"skill\": \"cardio\", " +
-            "\"price\": 155.99" +
-        "}";
+       
+        File clientsFile = new File("../../../docker/jmeter/clients-data.csv");
+        if (clientsFile.delete());
+        FileWriter cf = new FileWriter(clientsFile);
         
-        
-        Gson gson = new Gson();
-        
-        response = Http.post(url + "createClient", clientJSON);
-        String data = response.body().string();
-        if (gson.fromJson(data, ResponseJSON.class).code != 1) {
-            System.err.println("Could not create client, HTTP status code != 200");
-            System.exit(1);
+        File ptsFile = new File("../../../docker/jmeter/pts-data.csv");
+        if (ptsFile.delete());
+        FileWriter ptf = new FileWriter(ptsFile);
+       
+        for(int i=0; i<N; i++) {
+            WorkThread wh = new WorkThread(i, gson, cf, ptf);
+            wh.run(); // eu sei que aqui está o run() que é diferente do start() - foi propositado (eu quero sequencial aqui)...
         } 
-        String clientToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
-        System.out.println("client token = " + clientToken);
-        
-        response = Http.post(url + "createPersonalTrainer", ptJSON);
-        data = response.body().string();
-        if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
-            System.err.println("Could not create personal trainer, HTTP status code != 200");
-            System.exit(1);
-        } 
-        String ptToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
-        System.out.println("pt token = " + ptToken);       
-    
-        String fstJSON = 
-        "{ " +
-            "\"username\" : \"" + ptUsername + "\", " +
-            "\"token\" : \"" + ptToken + "\", " +
-            "\"clientUsername\": \"" + clientUsername + "\", " +
-            "\"week\" : { " +
-                "\"workouts\": " +
-                    "[ " +
-                    "{ " +
-                        "\"designation\": \"cardio\", " +
-                        "\"weekDay\": 2, " +
-                        "\"done\": false, " +
-                        "\"tasks\": " +
-                            "[ " +
-                            "{ " +
-                                "\"designation\": \"Correr\", " +
-                                "\"rest\": \"2 min\", " +
-                                "\"duration\": \"15 min\", " +
-                                "\"equipment\": \"passadeira\", " +
-                                "\"series\": " +
-                                    "[ " +
-                                    "{ " +
-                                        "\"description\": \"Correr\", " +
-                                        "\"repetitions\": \"10 min\", " +
-                                        "\"rest\": \"2 min\" " +
-                                    "} " +
-                                    "] " +
-                            "} " +
-                            "] " +
-                    "} " +
-                    "] " +
-                "} " + 
-        "}";
-        
-        response = Http.post(url + "createWeek", fstJSON);
-        data = response.body().string();
-        if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
-            System.err.println("Could not create week, HTTP status code != 200");
-            System.exit(1);
-        } 
-        
-        String weekJSON = 
-        "{ " +
-            "\"username\" : \"" + ptUsername + "\", " +
-            "\"token\" : \"" + ptToken + "\", " +
-            "\"clientUsername\": \"" + clientUsername + "\", " +
-            "\"planId\": 1, " +
-            "\"week\" : { " +
-                "\"workouts\": " +
-                    "[ " +
-                    "{ " +
-                        "\"designation\": \"cardio\", " +
-                        "\"weekDay\": 2, " +
-                        "\"done\": false, " +
-                        "\"tasks\": " +
-                            "[ " +
-                            "{ " +
-                                "\"designation\": \"Correr\", " +
-                                "\"rest\": \"2 min\", " +
-                                "\"duration\": \"15 min\", " +
-                                "\"equipment\": \"passadeira\", " +
-                                "\"series\": " +
-                                    "[ " +
-                                    "{ " +
-                                        "\"description\": \"Correr\", " +
-                                        "\"repetitions\": \"10 min\", " +
-                                        "\"rest\": \"2 min\" " +
-                                    "} " +
-                                    "] " +
-                            "} " +
-                            "] " +
-                    "} " +
-                    "] " +
-                "} " + 
-        "}";
-                
-        for (int i=0; i<5; i++) {
-            response = Http.post(url + "createWeek", weekJSON);
-            data = response.body().string();
-            if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
-                System.err.println("Could not create week on iteration - " + i + " - HTTP status code != 200");
-                System.exit(1);
-            } 
-        }
 
+        cf.close();
+        ptf.close();
         System.out.println("DONE!!!");
     
     }
