@@ -136,12 +136,13 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
 
         if(responseObject.status.equals("success")) {
             JsonObject responseJson = responseObject.data.getAsJsonObject();
-            request.setAttribute("username",responseJson.get("username").getAsString());
+            request.setAttribute("username",username);
             request.setAttribute("name",responseJson.get("name").getAsString());
             request.setAttribute("email",responseJson.get("email").getAsString());
             request.setAttribute("birthday",responseJson.get("birthday").getAsString());
             request.setAttribute("genre",responseJson.get("sex").getAsString());
             request.setAttribute("skill",responseJson.get("skill").getAsString());
+            request.setAttribute("price",responseJson.get("price").getAsFloat());
         }
         else request.setAttribute("errorMessage", "Não é possível o consultar o perfil neste momento, volte mais tarde.");
         Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyProfilePersonalTrainer", null);

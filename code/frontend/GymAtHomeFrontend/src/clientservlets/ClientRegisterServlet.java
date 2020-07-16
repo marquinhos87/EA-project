@@ -112,7 +112,7 @@ public class ClientRegisterServlet extends HttpServlet {
                         Utils.redirect(request,response,"/MyProfileClient");
                     }
                     else {
-                        request.setAttribute("errorMessage", responseJSON.msg);
+                        request.setAttribute("errorMessage", "Erro interno.");
                         Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                     }
 
