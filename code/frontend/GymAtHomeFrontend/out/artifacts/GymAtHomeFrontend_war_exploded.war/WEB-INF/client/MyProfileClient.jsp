@@ -155,7 +155,7 @@
             </div>
             <div class="form-row row justify-content-end">
                 <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary btn-block text-white font-weight-normal border-0 mb-3">Salvar Alterações</button>
+                    <button type="submit" class="btn btn-primary btn-block text-white font-weight-normal border-0 mb-3" name="action" value="editprofile">Salvar Alterações</button>
                 </div>
             </div>
         </form>

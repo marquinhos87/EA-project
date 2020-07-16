@@ -104,6 +104,8 @@ public class ClientRegisterServlet extends HttpServlet {
                     String body = responseHttp.body().string();
                     ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
+                    responseHttp.close();
+
                     if (responseJSON.status.equals("success")) {
                         JsonObject data = responseJSON.data.getAsJsonObject();
                         request.getSession().setAttribute("userType","client");

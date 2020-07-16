@@ -3,7 +3,6 @@ package clientservlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import core.PersonalTrainer;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
@@ -89,6 +88,8 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
             String body = responseHttp.body().string();
             ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
+            responseHttp.close();
+
             if(responseJSON.status.equals("success")) {
                 PersonalTrainer[] tmps = gson.fromJson(responseJSON.data.toString(),PersonalTrainer[].class);
 
@@ -138,6 +139,8 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
 
             String body = responseHttp.body().string();
             ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
+
+            responseHttp.close();
 
             if(responseJSON.status.equals("success")) {
                 PersonalTrainer[] tmp = gson.fromJson(responseJSON.data.toString(),PersonalTrainer[].class);

@@ -27,11 +27,10 @@ public class MyProfileClientServlet extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
-        action = (String) request.getAttribute("action");
+        action = request.getParameter("action");
         username = (String) request.getSession().getAttribute("username");
         token = (String) request.getSession().getAttribute("token");
 
-        System.err.println(session);
         System.err.println(action);
         System.err.println(username);
         System.err.println(token);
@@ -60,56 +59,55 @@ public class MyProfileClientServlet extends HttpServlet {
     }
 
     public void editProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
-        String token = (String) request.getSession().getAttribute("token");
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
         }
         else {
-            String newPassword = (String) request.getAttribute("newpassword");
-            String confirmationPassword = (String) request.getAttribute("cpassword");
+            String newPassword = request.getParameter("newpassword");
+            String confirmationPassword = request.getParameter("cpassword");
 
             if((newPassword==null && confirmationPassword==null) || newPassword.equals(confirmationPassword)) {
                 JsonObject jo = new JsonObject();
                 jo.addProperty("username", username);
                 jo.addProperty("token", token);
-                jo.addProperty("name", (String) request.getAttribute("name"));
-                jo.addProperty("birthday", (String) request.getAttribute("birthday"));
-                jo.addProperty("sex", (String) request.getAttribute("genre"));
-                jo.addProperty("email", (String) request.getAttribute("email"));
-                jo.addProperty("height", (String) request.getAttribute("height"));
-                jo.addProperty("weight", (String) request.getAttribute("weight"));
+                jo.addProperty("name", request.getParameter("name"));
+                jo.addProperty("birthday", request.getParameter("birthday"));
+                jo.addProperty("sex", request.getParameter("genre"));
+                jo.addProperty("email", request.getParameter("email"));
+                jo.addProperty("height", request.getParameter("height"));
+                jo.addProperty("weight", request.getParameter("weight"));
 
                 if(newPassword!=null)
                     jo.addProperty("password",newPassword);
 
-                String tmp = (String) request.getAttribute("waist");
+                String tmp = request.getParameter("waist");
+                System.out.println(tmp);
                 if (!tmp.equals(""))
                     jo.addProperty("waist", Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("chest");
+                tmp = request.getParameter("chest");
                 if (!tmp.equals(""))
                     jo.addProperty("chest", Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("twin");
+                tmp = request.getParameter("twin");
                 if (!tmp.equals(""))
                     jo.addProperty("twin", Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("quadricep");
+                tmp = request.getParameter("quadricep");
                 if (!tmp.equals(""))
                     jo.addProperty("quadricep", Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("tricep");
+                tmp = request.getParameter("tricep");
                 if (!tmp.equals(""))
                     jo.addProperty("tricep", Integer.parseInt(tmp));
 
-                tmp = (String) request.getAttribute("wrist");
+                tmp = request.getParameter("wrist");
                 if (!tmp.equals(""))
                     jo.addProperty("wrist", Integer.parseInt(tmp));
 
-                Response responseHttp = null;
+                Response responseHttp;
 
                 try {
                     responseHttp = Http.post(Utils.SERVER + "editClientProfile", jo.toString());
@@ -120,11 +118,13 @@ public class MyProfileClientServlet extends HttpServlet {
                     Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                     return ;
                 }
+
                 String responseBody = responseHttp.body().string();
                 ResponseJSON responseObject = gson.fromJson(responseBody, ResponseJSON.class);
+                responseHttp.close();
 
                 if (responseObject.status.equals("success")) {
-                    request.setAttribute("successMessage","O seu perfil foi alterado com sucesso!");
+                    request.setAttribute("successMessage","O seu perfil foi editado com sucesso!");
                     Utils.forward(request, response, "MyProfileClient", null, null);
                 } else {
                     // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
@@ -144,7 +144,7 @@ public class MyProfileClientServlet extends HttpServlet {
         jo.addProperty("username",username);
         jo.addProperty("token",token);
 
-        Response responseHttp = null;
+        Response responseHttp;
         try {
             responseHttp = Http.post(Utils.SERVER + "getClientProfileByClient",jo.toString());
         } catch (IOException e) {
@@ -156,6 +156,7 @@ public class MyProfileClientServlet extends HttpServlet {
 
         String responseBody = responseHttp.body().string();
         ResponseJSON responseObject = gson.fromJson(responseBody,ResponseJSON.class);
+        responseHttp.close();
 
         System.err.println(responseBody);
 

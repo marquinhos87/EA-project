@@ -51,6 +51,8 @@ public class PersonalTrainerProfileServlet extends HttpServlet {
             String body = responseHttp.body().string();
             ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
+            responseHttp.close();
+
             if(responseJSON.status.equals("success")) {
                 jo = responseJSON.data.getAsJsonObject();
 
