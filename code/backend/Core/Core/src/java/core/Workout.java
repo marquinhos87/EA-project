@@ -13,6 +13,7 @@
  */
 package core;
 
+import java.util.Iterator;
 import javax.persistence.Transient;
 
 public class Workout {
@@ -145,5 +146,23 @@ public class Workout {
 	public String toString() {
 		return String.valueOf(getID());
 	}
+        
+          public Workout clone() {
+            Workout w = new Workout();
+            //w.ID = this.ID;
+            //w.ORM_tasks = this.ORM_tasks;
+            //w._ormAdapter = this._ormAdapter;
+            w.date = this.date;
+            w.designation = this.designation;
+            w.done = this.done;
+            Iterator it = this.tasks.getIterator();
+            while(it.hasNext()) {
+                w.tasks.add((Task)it.next());
+            }
+            w.week = this.week;
+            w.weekDay = this.weekDay;
+            return w;
+        }
+
 	
 }

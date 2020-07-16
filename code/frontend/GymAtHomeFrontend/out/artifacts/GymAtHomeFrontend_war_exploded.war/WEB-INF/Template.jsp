@@ -23,7 +23,7 @@
         <!-- header and nav -->
         <header class="page-header">
             <c:choose>
-                <c:when test="${requestScope.userType == 'client'}">
+                <c:when test="${sessionScope.userType == 'client'}">
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end pr-3">
@@ -35,7 +35,7 @@
                         </div>
                     </form>
                 </c:when>
-                <c:when test="${requestScope.userType == 'pt'}">
+                <c:when test="${sessionScope.userType == 'pt'}">
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end">
@@ -46,7 +46,7 @@
                         </div>
                     </form>
                 </c:when>
-                <c:when test="${requestScope.page=='PersonalTrainerRegister' || requestScope.page=='ClientRegister'}">
+                <c:when test="${sessionScope.page=='PersonalTrainerRegister' || requestScope.page=='ClientRegister'}">
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light border py-0 px-0 mb-3 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end mr-3 pr-3">
