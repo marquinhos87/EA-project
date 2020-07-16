@@ -54,7 +54,7 @@ public class ClientRegisterServlet extends HttpServlet {
             String password = request.getParameter("password");
             String confirmationPassword = request.getParameter("cpassword");
 
-            if(password.equals(confirmationPassword)) {
+            if(password != null && confirmationPassword != null && password.equals(confirmationPassword)) {
                 try {
                     JsonObject jo = new JsonObject();
                     jo.addProperty("name", request.getParameter("name"));

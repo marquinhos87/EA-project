@@ -94,9 +94,9 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-6 d-inline-flex">
-                    <label class="col-md-5 col-form-label">Password Antiga:</label>
+                    <label class="col-md-5 col-form-label">Nova Password:</label>
                     <div class="col-md-7">
-                        <input type="password" class="form-control" name="oldpassword" placeholder="********">
+                        <input type="password" class="form-control" name="newpassword" placeholder="********">
                     </div>
                 </div>
                 <div class="col-md-6 d-inline-flex">
@@ -108,9 +108,9 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-6 d-inline-flex">
-                    <label class="col-md-5 col-form-label">Nova Password:</label>
+                    <label class="col-md-5 col-form-label">Confirmar Password:</label>
                     <div class="col-md-7">
-                        <input type="password" class="form-control" name="newpassword" placeholder="********">
+                        <input type="password" class="form-control" name="cpassword" placeholder="********">
                     </div>
                 </div>
                 <div class="col-md-6 d-inline-flex">
@@ -122,10 +122,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-6 d-inline-flex">
-                    <label class="col-md-5 col-form-label">Confirmar Password:</label>
-                    <div class="col-md-7">
-                        <input type="password" class="form-control" name="cpassword" placeholder="********">
-                    </div>
+
                 </div>
                 <div class="col-md-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">Quadricep (cm):</label>
