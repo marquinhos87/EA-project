@@ -46,7 +46,7 @@
                         </div>
                     </form>
                 </c:when>
-                <c:when test="${sessionScope.page=='PersonalTrainerRegister' || requestScope.page=='ClientRegister'}">
+                <c:when test="${requestScope.page=='PersonalTrainerRegister' || requestScope.page=='ClientRegister'}">
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light border py-0 px-0 mb-3 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end mr-3 pr-3">
@@ -65,17 +65,17 @@
             <div class="row justify-content-center">
                 <c:choose>
                     <c:when test="${requestScope.errorMessage!=null}">
-                        <div class="alert alert-danger" role="alert">${errorMessage}</div>
+                        <div class="alert alert-danger" role="alert">${requestScope.errorMessage}</div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${requestScope.successMessage!=null}">
-                        <div class="alert alert-success" role="alert">${successMessage}</div>
+                        <div class="alert alert-success" role="alert">${requestScope.successMessage}</div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${requestScope.warningMessage!=null}">
-                        <div class="alert alert-success" role="alert">${warningMessage}</div>
+                        <div class="alert alert-success" role="alert">${requestScope.warningMessage}</div>
                     </c:when>
                 </c:choose>
             </div>

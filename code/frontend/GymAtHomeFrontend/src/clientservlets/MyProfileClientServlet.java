@@ -124,6 +124,7 @@ public class MyProfileClientServlet extends HttpServlet {
                 ResponseJSON responseObject = gson.fromJson(responseBody, ResponseJSON.class);
 
                 if (responseObject.status.equals("success")) {
+                    request.setAttribute("successMessage","O seu perfil foi alterado com sucesso!");
                     Utils.forward(request, response, "MyProfileClient", null, null);
                 } else {
                     // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
@@ -184,6 +185,13 @@ public class MyProfileClientServlet extends HttpServlet {
                 request.setAttribute("wrist",tmp);
         }
         else request.setAttribute("errorMessage", "Não é possível consultar o perfil neste momento, volte mais tarde.");
+
+        String msg;
+        if((msg = (String) request.getSession().getAttribute("successMessage"))!=null){
+            request.setAttribute("successMessage",msg);
+            request.getSession().setAttribute("successMessage",null);
+        }
+
         Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null);
     }
 

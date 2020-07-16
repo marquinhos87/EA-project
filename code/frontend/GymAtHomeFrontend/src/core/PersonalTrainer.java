@@ -4,7 +4,7 @@ public class PersonalTrainer {
     public String username;
     public String name;
     public String skill;
-    public String genre;
+    public String sex;
     public int age;
     public float classification;
     public float price;
@@ -36,12 +36,12 @@ public class PersonalTrainer {
         this.skill = skill;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getSex() {
+        return sex;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public int getAge() {

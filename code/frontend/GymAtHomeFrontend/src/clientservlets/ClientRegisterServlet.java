@@ -109,6 +109,7 @@ public class ClientRegisterServlet extends HttpServlet {
                         request.getSession().setAttribute("userType","client");
                         request.getSession().setAttribute("username","c" + request.getParameter("username"));
                         request.getSession().setAttribute("token",data.get("token").getAsString());
+                        request.getSession().setAttribute("successMessage","O seu perfil foi criado com sucesso! Aqui pode ver o seu perfil onde pode alterar os seus dados a qualquer momento.");
                         Utils.redirect(request,response,"/MyProfileClient");
                     }
                     else {
