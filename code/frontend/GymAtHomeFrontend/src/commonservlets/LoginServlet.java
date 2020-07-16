@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/Login")
@@ -66,7 +67,14 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username"), message = "", password = request.getParameter("password");
         JsonObject jo = new JsonObject();
         jo.addProperty("username",username);
-        jo.addProperty("password",password);
+        try {
+            jo.addProperty("password", Utils.hashPassword(password));
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Erro interno no sistema.");
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            return ;
+        }
 
         Response responseHttp = null;
 

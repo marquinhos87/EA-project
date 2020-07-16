@@ -3,6 +3,7 @@ package clientservlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import exceptions.JsonKeyInFaultException;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
 import utils.Http;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 @WebServlet(name = "ClientRegisterServlet", urlPatterns = "/ClientRegister")
 public class ClientRegisterServlet extends HttpServlet {
@@ -87,9 +89,27 @@ public class ClientRegisterServlet extends HttpServlet {
                     if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("wrist",Integer.parseInt(tmp));
 
-                    Response responseHttp = Http.post(Utils.SERVER + "createClient",jo.toString());
+                    Response responseHttp;
+
+                    System.err.println(jo.toString());
+
+                    try {
+                        responseHttp = Http.post(Utils.SERVER + "createClient", jo.toString());
+                    } catch (Exception e){
+                        e.printStackTrace();
+                        request.setAttribute("errorMessage", "Não foi possível conectar ao servidor, tente mais tarde ou contacte o suporte.");
+                        Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientRegister", null);
+                        return ;
+                    }
 
                     String body = responseHttp.body().string();
+
+                    try {
+                        Utils.validateJson(gson, body, Arrays.asList("status", "code", "msg", "data"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
                     if (responseJSON.status.equals("success")) {

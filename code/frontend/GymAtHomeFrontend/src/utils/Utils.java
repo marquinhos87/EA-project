@@ -16,9 +16,9 @@ import java.util.Collection;
 public class Utils {
     public static final String PROTOCOL = "http";
 
-    public static final String SERVER_URL = "192.168.1.139";
+    //public static final String SERVER_URL = "192.168.1.139";
 
-    //public static final String SERVER_URL = "192.168.1.56";
+    public static final String SERVER_URL = "192.168.1.53";
 
     public static final String SERVER_PORT = "8081";
     public static final String SERVER_CONTROLLER = "GymAtHome";
@@ -51,6 +51,7 @@ public class Utils {
 
     public static JsonObject validateJson(Gson gson, String json, Collection<String> tags) throws JsonKeyInFaultException {
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+        System.err.println("SERVER_RESPONSE:" + json);
         for(String tag: tags) {
             if (!jsonObject.has(tag)) {
                 throw new JsonKeyInFaultException(tag);
