@@ -336,4 +336,12 @@ public class GymAtHome {
     public String createdbs(String data) throws IOException, Exception {
         return gymAtHomeBean.createdbs(data);
     }
+    
+    public String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException{
+        return gymAtHomeBean.listClientRequestsByPersonalTrainer(usernameAsJSON);
+    }
+    
+    public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
+        return gymAtHomeBean.listClientRequestsByClient(usernameAsJSON);
+    }
 }

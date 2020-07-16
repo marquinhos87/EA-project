@@ -809,4 +809,18 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         
         return "\"Databases were created with success.\"";
     }
+    
+    public String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException{
+        String url = requests + "listClientRequestsByPersonalTrainer";
+        Response response = Http.post(url,usernameAsJSON);
+        
+        return response.body().string();
+    }
+    
+    public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
+        String url = requests + "listClientRequestsByClient";
+        Response response = Http.post(url,usernameAsJSON);
+        
+        return response.body().string();
+    }
 }

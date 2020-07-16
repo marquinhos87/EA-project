@@ -244,4 +244,8 @@ public interface GymAtHomeBeanLocal {
      * @throws Exception 
      */
     String dropdbs(String tokenAsJson) throws IOException, Exception;
+    
+    String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException;
+    
+    String listClientRequestsByClient(String usernameAsJSON) throws IOException;
 }
