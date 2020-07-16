@@ -23,6 +23,7 @@ import org.orm.ORMDatabaseInitiator;
 import org.orm.PersistentException;
 import requests.ClientAlreadyExistsException;
 import requests.ClientDoesNotExistException;
+import requests.IdDoesNotExistException;
 import requests.JsonKeyInFaultException;
 import requests.PersonalTrainerAlreadyExistsException;
 import requests.PersonalTrainerDoesNotExistException;
@@ -314,6 +315,94 @@ public class RequestAPI extends HttpServlet {
                 response.getWriter().print(Utils.makeSuccess(1,json));
                 break;
             }
+            case "getRequest":
+            {
+                try {
+                    json = facade.getRequest(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage() + "."));
+                    break;
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (IdDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(24, "Request with it " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
+                break;
+            }
+            case "getRequestsIdsClient":
+            {
+                try {
+                    json = facade.getRequestsIdsClient(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage() + "."));
+                    break;
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
+                    break;
+                }
+            }
+            case "getRequestsIdsPt":
+            {
+                try {
+                    json = facade.getRequestsIdsPt(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage() + "."));
+                    break;
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
+                    break;
+                }
+            }
             case "dropdb":
             {
                 try {
@@ -410,26 +499,4 @@ public class RequestAPI extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    //  LANGUAGE OF SERVICE
-    /**
-     * SUCCESS: 1 to 10
-     * 
-     * 1 - normal success
-     * 
-     * 
-     * ERRORS: 11 to ...
-     * 10 - Exception
-     * 11 - JsonKeyInFaultException
-     * 12 - UserDoesNotExistException
-     * 13 - TokenIsInvalidException
-     * 14 - PersistentException
-     * 15 - UserAlreadyExistsException
-     * 16 - ClientAlreadyExistsException
-     * 17 - PersonalTrainerDoesNotExistException
-     * 18 - PersonalTrainerAlreadyExistsException
-     * 19 - Probably json not validated format
-     * 20 - ClientDoesNotExistException
-     * 21 - RequestDoesNotExsistException
-     */
 }
