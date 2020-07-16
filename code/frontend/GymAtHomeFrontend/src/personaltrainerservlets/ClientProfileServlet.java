@@ -18,7 +18,7 @@ import java.io.IOException;
 @WebServlet(name = "ClientProfileServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/ClientProfile")
 public class ClientProfileServlet extends HttpServlet {
 
-    /*private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = new GsonBuilder().create();
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = (String) request.getSession().getAttribute("username");
@@ -26,19 +26,32 @@ public class ClientProfileServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            Utils.redirect(request,response,"/WEB-INF/Template.jsp","Login", null);
+            request.getSession().setAttribute("userType",null);
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login", null);
         }
         else {
-            String clientUsername = (String) request.getAttribute("clientUsername");
+            String clientUsername = request.getParameter("clientUsername");
             JsonObject jo = new JsonObject();
             jo.addProperty("username",username);
             jo.addProperty("token",token);
             jo.addProperty("clientUsername",clientUsername);
 
-            Response responseHttp = Http.post(Utils.SERVER + "getClientProfileByPersonalTrainer",jo.toString());
+            Response responseHttp;
+
+            try {
+                responseHttp = Http.post(Utils.SERVER + "getClientProfileByPersonalTrainer",jo.toString());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                return ;
+            }
 
             String body = responseHttp.body().string();
             ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
+
+            responseHttp.close();
 
             if(responseJSON.status.equals("success")) {
                 jo = responseJSON.data.getAsJsonObject();
@@ -49,7 +62,7 @@ public class ClientProfileServlet extends HttpServlet {
                 request.setAttribute("genre",jo.get("sex").getAsString());
                 request.setAttribute("height",jo.get("height").getAsString());
                 request.setAttribute("weight",jo.get("weight").getAsString());
-                request.setAttribute("imc",jo.get("bci").getAsString());
+                request.setAttribute("bmi",jo.get("BMI").getAsString());
 
                 String tmp = jo.has("waist") ? jo.get("waist").getAsString() : "0";
                 request.setAttribute("waist",tmp);
@@ -69,14 +82,14 @@ public class ClientProfileServlet extends HttpServlet {
                 tmp = jo.has("chest") ? jo.get("chest").getAsString() : "0";
                 request.setAttribute("chest",tmp);
 
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp","ClientProfile",null);
+                Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientProfile",null);
             }
             else {
-                request.setAttribute("errorMessage",responseJSON.msg);
-                Utils.redirect(request,response,"/WEB-INF/Template.jsp",null,null);
+                request.setAttribute("errorMessage","Erro interno.");
+                Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
-    }*/
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -88,7 +101,7 @@ public class ClientProfileServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //processRequest(request,response);
+        processRequest(request,response);
     }
 
     /**
@@ -101,6 +114,6 @@ public class ClientProfileServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //processRequest(request,response);
+        processRequest(request,response);
     }
 }
