@@ -90,7 +90,16 @@ public class ClientRegisterServlet extends HttpServlet {
                     if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("wrist",Integer.parseInt(tmp));
 
-                    Response responseHttp = Http.post(Utils.SERVER + "createClient",jo.toString());
+                    Response responseHttp;
+
+                    try{
+                        responseHttp = Http.post(Utils.SERVER + "createClient",jo.toString());
+                    } catch (Exception e){
+                        e.printStackTrace();
+                        request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                        Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                        return ;
+                    }
 
                     String body = responseHttp.body().string();
                     ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
@@ -109,12 +118,12 @@ public class ClientRegisterServlet extends HttpServlet {
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                    request.setAttribute("errorMessage", "An internal error occurred.");
+                    request.setAttribute("errorMessage", "Erro interno no sistema.");
                     Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                 }
             }
             else {
-                request.setAttribute("errorMessage","Passwords não coincidem.");
+                request.setAttribute("errorMessage","Passwords não iguais.");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
             }
         }
