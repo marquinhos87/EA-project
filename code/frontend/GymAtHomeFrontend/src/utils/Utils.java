@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -17,8 +16,10 @@ public class Utils {
     public static final String PROTOCOL = "http";
 
     //public static final String SERVER_URL = "192.168.1.139";
+    //public static final String SERVER_URL = "192.168.1.3";
 
-    public static final String SERVER_URL = "192.168.1.53";
+    //public static final String SERVER_URL = "192.168.1.56";
+    public static final String SERVER_URL = "37.189.223.35";
 
     public static final String SERVER_PORT = "8081";
     public static final String SERVER_CONTROLLER = "GymAtHome";
@@ -49,9 +50,12 @@ public class Utils {
         request.getRequestDispatcher(path).forward(request, response);
     }
 
+    public static void redirect(HttpServletRequest request, HttpServletResponse response, String path) throws ServletException, IOException {
+        response.sendRedirect(request.getContextPath() + path);
+    }
+
     public static JsonObject validateJson(Gson gson, String json, Collection<String> tags) throws JsonKeyInFaultException {
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        System.err.println("SERVER_RESPONSE:" + json);
         for(String tag: tags) {
             if (!jsonObject.has(tag)) {
                 throw new JsonKeyInFaultException(tag);

@@ -3,7 +3,6 @@ package clientservlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import exceptions.JsonKeyInFaultException;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
 import utils.Http;
@@ -15,8 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 @WebServlet(name = "ClientRegisterServlet", urlPatterns = "/ClientRegister")
 public class ClientRegisterServlet extends HttpServlet {
@@ -37,10 +36,12 @@ public class ClientRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("c")) {
-                Utils.forward(request,response,"MyProfileClient",null,null);
+                request.getSession().setAttribute("userType","client");
+                Utils.redirect(request,response,"/MyProfileClient");
             }
             else if(username.startsWith("pt")) {
-                Utils.forward(request,response,"MyProfilePersonalTrainer",null,null);
+                request.getSession().setAttribute("userType","pt");
+                Utils.redirect(request,response,"/MyProfilePersonalTrainer");
             }
             else {
                 request.getSession().setAttribute("username", null);
@@ -89,27 +90,9 @@ public class ClientRegisterServlet extends HttpServlet {
                     if(tmp!= null && !tmp.equals(""))
                         jo.addProperty("wrist",Integer.parseInt(tmp));
 
-                    Response responseHttp;
-
-                    System.err.println(jo.toString());
-
-                    try {
-                        responseHttp = Http.post(Utils.SERVER + "createClient", jo.toString());
-                    } catch (Exception e){
-                        e.printStackTrace();
-                        request.setAttribute("errorMessage", "Não foi possível conectar ao servidor, tente mais tarde ou contacte o suporte.");
-                        Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientRegister", null);
-                        return ;
-                    }
+                    Response responseHttp = Http.post(Utils.SERVER + "createClient",jo.toString());
 
                     String body = responseHttp.body().string();
-
-                    try {
-                        Utils.validateJson(gson, body, Arrays.asList("status", "code", "msg", "data"));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
                     ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
                     if (responseJSON.status.equals("success")) {
@@ -117,7 +100,7 @@ public class ClientRegisterServlet extends HttpServlet {
                         request.getSession().setAttribute("userType","client");
                         request.getSession().setAttribute("username","c" + request.getParameter("username"));
                         request.getSession().setAttribute("token",data.get("token").getAsString());
-                        Utils.forward(request,response,"MyProfileClient",null,null);
+                        Utils.redirect(request,response,"/MyProfileClient");
                     }
                     else {
                         request.setAttribute("errorMessage", responseJSON.msg);
@@ -151,10 +134,12 @@ public class ClientRegisterServlet extends HttpServlet {
         String token = (String) request.getSession().getAttribute("token");
         if(username != null && token != null) {
             if(username.startsWith("c")) {
-                Utils.forward(request,response,"MyProfileClient",null,null);
+                request.getSession().setAttribute("userType","client");
+                Utils.redirect(request,response,"/MyProfileClient");
             }
             else if(username.startsWith("pt")) {
-                Utils.forward(request,response,"MyProfilePersonalTrainer",null,null);
+                request.getSession().setAttribute("userType","pt");
+                Utils.redirect(request,response,"/MyProfilePersonalTrainer");
             }
             else {
                 request.getSession().setAttribute("username", null);
