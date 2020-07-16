@@ -98,14 +98,6 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-6 d-inline-flex">
-                    <label class="col-md-5 col-form-label">Password Antiga:</label>
-                    <div class="col-md-7">
-                        <input type="password" class="form-control" name="oldpassword" placeholder="********">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">Nova Password:</label>
                     <div class="col-md-7">
                         <input type="password" class="form-control" name="newpassword" placeholder="********">
