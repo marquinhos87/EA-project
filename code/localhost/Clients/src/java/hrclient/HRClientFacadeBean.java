@@ -45,7 +45,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         User user = Utils.validateUserToken(oldToken, username);
         user.setToken(newToken);
         UserDAO.save(user);     //  update new token
-        
+        HRClientFacade.getSession().flush();
     }
 
     /**
@@ -79,6 +79,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
 
         UserDAO.save(user);
         ClientDAO.save(client);
+        HRClientFacade.getSession().flush();
         return "{\"token\":\"" + token + "\"}";
     }
     
@@ -91,6 +92,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         user.setUsername(username);
         user.setToken(token);
         UserDAO.save(user);
+        HRClientFacade.getSession().flush();
     }
 
     /**
@@ -111,6 +113,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         user.setToken(newToken);
         UserDAO.save(user);                     //  update token
         ClientDAO.save(client);                 //  update username of client
+        HRClientFacade.getSession().flush();
         return "{ \"oldToken\": \"" + oldToken + "\", " +
                         "\"newToken\": \"" + newToken + "\" }";
     }
@@ -227,6 +230,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             client.biometricDatas.add(biometricData);
         }
         ClientDAO.save(client);
+        HRClientFacade.getSession().flush();
     }
 
     /**
