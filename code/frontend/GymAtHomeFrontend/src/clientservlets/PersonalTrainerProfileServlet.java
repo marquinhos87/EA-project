@@ -20,39 +20,7 @@ public class PersonalTrainerProfileServlet extends HttpServlet {
 
     private final Gson gson = new GsonBuilder().create();
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
-        String token = (String) request.getSession().getAttribute("token");
-        if(username == null || token == null) {
-            request.getSession().setAttribute("username",null);
-            request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
-        }
-        else {
-            //TODO
-        }
-    }
-
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = (String) request.getSession().getAttribute("username");
         String token = (String) request.getSession().getAttribute("token");
         if(username == null || token == null) {
@@ -71,7 +39,7 @@ public class PersonalTrainerProfileServlet extends HttpServlet {
 
             Response responseHttp;
             try {
-                responseHttp = Http.post("http://gymathome:8081/GymAtHome/api/getPersonalTrainerProfileByClient", jo.toString());
+                responseHttp = Http.post(Utils.SERVER + "etPersonalTrainerProfileByClient", jo.toString());
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -85,10 +53,47 @@ public class PersonalTrainerProfileServlet extends HttpServlet {
 
             if(responseJSON.status.equals("success")) {
                 jo = responseJSON.data.getAsJsonObject();
+
+                request.setAttribute("personalTrainerUsername",jo.get("username").getAsString());
+                request.setAttribute("personalTrainerName",jo.get("name").getAsString());
+                request.setAttribute("personalTrainerAge",jo.get("age").getAsInt());
+                request.setAttribute("personalTrainerSkill",jo.get("skill").getAsString());
+                request.setAttribute("personalTrainerPrice",jo.get("price").getAsString());
+                request.setAttribute("personalTrainerGenre",jo.get("sex").getAsString());
+                request.setAttribute("personalTrainerNClients",jo.get("nClients").getAsInt());
+                request.setAttribute("personalTrainerNPlans",jo.get("nPlans").getAsInt());
+                request.setAttribute("personalTrainerNClassifications",jo.get("nClassifications").getAsInt());
+                request.setAttribute("personalTrainerClassification",jo.get("classification").getAsFloat());
             }
             else {
                 request.setAttribute("errorMessage", "Não é possível consultar o perfil do personal trainer neste momento, volte mais tarde.");
             }
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "PersonalTrainerProfile", null);
         }
+    }
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request,response);
+    }
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request,response);
     }
 }

@@ -1,5 +1,14 @@
 package clientservlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import core.PersonalTrainer;
+import okhttp3.Response;
+import parseJSON.ResponseJSON;
+import utils.Http;
+import utils.Utils;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SearchPersonalTrainersServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/SearchPersonalTrainer")
+@WebServlet(name = "SearchPersonalTrainersServlet", urlPatterns = "/SearchPersonalTrainer")
 public class SearchPersonalTrainersServlet extends HttpServlet {
+
+    private final Gson gson = new GsonBuilder().create();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -25,11 +36,11 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            //TODO
+
         }
     }
 
@@ -48,11 +59,36 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            //TODO
+            JsonObject jo = new JsonObject();
+            jo.addProperty("username",username);
+            jo.addProperty("token",token);
+            Response responseHttp;
+
+            try {
+                responseHttp = Http.post(Utils.SERVER + "getPersonalTrainers",jo.toString());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                return ;
+            }
+
+            String body = responseHttp.body().string();
+            ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
+
+            if(responseJSON.status.equals("success")) {
+                PersonalTrainer[] pts = gson.fromJson(responseJSON.data.toString(),PersonalTrainer[].class);
+
+                request.setAttribute("personalTrainers",pts);
+            }
+            else {
+                request.setAttribute("errorMessage", "Não é possível consultar os personal trainers disponíveis neste momento, volte mais tarde.");
+            }
         }
     }
 }

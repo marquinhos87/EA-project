@@ -77,7 +77,7 @@
                             <td>${pt.username}</td>
                             <td>${pt.name}</td>
                             <td>${pt.skill}</td>
-                            <td>${pt.genre}</td>
+                            <td>${pt.sex}</td>
                             <td>${pt.age}</td>
                             <td>${pt.classification}</td>
                             <td>${pt.price}</td>
