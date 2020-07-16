@@ -7,17 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% if(request.getAttribute("error") != null) {%>
-    <div class="row my-3">
-        <div class="col-md-12">
-            <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading">Error - Sorry for the inconvenience :(</h4>
-                <p>${requestScope.error}</p>
-            </div>
-        </div>
-    </div>
-<%} else {%>
-    <div class="col-md-1"></div>
+<div class="row justify-content-center">
     <div class="col-md-10">
         <form class="mt-2" method="post" action="${pageContext.request.contextPath}\MyProfileClient">
             <div class="form-group row">
@@ -173,5 +163,4 @@
             </div>
         </form>
     </div>
-    <div class="col-md-1"></div>
-<%}%>
+</div>
