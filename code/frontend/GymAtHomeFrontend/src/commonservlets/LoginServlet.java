@@ -69,14 +69,16 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username"), message = "", password = request.getParameter("password");
         JsonObject jo = new JsonObject();
         jo.addProperty("username",username);
-        try {
-            jo.addProperty("password",Utils.hashPassword(password));
+        /*try {
+            //jo.addProperty("password",Utils.hashPassword(password));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Erro interno do sistema.");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return;
-        }
+        }*/
+        jo.addProperty("password",password);
+
 
         Response responseHttp = null;
 
@@ -122,17 +124,18 @@ public class LoginServlet extends HttpServlet {
                 Utils.redirect(request, response, "/MyProfileClient");
             }else {                //  personal trainer
                 session.setAttribute("userType","pt");
-                Utils.redirect(request, response, "/MyProfilePersonalTrainer");
+                Utils.redirect(request, response, "/MyRequestsPT");
             }
         }else{  //  error
             switch (responseJSON.get("code").getAsInt()){
                 case 22:
                 case 404:
                 case 20:
+                case 401:
                     message = "Credênciais inválidas.";
                     break;
                 default:    //  other errors
-                    message = "Erro interno do sistema.";
+                    message = "Erro interno do sistema. CONA";
                     break;
             }
             request.setAttribute("errorMessage", message);
