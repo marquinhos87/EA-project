@@ -18,4 +18,8 @@ public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	
 	final int KEY_PERSONALTRAINER_REQUESTS = 456490638;
 	
+	final int KEY_REQUEST_CLIENT = 1122933659;
+	
+	final int KEY_REQUEST_PERSONALTRAINER = -1176328059;
+	
 }

@@ -17,7 +17,28 @@ public class Request {
 	public Request() {
 	}
 	
+	private void this_setOwner(Object owner, int key) {
+		if (key == ORMConstants.KEY_REQUEST_CLIENT) {
+			this.client = (requests.Client) owner;
+		}
+		
+		else if (key == ORMConstants.KEY_REQUEST_PERSONALTRAINER) {
+			this.personalTrainer = (requests.PersonalTrainer) owner;
+		}
+	}
+	
+	org.orm.util.ORMAdapter _ormAdapter = new org.orm.util.AbstractORMAdapter() {
+		public void setOwner(Object owner, int key) {
+			this_setOwner(owner, key);
+		}
+		
+	};
+	
 	private int ID;
+	
+	private requests.PersonalTrainer personalTrainer;
+	
+	private requests.Client client;
 	
 	private int numberOfWeeks;
 	
@@ -89,6 +110,54 @@ public class Request {
 	
 	public boolean getAccepted() {
 		return accepted;
+	}
+	
+	public void setClient(requests.Client value) {
+		if (client != null) {
+			client.requests.remove(this);
+		}
+		if (value != null) {
+			value.requests.add(this);
+		}
+	}
+	
+	public requests.Client getClient() {
+		return client;
+	}
+	
+	/**
+	 * This method is for internal use only.
+	 */
+	public void setORM_Client(requests.Client value) {
+		this.client = value;
+	}
+	
+	private requests.Client getORM_Client() {
+		return client;
+	}
+	
+	public void setPersonalTrainer(requests.PersonalTrainer value) {
+		if (personalTrainer != null) {
+			personalTrainer.requests.remove(this);
+		}
+		if (value != null) {
+			value.requests.add(this);
+		}
+	}
+	
+	public requests.PersonalTrainer getPersonalTrainer() {
+		return personalTrainer;
+	}
+	
+	/**
+	 * This method is for internal use only.
+	 */
+	public void setORM_PersonalTrainer(requests.PersonalTrainer value) {
+		this.personalTrainer = value;
+	}
+	
+	private requests.PersonalTrainer getORM_PersonalTrainer() {
+		return personalTrainer;
 	}
 	
 	public int getWokoutPerWeek() {

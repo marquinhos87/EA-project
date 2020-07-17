@@ -10,7 +10,7 @@ License Type: Academic
 			<generator class="assigned">
 			</generator>
 		</id>
-		<set name="ORM_Requests" lazy="true" cascade="save-update,lock" inverse="false">
+		<set name="ORM_Requests" lazy="true" cascade="save-update,lock" inverse="true">
 			<key column="PersonalTrainerUsername" not-null="true"/>
 			<one-to-many class="requests.Request"/>
 		</set>

@@ -16,7 +16,7 @@ public class CreateDiagramasData {
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : requests, username
 			requests.PersonalTrainerDAO.save(lrequestsPersonalTrainer);
 			requests.Request lrequestsRequest = requests.RequestDAO.createRequest();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : accepted, level, workoutPerWeek, numberOfWeeks
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : accepted, level, workoutPerWeek, numberOfWeeks, client, personalTrainer
 			requests.RequestDAO.save(lrequestsRequest);
 			requests.User lrequestsUser = requests.UserDAO.createUser();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username

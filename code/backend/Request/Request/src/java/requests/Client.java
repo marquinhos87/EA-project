@@ -73,7 +73,7 @@ public class Client {
 		return ORM_requests;
 	}
 	
-	public final requests.RequestSetCollection requests = new requests.RequestSetCollection(this, _ormAdapter, ORMConstants.KEY_CLIENT_REQUESTS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final requests.RequestSetCollection requests = new requests.RequestSetCollection(this, _ormAdapter, ORMConstants.KEY_CLIENT_REQUESTS, ORMConstants.KEY_REQUEST_CLIENT, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getUsername());

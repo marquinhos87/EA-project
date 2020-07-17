@@ -78,18 +78,6 @@ public class RequestsFacade {
     public String listClientRequestsByClient(String usernameAsJSON) throws TokenIsInvalidException, UserDoesNotExistException, PersistentException, JsonKeyInFaultException, ClientDoesNotExistException {
             return requestFacadeBean.listClientRequestsByClient(usernameAsJSON);
     }
-
-    public String getRequest(String usernameAndIdAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, IdDoesNotExistException{
-        return requestFacadeBean.getRequest(usernameAndIdAsJson);
-    }
-    
-    public String getRequestsIdsClient(String usernameAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException{
-        return requestFacadeBean.getRequestsIdsClient(usernameAsJson);
-    }
-    
-    public String getRequestsIdsPt(String usernameAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException{
-        return requestFacadeBean.getRequestsIdsPt(usernameAsJson);
-    }
     
     public String getUsernameByRequestId(String requestIdAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, RequestDoesNotExistException{
         return requestFacadeBean.getUsernameByRequestId(requestIdAsJson);
