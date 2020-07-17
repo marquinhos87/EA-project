@@ -38,24 +38,24 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>IMC: ${requestScope.bci}</td>
-                    <td></td>
-                </tr>
-                <tr>
                     <td>Altura (cm): ${requestScope.height}</td>
-                    <td>Gémeo (cm): ${requestScope.twin}</td>
+                    <td>Gémeo (cm): ${requestScope.twin!=0 ? requestScope.twin : "sem informação registada"}</td>
                 </tr>
                 <tr>
                     <td>Peso (kg): ${requestScope.weight}</td>
-                    <td>Quadricep (cm): ${requestScope.quadricep}</td>
+                    <td>Quadricep (cm): ${requestScope.quadricep!=0 ? requestScope.quadricep : "sem informação registada"}</td>
                 </tr>
                 <tr>
-                    <td>Cintura (cm): ${requestScope.waist}</td>
-                    <td>Tricep (cm): ${requestScope.tricep}</td>
+                    <td>Cintura (cm): ${requestScope.waist!=0 ? requestScope.waist : "sem informação registada"}</td>
+                    <td>Tricep (cm): ${requestScope.tricep!=0 ? requestScope.tricep : "sem informação registada"}</td>
                 </tr>
                 <tr>
-                    <td>Peito (cm): ${requestScope.chest}</td>
-                    <td>Pulso (cm): ${requestScope.wrist}</td>
+                    <td>Peito (cm): ${requestScope.chest!=0 ? requestScope.chest : "sem informação registada"}</td>
+                    <td>Pulso (cm): ${requestScope.wrist!=0 ? requestScope.wrist : "sem informação registada"}</td>
+                </tr>
+                <tr>
+                    <td>Índice de Massa Corporal: ${requestScope.bci}</td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>

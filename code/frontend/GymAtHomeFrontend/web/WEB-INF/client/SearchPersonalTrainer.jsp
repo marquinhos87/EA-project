@@ -63,7 +63,7 @@
                 </div>
             </div>
         </form>
-        <% if(request.getAttribute("personalTrainers") != null) {%>
+        <% if(request.getAttribute("personalTrainers") != null && ((Collection<PersonalTrainer>)request.getAttribute("personalTrainers")).size()!=0) {%>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -91,11 +91,10 @@
                             out.print("<td>" + pt.price + "</td>");
                             out.print("</tr>");
                         }
-
                     %>
                 </tbody>
             </table>
-        <%} else {%>
+        <%} else if(request.getAttribute("errorMessage") != null) {%>
             <div class="alert alert-warning" role="alert">
                 <h4 class="alert-heading">Atualmente sem Personal Trainers.</h4>
                 <p>${requestScope.error}</p>

@@ -30,7 +30,7 @@ public class PersonalTrainerProfileServlet extends HttpServlet {
             Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            String personalTrainerUsername = request.getParameter("username");
+            String personalTrainerUsername = request.getParameter("personalTrainerUsername");
 
             JsonObject jo = new JsonObject();
             jo.addProperty("username",username);
@@ -39,7 +39,7 @@ public class PersonalTrainerProfileServlet extends HttpServlet {
 
             Response responseHttp;
             try {
-                responseHttp = Http.post(Utils.SERVER + "etPersonalTrainerProfileByClient", jo.toString());
+                responseHttp = Http.post(Utils.SERVER + "getPersonalTrainerProfileByClient", jo.toString());
             }
             catch (IOException e) {
                 e.printStackTrace();

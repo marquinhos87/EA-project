@@ -8,12 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="row justify-content-center">
     <div class="col-md-10">
-        <label><h3>Definir tipo de plano pretendido</h3></label>
+        <label class="my-2"><h3>Definir tipo de plano pretendido</h3></label>
         <form method="post" action="${pageContext.request.contextPath}\MakeRequest">
             <div class="form-group row">
                 <div class="col-md-8 d-inline-flex">
-                    <label class="col-form-label col-md-5">Nº de semanas (disponibilidade):</label>
-                    <div class="col-md-7">
+                    <label class="col-form-label col-md-6">Nº de semanas (disponibilidade):</label>
+                    <div class="col-md-6">
                         <select class="custom-select" name="numberOfWeeks" required>
                             <option value="1" selected>1</option>
                             <option value="2">2</option>
@@ -33,8 +33,8 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-8 d-inline-flex">
-                    <label class="col-form-label col-md-5">Objetivo:</label>
-                    <div class="col-md-7">
+                    <label class="col-form-label col-md-6">Objetivo:</label>
+                    <div class="col-md-6">
                         <select class="custom-select" name="objective" required>
                             <option value="Ganhar Musculo" selected>Ganhar Músculo</option>
                             <option value="Flexibilidade">Flexibilidade</option>
@@ -47,8 +47,8 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-8 d-inline-flex">
-                    <label class="col-form-label col-md-5">Nº de treinos semanais:</label>
-                    <div class="col-md-7">
+                    <label class="col-form-label col-md-6">Nº de treinos semanais:</label>
+                    <div class="col-md-6">
                         <select class="custom-select" name="workoutPerWeek" required>
                             <option value="1" selected>1</option>
                             <option value="2">2</option>
@@ -61,55 +61,57 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row d-inline-flex">
-                <label class="col-form-label col-md-5">Disponibilidade semanal:</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" name="weekDay[]">
-                    <label class="form-check-label">
-                        2ª
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="2" name="weekDay[]">
-                    <label class="form-check-label">
-                        3ª
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="3" name="weekDay[]">
-                    <label class="form-check-label">
-                        4ª
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="4" name="weekDay[]">
-                    <label class="form-check-label">
-                        5ª
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="5" name="weekDay[]">
-                    <label class="form-check-label">
-                        6ª
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="6" name="weekDay[]">
-                    <label class="form-check-label">
-                        Sab
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" name="weekDay[]">
-                    <label class="form-check-label">
-                        Dom
-                    </label>
+            <div class="form-group row">
+                <div class="col-md-12 d-inline-flex align-middle">
+                    <label class="col-form-label col-md-4">Disponibilidade semanal:</label>
+                    <div class="form-check pr-3">
+                        <input class="form-check-input" type="checkbox" value="1" name="weekDay[]">
+                        <label class="form-check-label">
+                            2ª
+                        </label>
+                    </div>
+                    <div class="form-check pr-3">
+                        <input class="form-check-input" type="checkbox" value="2" name="weekDay[]">
+                        <label class="form-check-label">
+                            3ª
+                        </label>
+                    </div>
+                    <div class="form-check pr-3">
+                        <input class="form-check-input" type="checkbox" value="3" name="weekDay[]">
+                        <label class="form-check-label">
+                            4ª
+                        </label>
+                    </div>
+                    <div class="form-check pr-3">
+                        <input class="form-check-input" type="checkbox" value="4" name="weekDay[]">
+                        <label class="form-check-label">
+                            5ª
+                        </label>
+                    </div>
+                    <div class="form-check pr-3">
+                        <input class="form-check-input" type="checkbox" value="5" name="weekDay[]">
+                        <label class="form-check-label">
+                            6ª
+                        </label>
+                    </div>
+                    <div class="form-check pr-3">
+                        <input class="form-check-input" type="checkbox" value="6" name="weekDay[]">
+                        <label class="form-check-label">
+                            Sab
+                        </label>
+                    </div>
+                    <div class="form-check pr-3">
+                        <input class="form-check-input" type="checkbox" value="1" name="weekDay[]">
+                        <label class="form-check-label">
+                            Dom
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-8 d-inline-flex">
-                    <label class="col-form-label col-md-5">Dificuldade:</label>
-                    <div class="col-md-7">
+                    <label class="col-form-label col-md-6">Dificuldade:</label>
+                    <div class="col-md-6">
                         <select class="custom-select" name="dificulty" required>
                             <option value="Facil" selected>Fácil</option>
                             <option value="Normal">Normal</option>

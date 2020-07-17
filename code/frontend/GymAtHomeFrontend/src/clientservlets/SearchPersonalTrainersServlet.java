@@ -125,6 +125,7 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
             JsonObject jo = new JsonObject();
             jo.addProperty("username",username);
             jo.addProperty("token",token);
+
             Response responseHttp;
 
             try {
@@ -134,7 +135,7 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
                 e.printStackTrace();
                 request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
-                return ;
+                return;
             }
 
             String body = responseHttp.body().string();
