@@ -90,6 +90,10 @@ public class RequestsFacade {
     public String getRequestsIdsPt(String usernameAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException{
         return requestFacadeBean.getRequestsIdsPt(usernameAsJson);
     }
+    
+    public String getUsernameByRequestId(String requestIdAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, RequestDoesNotExistException{
+        return requestFacadeBean.getUsernameByRequestId(requestIdAsJson);
+    }
 
     private RequestFacadeBeanLocal lookupRequestFacadeBeanLocal() {
         try {

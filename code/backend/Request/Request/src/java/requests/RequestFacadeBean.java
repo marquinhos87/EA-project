@@ -230,4 +230,15 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         }
         return gson.toJson(list);
     }
+    
+    public String getUsernameByRequestId(String requestIdAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, RequestDoesNotExistException{
+        JsonObject json = Utils.validateJson(gson, requestIdAsJson, Arrays.asList("username", "token"));
+        String token = json.get("token").getAsString(), username = json.get("username").getAsString();
+        int id = json.get("id").getAsInt();
+        Utils.validateToken(token, username);
+        if(Utils.registerExists("id", username, "Request")) throw new RequestDoesNotExistException(String.valueOf(id));
+        Query q = RequestsFacade.getSession().createQuery("select ClientUsername from Request where id = " + id);
+        Iterator it = q.list().iterator();
+        return "{\"clientUsername\":\"" + (String) it.next() + "\"}";
+    }
 }

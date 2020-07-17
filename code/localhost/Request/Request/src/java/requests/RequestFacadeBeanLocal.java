@@ -25,4 +25,5 @@ public interface RequestFacadeBeanLocal {
     String getRequest(String usernameAndIdAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, IdDoesNotExistException;
     String getRequestsIdsClient(String usernameAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException;
     String getRequestsIdsPt(String usernameAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException;
+    String getUsernameByRequestId(String requestIdAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, RequestDoesNotExistException;
 }

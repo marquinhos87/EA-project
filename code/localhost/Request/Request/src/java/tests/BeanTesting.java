@@ -69,7 +69,7 @@ public class BeanTesting {
             e.printStackTrace();
         }*/
 
-        String json4 = "{\n" +
+        /*String json4 = "{\n" +
                 "  \"username\": \"marques\",\n" +
                 "  \"token\": \"marquestdE1kJrMVOQJVpmtlOtxEgxEr\",\n" +
                 "  \"personalTrainerUsername\": \"ricardo\",\n" +
@@ -95,7 +95,7 @@ public class BeanTesting {
             e.printStackTrace();
         } catch (PersonalTrainerDoesNotExistException e) {
             e.printStackTrace();
-        }
+        }*/
 
         /*String json5 = "{\n" +
                 "  \"username\": \"ricardo\",\n" +
