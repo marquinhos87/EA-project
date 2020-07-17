@@ -1,2 +1,3 @@
 wildfly-16.0.0.Final/*
 wildfly-16.0.0.Final/
+GymAtHomeFrontend/out/artifacts/GymAtHomeFrontend_war_exploded.war/WEB-INF/classes/*.class

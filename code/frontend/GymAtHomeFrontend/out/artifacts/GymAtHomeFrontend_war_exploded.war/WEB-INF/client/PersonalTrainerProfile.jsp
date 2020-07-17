@@ -7,7 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="row">
-
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <label class="mb-3"><h4>Personal Trainer ${requestScope.personalTrainerUsername}</h4></label>
+        <label>Nome: ${requestScope.personalTrainerName}</label>
+        <label>Idade: ${requestScope.personalTrainerAge}</label>
+        <label>Género: ${requestScope.personalTrainerGenre}</label>
+        <label>Especialidade: ${requestScope.personalTrainerSkill}</label>
+        <label>Preço: ${requestScope.personalTrainerPrice}€</label>
+    </div>
 </div>
 <div class="row justify-content-center">
     <div class="col-md-6">
@@ -21,19 +29,19 @@
             <tbody>
                 <tr>
                     <td>Classificação</td>
-                    <td>${requestScope.classification}</td>
+                    <td>${requestScope.personalTrainerClassification}</td>
                 </tr>
                 <tr>
                     <td>Nº de avaliações</td>
-                    <td>${requestScope.nClassifications}</td>
+                    <td>${requestScope.personalTrainerNClassifications}</td>
                 </tr>
                 <tr>
                     <td>Nº de clientes</td>
-                    <td>${requestScope.nClients}</td>
+                    <td>${requestScope.personalTrainerNClients}</td>
                 </tr>
                 <tr>
                     <td>Nº de Planos Criados</td>
-                    <td>${requestScope.nPlans}</td>
+                    <td>${requestScope.personalTrainerNPlans}</td>
                 </tr>
             </tbody>
         </table>
@@ -41,6 +49,6 @@
 </div>
 <div class="row justify-content-end">
     <div class="col-md-3">
-        <button type="submit" class="">Requisitar Plano</button>
+        <button type="submit" formmethod="get" formaction="${pageContext.request.contextPath}\MakeRequest" name="personalTrainerUsername" value="${requestScope.personalTrainerUsername}" class="">Requisitar Plano</button>
     </div>
 </div>

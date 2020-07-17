@@ -23,7 +23,7 @@
         <!-- header and nav -->
         <header class="page-header">
             <c:choose>
-                <c:when test="${requestScope.userType == 'client'}">
+                <c:when test="${sessionScope.userType == 'client'}">
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end pr-3">
@@ -35,7 +35,7 @@
                         </div>
                     </form>
                 </c:when>
-                <c:when test="${requestScope.userType == 'pt'}">
+                <c:when test="${sessionScope.userType == 'pt'}">
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end">
@@ -65,17 +65,17 @@
             <div class="row justify-content-center">
                 <c:choose>
                     <c:when test="${requestScope.errorMessage!=null}">
-                        <div class="alert alert-danger" role="alert">${errorMessage}</div>
+                        <div class="alert alert-danger" role="alert">${requestScope.errorMessage}</div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${requestScope.successMessage!=null}">
-                        <div class="alert alert-success" role="alert">${successMessage}</div>
+                        <div class="alert alert-success" role="alert">${requestScope.successMessage}</div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${requestScope.warningMessage!=null}">
-                        <div class="alert alert-success" role="alert">${warningMessage}</div>
+                        <div class="alert alert-success" role="alert">${requestScope.warningMessage}</div>
                     </c:when>
                 </c:choose>
             </div>
@@ -137,5 +137,9 @@
                 <!-- Copyright -->
             </footer>
         </div>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     </body>
 </html>
