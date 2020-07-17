@@ -153,7 +153,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
             request.setAttribute("name",responseJson.get("name").getAsString());
             request.setAttribute("email",responseJson.get("email").getAsString());
             //TODO trocar para "birthday"
-            request.setAttribute("birthday",responseJson.get("birhday").getAsString());
+            //request.setAttribute("birthday",responseJson.get("birhday").getAsString());
             request.setAttribute("genre",responseJson.get("sex").getAsString());
             request.setAttribute("skill",responseJson.get("skill").getAsString());
             request.setAttribute("price",responseJson.get("price").getAsFloat());

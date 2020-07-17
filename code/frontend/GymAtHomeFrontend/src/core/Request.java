@@ -18,6 +18,10 @@ public class Request {
 	}
 	
 	public int ID;
+
+	public String clientUsername;
+
+	public String personalTrainerUsername;
 	
 	public int numberOfWeeks;
 	

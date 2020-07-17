@@ -25,7 +25,7 @@
         <header>
             <c:choose>
                 <c:when test="${sessionScope.userType == 'client'}">
-                    <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
+                    <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;" >
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end pr-3">
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='SearchPersonalTrainer' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\SearchPersonalTrainer">Procurar PersonalTrainer</button>
@@ -38,7 +38,7 @@
                     </form>
                 </c:when>
                 <c:when test="${sessionScope.userType == 'pt'}">
-                    <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
+                    <form method="get" class="container navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end">
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyRequests' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyRequestsPT">Meus Pedidos</button>
@@ -142,7 +142,7 @@
             <!-- Copyright -->
         </footer>
 
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     </body>

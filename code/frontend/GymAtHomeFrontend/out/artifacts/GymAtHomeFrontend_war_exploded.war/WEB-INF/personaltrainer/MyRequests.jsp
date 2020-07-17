@@ -93,12 +93,13 @@
                 <thead>
                     <tr>
                         <!--<th scope="col">#RequestId</th>-->
-                        <th scope="col">Semana disponíveis</th>
+                        <th scope="col">Perfil do Cliente</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Semanas disponíveis</th>
                         <th scope="col">Objetivo</th>
                         <th scope="col">Workouts por semana</th>
                         <th scope="col">Disponibilidade (dias da semana)</th>
                         <th scope="col">Nível de treinoo</th>
-                        <th scope="col">Dados do cliente</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -110,7 +111,10 @@
                 for(Request req : requests){
                 %>
                 <tr>
-                    <!-- <th><% out.print(req.ID); %></th> -->
+                    <th><button onclick="getClient('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', <% out.print((req.ID));%>, '<% out.print((req.clientUsername));%>');" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        perfil
+                    </button></th>
+                    <th>@<% out.print(req.clientUsername); %></th>
                     <th><% out.print(req.numberOfWeeks); %></th>
                     <th><% out.print(req.objective); %></th>
                     <th><% out.print(req.workoutPerWeek); %></th>
@@ -152,9 +156,6 @@
                     %>
                     <th><% out.print(sb.toString()); %></th>
                     <th><% out.print(req.level); %></th>
-                    <th><button onclick="getRequest('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', <% out.print((req.ID));%>);" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        mais info
-                    </button></th>
                     <th><button type="button" class="btn btn-success">Aceitar</button></th>
                     <th><button type="button" class="btn btn-danger">Rejeitar</button></th>
              </tr>
@@ -169,35 +170,9 @@
 
     <script type="text/javascript">
 
-        function getRequest(protocol, ip, port, controller, username, token, id) {
-            var clientUsername = ""
+        function getClient(protocol, ip, port, controller, username, token, id, clientUsername) {
 
             var path = "/" + controller + "/api/"
-
-            $.ajax({
-                url: protocol + '://' + ip + ':' + port + path + 'getUsernameByRequestId',
-                cache: false,
-                async: false,
-                method: 'POST',
-                dataType: 'json',
-                data: JSON.stringify({
-                    username: username,
-                    token: token,
-                    id: id
-                }),
-                success: function(jsonResponse) {
-                    data = jsonResponse.data
-                    clientUsername = data.clientUsername
-                    console.log(data.clientUsername);
-                },
-                error: function () {
-                    $("#aceitar").css("display", "none")
-                    $("#rejeitar").css("display", "none")
-                    $("#bio").css("display", "none")
-                    $("#title-pop-up").html("Erro interno do sistema")
-                    $("#message").html("Não foi possível obter os dados biométricos entre outros do cliente. Tente mais tarde ou contacte o suporte.")
-                }
-            })
 
             $.ajax({
                 url: protocol + '://' + ip + ':' + port + path + 'getClientProfileByPersonalTrainer',
