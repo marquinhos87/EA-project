@@ -47,6 +47,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         User user = Utils.validateToken(oldToken, username);
         user.setToken(newToken);
         UserDAO.save(user);
+        RequestsFacade.getSession().flush();
     }
 
     /**
@@ -71,6 +72,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         client = new Client();
         client.setUsername(username);
         ClientDAO.save(client);
+        RequestsFacade.getSession().flush();
     }
 
     /**
@@ -96,6 +98,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         personalTrainer = new PersonalTrainer();
         personalTrainer.setUsername(username);
         PersonalTrainerDAO.save(personalTrainer);
+        RequestsFacade.getSession().flush();
     }
 
     /**
@@ -122,6 +125,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         pt.requests.add(request);
         ClientDAO.save(client);
         PersonalTrainerDAO.save(pt);
+        RequestsFacade.getSession().flush();
     }
 
     /**
@@ -146,6 +150,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         boolean accepted = json.get("accepted").getAsBoolean();
         request.setAccepted(accepted);
         RequestDAO.save(request);
+        RequestsFacade.getSession().flush();
     }
 
     /**
