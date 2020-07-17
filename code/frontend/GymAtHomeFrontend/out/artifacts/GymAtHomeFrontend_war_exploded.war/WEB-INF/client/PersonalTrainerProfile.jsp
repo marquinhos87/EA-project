@@ -19,7 +19,7 @@
 </div>
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <table class="table table-hover table-borderless">
+        <table class="table table-borderless">
             <thead>
                 <tr>
                     <th style="width: 50%;">Estatísticas PT</th>

@@ -7,7 +7,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-<h4 class="mt-4">Semana ${requestScope.week.number}</h4>
+<h4 class="mt-4">Semana ${requestScope.week.number}
+<%
+    boolean isCurrentWeek = (boolean) request.getAttribute("isCurrentWeek");
+    if (isCurrentWeek) out.print(" (atual)");
+%>
+</h4>
 
 <table class="mt-5 table table-bordered">
     <thead>
@@ -48,7 +53,7 @@
             out.print("<tr>");
             for(Workout workout: workouts) {
                 if (workout != null) out.print("<td class=\"text-center\">" + workout.designation + "</td>");
-                else out.print("<td class=\"text-center\">-</td>");
+                else out.print("<td class=\"text-center\"></td>");
             }
             out.print("</tr>");
 
@@ -59,13 +64,48 @@
                     if (workout.done) out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-danger\">workout feito</button></td>");
                     else out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-primary\">consultar workout</button></td>");
                 }
-                else out.print("<td class=\"text-center\">-</td>");
+                else out.print("<td class=\"text-center\"></td>");
             }
             out.print("</tr>");
         %>
 
     </tbody>
 </table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        <%
+            if (week.number == 1) out.print("<li class=\"disabled page-item\">");
+            else out.print("<li class=\"page-item\">");
+
+            out.print("<a class=\"page-link\" href=\"" + request.getContextPath() + "/ClientPlan?week=" + (week.number-1) + "\" aria-label=\"Previous\">");
+        %>
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <%
+            int numberOfWeeks = (int) request.getAttribute("numberOfWeeks");
+            for (int i=0; i<numberOfWeeks; i++) {
+                int pageNumber = i + 1;
+                out.print("<li class=\"");
+                if (pageNumber == week.number) out.print("disabled ");
+                out.print("page-item\"><a class=\"page-link\" href=\"" + request.getContextPath() + "/ClientPlan?week=" + pageNumber + "\">" + pageNumber + "</a></li>");
+            }
+
+        %>
+        <%
+            if (week.number == numberOfWeeks) out.print("<li class=\"disabled page-item\">");
+            else out.print("<li class=\"page-item\">");
+
+            out.print("<a class=\"page-link\" href=\"" + request.getContextPath() + "/ClientPlan?week=" + (week.number+1) + "\" aria-label=\"Next\">");
+        %>
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 
 <div class="row mt-5">
     <h4>Dados biométricos:</h4>
@@ -163,6 +203,16 @@
                     <div class="col" style="width: 14.3%">35</div>
                     <div class="col" style="width: 14.3%">40</div>
                     <div class="col" style="width: 14.2%"></div>
+                </div>
+
+                <!-- prints Arrow pointing to the respective BMI category -->
+                <div class="row ml-1 text-center" style="width: 100%">
+                    <div class="col" style="width: 14.3%"><% if (biometricData.BMI < 18.5) out.print("<i style='font-size:24px' class='fas'>&#xf102;</i>"); %></div>
+                    <div class="col" style="width: 14.3%"><% if (biometricData.BMI >= 18.5 && biometricData.BMI < 25) out.print("<i style='font-size:24px' class='fas'>&#xf102;</i>"); %></div>
+                    <div class="col" style="width: 14.3%"><% if (biometricData.BMI >= 25 && biometricData.BMI < 30) out.print("<i style='font-size:24px' class='fas'>&#xf102;</i>"); %></div>
+                    <div class="col" style="width: 14.3%"><% if (biometricData.BMI >= 30 && biometricData.BMI < 35) out.print("<i style='font-size:24px' class='fas'>&#xf102;</i>"); %></div>
+                    <div class="col" style="width: 14.3%"><% if (biometricData.BMI >= 35 && biometricData.BMI < 40) out.print("<i style='font-size:24px' class='fas'>&#xf102;</i>"); %></div>
+                    <div class="col" style="width: 14.2%"><% if (biometricData.BMI >= 40) out.print("<i style='font-size:24px' class='fas'>&#xf102;</i>"); %></div>
                 </div>
 
             </td>

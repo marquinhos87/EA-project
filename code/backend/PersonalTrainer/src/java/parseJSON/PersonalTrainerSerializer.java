@@ -18,6 +18,7 @@ public class PersonalTrainerSerializer implements JsonSerializer<PersonalTrainer
         jsonObj.add("username", context.serialize(pt.getUsername()));
         jsonObj.add("name", context.serialize(pt.getName()));
         jsonObj.add("email", context.serialize(pt.getEmail()));
+        jsonObj.add("birhday", context.serialize(pt.getBirthday()));
         jsonObj.add("age", context.serialize(Utils.years(pt.getBirthday(), new Date())));
         jsonObj.add("sex", context.serialize(pt.getSex()));
         jsonObj.add("skill",  context.serialize(pt.getSkill()));

@@ -7,6 +7,7 @@ package beans;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import static java.time.DayOfWeek.SUNDAY;
 import static java.time.temporal.TemporalAdjusters.next;
@@ -173,8 +174,12 @@ public class CoreBean implements CoreBeanLocal {
         List<Week> weeks = (List<Week>) session.createQuery("from Week where PlanID=" + plan.getID() + " and Number=" + weekNumber).list();
         if (weeks.isEmpty())
             throw new InvalidWeekNumberException(Integer.toString(weekNumber));
-
-        return gson.toJson(weeks.get(0), Week.class);
+       
+        JsonElement je = gson.toJsonTree(weeks.get(0), Week.class);
+        je.getAsJsonObject().addProperty("numberOfWeeks", plan.weeks.size());
+        je.getAsJsonObject().addProperty("currentWeek", plan.getCurrentWeek());
+        
+        return gson.toJson(je);
     }
 
     /**
@@ -214,7 +219,11 @@ public class CoreBean implements CoreBeanLocal {
         if (weeks.isEmpty())
             throw new InvalidWeekNumberException(Integer.toString(weekNumber));
 
-        return gson.toJson(weeks.get(0), Week.class);
+        JsonElement je = gson.toJsonTree(weeks.get(0), Week.class);
+        je.getAsJsonObject().addProperty("numberOfWeeks", plan.weeks.size());
+        je.getAsJsonObject().addProperty("currentWeek", plan.getCurrentWeek());
+        
+        return gson.toJson(je);
     }
 
     /**

@@ -137,6 +137,7 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 		if (editedPt.getSex() != null) databasePt.setSex(editedPt.getSex());
 		if (editedPt.getSkill() != null) databasePt.setSkill(editedPt.getSkill());
 		if (editedPt.getPrice() != 0) databasePt.setPrice(editedPt.getPrice());
+                if (editedPt.getBirthday() != null) databasePt.setBirthday(editedPt.getBirthday());
 		PersonalTrainerDAO.save(databasePt);
 		System.err.println("PersonalTrainer's info updated...");
 	}
