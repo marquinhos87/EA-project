@@ -10,7 +10,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-6">
         <div class="row d-flex flex-column">
-            <label class="mb-3"><h4>Personal Trainer ${requestScope.personalTrainerUsername}</h4></label>
+            <label class="mb-3"><h4>Personal Trainer @${requestScope.personalTrainerUsername}</h4></label>
             <div class="col ml-1 d-flex flex-column">
                 <label>Nome: ${requestScope.personalTrainerName}</label>
                 <label>Idade: ${requestScope.personalTrainerAge}</label>

@@ -11,7 +11,7 @@
     <div class="col-md-10">
         <form class="mt-2" method="post" action="${pageContext.request.contextPath}\MyProfileClient">
             <div class="form-group row">
-                <label class="col-md-6 col-form-label"><h3>${requestScope.username!=null ? requestScope.username : "Username"}</h3></label>
+                <label class="col-md-6 col-form-label"><h3>${requestScope.username!=null ? "@"+requestScope.username : "@Username"}</h3></label>
             </div>
             <div class="form-group row">
                 <label class="col-md-6 col-form-label"><h3>Dados Pessoais</h3></label>
