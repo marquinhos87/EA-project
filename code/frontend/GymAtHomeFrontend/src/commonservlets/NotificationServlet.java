@@ -1,14 +1,28 @@
 package commonservlets;
 
+import core.Notification;
+import parseJSON.ResponseJSON;
+import utils.Http;
+import utils.Utils;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import okhttp3.Response;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 @WebServlet(name = "NotificationServlet", urlPatterns = "/Notification")
 public class NotificationServlet extends HttpServlet {
+
+    private final Gson gson = new GsonBuilder().create();
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -25,11 +39,70 @@ public class NotificationServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            //TODO
+            String[] notificationIds = request.getParameterValues("notificationId[]");
+
+            if(notificationIds != null && notificationIds.length != 0) {
+
+                JsonObject jo = new JsonObject();
+                jo.addProperty("username", username);
+                jo.addProperty("token", token);
+
+                int[] notificationsIds = new int[notificationIds.length];
+                for(int i = 0 ; i < notificationIds.length ; i++)
+                    notificationsIds[i] = Integer.parseInt(notificationIds[i]);
+
+                jo.add("ids",gson.toJsonTree(notificationsIds));
+
+                Response responseHttp;
+
+                try {
+                    if (username.startsWith("c"))
+                        responseHttp = Http.post(Utils.SERVER + "markAsReadNotificationsByClient", jo.toString());
+                    else if (username.startsWith("pt"))
+                        responseHttp = Http.post(Utils.SERVER + "markAsReadNotificationsByPersonalTrainer", jo.toString());
+                    else {
+                        request.getSession().setAttribute("username", null);
+                        request.getSession().setAttribute("token", null);
+                        request.getSession().setAttribute("userType", null);
+                        request.setAttribute("title", "Login");
+                        Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                        return;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
+                    request.getSession().setAttribute("username", null);
+                    request.getSession().setAttribute("token", null);
+                    request.getSession().setAttribute("userType", null);
+                    request.setAttribute("title", "Login");
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                    return;
+                }
+
+                String body = responseHttp.body().string();
+                ResponseJSON responseJSON = gson.fromJson(body, ResponseJSON.class);
+
+                responseHttp.close();
+
+                if (responseJSON.status.equals("success")) {
+                    //TODO selecionar qual a página para ir
+                    Utils.redirect(request, response, "/Notification");
+                } else {
+                    request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+                    request.setAttribute("title", "Notificações");
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "Notification", null);
+                }
+            }
+            else {
+                request.setAttribute("warningMessage","Não selecionou nenhuma notificação para marcar como lida.");
+                request.setAttribute("title","Notificações");
+                Utils.forward(request,response,"/WEB-INF/Template.jsp","Notification",null);
+            }
         }
     }
 
@@ -48,11 +121,59 @@ public class NotificationServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            //TODO
+            JsonObject jo = new JsonObject();
+            jo.addProperty("username",username);
+            jo.addProperty("token",token);
+
+            Response responseHttp;
+
+            try {
+                if(username.startsWith("c"))
+                    responseHttp = Http.post(Utils.SERVER + "getNotificationsByClient",jo.toString());
+                else if(username.startsWith("pt"))
+                    responseHttp = Http.post(Utils.SERVER + "getNotificationsByPersonalTrainer",jo.toString());
+                else {
+                    request.getSession().setAttribute("username",null);
+                    request.getSession().setAttribute("token",null);
+                    request.getSession().setAttribute("userType",null);
+                    request.setAttribute("title","Login");
+                    Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
+                    return;
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage",Utils.CONNECTION_LOST_MSG);
+                request.getSession().setAttribute("username",null);
+                request.getSession().setAttribute("token",null);
+                request.getSession().setAttribute("userType",null);
+                request.setAttribute("title","Login");
+                Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
+                return;
+            }
+
+            String body = responseHttp.body().string();
+            ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
+
+            responseHttp.close();
+
+            if (responseJSON.status.equals("success")) {
+                Notification[] tmps = gson.fromJson(responseJSON.data,Notification[].class);
+
+                Collection<Notification> notifications = new ArrayList<>(Arrays.asList(tmps));
+                request.setAttribute("personalTrainers",notifications);
+            }
+            else {
+                request.setAttribute("errorMessage",Utils.UNEXPECTED_ERROR_MSG);
+            }
+
+            request.setAttribute("title","Notificações");
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Notification",null);
         }
     }
 }

@@ -170,9 +170,6 @@ public class ClientRegisterServlet extends HttpServlet {
             }
         }
         else {
-            request.getSession().setAttribute("username", null);
-            request.getSession().setAttribute("token", null);
-            request.getSession().setAttribute("userType",null);
             request.setAttribute("title","Registar Cliente");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
         }

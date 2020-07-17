@@ -20,7 +20,7 @@ import java.io.IOException;
 public class MyProfileClientServlet extends HttpServlet {
 
     private HttpSession session = null;
-    private final Gson gson = new GsonBuilder().create();
+    private final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
     private String action = null;
     private String username = null;
     private String token = null;
