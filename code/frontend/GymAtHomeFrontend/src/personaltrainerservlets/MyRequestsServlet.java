@@ -105,18 +105,21 @@ public class MyRequestsServlet extends HttpServlet {
             return ;
         }
 
-        System.err.println("CHEGUEI AQUI!");
-
         if(responseJSON.status.equals("success")){
             System.err.println("ENTREI AQUI 2");
             Request[] requests = gson.fromJson(responseJSON.data.toString(), Request[].class);
             List<Request> tmps = Arrays.asList(requests);
             request.setAttribute("requests", tmps);
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
+        }else{
+            switch (responseJSON.code){
+                default:
+                    message = "Erro interno do sistema.";
+                    request.setAttribute("errorMessage", message);
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+                    break;
+            }
         }
-
-
-
     }
 
     /**

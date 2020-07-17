@@ -1,6 +1,7 @@
 <%@ page import="core.Request" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.lang.ref.ReferenceQueue" %><%--
+<%@ page import="java.lang.ref.ReferenceQueue" %>
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: joaomarques
   Date: 06/07/2020
@@ -15,53 +16,100 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Informações do João Costa</h5>
+                    <h5 class="modal-title" id="title-pop-up"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label>Peso (kg): 60 </label><br>
-                    <label>Peso (kg): 60 </label><br>
-                    <label>Peso (kg): 60 </label><br>
-                    <label>Peso (kg): 60 </label><br>
-                    <label>Peso (kg): 60 </label><br>
-                    <label>Peso (kg): 60 </label><br>
-                    <label>Peso (kg): 60 </label><br>
-                    <label>Peso (kg): 60 </label><br>
+                    <p id="message"></p>
+                    <table id="bio" class="table table-striped">
+                        <tr>
+                            <th>dados atualizados em</th>
+                            <td id="date"></td>
+                        </tr>
+                        <tr>
+                            <th>email</th>
+                            <td id="email"></td>
+                        </tr>
+                        <tr>
+                            <th>IMC</th>
+                            <td id="bmi"></td>
+                        </tr>
+                        <tr>
+                            <th>sex</th>
+                            <td id="sex"></td>
+                        </tr>
+                        <tr>
+                            <th>idade</th>
+                            <td id="age"></td>
+                        </tr>
+                        <tr>
+                            <th>altura</th>
+                            <td id="height"></td>
+                        </tr>
+                        <tr>
+                            <th>peso</th>
+                            <td id="weight"></td>
+                        </tr>
+                        <tr>
+                            <th>pulso</th>
+                            <td id="wrist"></td>
+                        </tr>
+                        <tr>
+                            <th>peito</th>
+                            <td id="chest"></td>
+                        </tr>
+                        <tr>
+                            <th>tricep</th>
+                            <td id="tricep"></td>
+                        </tr>
+                        <tr>
+                            <th>cintura</th>
+                            <td id="waist"></td>
+                        </tr>
+                        <tr>
+                            <th>quadricep</th>
+                            <td id="quadricep"></td>
+                        </tr>
+                        <tr>
+                            <th>gémeo</th>
+                            <td id="twin"></td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                    <button type="button" class="btn btn-success">Aceitar</button>
-                    <button type="button" class="btn btn-danger">Rejeitar</button>
+                    <button id="aceitar" type="button" class="btn btn-success">Aceitar</button>
+                    <button id="rejeitar" type="button" class="btn btn-danger">Rejeitar</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <table class="table table-striped">
-    <thead>
-        <tr>
-            <!--<th scope="col">#RequestId</th>-->
-            <th scope="col">Dados biométricos</th>
-            <th scope="col">Semana disponíveis</th>
-            <th scope="col">Objetivo</th>
-            <th scope="col">Workouts por semana</th>
-            <th scope="col">Disponibilidade (dias da semana)</th>
-            <th scope="col">Nível de treino</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-        <tbody
         <%
             List<Request> requests = (List) request.getAttribute("requests");
-            for(Request req : requests){
+            if(requests.size() != 0){%>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <!--<th scope="col">#RequestId</th>-->
+                        <th scope="col">Semana disponíveis</th>
+                        <th scope="col">Objetivo</th>
+                        <th scope="col">Workouts por semana</th>
+                        <th scope="col">Disponibilidade (dias da semana)</th>
+                        <th scope="col">Nível de treinoo</th>
+                        <th scope="col">Dados do cliente</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                <%
+
+                for(Request req : requests){
                 %>
                 <tr>
-                    <th><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        Bio
-                    </button></th>
                     <!-- <th><% out.print(req.ID); %></th> -->
                     <th><% out.print(req.numberOfWeeks); %></th>
                     <th><% out.print(req.objective); %></th>
@@ -104,10 +152,116 @@
                     %>
                     <th><% out.print(sb.toString()); %></th>
                     <th><% out.print(req.level); %></th>
+                    <th><button onclick="getRequest('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', <% out.print((req.ID));%>);" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        mais info
+                    </button></th>
                     <th><button type="button" class="btn btn-success">Aceitar</button></th>
                     <th><button type="button" class="btn btn-danger">Rejeitar</button></th>
              </tr>
-            <%}%>
+            <%}
+            }else{%>
+            <div class="justify-content-center my-5"><h4 class="text-center">Não existem pedidos para planos de treino.</h4></div>
+        <% }
+            %>
 
         </tbody>
     </table>
+
+    <script type="text/javascript">
+
+        function getRequest(protocol, ip, port, controller, username, token, id) {
+            var clientUsername = ""
+
+            var path = "/" + controller + "/api/"
+
+            $.ajax({
+                url: protocol + '://' + ip + ':' + port + path + 'getUsernameByRequestId',
+                cache: false,
+                async: false,
+                method: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    username: username,
+                    token: token,
+                    id: id
+                }),
+                success: function(jsonResponse) {
+                    data = jsonResponse.data
+                    clientUsername = data.clientUsername
+                    console.log(data.clientUsername);
+                },
+                error: function () {
+                    $("#aceitar").css("display", "none")
+                    $("#rejeitar").css("display", "none")
+                    $("#bio").css("display", "none")
+                    $("#title-pop-up").html("Erro interno do sistema")
+                    $("#message").html("Não foi possível obter os dados biométricos entre outros do cliente. Tente mais tarde ou contacte o suporte.")
+                }
+            })
+
+            $.ajax({
+                url: protocol + '://' + ip + ':' + port + path + 'getClientProfileByPersonalTrainer',
+                cache: false,
+                async: false,
+                method: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    username: username,
+                    token: token,
+                    clientUsername: clientUsername
+                }),
+                success: function(jsonResponse) {
+                    var message = " --- "
+                    data = jsonResponse.data
+                    $('#title-pop-up').html("Dados de " + data.name + " (@" + clientUsername + ")")
+                    $("#date").html(data.date)
+
+                    if(data.email == "" || data.email == null) $("#email").html(message)
+                    else $("#email").html(data.email)
+
+                    if(data.BMI == 0 || data.BMI == null)$("#bmi").html(message)
+                    else $("#bmi").html(data.BMI)
+
+                    if(data.sex == "" || data.sex == null)$("#sex").html(message)
+                    else $("#sex").html(data.sex)
+
+                    if(data.age == 0 || data.age == null)$("#age").html(message)
+                    else $("#age").html(data.age)
+
+                    if(data.height == 0 || data.height == null)$("#height").html(message)
+                    else $("#height").html(data.height)
+
+                    if(data.weight == 0 || data.weight == null)$("#weight").html(message)
+                    else $("#weight").html(data.weight)
+
+                    if(data.wrist == 0 || data.wrist == null)$("#wrist").html(message)
+                    else $("#wrist").html(data.wrist)
+
+                    if(data.chest == 0 || data.chest == null)$("#chest").html(message)
+                    else $("#chest").html(data.chest)
+
+                    if(data.tricep == 0 || data.tricep == null)$("#tricep").html(message)
+                    else $("#tricep").html(data.tricep)
+
+                    if(data.waist == 0 || data.waist == null)$("#waist").html(message)
+                    else $("#waist").html(data.waist)
+
+                    if(data.quadricep == 0 || data.quadricep == null)$("#quadricep").html(message)
+                    else $("#quadricep").html(data.quadricep)
+
+                    if(data.twin == 0 || data.twin == null)$("#twin").html(message)
+                    else $("#twin").html(data.twin)
+
+                    if(data.BMI == 0 || data.BMI == null)$("#bmi").html(message)
+                    else $("#bmi").html(data.IMC)
+                },
+                error: function () {
+                    $("#aceitar").css("display", "none")
+                    $("#rejeitar").css("display", "none")
+                    $("#bio").css("display", "none")
+                    $("#title-pop-up").html("Erro interno do sistema")
+                    $("#message").html("Não foi possível obter os dados biométricos entre outros do cliente. Tente mais tarde ou contacte o suporte.")
+                }
+            })
+        }
+    </script>
