@@ -41,8 +41,8 @@
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end">
-                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyRequests' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyRequests">Meus Pedidos</button>
-                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyClients' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyRequests">Meus Clientes</button>
+                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyRequests' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyRequestsPT">Meus Pedidos</button>
+                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyClients' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyRequestsPT">Meus Clientes</button>
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyProfilePersonalTrainer' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyProfilePersonalTrainer">Meu Perfil</button>
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" name="action" value="logout" formaction="${pageContext.request.contextPath}\Logout">Logout</button>
                         </div>

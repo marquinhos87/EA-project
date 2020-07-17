@@ -92,6 +92,7 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                         request.getSession().setAttribute("username", "pt" + request.getParameter("username"));
                         request.getSession().setAttribute("token",data.get("token").getAsString());
                         request.getSession().setAttribute("successMessage","O seu perfil foi criado com sucesso! Aqui pode ver o seu perfil onde pode alterar os seus dados a qualquer momento.");
+                        request.getSession().setAttribute("userType", "pt");
                         Utils.redirect(request,response,"/MyProfilePersonalTrainer");
                     }
                     else {
