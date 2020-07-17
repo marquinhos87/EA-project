@@ -13,17 +13,14 @@
  */
 package core;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Week {
 	
 	public int number;
 	public Date initialDate;
 	public Date finalDate;
-	public List<Workout> workouts = new ArrayList<>();
+	public Map<Integer, Workout> workouts = new HashMap<>();
 
 	public int getNumber() {
 		return number;
@@ -49,11 +46,11 @@ public class Week {
 		this.finalDate = finalDate;
 	}
 
-	public List<Workout> getWorkouts() {
+	public Map<Integer, Workout> getWorkouts() {
 		return workouts;
 	}
 
-	public void setWorkouts(List<Workout> workouts) {
+	public void setWorkouts(Map<Integer, Workout> workouts) {
 		this.workouts = workouts;
 	}
 

@@ -42,7 +42,9 @@ public class WeekDeserializer implements JsonDeserializer<Week> {
             week.initialDate = jdc.deserialize(wo.get("initialDate"), Date.class);
             week.finalDate = jdc.deserialize(wo.get("finalDate"), Date.class);
             Workout[] workouts = jdc.deserialize(wo.get("workouts"), Workout[].class);
-            week.workouts.addAll(Arrays.asList(workouts));
+            for(Workout workout: workouts) {
+                week.workouts.put(workout.workoutId, workout);
+            }
         }
         catch(Exception e){
             e.printStackTrace();

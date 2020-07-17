@@ -7,4 +7,14 @@ public class ResponseJSON {
     public int code;
     public String msg;
     public JsonElement data;
+
+    @Override
+    public String toString() {
+        return "ResponseJSON{" +
+                "status='" + status + '\'' +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

@@ -167,7 +167,8 @@ public class WorkThread extends Thread {
                     "\"weekDay\": 4, " +
                     "\"tasks\": " +
                     "[ " +
-                    "{ " +
+                    
+                    "{ " + // Task 1
                     "\"designation\": \"Correr\", " +
                     "\"rest\": \"2 min\", " +
                     "\"duration\": \"15 min\", " +
@@ -178,18 +179,35 @@ public class WorkThread extends Thread {
                     "\"description\": \"Correr\", " +
                     "\"repetitions\": \"10 min\", " +
                     "\"rest\": \"2 min\" " +
-                    "} " +
-                    "] " +
                     "} " +
                     "] " +
                     "}, " +
+                    
+                    "{ " + // Task 2
+                    "\"designation\": \"Correr Rápido\", " +
+                    "\"rest\": \"2 min\", " +
+                    "\"duration\": \"30 min\", " +
+                    "\"equipment\": \"passadeira\", " +
+                    "\"series\": " +
+                    "[ " +
+                    "{ " +
+                    "\"description\": \"Correr\", " +
+                    "\"repetitions\": \"10 min\", " +
+                    "\"rest\": \"2 min\" " +
+                    "} " +
+                    "] " +
+                    "} " +
+                    
+                    "] " +
+                    "}, " +
               
-                    "{ " + // workout 2
-                    "\"designation\": \"cardio\", " +
+                    "{ " +  // workout 2
+                    "\"designation\": \"musculação\", " +
                     "\"weekDay\": 7, " +
                     "\"tasks\": " +
                     "[ " +
-                    "{ " +
+                    
+                    "{ " + // Task 1
                     "\"designation\": \"Correr\", " +
                     "\"rest\": \"2 min\", " +
                     "\"duration\": \"15 min\", " +
@@ -202,9 +220,25 @@ public class WorkThread extends Thread {
                     "\"rest\": \"2 min\" " +
                     "} " +
                     "] " +
+                    "}, " +
+                    
+                    "{ " + // Task 2
+                    "\"designation\": \"Correr Rápido\", " +
+                    "\"rest\": \"2 min\", " +
+                    "\"duration\": \"30 min\", " +
+                    "\"equipment\": \"passadeira\", " +
+                    "\"series\": " +
+                    "[ " +
+                    "{ " +
+                    "\"description\": \"Correr\", " +
+                    "\"repetitions\": \"10 min\", " +
+                    "\"rest\": \"2 min\" " +
                     "} " +
                     "] " +
                     "} " +
+                    
+                    "] " +
+                    "}" +
                     
                     "] " +
                     "} " +

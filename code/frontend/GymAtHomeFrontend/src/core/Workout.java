@@ -17,6 +17,7 @@ package core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class Workout {
 
@@ -24,7 +25,7 @@ public class Workout {
 	public String designation;
 	public Date date;
 	public boolean done;
-	public Collection<Task> tasks = new ArrayList<>();
+	public List<Task> tasks = new ArrayList<>();
 
 	public int getWorkoutId() {
 		return workoutId;
@@ -58,11 +59,11 @@ public class Workout {
 		this.done = done;
 	}
 
-	public Collection<Task> getTasks() {
+	public List<Task> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(Collection<Task> tasks) {
+	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
 

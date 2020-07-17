@@ -7,7 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
-<h4 class="mt-4">Semana ${requestScope.week.number}
+<h4 class="mt-4">Semana ${sessionScope.week.number}
 <%
     boolean isCurrentWeek = (boolean) request.getAttribute("isCurrentWeek");
     if (isCurrentWeek) out.print(" (atual)");
@@ -18,13 +18,17 @@
     <thead>
         <tr class="table-active">
             <%
-                Week week = (Week) request.getAttribute("week");
+                Week week = (Week) session.getAttribute("week");
                 BiometricData biometricData = (BiometricData) request.getAttribute("biometricData");
 
                 Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                 cal.setTime(week.initialDate);
-                week.workouts.sort(new WorkoutComparatorByDate()); // DO NOT REMOVE (very important!!!!!!!!)
                 Workout[] workouts = new Workout[7];
+
+                //DO NOT CHANGE THIS - CAUTION --------------------------------------------
+                List<Workout> workoutsList = new ArrayList<>(week.workouts.values());
+                workoutsList.sort(new WorkoutComparatorByDate());
+                // ------------------------------------------------------------------------
 
                 for(int i=0, k=0; i<7; i++) {
                     int month = cal.get(Calendar.MONTH);
@@ -34,7 +38,7 @@
                     /* this code creates an array of workouts with each workout in the right index position related to it's week day
                      * this makes the next step (printing table body) much easier */
                     Workout workout;
-                    if (k < week.workouts.size()) workout = week.workouts.get(k);
+                    if (k < workoutsList.size()) workout = workoutsList.get(k);
                     else workout = null;
                     if (workout != null && workout.date.equals(cal.getTime())) {
                         workouts[i] = workout;
@@ -61,8 +65,8 @@
             out.print("<tr>");
             for(Workout workout: workouts) {
                 if (workout != null) {
-                    if (workout.done) out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-danger\">workout feito</button></td>");
-                    else out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-primary\">consultar workout</button></td>");
+                    if (workout.done) out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-danger\" onclick=\"window.location.href='" + request.getContextPath() + "/ClientWorkout?workout=" + (workout.workoutId) + "'\">workout feito</button></td>");
+                    else out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"window.location.href='" + request.getContextPath() + "/ClientWorkout?workout=" + (workout.workoutId) + "'\">consultar workout</button></td>");
                 }
                 else out.print("<td class=\"text-center\"></td>");
             }

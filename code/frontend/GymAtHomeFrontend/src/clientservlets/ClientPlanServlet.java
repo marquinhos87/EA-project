@@ -41,7 +41,7 @@ public class ClientPlanServlet extends HttpServlet {
         session = request.getSession();
         // TODO remover os setters() daqui
         session.setAttribute("username", "c0");
-        session.setAttribute("token", "c0ZEsL3FCHzTXI60WnCvuvxwG18OyKtY");
+        session.setAttribute("token", "c03gNFryNBwZV5udGjYFc0DNQYix9g5f");
         session.setAttribute("userType", "client");
         // ----------------------------------------------------------------------------
         username = (String) session.getAttribute("username");
@@ -113,7 +113,7 @@ public class ClientPlanServlet extends HttpServlet {
                 Week week = gson.fromJson(rj.data.getAsJsonObject(), Week.class);
                 int numberOfWeeks = rj.data.getAsJsonObject().get("numberOfWeeks").getAsInt();
                 int currentWeek = rj.data.getAsJsonObject().get("currentWeek").getAsInt();
-                request.setAttribute("week", week);
+                session.setAttribute("week", week);
                 request.setAttribute("numberOfWeeks", numberOfWeeks);
                 if (selectedWeek == -1 || currentWeek == selectedWeek) {
                     request.setAttribute("isCurrentWeek", true);

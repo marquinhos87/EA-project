@@ -15,6 +15,7 @@ package core;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Task {
 
@@ -22,7 +23,7 @@ public class Task {
     public String rest;
     public String duration;
     public String equipment;
-    public Collection<Serie> series = new ArrayList<>();
+    public List<Serie> series = new ArrayList<>();
 
     public String getDesignation() {
         return designation;
@@ -56,11 +57,11 @@ public class Task {
         this.equipment = equipment;
     }
 
-    public Collection<Serie> getSeries() {
+    public List<Serie> getSeries() {
         return series;
     }
 
-    public void setSeries(Collection<Serie> series) {
+    public void setSeries(List<Serie> series) {
         this.series = series;
     }
 
