@@ -41,7 +41,7 @@ public class ClientPlanServlet extends HttpServlet {
         session = request.getSession();
         // TODO remover os setters() daqui
         session.setAttribute("username", "c0");
-        session.setAttribute("token", "c0NwT1wZMCUtMD4M892LG6HveNiiNt5z");
+        session.setAttribute("token", "c0xcn7qDz5OL4TZqJwp3R0pgVdeV5Rzc");
         session.setAttribute("userType", "client");
         // ----------------------------------------------------------------------------
         username = (String) session.getAttribute("username");

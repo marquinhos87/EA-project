@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "PersonalTrainerProfileServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/PersonalTrainerProfile")
+@WebServlet(name = "PersonalTrainerProfileServlet", urlPatterns = "/PersonalTrainerProfile")
 public class PersonalTrainerProfileServlet extends HttpServlet {
 
     private final Gson gson = new GsonBuilder().create();
