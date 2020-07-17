@@ -73,7 +73,7 @@ public class PersonalTrainer {
 		return ORM_requests;
 	}
 	
-	public final requests.RequestSetCollection requests = new requests.RequestSetCollection(this, _ormAdapter, ORMConstants.KEY_PERSONALTRAINER_REQUESTS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final requests.RequestSetCollection requests = new requests.RequestSetCollection(this, _ormAdapter, ORMConstants.KEY_PERSONALTRAINER_REQUESTS, ORMConstants.KEY_REQUEST_PERSONALTRAINER, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getUsername());

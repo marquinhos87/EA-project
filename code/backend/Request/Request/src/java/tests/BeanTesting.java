@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.orm.PersistentException;
 import requests.*;
 
@@ -7,10 +9,31 @@ public class BeanTesting {
     public static void main(String[] args) {
         RequestFacadeBean bean = new RequestFacadeBean();
 
-        String json1 = "{\n" +
-                "  \"username\": \"josepereira\",\n" +
-                "  \"token\": \"" + Utils.tokenGenerate("josepereira") + "\"\n" +
+        /*String json1 = "{\n" +
+                "  \"username\": \"joaquina\",\n" +
+                "  \"token\": \"ksaijohufaakdasoidu4382r9huiea7d\",\n" +
+                "  \"id\": 1\n" +
                 "}";
+        
+        System.err.print(json1);
+        
+        try {
+            json1 = bean.getUsernameByRequestId(json1);
+        } catch (JsonKeyInFaultException ex) {
+            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TokenIsInvalidException ex) {
+            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PersistentException ex) {
+            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UserDoesNotExistException ex) {
+            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RequestDoesNotExistException ex) {
+            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.err.println(json1);*/
+       
+        
 
         /*String json2 = "{\n" +
                 "  \"username\": \"josepereira\",\n" +

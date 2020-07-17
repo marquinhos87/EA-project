@@ -321,6 +321,39 @@ public class ClientDAO {
 		}
 	}
 	
+	public static boolean deleteAndDissociate(requests.Client client)throws PersistentException {
+		try {
+			requests.Request[] lRequestss = client.requests.toArray();
+			for(int i = 0; i < lRequestss.length; i++) {
+				lRequestss[i].setClient(null);
+			}
+			return delete(client);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
+	public static boolean deleteAndDissociate(requests.Client client, org.orm.PersistentSession session)throws PersistentException {
+		try {
+			requests.Request[] lRequestss = client.requests.toArray();
+			for(int i = 0; i < lRequestss.length; i++) {
+				lRequestss[i].setClient(null);
+			}
+			try {
+				session.delete(client);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
 	public static boolean refresh(requests.Client client) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(client);

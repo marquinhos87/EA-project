@@ -20,6 +20,10 @@ import org.orm.criteria.*;
 
 public class RequestCriteria extends AbstractORMCriteria {
 	public final IntegerExpression ID;
+	public final StringExpression personalTrainerId;
+	public final AssociationExpression personalTrainer;
+	public final StringExpression clientId;
+	public final AssociationExpression client;
 	public final IntegerExpression numberOfWeeks;
 	public final StringExpression objective;
 	public final IntegerExpression workoutPerWeek;
@@ -30,6 +34,10 @@ public class RequestCriteria extends AbstractORMCriteria {
 	public RequestCriteria(Criteria criteria) {
 		super(criteria);
 		ID = new IntegerExpression("ID", this);
+		personalTrainerId = new StringExpression("personalTrainer.username", this);
+		personalTrainer = new AssociationExpression("personalTrainer", this);
+		clientId = new StringExpression("client.username", this);
+		client = new AssociationExpression("client", this);
 		numberOfWeeks = new IntegerExpression("numberOfWeeks", this);
 		objective = new StringExpression("objective", this);
 		workoutPerWeek = new IntegerExpression("workoutPerWeek", this);
@@ -44,6 +52,14 @@ public class RequestCriteria extends AbstractORMCriteria {
 	
 	public RequestCriteria() throws PersistentException {
 		this(DiagramasPersistentManager.instance().getSession());
+	}
+	
+	public PersonalTrainerCriteria createPersonalTrainerCriteria() {
+		return new PersonalTrainerCriteria(createCriteria("personalTrainer"));
+	}
+	
+	public ClientCriteria createClientCriteria() {
+		return new ClientCriteria(createCriteria("client"));
 	}
 	
 	public Request uniqueRequest() {

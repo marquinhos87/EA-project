@@ -321,6 +321,47 @@ public class RequestDAO {
 		}
 	}
 	
+	public static boolean deleteAndDissociate(requests.Request request)throws PersistentException {
+		try {
+			if (request.getPersonalTrainer() != null) {
+				request.getPersonalTrainer().requests.remove(request);
+			}
+			
+			if (request.getClient() != null) {
+				request.getClient().requests.remove(request);
+			}
+			
+			return delete(request);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
+	public static boolean deleteAndDissociate(requests.Request request, org.orm.PersistentSession session)throws PersistentException {
+		try {
+			if (request.getPersonalTrainer() != null) {
+				request.getPersonalTrainer().requests.remove(request);
+			}
+			
+			if (request.getClient() != null) {
+				request.getClient().requests.remove(request);
+			}
+			
+			try {
+				session.delete(request);
+				return true;
+			} catch (Exception e) {
+				return false;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw new PersistentException(e);
+		}
+	}
+	
 	public static boolean refresh(requests.Request request) throws PersistentException {
 		try {
 			DiagramasPersistentManager.instance().getSession().refresh(request);
