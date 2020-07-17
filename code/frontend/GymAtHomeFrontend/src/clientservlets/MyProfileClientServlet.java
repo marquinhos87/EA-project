@@ -36,6 +36,10 @@ public class MyProfileClientServlet extends HttpServlet {
         System.err.println(token);
 
         if(username == null || token == null){
+            session.setAttribute("username",null);
+            session.setAttribute("token",null);
+            session.setAttribute("userType",null);
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return;
         }
@@ -47,21 +51,17 @@ public class MyProfileClientServlet extends HttpServlet {
 
         action = action.toLowerCase();
 
-        //  log out
-        if(action.equals("logout")){
-            session.setAttribute("username", null);
-            session.setAttribute("token", null);
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
-        }
-        else if(action.equals("editprofile")) {
+        if(action.equals("editprofile")) {
             editProfile(request,response);
         }
     }
 
     public void editProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(username == null || token == null) {
-            request.getSession().setAttribute("username",null);
-            request.getSession().setAttribute("token",null);
+            session.setAttribute("username",null);
+            session.setAttribute("token",null);
+            session.setAttribute("userType",null);
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
         }
         else {
@@ -109,6 +109,10 @@ public class MyProfileClientServlet extends HttpServlet {
                 catch (IOException e) {
                     e.printStackTrace();
                     request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                    session.setAttribute("username",null);
+                    session.setAttribute("token",null);
+                    session.setAttribute("userType",null);
+                    request.setAttribute("title","Login");
                     Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                     return ;
                 }
@@ -129,6 +133,7 @@ public class MyProfileClientServlet extends HttpServlet {
             }
             else {
                 request.setAttribute("errorMessage","Passwords não coincidem.");
+                request.setAttribute("title","Perfil Cliente - " + username);
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","MyProfileClient",null);
             }
         }
@@ -145,6 +150,10 @@ public class MyProfileClientServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+            session.setAttribute("username",null);
+            session.setAttribute("token",null);
+            session.setAttribute("userType",null);
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
@@ -188,6 +197,7 @@ public class MyProfileClientServlet extends HttpServlet {
             request.getSession().setAttribute("successMessage",null);
         }
 
+        request.setAttribute("title","Perfil Cliente - " + username);
         Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null);
     }
 

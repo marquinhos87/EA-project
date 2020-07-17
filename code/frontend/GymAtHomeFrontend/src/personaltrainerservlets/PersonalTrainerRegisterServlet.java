@@ -46,6 +46,7 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
                 request.getSession().setAttribute("userType", null);
+                request.setAttribute("title","Login");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
@@ -73,6 +74,10 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                     catch (IOException e) {
                         e.printStackTrace();
                         request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                        request.getSession().setAttribute("username", null);
+                        request.getSession().setAttribute("token", null);
+                        request.getSession().setAttribute("userType", null);
+                        request.setAttribute("title","Login");
                         Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                         return;
                     }
@@ -91,17 +96,20 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                     }
                     else {
                         request.setAttribute("errorMessage", "Erro interno.");
+                        request.setAttribute("title","Registar PT");
                         Utils.forward(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                     request.setAttribute("errorMessage", "Erro interno.");
+                    request.setAttribute("title","Registar PT");
                     Utils.forward(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
                 }
             }
             else {
                 request.setAttribute("errorMessage","Passwords não coincidem.");
+                request.setAttribute("title","Registar PT");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
             }
         }
@@ -132,10 +140,12 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
                 request.getSession().setAttribute("userType", null);
+                request.setAttribute("title","Login");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
         else {
+            request.setAttribute("title","Registar PT");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
         }
     }

@@ -47,6 +47,7 @@ public class ClientRegisterServlet extends HttpServlet {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
                 request.getSession().setAttribute("userType", null);
+                request.setAttribute("title","Login");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
@@ -97,6 +98,10 @@ public class ClientRegisterServlet extends HttpServlet {
                     } catch (Exception e){
                         e.printStackTrace();
                         request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                        request.getSession().setAttribute("username", null);
+                        request.getSession().setAttribute("token", null);
+                        request.getSession().setAttribute("userType",null);
+                        request.setAttribute("title","Login");
                         Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                         return ;
                     }
@@ -116,17 +121,20 @@ public class ClientRegisterServlet extends HttpServlet {
                     }
                     else {
                         request.setAttribute("errorMessage", "Erro interno.");
+                        request.setAttribute("title","Registar Cliente");
                         Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                     request.setAttribute("errorMessage", "Erro interno no sistema.");
+                    request.setAttribute("title","Registar Cliente");
                     Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                 }
             }
             else {
                 request.setAttribute("errorMessage","Passwords não iguais.");
+                request.setAttribute("title","Registar Cliente");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
             }
         }
@@ -156,12 +164,16 @@ public class ClientRegisterServlet extends HttpServlet {
             else {
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
+                request.getSession().setAttribute("userType",null);
+                request.setAttribute("title","Login");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
             }
         }
         else {
             request.getSession().setAttribute("username", null);
             request.getSession().setAttribute("token", null);
+            request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Registar Cliente");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
         }
     }

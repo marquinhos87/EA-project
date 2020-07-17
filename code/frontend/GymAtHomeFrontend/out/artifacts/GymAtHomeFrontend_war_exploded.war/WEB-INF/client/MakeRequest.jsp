@@ -64,43 +64,43 @@
             <div class="form-group row">
                 <div class="col-md-12 d-inline-flex align-middle">
                     <label class="col-form-label col-md-4">Disponibilidade semanal:</label>
-                    <div class="form-check pr-3">
+                    <div class="form-check pd-2 pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="1" name="weekDay[]">
                         <label class="form-check-label">
                             2ª
                         </label>
                     </div>
-                    <div class="form-check pr-3">
+                    <div class="form-check pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="2" name="weekDay[]">
                         <label class="form-check-label">
                             3ª
                         </label>
                     </div>
-                    <div class="form-check pr-3">
+                    <div class="form-check pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="3" name="weekDay[]">
                         <label class="form-check-label">
                             4ª
                         </label>
                     </div>
-                    <div class="form-check pr-3">
+                    <div class="form-check pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="4" name="weekDay[]">
                         <label class="form-check-label">
                             5ª
                         </label>
                     </div>
-                    <div class="form-check pr-3">
+                    <div class="form-check pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="5" name="weekDay[]">
                         <label class="form-check-label">
                             6ª
                         </label>
                     </div>
-                    <div class="form-check pr-3">
+                    <div class="form-check pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="6" name="weekDay[]">
                         <label class="form-check-label">
                             Sab
                         </label>
                     </div>
-                    <div class="form-check pr-3">
+                    <div class="form-check pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="1" name="weekDay[]">
                         <label class="form-check-label">
                             Dom

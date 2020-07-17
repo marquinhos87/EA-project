@@ -64,7 +64,7 @@
             <div class="form-group row">
                 <div class="col-md-12 d-inline-flex align-middle">
                     <label class="col-form-label col-md-4">Disponibilidade semanal:</label>
-                    <div class="form-check pr-3 align-middle">
+                    <div class="form-check pd-2 pr-3 align-middle">
                         <input class="form-check-input" type="checkbox" value="1" name="weekDay[]">
                         <label class="form-check-label">
                             2ª

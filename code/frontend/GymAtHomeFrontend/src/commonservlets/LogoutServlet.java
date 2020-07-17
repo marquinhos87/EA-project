@@ -19,6 +19,7 @@ public class LogoutServlet extends HttpServlet {
         session.setAttribute("username", null);
         session.setAttribute("token",null);
         session.setAttribute("userType", null);
+        request.setAttribute("title","Login");
         Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
     }
 

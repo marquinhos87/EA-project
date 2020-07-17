@@ -36,12 +36,13 @@ public class MakeRequestServlet extends HttpServlet {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
             request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            String[] weekDays = request.getParameterValues("weekDay");
+            String[] weekDays = request.getParameterValues("weekDay[]");
             String personalTrainerUsername = request.getParameter("personalTrainerUsername");
-            if (weekDays.length != 0) {
+            if (weekDays != null && weekDays.length != 0) {
                 JsonObject jo = new JsonObject();
                 jo.addProperty("username", username);
                 jo.addProperty("token", token);
@@ -66,6 +67,10 @@ public class MakeRequestServlet extends HttpServlet {
                 catch (IOException e) {
                     e.printStackTrace();
                     request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                    request.getSession().setAttribute("username",null);
+                    request.getSession().setAttribute("token",null);
+                    request.getSession().setAttribute("userType",null);
+                    request.setAttribute("title","Login");
                     Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                     return ;
                 }
@@ -81,12 +86,14 @@ public class MakeRequestServlet extends HttpServlet {
                 else {
                     request.setAttribute("personalTrainerUsername",personalTrainerUsername);
                     request.setAttribute("errorMessage","Erro interno.");
+                    request.setAttribute("title","Formulário");
                     Utils.forward(request, response, "/WEB-INF/Template.jsp", "MakeRequest", null);
                 }
             }
             else {
                 request.setAttribute("personalTrainerUsername",personalTrainerUsername);
                 request.setAttribute("warningMessage","Tem de selecionar pelo menos um dia da semana.");
+                request.setAttribute("title","Formulário");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "MakeRequest", null);
             }
         }
@@ -108,6 +115,7 @@ public class MakeRequestServlet extends HttpServlet {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
             request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
@@ -116,6 +124,7 @@ public class MakeRequestServlet extends HttpServlet {
                 Utils.redirect(request,response,"MyProfileClient");
             else {
                 request.setAttribute("personalTrainerUsername",personalTrainerUsername);
+                request.setAttribute("title", "Formulário");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "MakeRequest", null);
             }
         }

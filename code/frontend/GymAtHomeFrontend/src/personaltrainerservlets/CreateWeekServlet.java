@@ -1,5 +1,8 @@
 package personaltrainerservlets;
 
+import utils.Utils;
+
+import javax.rmi.CORBA.Util;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +28,9 @@ public class CreateWeekServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
             //TODO
@@ -48,8 +52,9 @@ public class CreateWeekServlet extends HttpServlet {
         if(username == null || token == null) {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
-            request.setAttribute("page","Login");
-            getServletConfig().getServletContext().getRequestDispatcher("/WEB-INF/Template.jsp").forward(request,response);
+            request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
+            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
             //TODO

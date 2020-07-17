@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
             Utils.redirect(request, response, "/MyProfilePersonalTrainer");
             return ;
         } else if (action == null){
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
@@ -58,8 +59,8 @@ public class LoginServlet extends HttpServlet {
                 login(request,response,"loginPersonalTrainer");
             }
             else { //   error
+                request.setAttribute("title","Login");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
-                return;
             }
         }
     }
@@ -74,11 +75,10 @@ public class LoginServlet extends HttpServlet {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Erro interno do sistema.");
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return;
         }
-        //jo.addProperty("password",password);
-
 
         Response responseHttp;
 
@@ -87,6 +87,7 @@ public class LoginServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
@@ -100,6 +101,7 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             message = "Erro interno do sistema.";
             request.setAttribute("errorMessage", message);
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
         }
@@ -112,6 +114,7 @@ public class LoginServlet extends HttpServlet {
                 e.printStackTrace();
                 message = "Erro interno do sistema.";
                 request.setAttribute("errorMessage", message);
+                request.setAttribute("title","Login");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                 return ;
             }
@@ -139,6 +142,7 @@ public class LoginServlet extends HttpServlet {
                     break;
             }
             request.setAttribute("errorMessage", message);
+            request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
         }
     }

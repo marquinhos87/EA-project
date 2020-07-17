@@ -40,6 +40,7 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
             request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
@@ -81,6 +82,10 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
             catch (IOException e) {
                 e.printStackTrace();
                 request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                request.getSession().setAttribute("username", null);
+                request.getSession().setAttribute("token", null);
+                request.getSession().setAttribute("userType", null);
+                request.setAttribute("title","Login");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                 return ;
             }
@@ -119,6 +124,7 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
             request.getSession().setAttribute("username",null);
             request.getSession().setAttribute("token",null);
             request.getSession().setAttribute("userType",null);
+            request.setAttribute("title","Login");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
@@ -134,6 +140,10 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
             catch (IOException e) {
                 e.printStackTrace();
                 request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                request.getSession().setAttribute("username", null);
+                request.getSession().setAttribute("token", null);
+                request.getSession().setAttribute("userType", null);
+                request.setAttribute("title","Login");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                 return;
             }
@@ -152,6 +162,7 @@ public class SearchPersonalTrainersServlet extends HttpServlet {
             else {
                 request.setAttribute("errorMessage", "Não é possível consultar os personal trainers disponíveis neste momento, volte mais tarde.");
             }
+            request.setAttribute("title","Procurar PT");
             Utils.forward(request,response,"/WEB-INF/Template.jsp","SearchPersonalTrainer",null);
         }
     }
