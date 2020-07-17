@@ -41,17 +41,23 @@ public class ClientPlanServlet extends HttpServlet {
         session = request.getSession();
         // TODO remover os setters() daqui
         session.setAttribute("username", "c0");
-        session.setAttribute("token", "c0xcn7qDz5OL4TZqJwp3R0pgVdeV5Rzc");
+        session.setAttribute("token", "c0ZEsL3FCHzTXI60WnCvuvxwG18OyKtY");
         session.setAttribute("userType", "client");
         // ----------------------------------------------------------------------------
         username = (String) session.getAttribute("username");
         token = (String) session.getAttribute("token");
 
-        Week week = getWeek(request, response, 1);
-        BiometricData biometricData = getBiometricData(request, response);
+        int selectedWeek = -1;
+        String selectedWeekStr = request.getParameter("week");
+        if (selectedWeekStr != null) {
+            selectedWeek = Integer.parseInt(selectedWeekStr);
+        }
 
-        request.setAttribute("week", week);
-        request.setAttribute("biometricData", biometricData);
+        boolean res = getWeek(request, response, selectedWeek);
+        if (!res) return;
+        res = getBiometricData(request, response);
+        if (!res) return;
+
         Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientPlan", null);
     }
 
@@ -81,57 +87,97 @@ public class ClientPlanServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    private Week getWeek(HttpServletRequest request, HttpServletResponse response, int weekNumber) throws ServletException, IOException {
+    private boolean getWeek(HttpServletRequest request, HttpServletResponse response, int selectedWeek) throws ServletException, IOException {
 
-        JsonObject jo = new JsonObject();
-        jo.addProperty("username", username);
-        jo.addProperty("token", token);
-        jo.addProperty("week", weekNumber);
-
-        Response responseHttp = null;
         try {
-            responseHttp = Http.post(Utils.SERVER + "getWeekByClient", jo.toString());
+
+            JsonObject jo = new JsonObject();
+            jo.addProperty("username", username);
+            jo.addProperty("token", token);
+            if (selectedWeek != -1) jo.addProperty("week", selectedWeek);
+
+            Response responseHttp;
+            try {
+                responseHttp = Http.post(Utils.SERVER + "getWeekByClient", jo.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
+                request.setAttribute("title", "Conexão perdida");
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+                return false;
+            }
+            String data = responseHttp.body().string();
+            responseHttp.close();
+            ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
+            if (rj.status.equals("success")) {
+                Week week = gson.fromJson(rj.data.getAsJsonObject(), Week.class);
+                int numberOfWeeks = rj.data.getAsJsonObject().get("numberOfWeeks").getAsInt();
+                int currentWeek = rj.data.getAsJsonObject().get("currentWeek").getAsInt();
+                request.setAttribute("week", week);
+                request.setAttribute("numberOfWeeks", numberOfWeeks);
+                if (selectedWeek == -1 || currentWeek == selectedWeek) {
+                    request.setAttribute("isCurrentWeek", true);
+                    request.setAttribute("title", "Semana " + week.number + " (atual)");
+                } else {
+                    request.setAttribute("isCurrentWeek", false);
+                    request.setAttribute("title", "Semana " + week.number);
+                }
+                return true;
+            } else {
+                request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+                request.setAttribute("title", "Erro interno");
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+                return false;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Could not connect to server! Try refreshing this page. If it doesn't work please contact support.");
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientPlan", null);
-        }
-        String data = responseHttp.body().string();
-        responseHttp.close();
-        ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
-        if (rj.status.equals("success")) {
-            return gson.fromJson(rj.data, Week.class);
-        } else {
-            request.setAttribute("errorMessage", "Something went wrong while requesting current plan week! Try refreshing this page. If it doesn't work please contact support.");
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientPlan", null);
-            return null;
+            request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+            request.setAttribute("title", "Erro interno");
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+            return false;
         }
     }
 
-    private BiometricData getBiometricData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private boolean getBiometricData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        JsonObject jo = new JsonObject();
-        jo.addProperty("username", username);
-        jo.addProperty("token", token);
-        jo.addProperty("clientUsername", username);
-
-        Response responseHttp = null;
         try {
-            responseHttp = Http.post(Utils.SERVER + "getBiometricData", jo.toString());
+
+            JsonObject jo = new JsonObject();
+            jo.addProperty("username", username);
+            jo.addProperty("token", token);
+            jo.addProperty("clientUsername", username);
+
+            Response responseHttp;
+            try {
+                responseHttp = Http.post(Utils.SERVER + "getBiometricData", jo.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
+                request.setAttribute("title", "Conexão perdida");
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+                return false;
+            }
+            String data = responseHttp.body().string();
+            responseHttp.close();
+            ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
+            if (rj.status.equals("success")) {
+                BiometricData biometricData = gson.fromJson(rj.data, BiometricData.class);
+                request.setAttribute("biometricData", biometricData);
+                return true;
+            } else {
+                request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+                request.setAttribute("title", "Erro interno");
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+                return false;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Could not connect to server! Try refreshing this page. If it doesn't work please contact support.");
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientPlan", null);
-        }
-        String data = responseHttp.body().string();
-        responseHttp.close();
-        ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
-        if (rj.status.equals("success")) {
-            return gson.fromJson(rj.data, BiometricData.class);
-        } else {
-            request.setAttribute("errorMessage", "Something went wrong while requesting biometric data! Try refreshing this page. If it doesn't work please contact support.");
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientPlan", null);
-            return null;
+            request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+            request.setAttribute("title", "Erro interno");
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+            return false;
         }
     }
 }

@@ -15,13 +15,14 @@
 
         <!-- Bootstrap CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
-        <title>Title</title>
+        <title>${requestScope.title}</title>
     </head>
     <body>
 
         <!-- header and nav -->
-        <header class="page-header">
+        <header>
             <c:choose>
                 <c:when test="${sessionScope.userType == 'client'}">
                     <form method="get" class="navbar navbar-expand-lg navbar-light bg-light mb-3 border py-0 px-0 d-flex align-content-center" style="overflow: hidden;">
@@ -61,7 +62,8 @@
                 </c:when>
             </c:choose>
         </header>
-        <div class="container">
+
+        <div class="container" style="padding-bottom: 80px;">
             <div class="row justify-content-center">
                 <c:choose>
                     <c:when test="${requestScope.errorMessage!=null}">
@@ -125,18 +127,16 @@
                 </c:when>
             </c:choose>
 
-            <div class="row pb-5">
-
-            </div>
-            <!-- Footer -->
-            <footer class="page-footer font-small bg-light mt-2 pt-2 fixed-bottom border">
-                <!-- Copyright -->
-                <div class="footer-copyright text-center py-2">© 2020 Copyright:
-                    <label> Gym@Home</label>
-                </div>
-                <!-- Copyright -->
-            </footer>
         </div>
+
+        <!-- Footer -->
+        <footer class="font-small bg-light border fixed-bottom py-1 align-content-center">
+            <!-- Copyright -->
+            <div class="text-center py-2">© 2020 Copyright:
+                <label> Gym@Home</label>
+            </div>
+            <!-- Copyright -->
+        </footer>
 
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
