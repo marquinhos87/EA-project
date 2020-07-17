@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name = "MyProfilePersonalTrainerServlet", urlPatterns = "MyProfilePersonalTrainer")
+@WebServlet(name = "MyProfilePersonalTrainerServlet", urlPatterns = "/MyProfilePersonalTrainer")
 public class MyProfilePersonalTrainerServlet extends HttpServlet {
 
     private HttpSession session = null;
