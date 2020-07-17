@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="javax.resource.spi.work.Work" %>
 <%@ page import="core.WorkoutComparatorByDate" %>
+<%@ page import="core.BiometricData" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
@@ -13,16 +14,17 @@
         <tr class="table-active">
             <%
                 Week week = (Week) request.getAttribute("week");
+                BiometricData biometricData = (BiometricData) request.getAttribute("biometricData");
+
                 Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                 cal.setTime(week.initialDate);
-
                 week.workouts.sort(new WorkoutComparatorByDate()); // DO NOT REMOVE (very important!!!!!!!!)
                 Workout[] workouts = new Workout[7];
 
                 for(int i=0, k=0; i<7; i++) {
                     int month = cal.get(Calendar.MONTH);
                     int day = cal.get(Calendar.DAY_OF_MONTH);
-                    out.print("<th class=\"text-center\">Dia X - " + day + "/" + month + "</th>");
+                    out.print("<th class=\"text-center\">Dia " + ((week.number-1) * 7 + (i+1)) + " - " + day + "/" + month + "</th>");
 
                     /* this code creates an array of workouts with each workout in the right index position related to it's week day
                      * this makes the next step (printing table body) much easier */
@@ -65,26 +67,111 @@
     </tbody>
 </table>
 
-<h4 class="mt-5">Dados biométricos:</h4>
+<div class="row mt-5">
+    <h4>Dados biométricos:</h4>
+    <span class="mt-1">&nbsp; (atualizados em
+    <%
+        cal.setTime(biometricData.date);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int year = cal.get(Calendar.YEAR);
+        out.print(day + "/" + month + "/" + year);
+    %>)
+    </span>
+</div>
+
 <table class="mt-4 table table-borderless">
     <tbody>
         <tr>
-            <td>Altura (cm): ${requestScope.biometricData.height}</td>
-            <td>Gémeo (cm): ${requestScope.biometricData.twin}</td>
+            <td>Altura (cm):
+                <%
+                    String msg = "sem informação registada";
+                    if (biometricData.height == 0) out.print(msg);
+                    else out.print(biometricData.height);
+                %>
+            </td>
+            <td>Gémeo (cm):
+                <%
+                    if (biometricData.twin == 0) out.print(msg);
+                    else out.print(biometricData.twin);
+                %>
+            </td>
         </tr>
         <tr>
-            <td>Peso (Kg): ${requestScope.biometricData.weight}</td>
-            <td>Quadrícep (cm): ${requestScope.biometricData.quadricep}</td>
+            <td>Peso (Kg):
+                <%
+                    if (biometricData.weight == 0) out.print(msg);
+                    else out.print(biometricData.weight);
+                %>
+            </td>
+            <td>Quadrícep (cm):
+                <%
+                    if (biometricData.quadricep == 0) out.print(msg);
+                    else out.print(biometricData.quadricep);
+                %>
+            </td>
         </tr>
         <tr>
-            <td>Cintura (cm): ${requestScope.biometricData.waist}</td>
-            <td>Trícep (cm): ${requestScope.biometricData.tricep}</td>
+            <td>Cintura (cm):
+                <%
+                    if (biometricData.waist == 0) out.print(msg);
+                    else out.print(biometricData.waist);
+                %>
+            </td>
+            <td>Trícep (cm):
+                <%
+                    if (biometricData.tricep == 0) out.print(msg);
+                    else out.print(biometricData.tricep);
+                %>
+            </td>
         </tr>
         <tr>
-            <td>Peito (cm): ${requestScope.biometricData.chest}</td>
-            <td>Pulso (cm): ${requestScope.biometricData.wrist}</td>
+            <td>Peito (cm):
+                <%
+                    if (biometricData.chest == 0) out.print(msg);
+                    else out.print(biometricData.chest);
+                %>
+            </td>
+            <td>Pulso (cm):
+                <%
+                    if (biometricData.wrist == 0) out.print(msg);
+                    else out.print(biometricData.wrist) ;
+                %>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">Índice de Massa Corporal:
+                <%
+                    out.print(String.format("%.01f", biometricData.BMI));
+                %>
+
+                <!-- prints BMI categories on the progress bar -->
+                <div class="mt-4 progress" style="height:25px">
+                    <div class="progress-bar <% if (biometricData.BMI < 18.5) out.print("progress-bar-striped progress-bar-animated"); %>" role="progressbar" style="width: 16.6%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100">subnutrido</div>
+                    <div class="progress-bar <% if (biometricData.BMI >= 18.5 && biometricData.BMI < 25) out.print("progress-bar-striped progress-bar-animated"); %> bg-success" role="progressbar" style="width: 16.6%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100">saudável</div>
+                    <div class="progress-bar <% if (biometricData.BMI >= 25 && biometricData.BMI < 30) out.print("progress-bar-striped progress-bar-animated"); %> bg-warning text-dark" role="progressbar" style="width: 16.6%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100">sobrepeso</div>
+                    <div class="progress-bar <% if (biometricData.BMI >= 30 && biometricData.BMI < 35) out.print("progress-bar-striped progress-bar-animated"); %>" role="progressbar" style="width: 16.6%; background-color: rgb(235, 100, 0);" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100">obesidade grau I</div>
+                    <div class="progress-bar <% if (biometricData.BMI >= 35 && biometricData.BMI < 40) out.print("progress-bar-striped progress-bar-animated"); %>" role="progressbar" style="width: 16.6%; background-color: rgb(180, 50, 0);" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100">obesidade grau II (severa)</div>
+                    <div class="progress-bar <% if (biometricData.BMI >= 40) out.print("progress-bar-striped progress-bar-animated"); %>" role="progressbar" style="width: 17%; background-color: rgb(255, 0, 0);" aria-valuenow="17" aria-valuemin="0" aria-valuemax="100">obesidade grau III (morbida)</div>
+                </div>
+
+                <!-- prints BMI values -->
+                <div class="row mt-2 ml-4 text-right" style="width: 100%">
+                    <div class="col" style="width: 14.3%">18.5</div>
+                    <div class="col" style="width: 14.3%">25</div>
+                    <div class="col" style="width: 14.3%">30</div>
+                    <div class="col" style="width: 14.3%">35</div>
+                    <div class="col" style="width: 14.3%">40</div>
+                    <div class="col" style="width: 14.2%"></div>
+                </div>
+
+            </td>
         </tr>
     </tbody>
 </table>
 
-<button type="button" class="mt-5 p-3 btn btn-primary">Avaliar Personal Trainer</button>
+
+<div class="row mt-5">
+    <button type="button" class="p-3 btn btn-primary" disabled>Avaliar Personal Trainer</button>
+    <span class="ml-4 mt-3">*Poderá avaliar o Personal Trainer após a semana X.</span>
+</div>

@@ -63,6 +63,6 @@
 </div>
 <div class="row justify-content-end">
     <div class="col-md-3">
-        <button type="submit" formmethod="get" formaction="${pageContext.request.contextPath}\MyRequests" class="btn btn-danger btn-block text-white font-weight-normal border-0 mb-3">Voltar</button>
+        <button type="submit" formmethod="get" formaction="${pageContext.request.contextPath}\MyRequestsPT" class="btn btn-danger btn-block text-white font-weight-normal border-0 mb-3">Voltar</button>
     </div>
 </div>

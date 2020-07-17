@@ -5,23 +5,14 @@ import java.util.Date;
 public class BiometricData {
 
     public int height;
-
     public float weight;
-
     public int wrist;
-
     public int chest;
-
     public int tricep;
-
     public int waist;
-
     public int quadricep;
-
     public int twin;
-
     public Date date;
-
     public float BMI;
 
     public void setHeight(int value) {

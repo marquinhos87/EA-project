@@ -18,8 +18,8 @@ public class Utils {
     //public static final String SERVER_URL = "192.168.1.139";
     //public static final String SERVER_URL = "192.168.1.3";
 
-    public static final String SERVER_URL = "192.168.1.53";
-    //public static final String SERVER_URL = "37.189.223.35";
+    //public static final String SERVER_URL = "192.168.1.53";
+    public static final String SERVER_URL = "37.189.223.35";
 
     public static final String SERVER_PORT = "8081";
     public static final String SERVER_CONTROLLER = "GymAtHome";
