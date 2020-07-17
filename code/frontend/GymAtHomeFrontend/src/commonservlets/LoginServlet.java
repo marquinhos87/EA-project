@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         action = action.toLowerCase();
 
         if(action.equals("login")){
-            String usernameParam = request.getParameter("username"), passwordParam = request.getParameter("password");
+            String usernameParam = request.getParameter("username");
 
             if(usernameParam != null && usernameParam.startsWith("c")) { //   typeOfUser = 0 <=> Client
                 login(request,response,"loginClient");
@@ -69,18 +69,18 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username"), message = "", password = request.getParameter("password");
         JsonObject jo = new JsonObject();
         jo.addProperty("username",username);
-        /*try {
-            //jo.addProperty("password",Utils.hashPassword(password));
+        try {
+            jo.addProperty("password",Utils.hashPassword(password));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", "Erro interno do sistema.");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return;
-        }*/
-        jo.addProperty("password",password);
+        }
+        //jo.addProperty("password",password);
 
 
-        Response responseHttp = null;
+        Response responseHttp;
 
         try {
             responseHttp = Http.post(Utils.SERVER + target,jo.toString());

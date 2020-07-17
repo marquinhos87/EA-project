@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "MakeRequestServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/MakeRequest")
+@WebServlet(name = "MakeRequestServlet", urlPatterns = "/MakeRequest")
 public class MakeRequestServlet extends HttpServlet {
 
     private final Gson gson = new GsonBuilder().create();

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "TaskServlet", urlPatterns = "/api/v1/GymAtHomeFrontend/Task")
+@WebServlet(name = "TaskServlet", urlPatterns = "/Task")
 public class TaskServlet extends HttpServlet {
 
     /**

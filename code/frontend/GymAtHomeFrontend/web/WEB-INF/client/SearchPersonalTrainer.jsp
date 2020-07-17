@@ -80,7 +80,7 @@
                     <%
                         Collection<PersonalTrainer> pts = (Collection<PersonalTrainer>) request.getAttribute("personalTrainers");
                         for(PersonalTrainer pt: pts) {
-                            String url = request.getContextPath() + "\\PersonalTrainerProfile?personalTrainerUsername=" + pt.username;
+                            String url = request.getContextPath() + "/PersonalTrainerProfile?personalTrainerUsername=" + pt.username;
                             out.print("<tr onclick=\"document.location='" + url + "';\">");
                             out.print("<td>" + pt.username + "</td>");
                             out.print("<td>" + pt.name + "</td>");
