@@ -61,7 +61,6 @@ public class WorkThread extends Thread {
             //System.out.println("client token = " + clientToken);
             cf.write("{ \"username\": \"" + clientUsername + "\", \"password\": \"password\" }\n");
             
-            /*
             String ptUsername= "pt" + i;
             String ptJSON =
                     "{ " +
@@ -95,10 +94,32 @@ public class WorkThread extends Thread {
                     "\"week\" : { " +
                     "\"workouts\": " +
                     "[ " +
-                    "{ " +
+                    
+                    "{ " + // Workout 1
                     "\"designation\": \"cardio\", " +
                     "\"weekDay\": 2, " +
-                    "\"done\": false, " +
+                    "\"tasks\": " +
+                    "[ " +
+                    "{ " +
+                    "\"designation\": \"Correr\", " +
+                    "\"rest\": \"2 min\", " +
+                    "\"duration\": \"15 min\", " +
+                    "\"equipment\": \"passadeira\", " +
+                    "\"series\": " +
+                    "[ " +
+                    "{ " +
+                    "\"description\": \"Correr\", " +
+                    "\"repetitions\": \"10 min\", " +
+                    "\"rest\": \"2 min\" " +
+                    "} " +
+                    "] " +
+                    "} " +
+                    "] " +
+                    "}, " +
+                    
+                    "{ " + // Workout 2
+                    "\"designation\": \"musculação\", " +
+                    "\"weekDay\": 6, " +
                     "\"tasks\": " +
                     "[ " +
                     "{ " +
@@ -126,9 +147,11 @@ public class WorkThread extends Thread {
             response.close();
             if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
                 System.err.println("Could not create first week, HTTP status code != 200");
+                System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
                 System.exit(1);
             } 
             
+           
             String weekJSON =
                     "{ " +
                     "\"username\" : \"" + ptUsername + "\", " +
@@ -138,10 +161,32 @@ public class WorkThread extends Thread {
                     "\"week\" : { " +
                     "\"workouts\": " +
                     "[ " +
+                    
+                    "{ " +  // workout 1
+                    "\"designation\": \"musculação\", " +
+                    "\"weekDay\": 4, " +
+                    "\"tasks\": " +
+                    "[ " +
                     "{ " +
+                    "\"designation\": \"Correr\", " +
+                    "\"rest\": \"2 min\", " +
+                    "\"duration\": \"15 min\", " +
+                    "\"equipment\": \"passadeira\", " +
+                    "\"series\": " +
+                    "[ " +
+                    "{ " +
+                    "\"description\": \"Correr\", " +
+                    "\"repetitions\": \"10 min\", " +
+                    "\"rest\": \"2 min\" " +
+                    "} " +
+                    "] " +
+                    "} " +
+                    "] " +
+                    "}, " +
+              
+                    "{ " + // workout 2
                     "\"designation\": \"cardio\", " +
-                    "\"weekDay\": 2, " +
-                    "\"done\": false, " +
+                    "\"weekDay\": 7, " +
                     "\"tasks\": " +
                     "[ " +
                     "{ " +
@@ -160,6 +205,7 @@ public class WorkThread extends Thread {
                     "} " +
                     "] " +
                     "} " +
+                    
                     "] " +
                     "} " +
                     "}";
@@ -170,10 +216,12 @@ public class WorkThread extends Thread {
                 response.close();
                 if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
                     System.err.println("Could not create week on iteration - " + i + " - HTTP status code != 200");
+                    System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
                     System.exit(1);
                 }
             }
-            */
+            
+           
         } catch (Exception e) {
             e.printStackTrace();
         }

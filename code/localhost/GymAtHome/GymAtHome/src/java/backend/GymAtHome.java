@@ -344,4 +344,8 @@ public class GymAtHome {
     public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
         return gymAtHomeBean.listClientRequestsByClient(usernameAsJSON);
     }
+    
+    public String getUsernameByRequestId(String requestIdAsJson) throws IOException{
+        return gymAtHomeBean.getUsernameByRequestId(requestIdAsJson);
+    }
 }

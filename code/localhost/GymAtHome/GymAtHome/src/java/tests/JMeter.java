@@ -21,7 +21,7 @@ import utils.Http;
 public class JMeter {
     
     private static final String url = "http://37.189.223.35:8081/GymAtHome/api/";
-    private static final int N = 250;   
+    private static final int N = 5;   
     private static final Gson gson = new Gson();
     
     public static void main(String[] args) throws IOException {

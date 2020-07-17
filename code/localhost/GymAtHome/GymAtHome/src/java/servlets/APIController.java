@@ -156,6 +156,9 @@ public class APIController extends HttpServlet {
                     res = gymAtHome.listClientRequestsByClient(data);
                     break;
                     //TESTED
+                case "getUsernameByRequestId":
+                    res = gymAtHome.getUsernameByRequestId(data);
+                    break;
                 case "createdbs":
                     gymAtHome.dropdbs(data);
                     res = makeSuccess(HttpServletResponse.SC_OK,gymAtHome.createdbs(data));

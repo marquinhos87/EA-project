@@ -25,7 +25,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
     private final Gson gson;
     
-    private final static String IP = "192.168.1.53";
+    private final static String IP = "37.189.223.35";
     
     private static String IPclients = "188.250.39.126"; // "188.250.39.126";
     private static String IPpts = "188.250.39.126";
@@ -49,11 +49,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             IPrequests = IP;
             IPnotifications = IP;
         }
-        clients = "http://" + IPclients + ":8081/Clients/api/";
-        pts = "http://" + IPpts + ":8081/PersonalTrainer/api/";
-        core = "http://" + IPcore + ":8081/Core/api/";
-        requests = "http://" + IPrequests + ":8081/Request/api/";
-        notifications = "http://" + IPnotifications + ":8081/Notification/api/";
+        clients = "http://" + IPclients + ":8083/Clients/api/";
+        pts = "http://" + IPpts + ":8084/PersonalTrainer/api/";
+        core = "http://" + IPcore + ":8082/Core/api/";
+        requests = "http://" + IPrequests + ":8085/Request/api/";
+        notifications = "http://" + IPnotifications + ":8086/Notification/api/";
     }
 
     /**
@@ -820,6 +820,13 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
         String url = requests + "listRequestsOfClient";
         Response response = Http.post(url,usernameAsJSON);
+        
+        return response.body().string();
+    }
+    
+    public String getUsernameByRequestId(String requestIdAsJson) throws IOException{
+        String url = requests + "getUsernameByRequestId";
+        Response response = Http.post(url,requestIdAsJson);
         
         return response.body().string();
     }

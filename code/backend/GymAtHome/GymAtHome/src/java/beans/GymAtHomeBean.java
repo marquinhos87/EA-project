@@ -823,4 +823,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         
         return response.body().string();
     }
+    
+    public String getUsernameByRequestId(String requestIdAsJson) throws IOException{
+        String url = requests + "getUsernameByRequestId";
+        Response response = Http.post(url,requestIdAsJson);
+        
+        return response.body().string();
+    }
 }
