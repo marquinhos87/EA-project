@@ -182,6 +182,8 @@ public class Request {
         public String toJson(){
             StringBuilder sb = new StringBuilder("{");
             sb.append("\"ID\":").append(this.ID).append(",");
+            sb.append("\"clientUsername\":").append("\"" +this.client.getUsername()+ "\"").append(",");
+            sb.append("\"personalTrainerUsername\":").append("\"" +this.personalTrainer.getUsername()+ "\"").append(",");
             sb.append("\"numberOfWeeks\":").append(this.numberOfWeeks).append(",");
             sb.append("\"objective\":").append("\"" + this.objective + "\"").append(",");
             sb.append("\"workoutPerWeek\":").append(this.workoutPerWeek).append(",");

@@ -27,21 +27,6 @@ public class BeanTesting {
                 "  \"token\": \"123\"\n" +
                 "}";
         
-        System.err.println(json155);
-        try {
-             System.err.println(bean.fun(json155));
-        } catch (JsonKeyInFaultException ex) {
-            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TokenIsInvalidException ex) {
-            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UserDoesNotExistException ex) {
-            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PersistentException ex) {
-            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PersonalTrainerDoesNotExistException ex) {
-            Logger.getLogger(BeanTesting.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         /*String json1 = "{\n" +
                 "  \"username\": \"joaquina\",\n" +
                 "  \"token\": \"ksaijohufaakdasoidu4382r9huiea7d\",\n" +
