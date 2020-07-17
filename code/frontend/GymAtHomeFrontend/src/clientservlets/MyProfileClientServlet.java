@@ -115,6 +115,7 @@ public class MyProfileClientServlet extends HttpServlet {
 
                 String responseBody = responseHttp.body().string();
                 ResponseJSON responseObject = gson.fromJson(responseBody, ResponseJSON.class);
+
                 responseHttp.close();
 
                 if (responseObject.status.equals("success")) {
