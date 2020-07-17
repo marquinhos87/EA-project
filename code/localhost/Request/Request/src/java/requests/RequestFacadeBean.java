@@ -120,7 +120,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         if((client = ClientDAO.getClientByORMID(RequestsFacade.getSession(), username)) == null) throw new ClientDoesNotExistException(username);
         if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(RequestsFacade.getSession(), personalTrainer)) == null) throw new PersonalTrainerDoesNotExistException(personalTrainer);
         Request request = gson.fromJson(requestInfoAsJSON, Request.class);
-        //request.setAccepted(false);
+        request.setAccepted(false);
         client.requests.add(request);
         pt.requests.add(request);
         ClientDAO.save(client);
@@ -148,7 +148,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         Request request;
         if((request = RequestDAO.getRequestByORMID(RequestsFacade.getSession(), requestId)) == null) throw new RequestDoesNotExistException(String.valueOf(requestId));
         boolean accepted = json.get("accepted").getAsBoolean();
-        RequestDAO.delete(request);
+        RequestDAO.save(request);
         RequestsFacade.getSession().flush();
     }
 
