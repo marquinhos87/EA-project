@@ -178,5 +178,19 @@ public class Request {
 	public String toString() {
 		return String.valueOf(getID());
 	}
+        
+        public String toJson(){
+            StringBuilder sb = new StringBuilder("{");
+            sb.append("\"ID\":").append(this.ID).append(",");
+            sb.append("\"numberOfWeeks\":").append(this.numberOfWeeks).append(",");
+            sb.append("\"objective\":").append("\"" + this.objective + "\"").append(",");
+            sb.append("\"workoutPerWeek\":").append(this.workoutPerWeek).append(",");
+            sb.append("\"weekDays\":").append("\"" + this.weekDays + "\"").append(",");
+            sb.append("\"level\":").append(this.level).append(",");
+            sb.append("\"accepted\":").append(this.accepted);
+            
+            sb.append("}");
+            return sb.toString();
+        }
 	
 }

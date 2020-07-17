@@ -315,6 +315,100 @@ public class RequestAPI extends HttpServlet {
                 response.getWriter().print(Utils.makeSuccess(1,json));
                 break;
             }
+            case "getRequest":
+            {
+                try {
+                    json = facade.getRequest(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage() + "."));
+                    break;
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (IdDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(24, "Request with it " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
+                break;
+            }
+            case "getRequestsIdsClient":
+            {
+                try {
+                    json = facade.getRequestsIdsClient(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage() + "."));
+                    break;
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
+                break;
+            }
+            case "getRequestsIdsPt":
+            {
+                try {
+                    json = facade.getRequestsIdsPt(json);
+                } catch (JsonKeyInFaultException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(11, "Json key in fault: " + ex.getMessage() + "."));
+                    break;
+                } catch (TokenIsInvalidException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(13, "Token is invalid."));
+                    break;
+                } catch (UserDoesNotExistException ex) {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    response.getWriter().print(Utils.makeError(12, "User with username " + ex.getMessage() + " does not exist on database."));
+                    break;
+                } catch (Exception ex){
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    ex.printStackTrace(pw);
+                    String stackTrace = sw.toString(); // stack trace as a string
+                    ex.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().print(Utils.makeError(10, stackTrace));
+                    break;
+                }
+                response.setStatus(200);
+                response.getWriter().print(Utils.makeSuccess(1,json));
+                break;
+            }
             case "getUsernameByRequestId":{
                 try {
                     json = facade.getUsernameByRequestId(json);
