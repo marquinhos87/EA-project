@@ -82,7 +82,7 @@
                         for(PersonalTrainer pt: pts) {
                             String url = request.getContextPath() + "/PersonalTrainerProfile?personalTrainerUsername=" + pt.username;
                             out.print("<tr onclick=\"document.location='" + url + "';\">");
-                            out.print("<td>" + pt.username + "</td>");
+                            out.print("<td>@" + pt.username + "</td>");
                             out.print("<td>" + pt.name + "</td>");
                             out.print("<td>" + pt.skill + "</td>");
                             out.print("<td>" + pt.sex + "</td>");

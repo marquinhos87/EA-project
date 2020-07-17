@@ -149,10 +149,11 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
 
         if(responseObject.status.equals("success")) {
             JsonObject responseJson = responseObject.data.getAsJsonObject();
-            request.setAttribute("username",username);
+            request.setAttribute("username","@"+username);
             request.setAttribute("name",responseJson.get("name").getAsString());
             request.setAttribute("email",responseJson.get("email").getAsString());
-            request.setAttribute("birthday",responseJson.get("birthday").getAsString());
+            //TODO trocar para "birthday"
+            request.setAttribute("birthday",responseJson.get("birhday").getAsString());
             request.setAttribute("genre",responseJson.get("sex").getAsString());
             request.setAttribute("skill",responseJson.get("skill").getAsString());
             request.setAttribute("price",responseJson.get("price").getAsFloat());

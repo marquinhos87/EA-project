@@ -57,7 +57,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="alert alert-warning" role="alert">
-                <label><h4>Atualmente sem notificações.</h4></label>
+                <label>Atualmente sem notificações.</label>
             </div>
         </div>
     </div>

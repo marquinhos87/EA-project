@@ -166,7 +166,7 @@ public class MyProfileClientServlet extends HttpServlet {
 
         if(responseObject.status.equals("success")) {
             JsonObject responseJson = responseObject.data.getAsJsonObject();
-            request.setAttribute("username",username);
+            request.setAttribute("username","@"+username);
             request.setAttribute("name",responseJson.get("name").getAsString());
             request.setAttribute("email",responseJson.get("email").getAsString());
             request.setAttribute("birthday",responseJson.get("birthday").getAsString());

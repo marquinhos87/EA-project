@@ -29,8 +29,9 @@
                         <label class="col-form-label ml-4 pl-4"><h4>Gym@Home</h4></label>
                         <div class="navbar-collapse d-flex justify-content-end pr-3">
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='SearchPersonalTrainer' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\SearchPersonalTrainer">Procurar PersonalTrainer</button>
+                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='RequestsClient' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\RequestsClient">Meus Pedidos</button>
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='ClientPlan' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\ClientPlan">Meu Plano</button>
-                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyProfileClient' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyClientProfile">Meu Perfil</button>
+                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyProfileClient' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyProfileClient">Meu Perfil</button>
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='Notification' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\Notification">Notificações</button>
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" name="action" value="logout" formaction="${pageContext.request.contextPath}\Logout">Logout</button>
                         </div>
@@ -42,7 +43,7 @@
                         <div class="navbar-collapse d-flex justify-content-end">
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyRequests' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyRequests">Meus Pedidos</button>
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyClients' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyRequests">Meus Clientes</button>
-                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyProfilePersonalTrainer' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyPersonalTrainerProfile">Meu Perfil</button>
+                            <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" ${requestScope.page=='MyProfilePersonalTrainer' ? "disabled" : ""} formaction="${pageContext.request.contextPath}\MyProfilePersonalTrainer">Meu Perfil</button>
                             <button type="submit" class="py-3 px-3 btn-link text-decoration-none text-secondary font-weight-normal bg-light border-0" name="action" value="logout" formaction="${pageContext.request.contextPath}\Logout">Logout</button>
                         </div>
                     </form>
