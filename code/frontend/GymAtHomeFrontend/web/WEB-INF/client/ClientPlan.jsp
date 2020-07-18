@@ -7,6 +7,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
+<% if (session.getAttribute("week") != null) { %>
+
 <h4 class="mt-4">Semana ${sessionScope.week.number}
 <%
     boolean isCurrentWeek = (boolean) request.getAttribute("isCurrentWeek");
@@ -19,7 +21,6 @@
         <tr class="table-active">
             <%
                 Week week = (Week) session.getAttribute("week");
-                BiometricData biometricData = (BiometricData) request.getAttribute("biometricData");
 
                 Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                 cal.setTime(week.initialDate);
@@ -108,10 +109,15 @@
     </ul>
 </nav>
 
+<%
+    if (request.getAttribute("biometricData") != null) {
+%>
+
 <div class="row mt-5">
     <h4>Dados biométricos:</h4>
     <span class="mt-1">&nbsp; (atualizados em
     <%
+        BiometricData biometricData = (BiometricData) request.getAttribute("biometricData");
         cal.setTime(biometricData.date);
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -127,7 +133,7 @@
             <td>Altura (cm):
                 <%
                     //String msg = "sem informação registada";
-                    String msg = "--";
+                    String msg = "---";
                     if (biometricData.height == 0) out.print(msg);
                     else out.print(biometricData.height);
                 %>
@@ -222,8 +228,15 @@
     </tbody>
 </table>
 
+<% } // end if (biometricData exists) %>
 
 <div class="row mt-5">
     <button type="button" class="p-3 btn btn-primary" disabled>Avaliar Personal Trainer</button>
     <span class="ml-4 mt-3">*Poderá avaliar o Personal Trainer após a semana X.</span>
 </div>
+
+<%
+    } else {
+        out.print("<div class=\"justify-content-center my-5\"><h4 class=\"text-center\">Ainda sem plano de treino.</h4></div>");
+    }
+%>

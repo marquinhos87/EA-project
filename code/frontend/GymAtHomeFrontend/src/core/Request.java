@@ -94,9 +94,19 @@ public class Request {
 	public boolean getAccepted() {
 		return accepted;
 	}
-	
+
+	@Override
 	public String toString() {
-		return String.valueOf(getID());
+		return "Request{" +
+				"ID=" + ID +
+				", clientUsername='" + clientUsername + '\'' +
+				", personalTrainerUsername='" + personalTrainerUsername + '\'' +
+				", numberOfWeeks=" + numberOfWeeks +
+				", objective='" + objective + '\'' +
+				", workoutPerWeek=" + workoutPerWeek +
+				", weekDays='" + weekDays + '\'' +
+				", level=" + level +
+				", accepted=" + accepted +
+				'}';
 	}
-	
 }

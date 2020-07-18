@@ -45,7 +45,7 @@ public class WorkThread extends Thread {
                     "\"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\", " +
                     "\"name\": \"" + clientUsername + "\", " +
                     "\"email\": \"" + clientUsername + "@gmail.com\", " +
-                    "\"sex\": \"M\", " +
+                    "\"sex\": \"m\", " +
                     "\"birthday\": \"1997-06-19\", " +
                     "\"height\": 190, " +
                     "\"weight\": 87 " +

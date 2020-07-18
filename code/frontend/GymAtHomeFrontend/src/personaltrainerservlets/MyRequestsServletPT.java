@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "MyRequestsServletPT", urlPatterns = "/MyRequestsPT")
 public class MyRequestsServletPT extends HttpServlet {
@@ -27,12 +28,20 @@ public class MyRequestsServletPT extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
+
+
+        // TODO remover isto daqui após testar -------------------------------------
+        session.setAttribute("username", "pt0");
+        session.setAttribute("token", "pt0Uzh5V5d6ZcMNrUBCwloAkKLUjLhcF");
+        // -------------------------------------------------------------------------
+
+
         action = request.getParameter("action");
         username = (String) session.getAttribute("username");
         token = (String) session.getAttribute("token");
 
         if(username == null || token == null){
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
+            Utils.redirect(request, response, "/Login");
             return ;
         }
 
@@ -63,6 +72,7 @@ public class MyRequestsServletPT extends HttpServlet {
             replyToRequest.addProperty("username", username);
             replyToRequest.addProperty("token", token);
             replyToRequest.addProperty("requestId", requestId);
+            replyToRequest.addProperty("clientUsername", request.getParameter("clientUsername"));
 
             System.err.println(replyToRequest.toString());
 
@@ -86,10 +96,17 @@ public class MyRequestsServletPT extends HttpServlet {
                 return ;
             }
 
+            System.out.println(responseJSON);
+
             if(responseJSON.status.equals("success")){
-                request.setAttribute("errorMessage", message);
-                //  TODO aqui em caso de sucesso vai para o criar semana
-            }else{
+                // request.setAttribute("errorMessage", message);
+                Map<Integer, Request> requests = (Map<Integer, Request>) session.getAttribute("requests");
+                Request r = requests.get(requestId);
+                session.setAttribute("requests", null);
+                session.setAttribute("request", r);
+                Utils.forward(request, response, "/CreateWeek", "CreateWeek", null);
+                return ;
+            } else{
                 switch (responseJSON.code){
                     default:
                         request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
@@ -128,6 +145,8 @@ public class MyRequestsServletPT extends HttpServlet {
             Request[] requests = gson.fromJson(responseJSON.data.toString(), Request[].class);
             List<Request> tmps = Arrays.asList(requests);
             request.setAttribute("requests", tmps);
+            Map<Integer, Request> map = tmps.stream().collect(Collectors.toMap(Request::getID, r -> r));
+            session.setAttribute("requests",map); // CAUTION - it's suposed to save requests on session - DO NOT CHAMGE
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
         }else{
             switch (responseJSON.code){

@@ -1,5 +1,14 @@
 package personaltrainerservlets;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import core.Request;
+import core.Task;
+import core.Week;
+import core.Workout;
+import parseJSON.deserializer.TaskDeserializer;
+import parseJSON.deserializer.WeekDeserializer;
+import parseJSON.deserializer.WorkoutDeserializer;
 import utils.Utils;
 
 import javax.rmi.CORBA.Util;
@@ -8,10 +17,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "CreateWeekServlet", urlPatterns = "/CreateWeek")
 public class CreateWeekServlet extends HttpServlet {
+
+    private final Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd")
+            .registerTypeAdapter(Week.class, new WeekDeserializer())
+            .registerTypeAdapter(Workout.class, new WorkoutDeserializer())
+            .registerTypeAdapter(Task.class, new TaskDeserializer())
+            .create();
+    private HttpSession session;
+    private String username;
+    private String token;
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -23,18 +43,7 @@ public class CreateWeekServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
-        String token = (String) request.getSession().getAttribute("token");
-        if(username == null || token == null) {
-            request.getSession().setAttribute("username",null);
-            request.getSession().setAttribute("token",null);
-            request.getSession().setAttribute("userType",null);
-            request.setAttribute("title","Login");
-            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
-        }
-        else {
-            //TODO
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -47,17 +56,21 @@ public class CreateWeekServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getSession().getAttribute("username");
-        String token = (String) request.getSession().getAttribute("token");
-        if(username == null || token == null) {
-            request.getSession().setAttribute("username",null);
-            request.getSession().setAttribute("token",null);
-            request.getSession().setAttribute("userType",null);
-            request.setAttribute("title","Login");
-            Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
+        processRequest(request, response);
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        session = request.getSession();
+        username = (String) session.getAttribute("username");
+        token = (String) session.getAttribute("token");
+        if (username == null || token == null) { // NOT logged in
+            Utils.redirect(request, response, "/Login");
+            return;
         }
-        else {
-            //TODO
-        }
+        Request r = (Request) session.getAttribute("request");
+        System.out.println(r);
+
+        request.setAttribute("title", "Criar 1ª semana");
+        Utils.forward(request, response, "/WEB-INF/Template.jsp", "CreateWeek", null);
     }
 }

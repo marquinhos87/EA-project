@@ -160,6 +160,7 @@
                     <th><% out.print(req.level); %></th>
                     <form method="POST" action="${pageContext.request.contextPath}/MyRequestsPT">
                         <input type="hidden" value="<% out.print(req.ID);%>" name="requestId" />
+                        <input type="hidden" value="<% out.print(req.clientUsername);%>" name="clientUsername" />
                         <th><button type="submit" class="btn btn-success" name="action" value="accepted">Aceitar</button></th>
                         <th><button type="submit" class="btn btn-danger" name="action" value="reject">Rejeitar</button></th>
                     </form>

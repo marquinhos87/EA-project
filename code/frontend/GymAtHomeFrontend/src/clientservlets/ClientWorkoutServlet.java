@@ -41,6 +41,7 @@ public class ClientWorkoutServlet extends HttpServlet {
         token = (String) session.getAttribute("token");
         if (username == null || token == null) { // NOT logged in
             Utils.redirect(request, response, "/Login");
+            return;
         }
 
         String finishWorkout = request.getParameter("finishWorkout");

@@ -68,17 +68,32 @@
             <div class="row justify-content-center">
                 <c:choose>
                     <c:when test="${requestScope.errorMessage!=null}">
-                        <div class="alert alert-danger" role="alert">${requestScope.errorMessage}</div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Erro:</strong> ${requestScope.errorMessage}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${requestScope.successMessage!=null}">
-                        <div class="alert alert-success" role="alert">${requestScope.successMessage}</div>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Sucesso:</strong> ${requestScope.successMessage}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${requestScope.warningMessage!=null}">
-                        <div class="alert alert-success" role="alert">${requestScope.warningMessage}</div>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <strong>Aviso:</strong> ${requestScope.warningMessage}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </c:when>
                 </c:choose>
             </div>

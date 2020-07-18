@@ -49,6 +49,7 @@ public class ClientPlanServlet extends HttpServlet {
         token = (String) session.getAttribute("token");
         if (username == null || token == null) { // NOT logged in
             Utils.redirect(request, response, "/Login");
+            return;
         }
 
         int selectedWeek = -1;
@@ -133,8 +134,9 @@ public class ClientPlanServlet extends HttpServlet {
                 return true;
             } else {
                 if (rj.code == 400) { // Invalid week (< 0 or > MAX)
-                    // return current week
-                    return getWeek(request, response, -1);
+                    return getWeek(request, response, -1); // return current week
+                } else if (rj.code == 404) { // Client hasn't got a plan
+                    return true;
                 }
                 request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                 request.setAttribute("title", "Erro interno");
@@ -173,15 +175,14 @@ public class ClientPlanServlet extends HttpServlet {
             String data = responseHttp.body().string();
             responseHttp.close();
             ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
+            System.out.println(rj);
             if (rj.status.equals("success")) {
                 BiometricData biometricData = gson.fromJson(rj.data, BiometricData.class);
                 request.setAttribute("biometricData", biometricData);
                 return true;
             } else {
-                request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-                request.setAttribute("title", "Erro interno");
-                Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
-                return false;
+                request.setAttribute("warningMessage", "Neste momento não foi possível carregar os dados biométricos. Tente recarregar a página.");
+                return true;
             }
 
         } catch (Exception e) {

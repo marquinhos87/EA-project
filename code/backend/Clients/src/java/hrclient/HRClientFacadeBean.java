@@ -206,7 +206,6 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         Iterator it = q.list().iterator();
         BiometricData biometricData = null;
         int maxId = 0;
-        it.next();
         if(it.hasNext()){
             maxId = (Integer) it.next();
             biometricData = BiometricDataDAO.getBiometricDataByORMID(session, maxId);
