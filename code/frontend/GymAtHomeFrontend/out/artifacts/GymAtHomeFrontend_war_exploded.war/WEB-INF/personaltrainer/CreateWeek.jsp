@@ -14,11 +14,45 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Aviso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem a certeza que deseja apagar o Workout? Não poderá reverter esta ação.
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="${pageContext.request.contextPath}/CreateWeek">
+                    <button type="button" class="btn btn-danger mr-2" data-dismiss="modal">Não</button>
+                    <button id="removeWorkoutButton" type="submit" class="btn btn-success" name="removeWorkout">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<%
+    Request r = (Request) session.getAttribute("request");
+    Week week = (Week) session.getAttribute("newWeek");
+    boolean semDias = false;
+    if (week != null && week.workouts.size() == r.workoutPerWeek) {
+        semDias = true;
+    }
+%>
+
 <div class="row mt-5 position-relative">
     <h4 class="mt-4">Semana 1: @${sessionScope.request.clientUsername}
     <%
-        out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 0; transform: translateX(-70%);\">Cancelar Semana</button>");
-        out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" disabled>Finalizar</button>");
+        out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 0; transform: translateX(-110%);\">Cancelar Semana</button>");
+        out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" disabled>Guardar Semana</button>");
     %>
     </h4>
 </div>
@@ -26,36 +60,33 @@
 <div class="mt-5 row ">
     <div class="col-5">
         <h5>Workouts já definidos:</h5>
-        <table class="mt-4 table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Dia</th>
-                    <th scope="col">Workout</th>
-                </tr>
-            </thead>
-            <tbody>
-            <c:choose>
-                <c:when test="${sessionScope.newWeek == null}">
+            <table class="mt-4 table table-striped">
+                <thead>
                     <tr>
-                        <th scope="row">---</th>
-                        <td>---</td>
+                        <th scope="col"></th>
+                        <th scope="col">Dia</th>
+                        <th scope="col">Workout</th>
                     </tr>
-                </c:when>
-                <c:when test="true">
-                    <%
-                        for(Workout workout : ((Week) session.getAttribute("newWeek")).workoutsList){
-                            out.print("<tr><td>" + Utils.prettyPrintWeekDay(workout.weekDay) + "</td><td>" + workout.designation + "</td></tr>");
-                        }
-                    %>
-                </c:when>
-            </c:choose>
-            <%
-
-
-
-            %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <c:choose>
+                    <c:when test="${sessionScope.newWeek == null || sessionScope.newWeek.workouts.size() == 0}">
+                        <tr>
+                            <td><button disabled class="btn btn-danger text-white">X</button></td>
+                            <td>---</td>
+                            <td>---</td>
+                        </tr>
+                    </c:when>
+                    <c:when test="true">
+                        <%
+                            for(Workout workout : ((Week) session.getAttribute("newWeek")).workouts.values()) {
+                                out.print("<tr><td><button data-toggle=\"modal\" data-target=\"#exampleModalCenter\" class=\"btn btn-danger text-white\" onclick=\"document.getElementById('removeWorkoutButton').value='" + workout.id + "'\">X</button></td><td>" + Utils.prettyPrintWeekDay(workout.weekDay) + "</td><td>" + workout.designation + "</td></tr>");
+                            }
+                        %>
+                    </c:when>
+                </c:choose>
+                </tbody>
+            </table>
     </div>
 
     <div class="col-2"></div>
@@ -73,13 +104,15 @@
                 </tr>
                 <tr>
                     <td scope="row">Nº de treinos semanais:</td>
-                    <td>${sessionScope.request.workoutPerWeek} dias por semana</td>
+                    <%
+                        if (!semDias) out.print("<td>" + r.workoutPerWeek + " dias por semana</td>");
+                        else out.print("<td class=\"text-danger\"><b>" + r.workoutPerWeek + " dias por semana</b></td>");
+                    %>
                 </tr>
                 <tr>
                     <td scope="row">Disponibilidade semanal:</td>
                     <td>
                         <%
-                            Request r = (Request) session.getAttribute("request");
                             out.print(Utils.prettyPrintWeekDays(r.weekDays));
                         %>
                     </td>
@@ -92,6 +125,11 @@
         </table>
     </div>
 </div>
+
+<%
+    if (semDias == false) {
+%>
+
 <form method="POST" action="${pageContext.request.contextPath}/CreateWeek">
 <div class="row mt-3">
 
@@ -115,11 +153,10 @@
                 <select class="custom-select" name="weekDay" required style="width: 50%">
                     <%
 
-                        Week week = (Week) session.getAttribute("newWeek");
                         List<Integer> list = null;
 
                         if(week!= null)
-                            list = week.workoutsList.stream().mapToInt(Workout::getWeekDay).boxed().collect(Collectors.toList());
+                            list = week.workouts.values().stream().mapToInt(Workout::getWeekDay).boxed().collect(Collectors.toList());
 
                         for (String weekDayStr: r.weekDays.split(";")) {
 
@@ -179,7 +216,7 @@
             <th scope="col" style="width: 22.5%;">Equipamento</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="workoutTableBody">
         <tr id="1">
             <td><button class="btn btn-danger text-white" onclick="removeRow(1)">X</button>
             <td>
@@ -218,16 +255,32 @@
     <div class="row mt-5 position-relative">
         <input id="tableSize" type="hidden" value="1" name="tableSize" />
             <%
-                out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 0; transform: translateX(-110%);\">Cancelar Workout</button>");
-                out.print("<button name=\"action\" value=\"addWorkout\" type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\">Guardar Workout</button>");
+                out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" onclick=\"clearWorkoutsTable()\" style=\"right: 0; transform: translateX(-115%);\">Cancelar Workout</button>");
+                if (week != null && week.workouts.size() == r.workoutPerWeek)  out.print("<button disabled type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\">Adicionar Workout</button>");
+                else out.print("<button name=\"action\" value=\"addWorkout\" type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\">Adicionar Workout</button>");
             %>
         </h4>
     </div>
 
 </form>
 
+<% }
+
+    else {
+        out.print("<div class=\"justify-content-center my-5\"><h4 class=\"text-center\">Já esgotou os dias disponíveis.</h4></div>");
+    }
+
+%>
+
 <script>
     var index = 2;
+
+    function clearWorkoutsTable() {
+        index = 2;
+        $("#workoutTableBody").empty();
+        addRow();
+    }
+
     function addRow() {
         var table = document.getElementById("workoutTable");
         var len = table.tBodies[0].rows.length + 1;

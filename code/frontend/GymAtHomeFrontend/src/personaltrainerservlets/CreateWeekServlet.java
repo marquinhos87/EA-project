@@ -70,8 +70,14 @@ public class CreateWeekServlet extends HttpServlet {
         }
 
         String action = request.getParameter("action");
+        String removeWorkout = request.getParameter("removeWorkout");
 
-        if(action != null && action.equals("addWorkout")){
+        if(removeWorkout != null) {
+            Week week = (Week) session.getAttribute("newWeek");
+            int workoutId = Integer.parseInt(removeWorkout);
+            week.workouts.remove(workoutId);
+        }
+        else if(action != null && action.equals("addWorkout")) {
             Week week = (Week) session.getAttribute("newWeek");
             int maxId = Integer.parseInt(request.getParameter("tableSize"));
 
@@ -83,6 +89,7 @@ public class CreateWeekServlet extends HttpServlet {
             workout.tasks = new ArrayList<>();
             workout.designation = request.getParameter("designation");
             workout.weekDay = Integer.parseInt(request.getParameter("weekDay"));
+            workout.id = workout.weekDay;
 
             for(int i = 1; i <= maxId; i++){
                 Task task = new Task();
@@ -106,12 +113,10 @@ public class CreateWeekServlet extends HttpServlet {
                 }
                 workout.tasks.add(task);
             }
-            week.workoutsList.add(workout);
+            week.workouts.put(workout.id, workout);
             System.err.println(week);
             session.setAttribute("newWeek", week);
         }
-
-        Request r = (Request) session.getAttribute("request");
 
         request.setAttribute("title", "Criar 1ª semana");
         Utils.forward(request, response, "/WEB-INF/Template.jsp", "CreateWeek", null);
