@@ -69,6 +69,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         user.setUsername(username);
         user.setToken(token);
         UserDAO.save(user);
+        RequestsFacade.getSession().flush();
         client = new Client();
         client.setUsername(username);
         ClientDAO.save(client);
@@ -95,6 +96,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         user.setUsername(username);
         user.setToken(token);
         UserDAO.save(user);
+        RequestsFacade.getSession().flush();
         personalTrainer = new PersonalTrainer();
         personalTrainer.setUsername(username);
         PersonalTrainerDAO.save(personalTrainer);
@@ -124,6 +126,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         client.requests.add(request);
         pt.requests.add(request);
         ClientDAO.save(client);
+        RequestsFacade.getSession().flush();
         PersonalTrainerDAO.save(pt);
         RequestsFacade.getSession().flush();
     }

@@ -45,7 +45,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         User user = Utils.validateUserToken(oldToken, username);
         user.setToken(newToken);
         UserDAO.save(user);     //  update new token
-        
+        HRClientFacade.getSession().flush();
     }
 
     /**
@@ -78,7 +78,9 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         user.setToken(token);
 
         UserDAO.save(user);
+        HRClientFacade.getSession().flush();
         ClientDAO.save(client);
+        HRClientFacade.getSession().flush();
         return "{\"token\":\"" + token + "\"}";
     }
     
@@ -86,11 +88,12 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJSON , Arrays.asList("username", "token"));
         String username = json.get("username").getAsString(), token = json.get("token").getAsString();
         User user;
-        if((user = UserDAO.getUserByORMID(username)) != null) throw new UserAlreadyExistsException(username);
+        if((user = UserDAO.getUserByORMID(HRClientFacade.getSession(), username)) != null) throw new UserAlreadyExistsException(username);
         user = new User();
         user.setUsername(username);
         user.setToken(token);
         UserDAO.save(user);
+        HRClientFacade.getSession().flush();
     }
 
     /**
@@ -110,7 +113,9 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         String newToken = Utils.tokenGenerate(client.getUsername());
         user.setToken(newToken);
         UserDAO.save(user);                     //  update token
+        HRClientFacade.getSession().flush();
         ClientDAO.save(client);                 //  update username of client
+        HRClientFacade.getSession().flush();
         return "{ \"oldToken\": \"" + oldToken + "\", " +
                         "\"newToken\": \"" + newToken + "\" }";
     }
@@ -124,7 +129,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
         Utils.validateUserToken(token, json.get("username").getAsString());
         Client client;
-        if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
+        if((client = ClientDAO.getClientByORMID(HRClientFacade.getSession(), username)) == null) throw new ClientDoesNotExistException(username);
 
         //	get last biometric data using ID
         Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + username + "\'");
@@ -133,7 +138,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         int maxId = 0;
         if(it.hasNext()){
             maxId = (Integer) it.next();
-            biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
+            biometricData = BiometricDataDAO.getBiometricDataByORMID(HRClientFacade.getSession(), maxId);
         }
         if(biometricData == null) throw new BiometricDataDoesNotExistException();
 
@@ -163,7 +168,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         String token = json.get("token").getAsString(), username = json.get("username").getAsString(), clientUsername = json.get("clientUsername").getAsString();
         Utils.validateUserToken(token, username);
         Client client;
-        if((client = ClientDAO.getClientByORMID(clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
+        if((client = ClientDAO.getClientByORMID(HRClientFacade.getSession(), clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
 
         //	get last biometric data using ID
         Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + clientUsername + "\'");
@@ -172,7 +177,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         int maxId = 0;
         if(it.hasNext()){
             maxId = (Integer) it.next();
-            biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
+            biometricData = BiometricDataDAO.getBiometricDataByORMID(HRClientFacade.getSession(), maxId);
         }
         if(biometricData == null) throw new BiometricDataDoesNotExistException();
 
@@ -203,7 +208,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
         Utils.validateUserToken(token, username);
         Client client = null;
-        if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
+        if((client = ClientDAO.getClientByORMID(HRClientFacade.getSession(), username)) == null) throw new ClientDoesNotExistException(username);
 
         //	update fields
         if(json.has("name"))
@@ -227,6 +232,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             client.biometricDatas.add(biometricData);
         }
         ClientDAO.save(client);
+        HRClientFacade.getSession().flush();
     }
 
     /**
@@ -246,7 +252,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         int maxId = 0;
         if(it.hasNext()){
             maxId = (Integer) it.next();
-            biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
+            biometricData = BiometricDataDAO.getBiometricDataByORMID(HRClientFacade.getSession(), maxId);
         }
         if(biometricData == null) throw new BiometricDataDoesNotExistException();
 

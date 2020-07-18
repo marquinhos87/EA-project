@@ -138,7 +138,7 @@ public class LoginServlet extends HttpServlet {
                     message = "Credênciais inválidas.";
                     break;
                 default:    //  other errors
-                    message = "Erro interno do sistema. CONA";
+                    message = "Erro interno do sistema.";
                     break;
             }
             request.setAttribute("errorMessage", message);
