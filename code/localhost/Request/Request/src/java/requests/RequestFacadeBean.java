@@ -151,6 +151,7 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
         Request request;
         if((request = RequestDAO.getRequestByORMID(RequestsFacade.getSession(), requestId)) == null) throw new RequestDoesNotExistException(String.valueOf(requestId));
         boolean accepted = json.get("accepted").getAsBoolean();
+        request.setAccepted(accepted);
         RequestDAO.save(request);
         RequestsFacade.getSession().flush();
     }

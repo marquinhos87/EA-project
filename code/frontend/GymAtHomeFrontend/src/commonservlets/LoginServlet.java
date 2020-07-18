@@ -74,7 +74,7 @@ public class LoginServlet extends HttpServlet {
             jo.addProperty("password",Utils.hashPassword(password));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Erro interno do sistema.");
+            request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
             request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return;
@@ -86,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             responseHttp = Http.post(Utils.SERVER + target,jo.toString());
         } catch (IOException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+            request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
             request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
@@ -99,8 +99,7 @@ public class LoginServlet extends HttpServlet {
             responseJSON = gson.fromJson(responseBody, JsonObject.class);
         } catch (Exception e){
             e.printStackTrace();
-            message = "Erro interno do sistema.";
-            request.setAttribute("errorMessage", message);
+            request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
             request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
             return ;
@@ -112,8 +111,7 @@ public class LoginServlet extends HttpServlet {
                 Utils.validateJson(gson,data.toString(), Arrays.asList("oldToken", "newToken"));
             } catch (JsonKeyInFaultException e) {
                 e.printStackTrace();
-                message = "Erro interno do sistema.";
-                request.setAttribute("errorMessage", message);
+                request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                 request.setAttribute("title","Login");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
                 return ;
@@ -138,7 +136,7 @@ public class LoginServlet extends HttpServlet {
                     message = "Credênciais inválidas.";
                     break;
                 default:    //  other errors
-                    message = "Erro interno do sistema.";
+                    message = Utils.UNEXPECTED_ERROR_MSG;
                     break;
             }
             request.setAttribute("errorMessage", message);

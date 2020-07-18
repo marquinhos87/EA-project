@@ -80,8 +80,10 @@
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                    <button id="aceitar" type="button" class="btn btn-success">Aceitar</button>
-                    <button id="rejeitar" type="button" class="btn btn-danger">Rejeitar</button>
+                    <form>
+                        <button id="aceitar" type="button" class="btn btn-success" formaction="${pageContext.request.contextPath}\MyRequestsPT" name="action" value="accepted">Aceitar</button>
+                        <button id="rejeitar" type="button" class="btn btn-danger" formaction="${pageContext.request.contextPath}\MyRequestsPT" name="action" value="reject">Rejeitar</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -111,9 +113,9 @@
                 for(Request req : requests){
                 %>
                 <tr>
-                    <th><button onclick="getClient('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', <% out.print((req.ID));%>, '<% out.print((req.clientUsername));%>');" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        perfil
-                    </button></th>
+                    <th>
+                        <button onclick="getClient('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', <% out.print((req.ID));%>, '<% out.print((req.clientUsername));%>');" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">perfil</button>
+                    </th>
                     <th>@<% out.print(req.clientUsername); %></th>
                     <th><% out.print(req.numberOfWeeks); %></th>
                     <th><% out.print(req.objective); %></th>
@@ -156,9 +158,12 @@
                     %>
                     <th><% out.print(sb.toString()); %></th>
                     <th><% out.print(req.level); %></th>
-                    <th><button type="button" class="btn btn-success">Aceitar</button></th>
-                    <th><button type="button" class="btn btn-danger">Rejeitar</button></th>
-             </tr>
+                    <form method="POST" action="${pageContext.request.contextPath}/MyRequestsPT">
+                        <input type="hidden" value="<% out.print(req.ID);%>" name="requestId" />
+                        <th><button type="submit" class="btn btn-success" name="action" value="accepted">Aceitar</button></th>
+                        <th><button type="submit" class="btn btn-danger" name="action" value="reject">Rejeitar</button></th>
+                    </form>
+                </tr>
             <%}
             }else{%>
             <div class="justify-content-center my-5"><h4 class="text-center">Não existem pedidos para planos de treino.</h4></div>
@@ -235,7 +240,7 @@
                     $("#rejeitar").css("display", "none")
                     $("#bio").css("display", "none")
                     $("#title-pop-up").html("Erro interno do sistema")
-                    $("#message").html("Não foi possível obter os dados biométricos entre outros do cliente. Tente mais tarde ou contacte o suporte.")
+                    $("#message").html("Não foi possível obter o perfil do cliente. Tente mais tarde ou contacte o suporte.")
                 }
             })
         }
