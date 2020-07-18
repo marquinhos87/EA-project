@@ -67,6 +67,7 @@ public class CreateWeekServlet extends HttpServlet {
             Utils.redirect(request, response, "/Login");
             return;
         }
+
         Request r = (Request) session.getAttribute("request");
         System.out.println(r);
 

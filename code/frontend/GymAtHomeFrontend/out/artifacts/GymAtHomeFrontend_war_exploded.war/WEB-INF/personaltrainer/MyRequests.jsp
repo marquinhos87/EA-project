@@ -120,43 +120,7 @@
                     <th><% out.print(req.numberOfWeeks); %></th>
                     <th><% out.print(req.objective); %></th>
                     <th><% out.print(req.workoutPerWeek); %></th>
-                    <%
-                        String[] subtr = req.weekDays.split(";");
-                        StringBuilder sb = new StringBuilder("");
-                        for(int j = 0; j < subtr.length; j++){
-                            switch (subtr[j]){
-                                case "1":
-                                    sb.append("Dom");
-                                    break;
-                                case "2":
-                                    sb.append("Seg");
-                                    break;
-                                case "3":
-                                    sb.append("Ter");
-                                    break;
-                                case "4":
-                                    sb.append("Qua");
-                                    break;
-                                case "5":
-                                    sb.append("Qui");
-                                    break;
-                                case "6":
-                                    sb.append("Sex");
-                                    break;
-                                case "7":
-                                    sb.append("Sáb");
-                                    break;
-                                default:
-                                    break;
-
-                            }
-                            if(j == subtr.length - 2)
-                                sb.append(" e ");
-                            else if(j != subtr.length - 1)
-                                sb.append(", ");
-                        }
-                    %>
-                    <th><% out.print(sb.toString()); %></th>
+                    <th><% out.print(Utils.prettyPrintWeekDays(req.weekDays)); %></th>
                     <th><% out.print(req.level); %></th>
                     <form method="POST" action="${pageContext.request.contextPath}/MyRequestsPT">
                         <input type="hidden" value="<% out.print(req.ID);%>" name="requestId" />

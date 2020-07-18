@@ -34,65 +34,78 @@ public class Request {
 	public int level;
 	
 	public boolean accepted;
-	
-	public void setID(int value) {
-		this.ID = value;
-	}
-	
+
+
 	public int getID() {
 		return ID;
 	}
-	
-	public int getORMID() {
-		return getID();
+
+	public void setID(int ID) {
+		this.ID = ID;
 	}
-	
-	public void setNumberOfWeeks(int value) {
-		this.numberOfWeeks = value;
+
+	public String getClientUsername() {
+		return clientUsername;
 	}
-	
+
+	public void setClientUsername(String clientUsername) {
+		this.clientUsername = clientUsername;
+	}
+
+	public String getPersonalTrainerUsername() {
+		return personalTrainerUsername;
+	}
+
+	public void setPersonalTrainerUsername(String personalTrainerUsername) {
+		this.personalTrainerUsername = personalTrainerUsername;
+	}
+
 	public int getNumberOfWeeks() {
 		return numberOfWeeks;
 	}
-	
-	public void setObjective(String value) {
-		this.objective = value;
+
+	public void setNumberOfWeeks(int numberOfWeeks) {
+		this.numberOfWeeks = numberOfWeeks;
 	}
-	
+
 	public String getObjective() {
 		return objective;
 	}
-	
-	public void setWorkoutPerWeek(int value) {
-		this.workoutPerWeek = value;
+
+	public void setObjective(String objective) {
+		this.objective = objective;
 	}
-	
+
 	public int getWorkoutPerWeek() {
 		return workoutPerWeek;
 	}
-	
-	public void setWeekDays(String value) {
-		this.weekDays = value;
+
+	public void setWorkoutPerWeek(int workoutPerWeek) {
+		this.workoutPerWeek = workoutPerWeek;
 	}
-	
+
 	public String getWeekDays() {
 		return weekDays;
 	}
-	
-	public void setLevel(int value) {
-		this.level = value;
+
+	public void setWeekDays(String weekDays) {
+		this.weekDays = weekDays;
 	}
-	
+
 	public int getLevel() {
 		return level;
 	}
-	
-	public void setAccepted(boolean value) {
-		this.accepted = value;
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
-	
-	public boolean getAccepted() {
+
+	public boolean isAccepted() {
 		return accepted;
+	}
+
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
 	}
 
 	@Override

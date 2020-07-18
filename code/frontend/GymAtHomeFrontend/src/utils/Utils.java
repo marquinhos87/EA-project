@@ -69,4 +69,41 @@ public class Utils {
         }
         return jsonObject;
     }
+
+    public static String prettyPrintWeekDays(String weekDays) {
+        String[] subtr = weekDays.split(";");
+        StringBuilder sb = new StringBuilder("");
+        for(int j = 0; j < subtr.length; j++) {
+            switch (subtr[j]) {
+                case "1":
+                    sb.append("Seg");
+                    break;
+                case "2":
+                    sb.append("Ter");
+                    break;
+                case "3":
+                    sb.append("Qua");
+                    break;
+                case "4":
+                    sb.append("Qui");
+                    break;
+                case "5":
+                    sb.append("Sex");
+                    break;
+                case "6":
+                    sb.append("Sáb");
+                    break;
+                case "7":
+                    sb.append("Dom");
+                    break;
+                default:
+                    break;
+            }
+            if (j == subtr.length - 2)
+                sb.append(" e ");
+            else if (j != subtr.length - 1)
+                sb.append(", ");
+        }
+        return sb.toString();
+    }
 }

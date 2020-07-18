@@ -104,7 +104,7 @@ public class MyRequestsServletPT extends HttpServlet {
                 Request r = requests.get(requestId);
                 session.setAttribute("requests", null);
                 session.setAttribute("request", r);
-                Utils.forward(request, response, "/CreateWeek", "CreateWeek", null);
+                Utils.redirect(request, response, "/CreateWeek");
                 return ;
             } else{
                 switch (responseJSON.code){
