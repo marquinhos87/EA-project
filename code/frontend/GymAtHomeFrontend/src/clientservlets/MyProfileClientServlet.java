@@ -3,6 +3,7 @@ package clientservlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import core.BiometricData;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
 import utils.Http;
@@ -171,22 +172,24 @@ public class MyProfileClientServlet extends HttpServlet {
             request.setAttribute("email",responseJson.get("email").getAsString());
             request.setAttribute("birthday",responseJson.get("birthday").getAsString());
             request.setAttribute("genre",responseJson.get("sex").getAsString());
-            request.setAttribute("height",responseJson.get("height").getAsInt());
-            request.setAttribute("weight",responseJson.get("weight").getAsFloat());
-            request.setAttribute("bmi",responseJson.get("BMI").getAsFloat());
+
+            BiometricData bioData = gson.fromJson(responseJson.get("biometricDate"),BiometricData.class);
+            request.setAttribute("height",bioData.getHeight());
+            request.setAttribute("weight",bioData.getWeight());
+            request.setAttribute("bmi",bioData.getBMI());
 
             int tmp;
-            if(responseJson.has("waist") && (tmp = responseJson.get("waist").getAsInt())!=0)
+            if((tmp = bioData.getWaist())!=0)
                 request.setAttribute("waist",tmp);
-            if(responseJson.has("chest") && (tmp = responseJson.get("chest").getAsInt())!=0)
+            if((tmp = bioData.getChest())!=0)
                 request.setAttribute("chest",tmp);
-            if(responseJson.has("twin") && (tmp = responseJson.get("twin").getAsInt())!=0)
+            if((tmp = bioData.getTwin())!=0)
                 request.setAttribute("twin",tmp);
-            if(responseJson.has("quadriceo") && (tmp = responseJson.get("quadricep").getAsInt())!=0)
+            if((tmp = bioData.getQuadricep())!=0)
                 request.setAttribute("quadricep",tmp);
-            if(responseJson.has("tricep") && (tmp = responseJson.get("tricep").getAsInt())!=0)
+            if((tmp = bioData.getTricep())!=0)
                 request.setAttribute("tricep",tmp);
-            if(responseJson.has("wrist") && (tmp = responseJson.get("wrist").getAsInt())!=0)
+            if((tmp = bioData.getWrist())!=0)
                 request.setAttribute("wrist",tmp);
         }
         else request.setAttribute("errorMessage", "Não é possível consultar o perfil neste momento, volte mais tarde.");

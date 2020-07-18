@@ -3,6 +3,7 @@ package personaltrainerservlets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import core.BiometricData;
 import okhttp3.Response;
 import parseJSON.ResponseJSON;
 import utils.Http;
@@ -65,27 +66,23 @@ public class ClientProfileServlet extends HttpServlet {
                 request.setAttribute("age",jo.get("age").getAsString());
                 request.setAttribute("email",jo.get("email").getAsString());
                 request.setAttribute("genre",jo.get("sex").getAsString());
-                request.setAttribute("height",jo.get("height").getAsString());
-                request.setAttribute("weight",jo.get("weight").getAsString());
-                request.setAttribute("bmi",jo.get("BMI").getAsString());
 
-                String tmp = jo.has("waist") ? jo.get("waist").getAsString() : "0";
-                request.setAttribute("waist",tmp);
+                BiometricData bioData = gson.fromJson(jo.get("biometricData"),BiometricData.class);
+                request.setAttribute("height",bioData.getHeight());
+                request.setAttribute("weight",bioData.getWeight());
+                request.setAttribute("bmi",bioData.getBMI());
 
-                tmp = jo.has("wrist") ? jo.get("wrist").getAsString() : "0";
-                request.setAttribute("wrist",tmp);
+                request.setAttribute("waist",bioData.getWaist());
 
-                tmp = jo.has("twin") ? jo.get("twin").getAsString() : "0";
-                request.setAttribute("twin",tmp);
+                request.setAttribute("wrist",bioData.getWrist());
 
-                tmp = jo.has("quadricep") ? jo.get("quadricep").getAsString() : "0";
-                request.setAttribute("quadricep",tmp);
+                request.setAttribute("twin",bioData.getTwin());
 
-                tmp = jo.has("tricep") ? jo.get("tricep").getAsString() : "0";
-                request.setAttribute("tricep",tmp);
+                request.setAttribute("quadricep",bioData.getQuadricep());
 
-                tmp = jo.has("chest") ? jo.get("chest").getAsString() : "0";
-                request.setAttribute("chest",tmp);
+                request.setAttribute("tricep",bioData.getTricep());
+
+                request.setAttribute("chest",bioData.getChest());
 
                 request.setAttribute("title","Perfil Cliente - " + jo.get("name").getAsString());
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientProfile",null);
