@@ -131,13 +131,14 @@
 
     <div class="col-4">
         <%
-            out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 4%; bottom: 0\">Adicionar Linha</button>");
+            out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 4%; bottom: 0; transform: translateX(-115%);\">Remover Linha</button>");
+            out.print("<button onclick=\"addRow();\" type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 4%; bottom: 0\">Adicionar Linha</button>");
         %>
     </div>
 </div>
 
 
-<table class="mt-4 table table-striped table-bordered">
+<table class="mt-4 table table-striped table-bordered" id="workoutTable">
     <thead>
     <tr>
         <th scope="col" style="width: 22.5%;">Tarefa</th>
@@ -190,3 +191,47 @@
         %>
     </h4>
 </div>
+
+<script>
+    function addRow() {
+        var table = document.getElementById("workoutTable");
+
+        var len = table.tBodies[0].rows.length + 1;
+        var row = table.insertRow(len);
+
+        var cellTaskName = row.insertCell(0);
+        cellTaskName.innerHTML = "<select class=\"custom-select\" name=\"task\" required>\n" +
+            "                <option value=\"corrida\">Corrida</option>\n" +
+            "                <option value=\"levantarPesos\">Levantar Pesos</option>\n" +
+            "                <option value=\"abdominais\">Abdominais</option>\n" +
+            "            </select>";
+        
+        var cellWeight = row.insertCell(1);
+        cellWeight.innerHTML = "<input type=\"number\" pattern=\"[0-9]+(\\.)*[0-9]*\" min=\"0\" class=\"form-control\" name=\"weight\" placeholder=\"Ex: 5\">";
+
+        var cellNserie = row.insertCell(2);
+        cellNserie.innerHTML = "<input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"nSerie\" placeholder=\"Ex: 3\">";
+
+        var cellDuration = row.insertCell(3);
+        cellDuration.innerHTML = "<div class=\"d-inline-flex\">\n" +
+            "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"duration\" placeholder=\"Ex: 5\">\n" +
+            "                <select class=\"ml-1 custom-select\" name=\"durationType\" required>\n" +
+            "                    <option value=\"seg\">seg</option>\n" +
+            "                    <option value=\"min\">min</option>\n" +
+            "                    <option value=\"vezes\">vezes</option>\n" +
+            "                </select>\n" +
+            "            </div>";
+
+        var cellRest = row.insertCell(4);
+        cellRest.innerHTML = "<div class=\"d-inline-flex\">\n" +
+            "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"rest\" placeholder=\"Ex: 5\">\n" +
+            "                <select class=\"ml-1 custom-select\" name=\"restType\" required>\n" +
+            "                    <option value=\"seg\">seg</option>\n" +
+            "                    <option value=\"min\">min</option>\n" +
+            "                </select>\n" +
+            "            </div>";
+
+        var cellEquipment = row.insertCell(5);
+        cellEquipment.innerHTML = "<input type=\"text\" class=\"form-control\" name=\"equipment\" placeholder=\"Ex: passadeira\">";
+    }
+</script>
