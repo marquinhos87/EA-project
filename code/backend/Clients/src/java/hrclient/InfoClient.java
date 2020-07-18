@@ -24,6 +24,7 @@ public class InfoClient implements JsonSerializer<Client> {
         json.addProperty("username", t.getUsername());
         json.addProperty("name", t.getName());
         json.addProperty("email", t.getEmail());
+        json.addProperty("sex", t.getSex());
         json.addProperty("age", Utils.years(t.getBirthday(), new Date()));
         json.add("birthday", jsc.serialize(t.getBirthday()));
         
