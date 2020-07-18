@@ -29,7 +29,7 @@ public class RequestDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression workoutPerWeek;
 	public final StringExpression weekDays;
 	public final IntegerExpression level;
-	public final BooleanExpression accepted;
+	public final IntegerExpression state;
 	
 	public RequestDetachedCriteria() {
 		super(requests.Request.class, requests.RequestCriteria.class);
@@ -43,7 +43,7 @@ public class RequestDetachedCriteria extends AbstractORMDetachedCriteria {
 		workoutPerWeek = new IntegerExpression("workoutPerWeek", this.getDetachedCriteria());
 		weekDays = new StringExpression("weekDays", this.getDetachedCriteria());
 		level = new IntegerExpression("level", this.getDetachedCriteria());
-		accepted = new BooleanExpression("accepted", this.getDetachedCriteria());
+		state = new IntegerExpression("state", this.getDetachedCriteria());
 	}
 	
 	public RequestDetachedCriteria(DetachedCriteria aDetachedCriteria) {
@@ -58,7 +58,7 @@ public class RequestDetachedCriteria extends AbstractORMDetachedCriteria {
 		workoutPerWeek = new IntegerExpression("workoutPerWeek", this.getDetachedCriteria());
 		weekDays = new StringExpression("weekDays", this.getDetachedCriteria());
 		level = new IntegerExpression("level", this.getDetachedCriteria());
-		accepted = new BooleanExpression("accepted", this.getDetachedCriteria());
+		state = new IntegerExpression("state", this.getDetachedCriteria());
 	}
 	
 	public PersonalTrainerDetachedCriteria createPersonalTrainerCriteria() {

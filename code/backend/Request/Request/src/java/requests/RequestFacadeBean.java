@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import org.hibernate.Query;
 import org.orm.PersistentException;
+import org.orm.PersistentSession;
 
 /**
  *
@@ -42,12 +43,13 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, PersistentException, UserDoesNotExistException {
+        PersistentSession session = RequestsFacade.getSession();
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJson , Arrays.asList("username", "oldToken", "newToken"));
         String oldToken = json.get("oldToken").getAsString(), username = json.get("username").getAsString(), newToken = json.get("newToken").getAsString();
-        User user = Utils.validateToken(oldToken, username);
+        User user = Utils.validateToken(oldToken, username, session);
         user.setToken(newToken);
         UserDAO.save(user);
-        RequestsFacade.getSession().flush();
+        session.flush();
     }
 
     /**
@@ -60,20 +62,20 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public void createClient(String usernameAndTokenAsJSon) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException, ClientAlreadyExistsException {
+        PersistentSession session = RequestsFacade.getSession();
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJSon , Arrays.asList("username", "token"));
         String username = json.get("username").getAsString(), token = json.get("token").getAsString();
         User user;Client client;
-        if(Utils.registerExists("username", username, "User") == true) throw new UserAlreadyExistsException(username);
-        if(Utils.registerExists("username", username, "Client") == true) throw new ClientAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "User", session) == true) throw new UserAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "Client", session) == true) throw new ClientAlreadyExistsException(username);
         user = new User();
         user.setUsername(username);
         user.setToken(token);
         UserDAO.save(user);
-        RequestsFacade.getSession().flush();
         client = new Client();
         client.setUsername(username);
         ClientDAO.save(client);
-        RequestsFacade.getSession().flush();
+        session.flush();
     }
 
     /**
@@ -87,20 +89,20 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public void createPersonalTrainer(String usernameAndTokenAsJSon) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException, PersonalTrainerAlreadyExistsException {
+        PersistentSession session = RequestsFacade.getSession();
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJSon , Arrays.asList("username", "token"));
         String username = json.get("username").getAsString(), token = json.get("token").getAsString();
         User user;PersonalTrainer personalTrainer;
-        if(Utils.registerExists("username", username, "User") == true) throw new UserAlreadyExistsException(username);
-        if(Utils.registerExists("username", username, "PersonalTrainer") == true) throw new PersonalTrainerAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "User", session) == true) throw new UserAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "PersonalTrainer", session) == true) throw new PersonalTrainerAlreadyExistsException(username);
         user = new User();
         user.setUsername(username);
         user.setToken(token);
         UserDAO.save(user);
-        RequestsFacade.getSession().flush();
         personalTrainer = new PersonalTrainer();
         personalTrainer.setUsername(username);
         PersonalTrainerDAO.save(personalTrainer);
-        RequestsFacade.getSession().flush();
+        session.flush();
     }
 
     /**
@@ -115,20 +117,20 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public void submitRequest(String requestInfoAsJSON) throws JsonKeyInFaultException, TokenIsInvalidException, UserDoesNotExistException, PersistentException, ClientDoesNotExistException, PersonalTrainerDoesNotExistException {
+        PersistentSession session = RequestsFacade.getSession();
         JsonObject json = Utils.validateJson(gson, requestInfoAsJSON, Arrays.asList("token", "username", "personalTrainerUsername", "numberOfWeeks", "objective", "workoutPerWeek", "weekDays", "level"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString(), personalTrainer = json.get("personalTrainerUsername").getAsString();
-        Utils.validateToken(token, username);
+        Utils.validateToken(token, username, session);
         Client client; PersonalTrainer pt;
-        if((client = ClientDAO.getClientByORMID(RequestsFacade.getSession(), username)) == null) throw new ClientDoesNotExistException(username);
-        if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(RequestsFacade.getSession(), personalTrainer)) == null) throw new PersonalTrainerDoesNotExistException(personalTrainer);
+        if((client = ClientDAO.getClientByORMID(session, username)) == null) throw new ClientDoesNotExistException(username);
+        if((pt = PersonalTrainerDAO.getPersonalTrainerByORMID(session, personalTrainer)) == null) throw new PersonalTrainerDoesNotExistException(personalTrainer);
         Request request = gson.fromJson(requestInfoAsJSON, Request.class);
-        request.setAccepted(false);
+        request.setState(0);
         client.requests.add(request);
         pt.requests.add(request);
         ClientDAO.save(client);
-        RequestsFacade.getSession().flush();
         PersonalTrainerDAO.save(pt);
-        RequestsFacade.getSession().flush();
+        session.flush();
     }
 
     /**
@@ -143,17 +145,18 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public void replyToRequest(String requestIdAndResponseAsJSON) throws JsonKeyInFaultException, PersistentException, PersonalTrainerDoesNotExistException, RequestDoesNotExistException, UserDoesNotExistException, TokenIsInvalidException {
-        JsonObject json = Utils.validateJson(gson, requestIdAndResponseAsJSON, Arrays.asList("username", "token", "requestId", "accepted"));
+        PersistentSession session = RequestsFacade.getSession();
+        JsonObject json = Utils.validateJson(gson, requestIdAndResponseAsJSON, Arrays.asList("username", "token", "requestId", "state"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
-        Utils.validateToken(token, username);
+        Utils.validateToken(token, username, session);
         int requestId = json.get("requestId").getAsInt();
-        if(Utils.registerExists("username", username, "PersonalTrainer") == false) throw new PersonalTrainerDoesNotExistException(username);
+        if(Utils.registerExists("username", username, "PersonalTrainer", session) == false) throw new PersonalTrainerDoesNotExistException(username);
         Request request;
-        if((request = RequestDAO.getRequestByORMID(RequestsFacade.getSession(), requestId)) == null) throw new RequestDoesNotExistException(String.valueOf(requestId));
-        boolean accepted = json.get("accepted").getAsBoolean();
-        request.setAccepted(accepted);
+        if((request = RequestDAO.getRequestByORMID(session, requestId)) == null) throw new RequestDoesNotExistException(String.valueOf(requestId));
+        int state = json.get("state").getAsInt();
+        request.setState(state);
         RequestDAO.save(request);
-        RequestsFacade.getSession().flush();
+        session.flush();
     }
 
     /**
@@ -168,12 +171,13 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws JsonKeyInFaultException, TokenIsInvalidException, UserDoesNotExistException, PersistentException, PersonalTrainerDoesNotExistException {
+        PersistentSession session = RequestsFacade.getSession();
         JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("username", "token"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
-        Utils.validateToken(token, username);
+        Utils.validateToken(token, username, session);
         PersonalTrainer personalTrainer;
-        if(Utils.registerExists("username", username, "PersonalTrainer") == false) throw new PersonalTrainerDoesNotExistException(username);
-        Query q = RequestsFacade.getSession().createQuery("from Request where PersonalTrainerUsername=\'" + username + "\'");
+        if(Utils.registerExists("username", username, "PersonalTrainer", session) == false) throw new PersonalTrainerDoesNotExistException(username);
+        Query q = session.createQuery("from Request where PersonalTrainerUsername=\'" + username + "\' and state=0");
         return requestsToJson((List<Request>) q.list());
     }
 
@@ -189,12 +193,13 @@ public class RequestFacadeBean implements RequestFacadeBeanLocal {
      */
     @Override
     public String listClientRequestsByClient(String usernameAsJSON) throws TokenIsInvalidException, UserDoesNotExistException, PersistentException, JsonKeyInFaultException, ClientDoesNotExistException {
+        PersistentSession session = RequestsFacade.getSession();
         JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("username", "token"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
-        Utils.validateToken(token, username);
+        Utils.validateToken(token, username, session);
         Client client;
-        if(Utils.registerExists("username", username, "Client") == false) throw new ClientDoesNotExistException(username);
-        Query q = RequestsFacade.getSession().createQuery("from Request where ClientUsername=\'" + username + "\'");
+        if(Utils.registerExists("username", username, "Client", session) == false) throw new ClientDoesNotExistException(username);
+        Query q = session.createQuery("from Request where ClientUsername=\'" + username + "\'");
         return requestsToJson((List<Request>) q.list());
     }
     

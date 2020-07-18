@@ -50,7 +50,7 @@ public class Request {
 	
 	private int level;
 	
-	private boolean accepted;
+	private int state;
 	
 	private void setID(int value) {
 		this.ID = value;
@@ -104,12 +104,12 @@ public class Request {
 		return level;
 	}
 	
-	public void setAccepted(boolean value) {
-		this.accepted = value;
+	public void setState(int value) {
+		this.state = value;
 	}
 	
-	public boolean getAccepted() {
-		return accepted;
+	public int getState() {
+		return state;
 	}
 	
 	public void setClient(requests.Client value) {
@@ -170,11 +170,6 @@ public class Request {
 		throw new UnsupportedOperationException();
 	}
 	
-	public boolean isAccepted() {
-		//TODO: Implement Method
-		throw new UnsupportedOperationException();
-	}
-	
 	public String toString() {
 		return String.valueOf(getID());
 	}
@@ -189,7 +184,7 @@ public class Request {
             sb.append("\"workoutPerWeek\":").append(this.workoutPerWeek).append(",");
             sb.append("\"weekDays\":").append("\"" + this.weekDays + "\"").append(",");
             sb.append("\"level\":").append(this.level).append(",");
-            sb.append("\"accepted\":").append(this.accepted);
+            sb.append("\"state\":").append(this.state);
             
             sb.append("}");
             return sb.toString();

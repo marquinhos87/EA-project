@@ -118,11 +118,11 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="Accepted">
+    <Column name="State">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
-      <Type>1</Type>
-      <Length>1</Length>
+      <Type>9</Type>
+      <Length>10</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>

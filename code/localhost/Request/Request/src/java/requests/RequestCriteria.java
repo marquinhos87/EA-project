@@ -29,7 +29,7 @@ public class RequestCriteria extends AbstractORMCriteria {
 	public final IntegerExpression workoutPerWeek;
 	public final StringExpression weekDays;
 	public final IntegerExpression level;
-	public final BooleanExpression accepted;
+	public final IntegerExpression state;
 	
 	public RequestCriteria(Criteria criteria) {
 		super(criteria);
@@ -43,7 +43,7 @@ public class RequestCriteria extends AbstractORMCriteria {
 		workoutPerWeek = new IntegerExpression("workoutPerWeek", this);
 		weekDays = new StringExpression("weekDays", this);
 		level = new IntegerExpression("level", this);
-		accepted = new BooleanExpression("accepted", this);
+		state = new IntegerExpression("state", this);
 	}
 	
 	public RequestCriteria(PersistentSession session) {
