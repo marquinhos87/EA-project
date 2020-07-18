@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <div class="row justify-content-center">
     <div class="col-md-10">
         <form class="mt-2" method="post" action="${pageContext.request.contextPath}\MyProfilePersonalTrainer">

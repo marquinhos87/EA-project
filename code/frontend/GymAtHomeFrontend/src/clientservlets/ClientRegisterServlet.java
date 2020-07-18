@@ -107,6 +107,8 @@ public class ClientRegisterServlet extends HttpServlet {
                     }
 
                     String body = responseHttp.body().string();
+
+                    System.err.println(body);
                     ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
                     responseHttp.close();

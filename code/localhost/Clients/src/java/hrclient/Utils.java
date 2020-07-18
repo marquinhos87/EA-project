@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.orm.PersistentException;
 
 import java.util.*;
+import org.orm.PersistentSession;
 
 public class Utils {
     protected static String tokenGenerate(String username) {
@@ -68,15 +69,15 @@ public class Utils {
         return jsonObject;
     }
 
-    public static User validateUserToken(String token, String username) throws TokenIsInvalidException, UserDoesNotExistException, PersistentException {
+    public static User validateUserToken(String token, String username, PersistentSession session) throws TokenIsInvalidException, UserDoesNotExistException, PersistentException {
         User user;
-        if((user = UserDAO.getUserByORMID(HRClientFacade.getSession(), username)) == null) throw new UserDoesNotExistException(username);
+        if((user = UserDAO.getUserByORMID(session, username)) == null) throw new UserDoesNotExistException(username);
         String cachedToken = user.getToken();
         if(cachedToken.equals(token) == false) throw new TokenIsInvalidException(token);
         return user;
     }
     
-    public static boolean registerExists(String key, String value,  String table) throws PersistentException{
-        return HRClientFacade.getSession().createQuery("select " + key + " from " + table + " where " + key + "=\'" + value + "\'").list().size() == 1;
+    public static boolean registerExists(String key, String value,  String table, PersistentSession session) throws PersistentException{
+        return session.createQuery("select " + key + " from " + table + " where " + key + "=\'" + value + "\'").list().size() == 1;
     }
 }

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row justify-content-center">
     <div class="col-md-10">
         <form class="mt-2" method="post" action="${pageContext.request.contextPath}\ClientRegister">
@@ -72,7 +73,7 @@
                 <div class="col-md-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">Quadricep (cm):</label>
                     <div class="col-md-7">
-                        <input type="number" pattern="\d+" min="20" class="form-control" name="quadriceps" placeholder="Ex: 51">
+                        <input type="number" pattern="\d+" min="20" class="form-control" name="quadricep" placeholder="Ex: 51">
                     </div>
                 </div>
             </div>
@@ -86,7 +87,7 @@
                 <div class="col-md-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">Tricep (cm):</label>
                     <div class="col-md-7">
-                        <input type="number" pattern="\d+" min="10" class="form-control" name="triceps" placeholder="Ex: 28">
+                        <input type="number" pattern="\d+" min="10" class="form-control" name="tricep" placeholder="Ex: 28">
                     </div>
                 </div>
             </div>

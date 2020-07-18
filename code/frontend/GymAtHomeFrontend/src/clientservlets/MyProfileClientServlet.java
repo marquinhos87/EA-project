@@ -80,7 +80,7 @@ public class MyProfileClientServlet extends HttpServlet {
                 jo.addProperty("height", request.getParameter("height"));
                 jo.addProperty("weight", request.getParameter("weight"));
 
-                if(newPassword!=null)
+                if(newPassword!=null && !newPassword.equals(""))
                     jo.addProperty("password",newPassword);
 
                 String tmp;
