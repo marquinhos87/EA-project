@@ -58,8 +58,7 @@
                     <label class="col-md-5 col-form-label">Data de Nascimento:</label>
                     <div class="col-md-7">
                         <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
-                            <input type="text" class="form-control" name="birthday" placeholder="yyyy-mm-dd" required>
-                            <i class="fas fa-calendar input-prefix"></i>
+                            <input type="date" class="form-control" name="birthday" placeholder="Selecione a data" required>
                         </div>
                     </div>
                 </div>
@@ -100,8 +99,11 @@
             <div class="form-group row">
                 <div class="col-md-6 d-inline-flex">
                     <label class="col-md-5 col-form-label">Preço:</label>
-                    <div class="col-md-7">
-                        <input type="number" pattern="\d+(.\d\d)" class="form-control" name="price" placeholder="Ex: 9.99" required>
+                    <div class="col-md-7 d-inline-flex">
+                        <input type="text" pattern="[0-9]+[.]?[0-9]?[0-9]?" class="form-control" name="price" placeholder="Ex: 9.99" required>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">€</div>
+                        </div>
                     </div>
                 </div>
             </div>

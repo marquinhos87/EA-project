@@ -77,6 +77,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
                 jo.addProperty("sex", request.getParameter("genre"));
                 jo.addProperty("email", request.getParameter("email"));
                 jo.addProperty("skill", request.getParameter("skill"));
+                jo.addProperty("price", request.getParameter("price"));
 
                 // TODO improve password by type the older's one and new's confirmation
                 if (newPassword != null)

@@ -96,8 +96,7 @@
                     <label class="col-md-5 col-form-label">Data de Nascimento:</label>
                     <div class="col-md-7">
                         <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
-                            <input type="text" class="form-control" name="birthday" placeholder="yyyy-mm-dd" required>
-                            <i class="fas fa-calendar input-prefix"></i>
+                            <input type="date" class="form-control" name="birthday" placeholder="Selecione a data" required>
                         </div>
                     </div>
                 </div>

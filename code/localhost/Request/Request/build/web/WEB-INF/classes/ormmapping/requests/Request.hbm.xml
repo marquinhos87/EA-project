@@ -19,6 +19,6 @@ License Type: Academic
 		<property name="workoutPerWeek" column="WorkoutPerWeek" type="integer" length="10" not-null="true" lazy="false"/>
 		<property name="weekDays" column="WeekDays" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="level" column="Level" type="integer" length="10" not-null="true" lazy="false"/>
-		<property name="accepted" column="Accepted" type="boolean" length="1" not-null="true" lazy="false"/>
+		<property name="state" column="State" type="integer" length="10" not-null="true" lazy="false"/>
 	</class>
 </hibernate-mapping>

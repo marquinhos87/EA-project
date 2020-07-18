@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import org.orm.PersistentException;
 
 import java.util.*;
+import org.orm.PersistentSession;
 
 public class Utils {
     public static String tokenGenerate(String username) {
@@ -67,15 +68,15 @@ public class Utils {
         return jsonObject;
     }
 
-    public static User validateToken(String token, String username) throws TokenIsInvalidException, PersistentException, UserDoesNotExistException {
+    public static User validateToken(String token, String username, PersistentSession session) throws TokenIsInvalidException, PersistentException, UserDoesNotExistException {
         User user;
-        if((user = UserDAO.getUserByORMID(RequestsFacade.getSession(), username)) == null) throw new UserDoesNotExistException(username);
+        if((user = UserDAO.getUserByORMID(session, username)) == null) throw new UserDoesNotExistException(username);
         String cachedToken = user.getToken();
         if(cachedToken.equals(token) == false) throw new TokenIsInvalidException(token);
         return user;
     }
     
-    public static boolean registerExists(String key, String value,  String table) throws PersistentException{
-        return RequestsFacade.getSession().createQuery("select " + key + " from " + table + " where " + key + "=\'" + value + "\'").list().size() == 1;
+    public static boolean registerExists(String key, String value,  String table, PersistentSession session) throws PersistentException{
+        return session.createQuery("select " + key + " from " + table + " where " + key + "=\'" + value + "\'").list().size() == 1;
     }
 }

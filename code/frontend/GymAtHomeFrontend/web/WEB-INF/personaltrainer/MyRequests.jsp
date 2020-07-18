@@ -101,7 +101,7 @@
                         <th scope="col">Objetivo</th>
                         <th scope="col">Workouts por semana</th>
                         <th scope="col">Disponibilidade (dias da semana)</th>
-                        <th scope="col">Nível de treinoo</th>
+                        <th scope="col">Nível de treino</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>

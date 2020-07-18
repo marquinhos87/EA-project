@@ -71,8 +71,7 @@
                     <label class="col-md-5 col-form-label">Data de Nascimento:</label>
                     <div class="col-md-7">
                         <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
-                            <input type="text" class="form-control" name="birthday" value="${requestScope.birthday!=null ? requestScope.birthday : ""}" placeholder="${requestScope.birthday!=null ? requestScope.birthday : "Selecione a data"}">
-                            <i class="fas fa-calendar input-prefix"></i>
+                            <input type="date" class="form-control" name="birthday" value="${requestScope.birthday!=null ? requestScope.birthday : ""}" placeholder="${requestScope.birthday!=null ? requestScope.birthday : "Selecione a data"}">
                         </div>
                     </div>
                 </div>

@@ -56,8 +56,7 @@ public class MakeRequestServlet extends HttpServlet {
                 for(String weekDay: weekDays)
                     sb.append(weekDay+";");
 
-                int sbtam = sb.length();
-                jo.addProperty("weekDays", sb.toString().substring(0,sbtam-1));
+                jo.addProperty("weekDays",sb.deleteCharAt(sb.length()-1).toString());
 
                 Response responseHttp;
 
