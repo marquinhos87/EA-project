@@ -31,6 +31,7 @@ public class JMeter {
         response.close();
         if (gson.fromJson(data, ResponseJSON.class).code != HttpServletResponse.SC_OK) {
             System.err.println("Could not create DBs, HTTP status code != 200");
+            System.err.println(gson.fromJson(data, ResponseJSON.class).msg);
             System.exit(1);
         } 
        

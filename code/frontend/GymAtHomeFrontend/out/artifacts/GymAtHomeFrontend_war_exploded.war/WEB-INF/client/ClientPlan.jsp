@@ -126,7 +126,8 @@
         <tr>
             <td>Altura (cm):
                 <%
-                    String msg = "sem informação registada";
+                    //String msg = "sem informação registada";
+                    String msg = "--";
                     if (biometricData.height == 0) out.print(msg);
                     else out.print(biometricData.height);
                 %>

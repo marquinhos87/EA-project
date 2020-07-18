@@ -37,6 +37,7 @@ public class WorkThread extends Thread {
     @Override
     public void run() {
         try {
+            
             String clientUsername = "c" + i;
             String clientJSON =
                     "{" +
@@ -61,6 +62,14 @@ public class WorkThread extends Thread {
             //System.out.println("client token = " + clientToken);
             cf.write("{ \"username\": \"" + clientUsername + "\", \"password\": \"password\" }\n");
             
+            
+            
+            
+            
+            
+            
+            
+            
             String ptUsername= "pt" + i;
             String ptJSON =
                     "{ " +
@@ -84,6 +93,72 @@ public class WorkThread extends Thread {
             String ptToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
             //System.out.println("pt token = " + ptToken);
             ptf.write("{ \"username\": \"" + ptUsername + "\", \"password\": \"password\" }\n");
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            String request = "{" +
+                    "\"username\": \"" + clientUsername + "\", " +
+                    "\"token\": \"" + clientToken + "\" ," +
+                    "\"personalTrainerUsername\": \"" + ptUsername + "\", " +
+                    "\"numberOfWeeks\": 10, " +
+                    "\"objective\": \"ficar bicho\", " +
+                    "\"workoutPerWeek\": 2, " +
+                    "\"weekDays\": \"1;3;5\", " +
+                    "\"level\": 3 " +
+                    "}";
+            
+            response = Http.post(url + "submitRequest", request);
+            data = response.body().string();
+            response.close();
+            if (gson.fromJson(data, ResponseJSON.class).status.equals("success") == false) {
+                System.err.println("Could not submit request from client - " + clientUsername + " - HTTP status code != 200");
+                System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
+                System.exit(1);
+            }
+            
+            String reply = "{" +
+                    "\"username\": \"" + ptUsername + "\", " +
+                    "\"token\": \"" + ptToken + "\", " +
+                    "\"clientUsername\": \"" + clientUsername + "\", " +
+                    "\"requestId\": " + (i+1) + ", " +
+                    "\"accepted\": true " +
+                    "}";
+            
+            
+            response = Http.post(url + "replyToRequest", reply);
+            data = response.body().string();
+            response.close();
+            if (gson.fromJson(data, ResponseJSON.class).status.equals("success") == false) {
+                System.err.println("Could not reply to request from Personal Trainer - " + ptUsername + " - HTTP status code != 200");
+                System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
+                System.exit(1);
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             String fstJSON =
@@ -150,6 +225,13 @@ public class WorkThread extends Thread {
                 System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
                 System.exit(1);
             } 
+            
+            
+            
+            
+            
+            
+            
             
            
             String weekJSON =

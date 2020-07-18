@@ -76,7 +76,10 @@
         out.print("<form action=\"" + request.getContextPath() + "/ClientWorkout\" method=\"POST\">");
             if (selectedTask != 0) out.print("<button type=\"button\" class=\"btn btn-primary\" onclick=\"window.location.href='" + request.getContextPath() + "/ClientWorkout?workout=" + workout.id + "&task=" + (selectedTask-1) + "'\">Tarefa Anterior</button>");
             out.print("<button type=\"button\" class=\"mr-5 btn btn-secondary position-absolute\" style=\"right: 0; transform: translateX(-100%);\" onclick=\"window.location.href='" + request.getContextPath() + "/ClientPlan'\">Voltar ao plano</button>");
-            if (selectedTask == workout.tasks.size()-1) out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" name=\"finishWorkout\" value=\"" + workout.id + "\">Terminar Workout</button>");
+            if (selectedTask == workout.tasks.size()-1) {
+                if (workout.isDone()) out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" name=\"finishWorkout\" value=\"" + workout.id + "\" disabled>Terminar Workout</button>");
+                else out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" name=\"finishWorkout\" value=\"" + workout.id + "\">Terminar Workout</button>");
+            }
             else out.print("<button type=\"button\" class=\"btn btn-primary position-absolute\" style=\"right: 0\" onclick=\"window.location.href='" + request.getContextPath() + "/ClientWorkout?workout=" + workout.id + "&task=" + (selectedTask+1) + "'\">Próxima Tarefa</button>");
         out.print("</form>");
     %>

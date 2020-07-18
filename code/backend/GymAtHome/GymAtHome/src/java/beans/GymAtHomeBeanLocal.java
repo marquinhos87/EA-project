@@ -250,4 +250,6 @@ public interface GymAtHomeBeanLocal {
     String listClientRequestsByClient(String usernameAsJSON) throws IOException;
     
     String getUsernameByRequestId(String requestIdAsJson) throws IOException;
+
+    String hasSubmittedClassification(String data) throws IOException;
 }

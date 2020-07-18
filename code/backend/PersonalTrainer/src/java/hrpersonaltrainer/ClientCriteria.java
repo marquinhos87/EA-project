@@ -20,10 +20,12 @@ import org.orm.criteria.*;
 
 public class ClientCriteria extends AbstractORMCriteria {
 	public final StringExpression username;
+	public final BooleanExpression submitedClassification;
 	
 	public ClientCriteria(Criteria criteria) {
 		super(criteria);
 		username = new StringExpression("username", this);
+		submitedClassification = new BooleanExpression("submitedClassification", this);
 	}
 	
 	public ClientCriteria(PersistentSession session) {

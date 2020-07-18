@@ -13,7 +13,7 @@ public class CreateDiagramasData {
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : clients, certified, numberOfCreatedPlans, numberOfClients, numberOfClassifications, classification, price, username
 			hrpersonaltrainer.PersonalTrainerDAO.save(hRPersonalTrainerPersonalTrainer);
 			hrpersonaltrainer.Client hRPersonalTrainerClient = hrpersonaltrainer.ClientDAO.createClient();
-			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username
+			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : submitedClassification, username
 			hrpersonaltrainer.ClientDAO.save(hRPersonalTrainerClient);
 			hrpersonaltrainer.User hRPersonalTrainerUser = hrpersonaltrainer.UserDAO.createUser();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : username

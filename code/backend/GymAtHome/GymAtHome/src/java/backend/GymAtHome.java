@@ -8,6 +8,7 @@ import javax.naming.NamingException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletResponse;
 
 public class GymAtHome {
 
@@ -347,5 +348,9 @@ public class GymAtHome {
     
     public String getUsernameByRequestId(String requestIdAsJson) throws IOException{
         return gymAtHomeBean.getUsernameByRequestId(requestIdAsJson);
+    }
+
+    public String hasSubmittedClassification(String data) throws IOException {
+        return gymAtHomeBean.hasSubmittedClassification(data);
     }
 }

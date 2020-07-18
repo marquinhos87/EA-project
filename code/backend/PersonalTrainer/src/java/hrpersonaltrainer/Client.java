@@ -36,6 +36,8 @@ public class Client {
 	
 	private String username;
 	
+	private boolean submitedClassification;
+	
 	public void setUsername(String value) {
 		this.username = value;
 	}
@@ -46,6 +48,14 @@ public class Client {
 	
 	public String getORMID() {
 		return getUsername();
+	}
+	
+	public void setSubmitedClassification(boolean value) {
+		this.submitedClassification = value;
+	}
+	
+	public boolean getSubmitedClassification() {
+		return submitedClassification;
 	}
 	
 	public String toString() {

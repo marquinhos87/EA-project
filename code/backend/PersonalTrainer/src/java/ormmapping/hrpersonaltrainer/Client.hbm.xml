@@ -10,5 +10,6 @@ License Type: Academic
 			<generator class="assigned">
 			</generator>
 		</id>
+		<property name="submitedClassification" column="SubmitedClassification" type="boolean" length="1" not-null="true" lazy="false"/>
 	</class>
 </hibernate-mapping>

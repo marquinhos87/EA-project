@@ -86,6 +86,9 @@ public class HRPersonalTrainerController extends HttpServlet {
                                     case "updateClientToken":
                                             updateClientToken(response, getDataFromPost(request));
                                             break;
+                                    case "hasSubmittedClassification":
+                                        hasSubmittedClassification(response, getDataFromPost(request));
+                                        break;
                                     default:
                                             response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
                                             response.getWriter().print(Utils.makeError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "target is not allowed - " + target + "."));
@@ -261,6 +264,13 @@ public class HRPersonalTrainerController extends HttpServlet {
 	hrpersonaltrainer.DiagramasPersistentManager.instance().disposePersistentManager();
         response.setStatus(HttpServletResponse.SC_OK);
         out.print(Utils.makeSuccess200(null));
+    }
+
+    private static void hasSubmittedClassification(HttpServletResponse response, String json) throws IOException, PersistentException, JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, UserNotExistsException {
+        PrintWriter out = response.getWriter();
+        String hasSubmittedClassification = HRPersonalTrainerFacade.getInstance().hasSubmittedClassification(json);
+        response.setStatus(HttpServletResponse.SC_OK);
+        out.println(Utils.makeSuccess200(hasSubmittedClassification));
     }
 
 }

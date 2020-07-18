@@ -38,10 +38,10 @@ public class ClientWorkoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
         username = (String) session.getAttribute("username");
-        if (username == null) { // NOT logged in
+        token = (String) session.getAttribute("token");
+        if (username == null || token == null) { // NOT logged in
             Utils.redirect(request, response, "/Login");
         }
-        token = (String) session.getAttribute("token");
 
         String finishWorkout = request.getParameter("finishWorkout");
         if (finishWorkout != null) {

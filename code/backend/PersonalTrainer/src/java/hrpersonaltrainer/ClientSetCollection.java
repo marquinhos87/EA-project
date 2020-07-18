@@ -71,6 +71,7 @@ public class ClientSetCollection extends org.orm.util.ORMSet {
 	 * Return an sorted array containing all of the persistent objects in ORMSet
 	 * @param propertyName Name of the property for sorting:<ul>
 	 * <li>username</li>
+	 * <li>submitedClassification</li>
 	 * </ul>
 	 * @return The persistent objects sorted array
 	 */
@@ -82,6 +83,7 @@ public class ClientSetCollection extends org.orm.util.ORMSet {
 	 * Return an sorted array containing all of the persistent objects in ORMSet
 	 * @param propertyName Name of the property for sorting:<ul>
 	 * <li>username</li>
+	 * <li>submitedClassification</li>
 	 * </ul>
 	 * @param ascending true for ascending, false for descending
 	 * @return The persistent objects sorted array

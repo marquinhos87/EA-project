@@ -170,6 +170,17 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
+    <Column name="SubmitedClassification">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>1</Type>
+      <Length>1</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
   </Entity>
   <Entity name="User" Unlogged="false" PKClustered="0">
     <Column name="Username">

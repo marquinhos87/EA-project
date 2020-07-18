@@ -16,6 +16,10 @@ public class HRPersonalTrainerFacade {
     private static HRPersonalTrainerFacade rhPersonalTrainerFacade = null;
     private static PersistentSession session = null;
     private final HRPersonalTrainerFacadeBeanLocal personalTrainerFacadeBean = lookupHRPersonalTrainerFacadeBeanLocal();
+    
+    public String hasSubmittedClassification(String json) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, UserNotExistsException {
+        return personalTrainerFacadeBean.hasSubmittedClassification(json);
+    }
 
     private HRPersonalTrainerFacade() throws PersistentException {}
 

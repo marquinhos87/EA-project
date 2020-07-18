@@ -5,6 +5,8 @@ import org.orm.PersistentException;
 
 @javax.ejb.Local
 public interface HRPersonalTrainerFacadeBeanLocal {
+    
+        String hasSubmittedClassification(String infoAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, UserNotExistsException ;
 
 	/**
 	 * 

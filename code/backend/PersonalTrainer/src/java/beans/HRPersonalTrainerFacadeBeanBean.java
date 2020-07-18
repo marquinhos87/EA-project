@@ -170,17 +170,35 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
 	 * @throws PersonalTrainerNotExistsException if there isn't any personal trainer with specified username in database.
 	 */
 	public void submitClassification(String infoAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, PersonalTrainerNotExistsException, UserNotExistsException {
-		JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username", "personalTrainerUsername", "classification"));
-		String clientToken = jsonObject.get("token").getAsString();
-		String clientUsername = jsonObject.get("username").getAsString();
-		Utils.validateToken(clientToken, clientUsername);
-		String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
-		PersonalTrainer pt;
-		if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
-		int classification = jsonObject.get("classification").getAsInt();
-		pt.setNumberOfClassifications(pt.getNumberOfClassifications() + 1);
-		pt.setClassification(pt.getClassification() + classification);
+            JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username", "personalTrainerUsername", "classification"));
+            String clientToken = jsonObject.get("token").getAsString();
+            String clientUsername = jsonObject.get("username").getAsString();
+            Utils.validateToken(clientToken, clientUsername);
+            Client client;
+            if ( (client = ClientDAO.getClientByORMID(HRPersonalTrainerFacade.getSession(), clientUsername)) == null) throw new ClientNotExistsException(clientUsername);
+            client.setSubmitedClassification(true);
+            ClientDAO.save(client);
+            String personalTrainerUsername = jsonObject.get("personalTrainerUsername").getAsString();
+            PersonalTrainer pt;
+            if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
+            int classification = jsonObject.get("classification").getAsInt();
+            pt.setNumberOfClassifications(pt.getNumberOfClassifications() + 1);
+            pt.setClassification(pt.getClassification() + classification);
+            PersonalTrainerDAO.save(pt);
 	}
+        
+         
+	public String hasSubmittedClassification(String infoAsJSON) throws JsonKeyInFaultException, ClientNotExistsException, TokenIsInvalidException, PersistentException, UserNotExistsException {
+            JsonObject jsonObject = Utils.validateJson(gson, infoAsJSON, Arrays.asList("token", "username"));
+            String clientToken = jsonObject.get("token").getAsString();
+            String clientUsername = jsonObject.get("username").getAsString();
+            Utils.validateToken(clientToken, clientUsername);
+            Client client;
+            if ( (client = ClientDAO.getClientByORMID(HRPersonalTrainerFacade.getSession(), clientUsername)) == null) throw new ClientNotExistsException(clientUsername);
+            boolean hasSubmittedClassification = client.getSubmitedClassification();
+            return "{ \"hasSubmittedClassification\": " + hasSubmittedClassification + " }";
+	}
+        
 
 	/**
 	 * Returns personal trainer's clients. Authenticates personal trainer's request with the given token.
@@ -260,4 +278,5 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
             UserDAO.save(user);
             System.err.println("Client's token updated...");
 	}
+        
 }

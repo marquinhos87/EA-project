@@ -20,15 +20,18 @@ import org.orm.criteria.*;
 
 public class ClientDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression username;
+	public final BooleanExpression submitedClassification;
 	
 	public ClientDetachedCriteria() {
 		super(hrpersonaltrainer.Client.class, hrpersonaltrainer.ClientCriteria.class);
 		username = new StringExpression("username", this.getDetachedCriteria());
+		submitedClassification = new BooleanExpression("submitedClassification", this.getDetachedCriteria());
 	}
 	
 	public ClientDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, hrpersonaltrainer.ClientCriteria.class);
 		username = new StringExpression("username", this.getDetachedCriteria());
+		submitedClassification = new BooleanExpression("submitedClassification", this.getDetachedCriteria());
 	}
 	
 	public Client uniqueClient(PersistentSession session) {
