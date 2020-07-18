@@ -79,7 +79,7 @@ public class MyProfileClientServlet extends HttpServlet {
                 jo.addProperty("height", request.getParameter("height"));
                 jo.addProperty("weight", request.getParameter("weight"));
 
-                if(newPassword!=null)
+                if(newPassword!=null && !newPassword.equals(""))
                     jo.addProperty("password",newPassword);
 
                 String tmp;
@@ -182,7 +182,7 @@ public class MyProfileClientServlet extends HttpServlet {
                 request.setAttribute("chest",tmp);
             if(responseJson.has("twin") && (tmp = responseJson.get("twin").getAsInt())!=0)
                 request.setAttribute("twin",tmp);
-            if(responseJson.has("quadriceo") && (tmp = responseJson.get("quadricep").getAsInt())!=0)
+            if(responseJson.has("quadricep") && (tmp = responseJson.get("quadricep").getAsInt())!=0)
                 request.setAttribute("quadricep",tmp);
             if(responseJson.has("tricep") && (tmp = responseJson.get("tricep").getAsInt())!=0)
                 request.setAttribute("tricep",tmp);
