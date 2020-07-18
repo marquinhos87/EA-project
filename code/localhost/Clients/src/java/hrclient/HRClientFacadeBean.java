@@ -28,7 +28,6 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
     
     private final Gson gson = new GsonBuilder()
                             .setDateFormat("yyyy-MM-dd")
-                            .registerTypeAdapter(Client.class, new InfoClient())
                             .create();
     
     @Override
@@ -41,13 +40,12 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * @param usernameAndTokenAsJson json with username, old token and new token of personal trainer
      */
     public void updateUserToken(String usernameAndTokenAsJson) throws JsonKeyInFaultException, TokenIsInvalidException, UserDoesNotExistException, PersistentException{
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJson , Arrays.asList("username", "oldToken", "newToken"));
         String oldToken = json.get("oldToken").getAsString(), username = json.get("username").getAsString(), newToken = json.get("newToken").getAsString();
-        User user = Utils.validateUserToken(oldToken, username, session);
+        User user = Utils.validateUserToken(oldToken, username);
         user.setToken(newToken);
         UserDAO.save(user);     //  update new token
-        session.flush();
+        
     }
 
     /**
@@ -55,12 +53,11 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * @param infoClientAsJSON
      */
     public String createClient(String infoClientAsJSON) throws JsonKeyInFaultException, PersistentException, ClientAlreadyExistsException, UserAlreadyExistsException {
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson , infoClientAsJSON , Arrays.asList("username", "password", "name", "email", "sex", "birthday", "height", "weight"));
         Client client = gson.fromJson(infoClientAsJSON, Client.class);
         String username = client.getUsername();
-        if(Utils.registerExists("username", username, "Client", session) == true) throw new ClientAlreadyExistsException(username);
-        if(Utils.registerExists("username", username, "User", session) == true) throw new UserAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "Client") == true) throw new ClientAlreadyExistsException(username);
+        if(Utils.registerExists("username", username, "User") == true) throw new UserAlreadyExistsException(username);
 
         BiometricData biometricData = gson.fromJson(infoClientAsJSON, BiometricData.class);
 
@@ -82,21 +79,18 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
 
         UserDAO.save(user);
         ClientDAO.save(client);
-        session.flush();
         return "{\"token\":\"" + token + "\"}";
     }
     
     public void createUser(String usernameAndTokenAsJSON) throws JsonKeyInFaultException, PersistentException, UserAlreadyExistsException{
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson , usernameAndTokenAsJSON , Arrays.asList("username", "token"));
         String username = json.get("username").getAsString(), token = json.get("token").getAsString();
         User user;
-        if((user = UserDAO.getUserByORMID(session, username)) != null) throw new UserAlreadyExistsException(username);
+        if((user = UserDAO.getUserByORMID(username)) != null) throw new UserAlreadyExistsException(username);
         user = new User();
         user.setUsername(username);
         user.setToken(token);
         UserDAO.save(user);
-        session.flush();
     }
 
     /**
@@ -104,11 +98,10 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * @param infoAsJSON
      */
     public String loginClient(String infoAsJSON) throws JsonKeyInFaultException, PersistentException, ClientDoesNotExistException, InvalidPasswordException {
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "password"));
         String username = json.get("username").getAsString(), password = json.get("password").getAsString(), oldToken;
         Client client = null;
-        if ((client = ClientDAO.getClientByORMID(session,username)) == null) throw new ClientDoesNotExistException(username);
+        if ((client = ClientDAO.getClientByORMID(HRClientFacade.getSession(),username)) == null) throw new ClientDoesNotExistException(username);
         if(!client.getPassword().equals(password)) throw new InvalidPasswordException(password);
         User user;
         if((user = UserDAO.getUserByORMID(username)) == null)
@@ -117,8 +110,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         String newToken = Utils.tokenGenerate(client.getUsername());
         user.setToken(newToken);
         UserDAO.save(user);                     //  update token
-        session.merge(client);                 //  update username of client
-        session.flush();
+        ClientDAO.save(client);                 //  update username of client
         return "{ \"oldToken\": \"" + oldToken + "\", " +
                         "\"newToken\": \"" + newToken + "\" }";
     }
@@ -128,14 +120,38 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * @param usernameAsJSON
      */
     public String getClientProfileByClient(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, UserDoesNotExistException, BiometricDataDoesNotExistException {
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("username", "token"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
-        Utils.validateUserToken(token, json.get("username").getAsString(), session);
+        Utils.validateUserToken(token, json.get("username").getAsString());
         Client client;
-        if((client = ClientDAO.getClientByORMID(session, username)) == null) throw new ClientDoesNotExistException(username);
+        if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
 
-        return gson.toJson(client);
+        //	get last biometric data using ID
+        Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + username + "\'");
+        Iterator it = q.list().iterator();
+        BiometricData biometricData = null;
+        int maxId = 0;
+        if(it.hasNext()){
+            maxId = (Integer) it.next();
+            biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
+        }
+        if(biometricData == null) throw new BiometricDataDoesNotExistException();
+
+        return "{\"name\": \"" + client.getName() + "\", " +
+                        "\"email\": \"" + client.getEmail() + "\", " +
+                        "\"sex\": \"" + client.getSex() + "\", " +
+                        "\"birthday\": \"" + client.getBirthday() + "\", " +
+                        "\"age\": " + Utils.years(client.getBirthday(), new Date()) + ", " +
+                        "\"height\": \"" + biometricData.getHeight() + "\", " +
+                        "\"weight\": \"" + biometricData.getWeight() + "\", " +
+                        "\"wrist\": \"" + biometricData.getWrist() + "\", " +
+                        "\"chest\": \"" + biometricData.getChest() + "\", " +
+                        "\"tricep\": \"" + biometricData.getTricep() + "\", " +
+                        "\"waist\": \"" + biometricData.getWaist()+ "\", " +
+                        "\"quadricep\": \"" + biometricData.getQuadricep() + "\", " +
+                        "\"twin\": \"" + biometricData.getTwin() + "\", " +
+                        "\"date\": \"" + biometricData.getDate() + "\", " +
+                        "\"BMI\": \"" + biometricData.getBMI() + "\"}";
     }
 
     /**
@@ -143,14 +159,39 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * @param usernameAsJSON
      */
     public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, PersonalTrainerDoesNotExistException, UserDoesNotExistException, BiometricDataDoesNotExistException {
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("clientUsername", "username" , "token"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString(), clientUsername = json.get("clientUsername").getAsString();
-        Utils.validateUserToken(token, username, session);
+        Utils.validateUserToken(token, username);
         Client client;
-        if((client = ClientDAO.getClientByORMID(session, clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
+        if((client = ClientDAO.getClientByORMID(clientUsername)) == null) throw new ClientDoesNotExistException(clientUsername);
 
-        return gson.toJson(client);
+        //	get last biometric data using ID
+        Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + clientUsername + "\'");
+        Iterator it = q.list().iterator();
+        BiometricData biometricData = null;
+        int maxId = 0;
+        if(it.hasNext()){
+            maxId = (Integer) it.next();
+            biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
+        }
+        if(biometricData == null) throw new BiometricDataDoesNotExistException();
+
+        //  to unsend password
+        return "{\"name\": \"" + client.getName() + "\", " +
+                        "\"email\": \"" + client.getEmail() + "\", " +
+                        "\"sex\": \"" + client.getSex() + "\", " +
+                        "\"birthday\": \"" + client.getBirthday() + "\", " +
+                        "\"age\": " + Utils.years(client.getBirthday(), new Date()) + ", " +
+                        "\"height\": \"" + biometricData.getHeight() + "\", " +
+                        "\"weight\": \"" + biometricData.getWeight() + "\", " +
+                        "\"wrist\": \"" + biometricData.getWrist() + "\", " +
+                        "\"chest\": \"" + biometricData.getChest() + "\", " +
+                        "\"tricep\": \"" + biometricData.getTricep() + "\", " +
+                        "\"waist\": \"" + biometricData.getWaist()+ "\", " +
+                        "\"quadricep\": \"" + biometricData.getQuadricep() + "\", " +
+                        "\"twin\": \"" + biometricData.getTwin() + "\", " +
+                        "\"date\": \"" + biometricData.getDate() + "\", " +
+                        "\"BMI\": \"" + biometricData.getBMI() + "\"}";
     }
 
     /**
@@ -158,12 +199,11 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * @param infoAsJSON
      */
     public void editClientProfile(String infoAsJSON) throws JsonKeyInFaultException, ClientDoesNotExistException, TokenIsInvalidException, PersistentException, UserDoesNotExistException{
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson, infoAsJSON, Arrays.asList("username", "token"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString();
-        Utils.validateUserToken(token, username, session);
+        Utils.validateUserToken(token, username);
         Client client = null;
-        if((client = ClientDAO.getClientByORMID(session, username)) == null) throw new ClientDoesNotExistException(username);
+        if((client = ClientDAO.getClientByORMID(username)) == null) throw new ClientDoesNotExistException(username);
 
         //	update fields
         if(json.has("name"))
@@ -186,8 +226,7 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
             biometricData.setDate(new Date());
             client.biometricDatas.add(biometricData);
         }
-        session.update(client);
-        session.flush();
+        ClientDAO.save(client);
     }
 
     /**
@@ -195,21 +234,19 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
      * @param usernameAsJSON JSON with clientUsername of biometric data to search, username and token of requester
      */
     public String getBiometricData(String usernameAsJSON) throws JsonKeyInFaultException, PersonalTrainerDoesNotExistException, TokenIsInvalidException, PersistentException, ClientDoesNotExistException, UserDoesNotExistException, BiometricDataDoesNotExistException {
-        PersistentSession session = HRClientFacade.getSession();
         JsonObject json = Utils.validateJson(gson, usernameAsJSON, Arrays.asList("clientUsername", "username" , "token"));
         String token = json.get("token").getAsString(), username = json.get("username").getAsString(), clientUsername = json.get("clientUsername").getAsString();
-        Utils.validateUserToken(token, username, session);
+        Utils.validateUserToken(token, username);
 
-        if(Utils.registerExists("username", clientUsername, "Client", session) == false) throw new ClientDoesNotExistException(clientUsername);
+        if(Utils.registerExists("username", clientUsername, "Client") == false) throw new ClientDoesNotExistException(clientUsername);
 
-        Query q = session.createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + clientUsername + "\'");
+        Query q = HRClientFacade.getSession().createQuery("select MAX(id) from BiometricData where ClientUsername = \'" + clientUsername + "\'");
         Iterator it = q.list().iterator();
         BiometricData biometricData = null;
         int maxId = 0;
-        it.next();
         if(it.hasNext()){
             maxId = (Integer) it.next();
-            biometricData = BiometricDataDAO.getBiometricDataByORMID(session, maxId);
+            biometricData = BiometricDataDAO.getBiometricDataByORMID(maxId);
         }
         if(biometricData == null) throw new BiometricDataDoesNotExistException();
 
