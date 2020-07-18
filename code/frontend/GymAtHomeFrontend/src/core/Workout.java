@@ -27,6 +27,16 @@ public class Workout {
 	public boolean done;
 	public List<Task> tasks = new ArrayList<>();
 
+	public int getWeekDay() {
+		return weekDay;
+	}
+
+	public void setWeekDay(int weekDay) {
+		this.weekDay = weekDay;
+	}
+
+	public int weekDay;
+
 
 	public int getId() {
 		return id;
@@ -67,6 +77,8 @@ public class Workout {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
+
+
 
 	@Override
 	public String toString() {

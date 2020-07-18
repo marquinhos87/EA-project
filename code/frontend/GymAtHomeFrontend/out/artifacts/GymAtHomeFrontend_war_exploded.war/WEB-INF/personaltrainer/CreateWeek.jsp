@@ -1,5 +1,10 @@
 <%@ page import="core.Request" %>
-<%@ page import="utils.Utils" %><%--
+<%@ page import="utils.Utils" %>
+<%@ page import="core.Workout" %>
+<%@ page import="core.Week" %>
+<%@ page import="java.util.stream.Collectors" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: joaomarques
   Date: 06/07/2020
@@ -29,10 +34,26 @@
                 </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">---</th>
-                <td>---</td>
-            </tr>
+            <c:choose>
+                <c:when test="${sessionScope.newWeek == null}">
+                    <tr>
+                        <th scope="row">---</th>
+                        <td>---</td>
+                    </tr>
+                </c:when>
+                <c:when test="true">
+                    <%
+                        for(Workout workout : ((Week) session.getAttribute("newWeek")).workoutsList){
+                            out.print("<tr><td>" + Utils.prettyPrintWeekDay(workout.weekDay) + "</td><td>" + workout.designation + "</td></tr>");
+                        }
+                    %>
+                </c:when>
+            </c:choose>
+            <%
+
+
+
+            %>
             </tbody>
         </table>
     </div>
@@ -71,7 +92,7 @@
         </table>
     </div>
 </div>
-
+<form method="POST" action="${pageContext.request.contextPath}/CreateWeek">
 <div class="row mt-3">
 
     <div class="mb-4 col-4">
@@ -80,7 +101,7 @@
                 <h5>Designação do Workout:</h5>
             </div>
             <div class="mt-2 col">
-                <input type="text" class="form-control" name="weight" placeholder="Ex: Cardio">
+                <input type="text" class="form-control" name="designation" placeholder="Ex: Cardio" required>
             </div>
         </div>
     </div>
@@ -93,35 +114,45 @@
             <div class="mt-2 col">
                 <select class="custom-select" name="weekDay" required style="width: 50%">
                     <%
+
+                        Week week = (Week) session.getAttribute("newWeek");
+                        List<Integer> list = null;
+
+                        if(week!= null)
+                            list = week.workoutsList.stream().mapToInt(Workout::getWeekDay).boxed().collect(Collectors.toList());
+
                         for (String weekDayStr: r.weekDays.split(";")) {
-                            out.print("<option value=\"" + weekDayStr + "\">");
-                            switch (weekDayStr) {
-                                case "1":
-                                    out.print("Segunda");
-                                    break;
-                                case "2":
-                                    out.print("Terça");
-                                    break;
-                                case "3":
-                                    out.print("Quarta");
-                                    break;
-                                case "4":
-                                    out.print("Quinta");
-                                    break;
-                                case "5":
-                                    out.print("Sexta");
-                                    break;
-                                case "6":
-                                    out.print("Sábado");
-                                    break;
-                                case "7":
-                                    out.print("Domingo");
-                                    break;
-                                default:
-                                    out.print("NÃO É SUPOSTO ISTO ACONTECER - SÓ EXTISTEM 7 DIAS NA SEMANA");
-                                    break;
+
+                            if(list == null || !list.contains(Integer.parseInt(weekDayStr))) {
+                                out.print("<option value=\"" + weekDayStr + "\">");
+                                switch (weekDayStr) {
+                                    case "1":
+                                        out.print("Segunda");
+                                        break;
+                                    case "2":
+                                        out.print("Terça");
+                                        break;
+                                    case "3":
+                                        out.print("Quarta");
+                                        break;
+                                    case "4":
+                                        out.print("Quinta");
+                                        break;
+                                    case "5":
+                                        out.print("Sexta");
+                                        break;
+                                    case "6":
+                                        out.print("Sábado");
+                                        break;
+                                    case "7":
+                                        out.print("Domingo");
+                                        break;
+                                    default:
+                                        out.print("NÃO É SUPOSTO ISTO ACONTECER - SÓ EXTISTEM 7 DIAS NA SEMANA");
+                                        break;
+                                }
+                                out.print("</option>");
                             }
-                            out.print("</option>");
                         }
                     %>
                 </select>
@@ -131,90 +162,102 @@
 
     <div class="col-4">
         <%
-            out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 4%; bottom: 0; transform: translateX(-115%);\">Remover Linha</button>");
             out.print("<button onclick=\"addRow();\" type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 4%; bottom: 0\">Adicionar Linha</button>");
         %>
     </div>
 </div>
 
-
-<table class="mt-4 table table-striped table-bordered" id="workoutTable">
-    <thead>
-    <tr>
-        <th scope="col" style="width: 22.5%;">Tarefa</th>
-        <th scope="col" style="width: 10%;">Peso (Kg)</th>
-        <th scope="col" style="width: 10%;">Séries</th>
-        <th scope="col" style="width: 17.5%;">Repetições ou Tempo</th>
-        <th scope="col" style="width: 17.5%;">Tempo entre Séries</th>
-        <th scope="col" style="width: 22.5%;">Equipamento</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>
-            <select class="custom-select" name="task" required>
-                <option value="corrida">Corrida</option>
-                <option value="levantarPesos">Levantar Pesos</option>
-                <option value="abdominais">Abdominais</option>
-            </select>
-        </td>
-        <td><input type="number" pattern="[0-9]+(\.)*[0-9]*" min="0" class="form-control" name="weight" placeholder="Ex: 5"></td>
-        <td><input type="number" pattern="[0-9]+" min="0" class="form-control" name="nSerie" placeholder="Ex: 3"></td>
-        <td>
-            <div class="d-inline-flex">
-                <input type="number" pattern="[0-9]+" min="0" class="form-control" name="duration" placeholder="Ex: 5">
-                <select class="ml-1 custom-select" name="durationType" required>
-                    <option value="seg">seg</option>
-                    <option value="min">min</option>
-                    <option value="vezes">vezes</option>
+    <table class="mt-4 table table-striped table-bordered" id="workoutTable">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 1%;"></th>
+            <th scope="col" style="width: 21.5%;">Tarefa</th>
+            <th scope="col" style="width: 10%;">Peso (Kg)</th>
+            <th scope="col" style="width: 10%;">Séries</th>
+            <th scope="col" style="width: 17.5%;">Repetições ou Tempo</th>
+            <th scope="col" style="width: 17.5%;">Tempo entre Séries</th>
+            <th scope="col" style="width: 22.5%;">Equipamento</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="1">
+            <td><button class="btn btn-danger text-white" onclick="removeRow(1)">X</button>
+            <td>
+                <select class="custom-select" name="task1" required>
+                    <option value="corrida">Corrida</option>
+                    <option value="levantarPesos">Levantar Pesos</option>
+                    <option value="abdominais">Abdominais</option>
                 </select>
-            </div>
-        </td>
-        <td>
-            <div class="d-inline-flex">
-                <input type="number" pattern="[0-9]+" min="0" class="form-control" name="rest" placeholder="Ex: 5">
-                <select class="ml-1 custom-select" name="restType" required>
-                    <option value="seg">seg</option>
-                    <option value="min">min</option>
-                </select>
-            </div>
-        </td>
-        <td><input type="text" class="form-control" name="equipment" placeholder="Ex: passadeira"></td>
-    </tr>
-    </tbody>
-</table>
+            </td>
+            <td><input type="number" pattern="[0-9]+(\.)*[0-9]*" min="0" class="form-control" name="weight1" placeholder="Ex: 5" required></td>
+            <td><input type="number" pattern="[0-9]+" min="0" class="form-control" name="nSerie1" placeholder="Ex: 3" required></td>
+            <td>
+                <div class="d-inline-flex">
+                    <input type="number" pattern="[0-9]+" min="0" class="form-control" name="duration1" placeholder="Ex: 5" required>
+                    <select class="ml-1 custom-select" name="durationType" required>
+                        <option value="seg">seg</option>
+                        <option value="min">min</option>
+                        <option value="vezes">vezes</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="d-inline-flex">
+                    <input type="number" pattern="[0-9]+" min="0" class="form-control" name="rest1" placeholder="Ex: 5" required>
+                    <select class="ml-1 custom-select" name="restType" required>
+                        <option value="seg">seg</option>
+                        <option value="min">min</option>
+                    </select>
+                </div>
+            </td>
+            <td><input type="text" class="form-control" name="equipment1" placeholder="Ex: passadeira"></td>
+        </tr>
+        </tbody>
+    </table>
 
-<div class="row mt-5 position-relative">
-        <%
-            out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 0; transform: translateX(-110%);\">Cancelar Workout</button>");
-            out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" disabled>Guardar Workout</button>");
-        %>
-    </h4>
-</div>
+    <div class="row mt-5 position-relative">
+        <input id="tableSize" type="hidden" value="1" name="tableSize" />
+            <%
+                out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 0; transform: translateX(-110%);\">Cancelar Workout</button>");
+                out.print("<button name=\"action\" value=\"addWorkout\" type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\">Guardar Workout</button>");
+            %>
+        </h4>
+    </div>
+
+</form>
 
 <script>
+    var index = 2;
     function addRow() {
         var table = document.getElementById("workoutTable");
-
         var len = table.tBodies[0].rows.length + 1;
         var row = table.insertRow(len);
 
-        var cellTaskName = row.insertCell(0);
-        cellTaskName.innerHTML = "<select class=\"custom-select\" name=\"task\" required>\n" +
+        //  max id to get params in controller
+        var tableSize = document.getElementById("tableSize")
+        tableSize.value = index
+
+        row.id = index
+
+        var cellRemove = row.insertCell(0)
+        cellRemove.innerHTML = "<td><button class=\"btn btn-danger text-white\" onclick=\"removeRow(" + index + ")\">X</button>"
+
+        var cellTaskName = row.insertCell(1);
+        cellTaskName.innerHTML = "<select class=\"custom-select\" name=\"task" + index + "\"required>\n" +
             "                <option value=\"corrida\">Corrida</option>\n" +
             "                <option value=\"levantarPesos\">Levantar Pesos</option>\n" +
             "                <option value=\"abdominais\">Abdominais</option>\n" +
             "            </select>";
         
-        var cellWeight = row.insertCell(1);
-        cellWeight.innerHTML = "<input type=\"number\" pattern=\"[0-9]+(\\.)*[0-9]*\" min=\"0\" class=\"form-control\" name=\"weight\" placeholder=\"Ex: 5\">";
+        var cellWeight = row.insertCell(2);
+        cellWeight.innerHTML = "<input type=\"number\" pattern=\"[0-9]+(\\.)*[0-9]*\" min=\"0\" class=\"form-control\" name=\"weight" + index + "\" placeholder=\"Ex: 5\" required>";
 
-        var cellNserie = row.insertCell(2);
-        cellNserie.innerHTML = "<input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"nSerie\" placeholder=\"Ex: 3\">";
+        var cellNserie = row.insertCell(3);
+        cellNserie.innerHTML = "<input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"nSerie" + index + "\"placeholder=\"Ex: 3\" required>";
 
-        var cellDuration = row.insertCell(3);
+        var cellDuration = row.insertCell(4);
         cellDuration.innerHTML = "<div class=\"d-inline-flex\">\n" +
-            "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"duration\" placeholder=\"Ex: 5\">\n" +
+            "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"duration" + index + "\"placeholder=\"Ex: 5\" required>\n" +
             "                <select class=\"ml-1 custom-select\" name=\"durationType\" required>\n" +
             "                    <option value=\"seg\">seg</option>\n" +
             "                    <option value=\"min\">min</option>\n" +
@@ -222,16 +265,21 @@
             "                </select>\n" +
             "            </div>";
 
-        var cellRest = row.insertCell(4);
+        var cellRest = row.insertCell(5);
         cellRest.innerHTML = "<div class=\"d-inline-flex\">\n" +
-            "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"rest\" placeholder=\"Ex: 5\">\n" +
+            "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"rest" + index + "\" placeholder=\"Ex: 5\" required>\n" +
             "                <select class=\"ml-1 custom-select\" name=\"restType\" required>\n" +
             "                    <option value=\"seg\">seg</option>\n" +
             "                    <option value=\"min\">min</option>\n" +
             "                </select>\n" +
             "            </div>";
 
-        var cellEquipment = row.insertCell(5);
-        cellEquipment.innerHTML = "<input type=\"text\" class=\"form-control\" name=\"equipment\" placeholder=\"Ex: passadeira\">";
+        var cellEquipment = row.insertCell(6);
+        cellEquipment.innerHTML = "<input type=\"text\" class=\"form-control\" name=\"equipment" + index + "\" placeholder=\"Ex: passadeira\">";
+        index++
+    }
+    function removeRow(id) {
+        if(document.getElementById("workoutTable").tBodies[0].rows.length != 1)
+            $("#" + id).remove();
     }
 </script>
