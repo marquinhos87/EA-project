@@ -14,7 +14,6 @@ import parseJSON.deserializer.WorkoutDeserializer;
 import utils.Http;
 import utils.Utils;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +38,9 @@ public class ClientWorkoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
         username = (String) session.getAttribute("username");
+        if (username == null) { // NOT logged in
+            Utils.redirect(request, response, "/Login");
+        }
         token = (String) session.getAttribute("token");
 
         String finishWorkout = request.getParameter("finishWorkout");
@@ -68,18 +70,10 @@ public class ClientWorkoutServlet extends HttpServlet {
                 Utils.redirect(request, response, "/ClientPlan");
             } else {
                 request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-                request.setAttribute("title", "Erro interno asdas ");
+                request.setAttribute("title", "Erro interno");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
                 return;
             }
-        }
-
-        int selectedWorkout = Integer.parseInt(request.getParameter("workout"));
-
-        int selectedTask = 0; // por padrão mostra a 0
-        String selectedTaskStr = request.getParameter("task");
-        if (selectedTaskStr != null) {
-            selectedTask = Integer.parseInt(selectedTaskStr);
         }
 
         Week week = (Week) session.getAttribute("week");
@@ -90,14 +84,40 @@ public class ClientWorkoutServlet extends HttpServlet {
             return;
         }
 
+        int selectedWorkout = -1;
+        String selectedWorkoutStr = request.getParameter("workout");
+        if (selectedWorkoutStr != null) {
+            try {
+                selectedWorkout = Integer.parseInt(selectedWorkoutStr);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Utils.redirect(request, response, "/ClientPlan");
+                return;
+            }
+        }
         Workout workout = week.workouts.get(selectedWorkout);
+        if (workout == null) {
+            // workout = week.workoutsList.get(0); // por padrão mostra o Workout 0
+            Utils.redirect(request, response, "/ClientPlan");
+            return;
+        }
         request.setAttribute("workout", workout);
+
+        int selectedTask = -1;
+        String selectedTaskStr = request.getParameter("task");
+        if (selectedTaskStr != null) {
+            try {
+                selectedTask = Integer.parseInt(selectedTaskStr);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (selectedTask < 0 || selectedTask >= workout.tasks.size())
+            selectedTask = 0;  // por padrão mostra a Task 0
 
         Task task = workout.tasks.get(selectedTask);
         request.setAttribute("task", task);
-
         request.setAttribute("selectedTask", selectedTask);
-
         Utils.forward(request, response, "/WEB-INF/Template.jsp", "ClientWorkout", null);
     }
 

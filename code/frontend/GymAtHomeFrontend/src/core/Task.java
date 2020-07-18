@@ -19,11 +19,20 @@ import java.util.List;
 
 public class Task {
 
+    public int id;
     public String designation;
     public String rest;
     public String duration;
     public String equipment;
     public List<Serie> series = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getDesignation() {
         return designation;
@@ -68,7 +77,8 @@ public class Task {
     @Override
     public String toString() {
         return "Task{" +
-                "designation='" + designation + '\'' +
+                "id=" + id +
+                ", designation='" + designation + '\'' +
                 ", rest='" + rest + '\'' +
                 ", duration='" + duration + '\'' +
                 ", equipment='" + equipment + '\'' +

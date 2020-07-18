@@ -21,18 +21,19 @@ import java.util.List;
 
 public class Workout {
 
-	public int workoutId;
+	public int id;
 	public String designation;
 	public Date date;
 	public boolean done;
 	public List<Task> tasks = new ArrayList<>();
 
-	public int getWorkoutId() {
-		return workoutId;
+
+	public int getId() {
+		return id;
 	}
 
-	public void setWorkoutId(int workoutId) {
-		this.workoutId = workoutId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getDesignation() {
@@ -70,7 +71,7 @@ public class Workout {
 	@Override
 	public String toString() {
 		return "Workout{" +
-				"workoutId=" + workoutId +
+				"id=" + id +
 				", designation='" + designation + '\'' +
 				", date=" + date +
 				", done=" + done +

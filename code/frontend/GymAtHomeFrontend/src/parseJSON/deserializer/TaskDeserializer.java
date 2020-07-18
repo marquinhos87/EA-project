@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import core.Serie;
+import core.SerieComparatorById;
 import core.Task;
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -42,6 +43,7 @@ public class TaskDeserializer implements JsonDeserializer<Task> {
             task.equipment = to.get("equipment").getAsString();
             Serie[] series = jdc.deserialize(to.get("series"), Serie[].class);
             task.series.addAll(Arrays.asList(series));
+            task.series.sort(new SerieComparatorById());
         } catch(Exception e) {
             e.printStackTrace();
         }

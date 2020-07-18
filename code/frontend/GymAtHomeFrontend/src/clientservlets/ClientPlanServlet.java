@@ -40,17 +40,26 @@ public class ClientPlanServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
         // TODO remover os setters() daqui
+        /*
         session.setAttribute("username", "c0");
-        session.setAttribute("token", "c03gNFryNBwZV5udGjYFc0DNQYix9g5f");
+        session.setAttribute("token", "c0LCiPfPXPlsK4dXymOuw1WRUGBAozRg");
         session.setAttribute("userType", "client");
         // ----------------------------------------------------------------------------
+         */
         username = (String) session.getAttribute("username");
+        if (username == null) { // NOT logged in
+            Utils.redirect(request, response, "/Login");
+        }
         token = (String) session.getAttribute("token");
 
         int selectedWeek = -1;
         String selectedWeekStr = request.getParameter("week");
         if (selectedWeekStr != null) {
-            selectedWeek = Integer.parseInt(selectedWeekStr);
+            try {
+                selectedWeek = Integer.parseInt(selectedWeekStr);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         boolean res = getWeek(request, response, selectedWeek);
@@ -124,6 +133,10 @@ public class ClientPlanServlet extends HttpServlet {
                 }
                 return true;
             } else {
+                if (rj.code == 400) { // Invalid week (< 0 or > MAX)
+                    // return current week
+                    return getWeek(request, response, -1);
+                }
                 request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                 request.setAttribute("title", "Erro interno");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);

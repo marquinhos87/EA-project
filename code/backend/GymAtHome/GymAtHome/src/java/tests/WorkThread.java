@@ -41,7 +41,7 @@ public class WorkThread extends Thread {
             String clientJSON =
                     "{" +
                     "\"username\": \"" + clientUsername + "\", " +
-                    "\"password\": \"password\", " +
+                    "\"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\", " +
                     "\"name\": \"" + clientUsername + "\", " +
                     "\"email\": \"" + clientUsername + "@gmail.com\", " +
                     "\"sex\": \"M\", " +
@@ -65,7 +65,7 @@ public class WorkThread extends Thread {
             String ptJSON =
                     "{ " +
                     "\"username\": \"" + ptUsername + "\", " +
-                    "\"password\": \"password\", " +
+                    "\"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\", " +
                     "\"name\": \"" + ptUsername + "\", " +
                     "\"email\": \"" + ptUsername + "@gmail.com\", " +
                     "\"birthday\": \"1998-06-29\", " +

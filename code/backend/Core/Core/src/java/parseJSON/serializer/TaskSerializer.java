@@ -29,6 +29,7 @@ public class TaskSerializer implements JsonSerializer<Task> {
     @Override
     public JsonElement serialize(Task task, Type type, JsonSerializationContext jsc) {
         final JsonObject jsonObj = new JsonObject();
+        jsonObj.add("id",jsc.serialize(task.getID()));
         jsonObj.add("designation",jsc.serialize(task.getDesignation()));
         jsonObj.add("duration", jsc.serialize(task.getDuration()));
         jsonObj.add("rest", jsc.serialize(task.getRest()));

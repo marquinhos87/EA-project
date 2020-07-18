@@ -29,7 +29,7 @@ public class WorkoutSerializer implements JsonSerializer<Workout> {
     @Override
     public JsonElement serialize(Workout workout, Type type, JsonSerializationContext jsc) {
         final JsonObject jsonObj = new JsonObject();
-        jsonObj.add("workoutId",jsc.serialize(workout.getID()));
+        jsonObj.add("id",jsc.serialize(workout.getID()));
         jsonObj.add("designation",jsc.serialize(workout.getDesignation()));
         jsonObj.add("done",jsc.serialize(workout.getDone()));
         jsonObj.add("date",jsc.serialize(workout.getDate()));

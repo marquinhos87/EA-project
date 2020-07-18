@@ -12,8 +12,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import core.Week;
 import core.Workout;
+import core.WorkoutComparatorByDate;
+
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -43,8 +46,11 @@ public class WeekDeserializer implements JsonDeserializer<Week> {
             week.finalDate = jdc.deserialize(wo.get("finalDate"), Date.class);
             Workout[] workouts = jdc.deserialize(wo.get("workouts"), Workout[].class);
             for(Workout workout: workouts) {
-                week.workouts.put(workout.workoutId, workout);
+                week.workouts.put(workout.id, workout);
             }
+            // sorted List
+            week.workoutsList = new ArrayList<>(week.workouts.values());
+            week.workoutsList.sort(new WorkoutComparatorByDate());
         }
         catch(Exception e){
             e.printStackTrace();

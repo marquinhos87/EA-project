@@ -22,6 +22,9 @@ public class Week {
 	public Date finalDate;
 	public Map<Integer, Workout> workouts = new HashMap<>();
 
+	// sometimes it's needed a sorted List so it's better to have a list already sorted and sort it only 1 time
+	public List<Workout> workoutsList = new ArrayList<>();
+
 	public int getNumber() {
 		return number;
 	}
@@ -54,6 +57,14 @@ public class Week {
 		this.workouts = workouts;
 	}
 
+	public List<Workout> getWorkoutsList() {
+		return workoutsList;
+	}
+
+	public void setWorkoutsList(List<Workout> workoutsList) {
+		this.workoutsList = workoutsList;
+	}
+
 	@Override
 	public String toString() {
 		return "Week{" +
@@ -61,6 +72,7 @@ public class Week {
 				", initialDate=" + initialDate +
 				", finalDate=" + finalDate +
 				", workouts=" + workouts +
+				", workoutsList=" + workoutsList +
 				'}';
 	}
 }

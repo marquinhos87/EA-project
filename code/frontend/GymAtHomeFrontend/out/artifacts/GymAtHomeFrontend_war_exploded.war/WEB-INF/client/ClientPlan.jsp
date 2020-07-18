@@ -25,11 +25,6 @@
                 cal.setTime(week.initialDate);
                 Workout[] workouts = new Workout[7];
 
-                //DO NOT CHANGE THIS - CAUTION --------------------------------------------
-                List<Workout> workoutsList = new ArrayList<>(week.workouts.values());
-                workoutsList.sort(new WorkoutComparatorByDate());
-                // ------------------------------------------------------------------------
-
                 for(int i=0, k=0; i<7; i++) {
                     int month = cal.get(Calendar.MONTH);
                     int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -38,7 +33,7 @@
                     /* this code creates an array of workouts with each workout in the right index position related to it's week day
                      * this makes the next step (printing table body) much easier */
                     Workout workout;
-                    if (k < workoutsList.size()) workout = workoutsList.get(k);
+                    if (k < week.workoutsList.size()) workout = week.workoutsList.get(k);
                     else workout = null;
                     if (workout != null && workout.date.equals(cal.getTime())) {
                         workouts[i] = workout;
@@ -65,8 +60,9 @@
             out.print("<tr>");
             for(Workout workout: workouts) {
                 if (workout != null) {
-                    if (workout.done) out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-danger\" onclick=\"window.location.href='" + request.getContextPath() + "/ClientWorkout?workout=" + (workout.workoutId) + "'\">workout feito</button></td>");
-                    else out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-primary\" onclick=\"window.location.href='" + request.getContextPath() + "/ClientWorkout?workout=" + (workout.workoutId) + "'\">consultar workout</button></td>");
+                    String link = "onclick=\"window.location.href='" + request.getContextPath() + "/ClientWorkout?workout=" + (workout.id) + "'\"";
+                    if (workout.done) out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-danger\" " + link + ">workout feito</button></td>");
+                    else out.print("<td class=\"text-center\"><button type=\"button\" class=\"btn btn-primary\" " + link + ">consultar workout</button></td>");
                 }
                 else out.print("<td class=\"text-center\"></td>");
             }
@@ -76,6 +72,7 @@
     </tbody>
 </table>
 
+<!-- prints pagination link -->
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-end">
         <%

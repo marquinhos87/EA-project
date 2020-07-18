@@ -15,9 +15,18 @@ package core;
 
 public class Serie {
 
+    public int ID;
     public String description;
     public String repetitions;
     public String rest;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public String getDescription() {
         return description;
@@ -43,10 +52,12 @@ public class Serie {
         this.rest = rest;
     }
 
+
     @Override
     public String toString() {
         return "Serie{" +
-                " description='" + description + '\'' +
+                "ID=" + ID +
+                ", description='" + description + '\'' +
                 ", repetitions='" + repetitions + '\'' +
                 ", rest='" + rest + '\'' +
                 '}';

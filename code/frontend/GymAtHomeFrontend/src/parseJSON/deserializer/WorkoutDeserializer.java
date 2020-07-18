@@ -11,9 +11,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import core.Task;
+import core.TaskComparatorById;
 import core.Workout;
+
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -38,12 +39,13 @@ public class WorkoutDeserializer implements JsonDeserializer<Workout> {
         try {
             JsonObject wo = je.getAsJsonObject(); // Workout Object
             workout = new Workout();
-            workout.workoutId = wo.get("workoutId").getAsInt();
+            workout.id = wo.get("id").getAsInt();
             workout.date = jdc.deserialize(wo.get("date"), Date.class);
             workout.designation = wo.get("designation").getAsString();
             workout.done = wo.get("done").getAsBoolean();
             Task[] tasks = jdc.deserialize(wo.get("tasks"), Task[].class);
             workout.tasks.addAll(Arrays.asList(tasks));
+            workout.tasks.sort(new TaskComparatorById());
         } catch(Exception e) {
             e.printStackTrace();
         }
