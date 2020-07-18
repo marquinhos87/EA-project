@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "MyRequestsServletPT", urlPatterns = "/MyRequestsPT")
-public class MyRequestsServletPT extends HttpServlet {
+@WebServlet(name = "MyRequestsPTServlet", urlPatterns = "/MyRequestsPT")
+public class MyRequestsPTServlet extends HttpServlet {
 
     private HttpSession session = null;
     private final Gson gson = new GsonBuilder().create();
