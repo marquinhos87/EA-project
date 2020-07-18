@@ -173,7 +173,7 @@ public class MyProfileClientServlet extends HttpServlet {
             request.setAttribute("birthday",responseJson.get("birthday").getAsString());
             request.setAttribute("genre",responseJson.get("sex").getAsString());
 
-            BiometricData bioData = gson.fromJson(responseJson.get("biometricDate"),BiometricData.class);
+            BiometricData bioData = gson.fromJson(responseJson.get("biometricData"),BiometricData.class);
             request.setAttribute("height",bioData.getHeight());
             request.setAttribute("weight",bioData.getWeight());
             request.setAttribute("bmi",bioData.getBMI());

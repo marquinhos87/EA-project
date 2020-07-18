@@ -71,17 +71,11 @@ public class ClientProfileServlet extends HttpServlet {
                 request.setAttribute("height",bioData.getHeight());
                 request.setAttribute("weight",bioData.getWeight());
                 request.setAttribute("bmi",bioData.getBMI());
-
                 request.setAttribute("waist",bioData.getWaist());
-
                 request.setAttribute("wrist",bioData.getWrist());
-
                 request.setAttribute("twin",bioData.getTwin());
-
                 request.setAttribute("quadricep",bioData.getQuadricep());
-
                 request.setAttribute("tricep",bioData.getTricep());
-
                 request.setAttribute("chest",bioData.getChest());
 
                 request.setAttribute("title","Perfil Cliente - " + jo.get("name").getAsString());
