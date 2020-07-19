@@ -1,6 +1,6 @@
+<%@ page import="core.Client" %>
 <%@ page import="java.util.List" %>
-<%@ page import="utils.Utils" %>
-<%@ page import="core.Client" %><%--
+<%@ page import="utils.Utils" %><%--
   Created by IntelliJ IDEA.
   User: jose
   Date: 19/07/20
@@ -113,7 +113,7 @@
             <button onclick="getClient('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', '<% out.print((client.username));%>');" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">perfil</button>
         </td>
         <td>@<% out.print(client.username); %></td>
-        <td><button type="submit" class="btn btn-success" name="clientUsername" value="<% out.print(client.username);%>" formaction="${pageContext.request.contextPath}\ClientPlan">Plano atual</button></td>
+        <td><button type="submit" class="btn btn-success" name="clientUsername" value="<% out.print(client.username);%>" formaction="${pageContext.request.contextPath}\ClientPlan">Ver plano</button></td>
         <td><button type="submit" class="btn btn-success" name="clientUsername" value="<% out.print(client.username);%>" formaction="${pageContext.request.contextPath}\CreateWeek">Adicionar Semana</button></td>
     </tr>
     <%}
