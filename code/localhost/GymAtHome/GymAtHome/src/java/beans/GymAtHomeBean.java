@@ -25,7 +25,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
     private final Gson gson;
     
-    private final static String IP = "192.168.1.53";
+    private final static String IP = "37.189.223.35";
     
     private static String IPclients = "188.250.39.126"; // "188.250.39.126";
     private static String IPpts = "188.250.39.126";
@@ -49,11 +49,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             IPrequests = IP;
             IPnotifications = IP;
         }
-        clients = "http://" + IPclients + ":8081/Clients/api/";
-        pts = "http://" + IPpts + ":8081/PersonalTrainer/api/";
-        core = "http://" + IPcore + ":8081/Core/api/";
-        requests = "http://" + IPrequests + ":8081/Request/api/";
-        notifications = "http://" + IPnotifications + ":8081/Notification/api/";
+        clients = "http://" + IPclients + ":8083/Clients/api/";
+        pts = "http://" + IPpts + ":8084/PersonalTrainer/api/";
+        core = "http://" + IPcore + ":8082/Core/api/";
+        requests = "http://" + IPrequests + ":8085/Request/api/";
+        notifications = "http://" + IPnotifications + ":8086/Notification/api/";
     }
 
     /**
@@ -70,8 +70,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String initialBody = responseHRClient.body().string();
         String body = initialBody;
         // Test if something fails on external service
-        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) {
+            responseHRClient.close();
             return body;
+        }
+        responseHRClient.close();
         
         ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
         String token = response.data.getAsJsonObject().get("token").getAsString();
@@ -88,29 +91,41 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseCore = Http.post(urlCore,json);
         body = responseCore.body().string();
         // Test if something fails on external service
-        if(responseCore.code() != HttpServletResponse.SC_OK)
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+            responseCore.close();
             return body;
+        }
+        responseCore.close();
         
         String urlHRPT = pts + "createClient";
         Response responseHRPT = Http.post(urlHRPT,json);
         body = responseHRPT.body().string();
         // Test if something fails on external service
-        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+        if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+            responseHRPT.close();
             return body;
+        }
+        responseHRPT.close();
         
         String urlRequest = requests + "createClient";
         Response responseRequest = Http.post(urlRequest,json);
         body = responseRequest.body().string();
         // Test if something fails on external service
-        if(responseRequest.code() != HttpServletResponse.SC_OK)
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.close();
             return body;
+        }
+        responseRequest.close();
         
         String urlNotification = notifications + "createClient";
         Response responseNotification = Http.post(urlNotification,json);
         body = responseNotification.body().string();
         // Test if something fails on external service
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
         
         return initialBody;
     }
@@ -129,8 +144,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String initialBody = responseHRPT.body().string();
         String body = initialBody;
         // Test if something fails on external service
-        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+        if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+            responseHRPT.close();
             return body;
+        }
+        responseHRPT.close();
 
         ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
         String token = response.data.getAsJsonObject().get("token").getAsString();
@@ -147,29 +165,41 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseCore = Http.post(urlCore,json);
         body = responseCore.body().string();
         // Test if something fails on external service
-        if(responseCore.code() != HttpServletResponse.SC_OK) 
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+             responseCore.close();
             return body;
+        }
+        responseCore.close();
         
         String urlHRClient = clients + "createUser";
         Response responseHRClient = Http.post(urlHRClient,json);
         body = responseHRClient.body().string();
         // Test if something fails on external service
-        if(responseHRClient.code() != HttpServletResponse.SC_OK) 
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) {
+            responseHRClient.close();
             return body;
+        }
+        responseHRClient.close();
         
         String urlRequest = requests + "createPersonalTrainer";
         Response responseRequest = Http.post(urlRequest,json);
         body = responseRequest.body().string();
         // Test if something fails on external service
-        if(responseRequest.code() != HttpServletResponse.SC_OK) 
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.close();
             return body;
+        }
+        responseRequest.close();
         
         String urlNotification = notifications + "createPersonalTrainer";
         Response responseNotification = Http.post(urlNotification,json);
         body = responseNotification.body().string();
         // Test if something fails on external service
-        if(responseNotification.code() != HttpServletResponse.SC_OK) 
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
 
         return initialBody;
     }
@@ -188,8 +218,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String initialBody = responseHRClient.body().string();
         String body = initialBody;
         // Test if something fails on external service
-        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) {
+            responseHRClient.close();
             return body;
+        }
+        responseHRClient.close();
 
         ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
         String oldToken = response.data.getAsJsonObject().get("oldToken").getAsString();
@@ -209,29 +242,41 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseCore = Http.post(urlCore,json);
         body = responseCore.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseCore.code() != HttpServletResponse.SC_OK) 
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+            responseCore.close();
             return body;
+        }
+        responseCore.close();
         
         String urlHRPT = pts + "updateClientToken";
         Response responseHRPT = Http.post(urlHRPT,json);
         body = responseHRPT.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+        if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+            responseHRPT.close();
             return body;
+        }
+        responseHRPT.close();
         
         String urlRequest = requests + "updateUserToken";
         Response responseRequest = Http.post(urlRequest,json);
         body = responseRequest.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseRequest.code() != HttpServletResponse.SC_OK) 
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.close();
             return body;
+        }
+        responseRequest.close();
         
         String urlNotification = notifications + "updateClientToken";
         Response responseNotification = Http.post(urlNotification,json);
         body = responseNotification.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseNotification.code() != HttpServletResponse.SC_OK) 
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
 
         return initialBody;
     }
@@ -250,8 +295,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String initialBody = responseHRPT.body().string();
         String body = initialBody;
         // Test if something fails on external service
-        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+        if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+            responseHRPT.close();
             return body;
+        }
+        responseHRPT.close();
 
         ResponseJSON response = gson.fromJson(body, ResponseJSON.class);
         String oldToken = response.data.getAsJsonObject().get("oldToken").getAsString();
@@ -271,29 +319,41 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseCore = Http.post(urlCore,json);
         body = responseCore.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseCore.code() != HttpServletResponse.SC_OK) 
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+            responseCore.close();
             return body;
+        }
+        responseCore.close();
         
         String urlHRClient = clients + "updateUserToken";
         Response responseHRClient = Http.post(urlHRClient,json);
         body = responseHRClient.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseHRClient.code() != HttpServletResponse.SC_OK) 
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) {
+            responseHRClient.close();
             return body;
+        }
+        responseHRClient.close();
         
         String urlRequest = requests + "updateUserToken";
         Response responseRequest = Http.post(urlRequest,json);
         body = responseRequest.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseRequest.code() != HttpServletResponse.SC_OK) 
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.close();
             return body;
+        }
+        responseRequest.close();
         
         String urlNotification = notifications + "updatePersonalTrainerToken";
         Response responseNotification = Http.post(urlNotification,json);
         body = responseNotification.body().string();
         // Test if something fails on external service, reverse previous services
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
 
         return initialBody;
     }
@@ -309,8 +369,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getClientProfileByClient(String usernameAsJSON) throws IOException {
         String url = clients + "getClientProfileByClient";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     /**
@@ -324,8 +385,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getClientProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
         String url = clients + "getClientProfileByPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -339,8 +401,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getPersonalTrainerProfileByClient(String usernameAsJSON) throws IOException {
         String url = pts + "getPersonalTrainerProfileByClient";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     /**
@@ -354,8 +417,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getPersonalTrainerProfileByPersonalTrainer(String usernameAsJSON) throws IOException {
         String url = pts + "getPersonalTrainerProfileByPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -369,8 +433,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String editClientProfile(String infoAsJSON) throws IOException {
         String url = clients + "editClientProfile";
         Response response = Http.post(url,infoAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -384,8 +449,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String editPersonalTrainerProfile(String usernameAsJSON) throws IOException {
         String url = pts + "editPersonalTrainerProfile";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -399,8 +465,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getWeekByClient(String usernameAndWeekAsJSON) throws IOException {
         String url = core + "getWeekByClient";
         Response response = Http.post(url,usernameAndWeekAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -414,8 +481,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getWeekByPersonalTrainer(String usernameAndWeekAsJSON) throws IOException {
         String url = core + "getWeekByPersonalTrainer";
         Response response = Http.post(url,usernameAndWeekAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -429,8 +497,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getPersonalTrainers(String filtersAsJSON) throws IOException {
         String url = pts + "getPersonalTrainers";
         Response response = Http.post(url,filtersAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -444,8 +513,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getBiometricData(String usernameAsJSON) throws IOException {
         String url = clients + "getBiometricData";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -461,8 +531,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseHRPT = Http.post(url,usernameAndClassificationAsJSON);
         String initialBody = responseHRPT.body().string();
         String body = initialBody;
-        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+        if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+            responseHRPT.close();
             return body;
+        }
+        responseHRPT.close();
         
         JsonObject jo = gson.fromJson(usernameAndClassificationAsJSON, JsonObject.class);
         String username = jo.get("username").getAsString();
@@ -482,8 +555,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String urlNotification = notifications + "createNotificationToPersonalTrainer";
         Response responseNotification = Http.post(urlNotification, json);
         body = responseNotification.body().string();
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
         
         return initialBody;
     }
@@ -501,8 +577,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseCore = Http.post(urlCore,usernameAndWorkoutIdAsJSON);
         String initialBody = responseCore.body().string();
         String body = initialBody;
-        if(responseCore.code() != HttpServletResponse.SC_OK)
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+            responseCore.close();
             return body;
+        }
+        responseCore.close();
         
         ResponseJSON rj = gson.fromJson(body, ResponseJSON.class);
         String personalTrainerUsername = rj.data.getAsJsonObject().get("username").getAsString();
@@ -523,8 +602,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String urlNotification = notifications + "createNotificationToPersonalTrainer";
         Response responseNotification = Http.post(urlNotification, json);
         body = responseNotification.body().string();
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
         
         return initialBody;
     }
@@ -540,8 +622,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getPersonalTrainerClients(String usernameAsJSON) throws IOException {
         String url = pts + "getPersonalTrainerClients";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 
     /**
@@ -560,8 +643,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseRequest = Http.post(urlRequest,requestInfoAsJSON);
         String initialBody = responseRequest.body().string();
         String body = initialBody;
-        if(responseRequest.code() != HttpServletResponse.SC_OK)
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.close();
             return body;
+        }
+        responseRequest.close();
         
         JsonObject jo = gson.fromJson(requestInfoAsJSON, JsonObject.class);
         String username = jo.get("username").getAsString();
@@ -581,8 +667,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String urlNotification = notifications + "createNotificationToPersonalTrainer";
         Response responseNotification = Http.post(urlNotification, json);
         body = responseNotification.body().string();
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
         
         return initialBody;
     }
@@ -600,8 +689,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseCore = Http.post(url,weekAsJson);
         String initialBody = responseCore.body().string();
         String body = initialBody;
-        if(responseCore.code() != HttpServletResponse.SC_OK)
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+            responseCore.close();
             return body;
+        }
+        responseCore.close();
         
         JsonObject jo = gson.fromJson(weekAsJson, JsonObject.class);
         String username = jo.get("username").getAsString();
@@ -620,8 +712,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String urlNotification = notifications + "createNotificationToClient";
         Response responseNotification = Http.post(urlNotification, json);
         body = responseNotification.body().string();
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
         
         return initialBody;
     }
@@ -639,8 +734,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         Response responseRequest = Http.post(urlRequest,requestIdAndResponseAsJSON);
         String initialBody = responseRequest.body().string();
         String body = initialBody;
-        if(responseRequest.code() != HttpServletResponse.SC_OK)
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.close();
             return body;
+        }
+        responseRequest.close();
         
         JsonObject jo = gson.fromJson(requestIdAndResponseAsJSON, JsonObject.class);
         String username = jo.get("username").getAsString();
@@ -660,8 +758,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
             String urlHRPT = pts + "addClientToPersonalTrainer";
             Response responseHRPT = Http.post(urlHRPT,json);
             body = initialBody;
-            if(responseHRPT.code() != HttpServletResponse.SC_OK)
+            if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+                responseHRPT.close();
                 return body;
+            }
+            responseHRPT.close();
             jo.addProperty("description","Personal Trainer with username " + username + " accepted your request.");
         }
         else {
@@ -674,8 +775,11 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         String urlNotification = notifications + "createNotificationToClient";
         Response responseNotification = Http.post(urlNotification, json);
         body = responseNotification.body().string();
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             return body;
+        }
+        responseNotification.close();
         
         return initialBody;
     }
@@ -690,8 +794,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getNotificationsByClient(String usernameAsJSON) throws IOException {
         String url = notifications + "getNotificationsByClient";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     /**
@@ -704,8 +809,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String getNotificationsByPersonalTrainer(String usernameAsJSON) throws IOException {
         String url = notifications + "getNotificationsByPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     /**
@@ -718,8 +824,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String markAsReadNotificationsByClient(String usernameAndIdsAsJSON) throws IOException {
         String url = notifications + "markAsReadNotificationsByClient";
         Response response = Http.post(url,usernameAndIdsAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     /**
@@ -732,8 +839,9 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String markAsReadNotificationsByPersonalTrainer(String usernameAndIdsAsJSON) throws IOException {
         String url = notifications + "markAsReadNotificationsByPersonalTrainer";
         Response response = Http.post(url,usernameAndIdsAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     /**
@@ -747,28 +855,43 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String dropdbs(String tokenAsJSON) throws IOException, Exception {
         String urlHRClient = clients + "dropdb";
         Response responseHRClient = Http.post(urlHRClient,tokenAsJSON);
-        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) {
+            responseHRClient.close();
             throw new Exception("Couldn't drop db on client service.");
+        }
+        responseHRClient.close();
         
         String urlHRPT = pts + "dropdb";
         Response responseHRPT = Http.post(urlHRPT,tokenAsJSON);
-        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+        if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+            responseHRPT.close();
             throw new Exception("Couldn't drop db on personaltrainer service.");
+        }
+        responseHRPT.close();
         
         String urlCore = core + "dropdb";
         Response responseCore = Http.post(urlCore,tokenAsJSON);
-        if(responseCore.code() != HttpServletResponse.SC_OK)
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+            responseCore.close();
             throw new Exception("Couldn't drop db on core service.");
+        }
+        responseCore.close();
         
         String urlRequest = requests + "dropdb";
         Response responseRequest = Http.post(urlRequest,tokenAsJSON);
-        if(responseRequest.code() != HttpServletResponse.SC_OK)
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.close();
             throw new Exception("Couldn't drop db on requests service.");
+        }
+        responseRequest.close();
         
         String urlNotification = notifications + "dropdb";
         Response responseNotification = Http.post(urlNotification,tokenAsJSON);
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             throw new Exception("Couldn't drop db on notifications service.");
+        }
+        responseNotification.close();
         
         return "\"Databases were dropped with success.\"";
     }
@@ -784,28 +907,43 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String createdbs(String tokenAsJSON) throws IOException, Exception {
         String urlHRClient = clients + "createdb";
         Response responseHRClient = Http.post(urlHRClient,tokenAsJSON);
-        if(responseHRClient.code() != HttpServletResponse.SC_OK)
+        if(responseHRClient.code() != HttpServletResponse.SC_OK) {
+            responseHRClient.close();
             throw new Exception("Couldn't create db on client service.");
+        }
+        responseHRClient.close();
         
         String urlHRPT = pts + "createdb";
         Response responseHRPT = Http.post(urlHRPT,tokenAsJSON);
-        if(responseHRPT.code() != HttpServletResponse.SC_OK)
+        if(responseHRPT.code() != HttpServletResponse.SC_OK) {
+            responseHRPT.close();
             throw new Exception("Couldn't create db on personaltrainer service.");
+        }
+        responseHRPT.close();
         
         String urlCore = core + "createdb";
         Response responseCore = Http.post(urlCore,tokenAsJSON);
-        if(responseCore.code() != HttpServletResponse.SC_OK)
+        if(responseCore.code() != HttpServletResponse.SC_OK) {
+            responseCore.close();
             throw new Exception("Couldn't create db on core service.");
+        }
+        responseCore.close();
         
         String urlRequest = requests + "createdb";
         Response responseRequest = Http.post(urlRequest,tokenAsJSON);
-        if(responseRequest.code() != HttpServletResponse.SC_OK)
+        if(responseRequest.code() != HttpServletResponse.SC_OK) {
+            responseRequest.code();
             throw new Exception("Couldn't create db on requests service.");
+        }
+        responseRequest.code();
         
         String urlNotification = notifications + "createdb";
         Response responseNotification = Http.post(urlNotification,tokenAsJSON);
-        if(responseNotification.code() != HttpServletResponse.SC_OK)
+        if(responseNotification.code() != HttpServletResponse.SC_OK) {
+            responseNotification.close();
             throw new Exception("Couldn't create db on notifications service.");
+        }
+        responseNotification.close();
         
         return "\"Databases were created with success.\"";
     }
@@ -813,21 +951,32 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
     public String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException{
         String url = requests + "listRequestsOfPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
         String url = requests + "listRequestsOfClient";
         Response response = Http.post(url,usernameAsJSON);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
     }
     
     public String getUsernameByRequestId(String requestIdAsJson) throws IOException{
         String url = requests + "getUsernameByRequestId";
         Response response = Http.post(url,requestIdAsJson);
-        
-        return response.body().string();
+        String data = response.body().string();
+        response.close();
+        return data;
+    }
+    
+    public String hasSubmittedClassification(String json) throws IOException{
+        String url = pts + "hasSubmittedClassification";
+        Response response = Http.post(url, json);
+        String data = response.body().string();
+        response.close();
+        return data;
     }
 }

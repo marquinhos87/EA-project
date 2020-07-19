@@ -167,6 +167,9 @@ public class APIController extends HttpServlet {
                 case "dropdbs":
                     res = makeSuccess(HttpServletResponse.SC_OK,gymAtHome.dropdbs(data));
                     break;
+                case "hasSubmittedClassification":
+                    res = gymAtHome.hasSubmittedClassification(data);
+                    break;
                 default:
                     //TESTED
                     response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);

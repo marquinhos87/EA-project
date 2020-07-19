@@ -37,14 +37,15 @@ public class WorkThread extends Thread {
     @Override
     public void run() {
         try {
+            
             String clientUsername = "c" + i;
             String clientJSON =
                     "{" +
                     "\"username\": \"" + clientUsername + "\", " +
-                    "\"password\": \"password\", " +
+                    "\"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\", " +
                     "\"name\": \"" + clientUsername + "\", " +
                     "\"email\": \"" + clientUsername + "@gmail.com\", " +
-                    "\"sex\": \"M\", " +
+                    "\"sex\": \"m\", " +
                     "\"birthday\": \"1997-06-19\", " +
                     "\"height\": 190, " +
                     "\"weight\": 87 " +
@@ -61,11 +62,19 @@ public class WorkThread extends Thread {
             //System.out.println("client token = " + clientToken);
             cf.write("{ \"username\": \"" + clientUsername + "\", \"password\": \"password\" }\n");
             
+            
+            
+            
+            
+            
+            
+            
+            
             String ptUsername= "pt" + i;
             String ptJSON =
                     "{ " +
                     "\"username\": \"" + ptUsername + "\", " +
-                    "\"password\": \"password\", " +
+                    "\"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\", " +
                     "\"name\": \"" + ptUsername + "\", " +
                     "\"email\": \"" + ptUsername + "@gmail.com\", " +
                     "\"birthday\": \"1998-06-29\", " +
@@ -84,6 +93,72 @@ public class WorkThread extends Thread {
             String ptToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
             //System.out.println("pt token = " + ptToken);
             ptf.write("{ \"username\": \"" + ptUsername + "\", \"password\": \"password\" }\n");
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            String request = "{" +
+                    "\"username\": \"" + clientUsername + "\", " +
+                    "\"token\": \"" + clientToken + "\" ," +
+                    "\"personalTrainerUsername\": \"" + ptUsername + "\", " +
+                    "\"numberOfWeeks\": 10, " +
+                    "\"objective\": \"ficar bicho\", " +
+                    "\"workoutPerWeek\": 2, " +
+                    "\"weekDays\": \"1;3;5\", " +
+                    "\"level\": 3 " +
+                    "}";
+            
+            response = Http.post(url + "submitRequest", request);
+            data = response.body().string();
+            response.close();
+            if (gson.fromJson(data, ResponseJSON.class).status.equals("success") == false) {
+                System.err.println("Could not submit request from client - " + clientUsername + " - HTTP status code != 200");
+                System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
+                System.exit(1);
+            }
+            
+            String reply = "{" +
+                    "\"username\": \"" + ptUsername + "\", " +
+                    "\"token\": \"" + ptToken + "\", " +
+                    "\"clientUsername\": \"" + clientUsername + "\", " +
+                    "\"requestId\": " + (i+1) + ", " +
+                    "\"accepted\": true " +
+                    "}";
+            
+            
+            response = Http.post(url + "replyToRequest", reply);
+            data = response.body().string();
+            response.close();
+            if (gson.fromJson(data, ResponseJSON.class).status.equals("success") == false) {
+                System.err.println("Could not reply to request from Personal Trainer - " + ptUsername + " - HTTP status code != 200");
+                System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
+                System.exit(1);
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             String fstJSON =
@@ -151,6 +226,13 @@ public class WorkThread extends Thread {
                 System.exit(1);
             } 
             
+            
+            
+            
+            
+            
+            
+            
            
             String weekJSON =
                     "{ " +
@@ -167,7 +249,8 @@ public class WorkThread extends Thread {
                     "\"weekDay\": 4, " +
                     "\"tasks\": " +
                     "[ " +
-                    "{ " +
+                    
+                    "{ " + // Task 1
                     "\"designation\": \"Correr\", " +
                     "\"rest\": \"2 min\", " +
                     "\"duration\": \"15 min\", " +
@@ -178,18 +261,35 @@ public class WorkThread extends Thread {
                     "\"description\": \"Correr\", " +
                     "\"repetitions\": \"10 min\", " +
                     "\"rest\": \"2 min\" " +
-                    "} " +
-                    "] " +
                     "} " +
                     "] " +
                     "}, " +
+                    
+                    "{ " + // Task 2
+                    "\"designation\": \"Correr Rápido\", " +
+                    "\"rest\": \"2 min\", " +
+                    "\"duration\": \"30 min\", " +
+                    "\"equipment\": \"passadeira\", " +
+                    "\"series\": " +
+                    "[ " +
+                    "{ " +
+                    "\"description\": \"Correr\", " +
+                    "\"repetitions\": \"10 min\", " +
+                    "\"rest\": \"2 min\" " +
+                    "} " +
+                    "] " +
+                    "} " +
+                    
+                    "] " +
+                    "}, " +
               
-                    "{ " + // workout 2
-                    "\"designation\": \"cardio\", " +
+                    "{ " +  // workout 2
+                    "\"designation\": \"musculação\", " +
                     "\"weekDay\": 7, " +
                     "\"tasks\": " +
                     "[ " +
-                    "{ " +
+                    
+                    "{ " + // Task 1
                     "\"designation\": \"Correr\", " +
                     "\"rest\": \"2 min\", " +
                     "\"duration\": \"15 min\", " +
@@ -202,9 +302,25 @@ public class WorkThread extends Thread {
                     "\"rest\": \"2 min\" " +
                     "} " +
                     "] " +
+                    "}, " +
+                    
+                    "{ " + // Task 2
+                    "\"designation\": \"Correr Rápido\", " +
+                    "\"rest\": \"2 min\", " +
+                    "\"duration\": \"30 min\", " +
+                    "\"equipment\": \"passadeira\", " +
+                    "\"series\": " +
+                    "[ " +
+                    "{ " +
+                    "\"description\": \"Correr\", " +
+                    "\"repetitions\": \"10 min\", " +
+                    "\"rest\": \"2 min\" " +
                     "} " +
                     "] " +
                     "} " +
+                    
+                    "] " +
+                    "}" +
                     
                     "] " +
                     "} " +
