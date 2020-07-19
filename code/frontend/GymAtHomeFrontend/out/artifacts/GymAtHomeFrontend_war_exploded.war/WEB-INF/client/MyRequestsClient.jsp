@@ -147,7 +147,7 @@
                 else $("#skill").html(data.skill)
 
                 if(data.price == 0 || data.price == null)$("#price").html(message)
-                else $("#price").html(data.price + "euros")
+                else $("#price").html(data.price + " euros")
             },
             error: function () {
                 $("#aceitar").css("display", "none")

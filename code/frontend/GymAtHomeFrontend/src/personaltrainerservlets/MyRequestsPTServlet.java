@@ -29,12 +29,11 @@ public class MyRequestsPTServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
 
-
         // TODO remover isto daqui após testar -------------------------------------
-        session.setAttribute("username", "pt0");
-        session.setAttribute("token", "pt0Uzh5V5d6ZcMNrUBCwloAkKLUjLhcF");
+        /*session.setAttribute("username", "pt4");
+        session.setAttribute("token", "pt4u3oYseyiXrDkp8xpFKTNaEVH2Ydgq");
+        session.setAttribute("userType", "pt");*/
         // -------------------------------------------------------------------------
-
 
         action = request.getParameter("action");
         username = (String) session.getAttribute("username");
@@ -45,75 +44,53 @@ public class MyRequestsPTServlet extends HttpServlet {
             return ;
         }
 
-        String message = "";
-
-        Response responseHttp = null;
+        Response responseHttp;
         String responseBody;
         ResponseJSON responseJSON;
 
-        System.err.println(action);
+        if (action != null && action.equals("reject")) {
 
-        if(action != null && (action.equals("accepted") || action.equals("reject"))){
             JsonObject replyToRequest = new JsonObject();
-
-            int requestId = Integer.valueOf(request.getParameter("requestId"));
-
-            System.err.println(requestId);
-
-            if(action.equals("accepted")){
-                replyToRequest.addProperty("accepted", true);
-                message = "O pedido foi aceite com sucesso.";
-            }
-            else {
-                replyToRequest.addProperty("accepted", false);
-                message = "O pedido foi rejeitado com sucesso.";
-            }
 
             replyToRequest.addProperty("username", username);
             replyToRequest.addProperty("token", token);
-            replyToRequest.addProperty("requestId", requestId);
+            replyToRequest.addProperty("requestId", Integer.parseInt(request.getParameter("requestId")));
             replyToRequest.addProperty("clientUsername", request.getParameter("clientUsername"));
-
-            System.err.println(replyToRequest.toString());
+            replyToRequest.addProperty("state", -1);
+            replyToRequest.addProperty("accepted", false);
 
             try {
                 responseHttp = Http.post(Utils.SERVER + "replyToRequest",replyToRequest.toString());
             } catch (IOException e) {
                 e.printStackTrace();
                 request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-                Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
                 return ;
             }
             responseBody = responseHttp.body().string();
+            responseHttp.close();
+            responseJSON = gson.fromJson(responseBody, ResponseJSON.class);
 
-            try{
-                Utils.validateJson(gson, responseBody, Arrays.asList("status", "code", "msg", "data"));
-                responseJSON = gson.fromJson(responseBody, ResponseJSON.class);
-            } catch (Exception e){
-                e.printStackTrace();
-                request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-                Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
-                return ;
-            }
-
-            System.out.println(responseJSON);
-
-            if(responseJSON.status.equals("success")){
-                // request.setAttribute("errorMessage", message);
-                Map<Integer, Request> requests = (Map<Integer, Request>) session.getAttribute("requests");
-                Request r = requests.get(requestId);
-                session.setAttribute("requests", null);
-                session.setAttribute("request", r);
-                Utils.redirect(request, response, "/CreateWeek");
-                return ;
-            } else{
+            if(!responseJSON.status.equals("success")){
                 switch (responseJSON.code){
                     default:
                         request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-                        Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
-                        break;
+                        Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+                        return;
                 }
             }
+
+            request.setAttribute("successMessage", "O pedido foi rejeitado com sucesso.");
+        }
+
+        else if (action != null && action.equals("accepted")) {
+            int requestId = Integer.parseInt(request.getParameter("requestId"));
+            Map<Integer, Request> requests = (Map<Integer, Request>) session.getAttribute("requests");
+            Request r = requests.get(requestId);
+            session.setAttribute("requests", null);
+            session.setAttribute("request", r);
+            Utils.redirect(request, response, "/CreateWeek");
+            return ;
         }
 
         JsonObject jo = new JsonObject();
@@ -126,18 +103,19 @@ public class MyRequestsPTServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
             return ;
         }
-
         responseBody = responseHttp.body().string();
+        responseHttp.close();
+
         try{
             Utils.validateJson(gson, responseBody, Arrays.asList("status", "code", "msg", "data"));
             responseJSON = gson.fromJson(responseBody, ResponseJSON.class);
         } catch (Exception e){
             e.printStackTrace();
             request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-            Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
             return ;
         }
 
@@ -148,12 +126,12 @@ public class MyRequestsPTServlet extends HttpServlet {
             Map<Integer, Request> map = tmps.stream().collect(Collectors.toMap(Request::getID, r -> r));
             session.setAttribute("requests",map); // CAUTION - it's suposed to save requests on session - DO NOT CHAMGE
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyRequests", null);
-        }else{
+        } else{
             switch (responseJSON.code){
                 default:
                     request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
-                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
-                    break;
+                    Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+                    return;
             }
         }
     }

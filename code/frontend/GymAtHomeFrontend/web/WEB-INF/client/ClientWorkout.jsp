@@ -42,7 +42,6 @@
 
 <h4 class="mt-5 table">
     <i style='font-size:24px' class='far'>&#xf017;</i>&nbsp <% out.print(task.duration); %> &nbsp &nbsp &nbsp
-    Tipo de exercício: X  &nbsp &nbsp &nbsp
     Equipamento necessário: <% out.print(task.equipment); %>
 </h4>
 

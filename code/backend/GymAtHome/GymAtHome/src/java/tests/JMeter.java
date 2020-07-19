@@ -21,7 +21,7 @@ import utils.Http;
 public class JMeter {
     
     private static final String url = "http://37.189.223.35:8081/GymAtHome/api/";
-    private static final int N = 5;   
+    public static final int N = 30;   
     private static final Gson gson = new Gson();
     
     public static void main(String[] args) throws IOException {
@@ -47,6 +47,7 @@ public class JMeter {
             WorkThread wh = new WorkThread(i, gson, cf, ptf);
             wh.run(); // eu sei que aqui está o run() que é diferente do start() - foi propositado (eu quero sequencial aqui)...
         } 
+        
 
         cf.close();
         ptf.close();
