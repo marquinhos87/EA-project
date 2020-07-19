@@ -51,7 +51,7 @@
 </div>
 <%
     List<Request> requests = (List) request.getAttribute("requests");
-    if(requests.size() != 0){%>
+    if(requests != null && requests.size() != 0){%>
 <table class="table table-striped">
     <thead>
     <tr>

@@ -86,6 +86,7 @@ public class MyClientsServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
             request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+            request.setAttribute("title", "Meus clientes");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyClients", null);
             return ;
         }
@@ -97,6 +98,7 @@ public class MyClientsServlet extends HttpServlet {
         } catch (Exception e){
             e.printStackTrace();
             request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+            request.setAttribute("title", "Meus clientes");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyClients", null);
             return ;
         }
@@ -105,11 +107,13 @@ public class MyClientsServlet extends HttpServlet {
             Client[] clients = gson.fromJson(responseJSON.data.toString(), Client[].class);
             List<Client> tmps = Arrays.asList(clients);
             request.setAttribute("clients", tmps);
+            request.setAttribute("title", "Meus clientes");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyClients", null);
         }else{
             switch (responseJSON.code){
                 default:
                     request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
+                    request.setAttribute("title", "Meus clientes");
                     Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyClients", null);
                     break;
             }

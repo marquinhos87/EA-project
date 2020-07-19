@@ -60,6 +60,8 @@ public class NotificationServlet extends HttpServlet {
 
                 Response responseHttp;
 
+                System.err.println(jo.toString());
+
                 try {
                     if (username.startsWith("c"))
                         responseHttp = Http.post(Utils.SERVER + "markAsReadNotificationsByClient", jo.toString());
@@ -89,9 +91,10 @@ public class NotificationServlet extends HttpServlet {
 
                 responseHttp.close();
 
+                System.err.println(body);
+
                 if (responseJSON.status.equals("success")) {
-                    //TODO selecionar qual a página para ir
-                    Utils.redirect(request, response, "/Notification");
+                    doGet(request, response);
                 } else {
                     request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                     request.setAttribute("title", "Notificações");
@@ -158,6 +161,7 @@ public class NotificationServlet extends HttpServlet {
             }
 
             String body = responseHttp.body().string();
+            System.err.println(body);
             ResponseJSON responseJSON = gson.fromJson(body,ResponseJSON.class);
 
             responseHttp.close();
@@ -166,7 +170,7 @@ public class NotificationServlet extends HttpServlet {
                 Notification[] tmps = gson.fromJson(responseJSON.data,Notification[].class);
 
                 Collection<Notification> notifications = new ArrayList<>(Arrays.asList(tmps));
-                request.setAttribute("personalTrainers",notifications);
+                request.setAttribute("notifications", notifications);
             }
             else {
                 request.setAttribute("errorMessage",Utils.UNEXPECTED_ERROR_MSG);

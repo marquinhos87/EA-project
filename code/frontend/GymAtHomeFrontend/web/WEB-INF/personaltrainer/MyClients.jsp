@@ -24,7 +24,7 @@
                 <p id="message"></p>
                 <table id="bio" class="table table-striped">
                     <tr>
-                        <th>dados atualizados em</th>
+                        <th>última atualização</th>
                         <td id="date"></td>
                     </tr>
                     <tr>
@@ -79,10 +79,6 @@
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                <form>
-                    <button id="aceitar" type="button" class="btn btn-success" formaction="${pageContext.request.contextPath}\MyRequestsPT" name="action" value="accepted">Aceitar</button>
-                    <button id="rejeitar" type="button" class="btn btn-danger" formaction="${pageContext.request.contextPath}\MyRequestsPT" name="action" value="reject">Rejeitar</button>
-                </form>
             </div>
         </div>
     </div>
@@ -97,9 +93,9 @@
         <!--<th scope="col">#RequestId</th>-->
         <th scope="col">Perfil do Cliente</th>
         <th scope="col">Username</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
+        <th scope="col">Avaliações</th>
+        <th scope="col">Ver plano atual</th>
+        <th scope="col">Adicionar nova semana</th>
     </tr>
     </thead>
     <tbody>
@@ -113,12 +109,20 @@
             <button onclick="getClient('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', '<% out.print((client.username));%>');" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">perfil</button>
         </td>
         <td>@<% out.print(client.username); %></td>
+        <td>
+            <%
+                if(client.submitedClassification)out.print("sim"); else out.print("não");
+            %>
+        </td>
         <%
             String viewPlanLink = "onclick=\"window.location.href='" + request.getContextPath() + "/ClientPlanByPT'\"";
             session.setAttribute("clientUsername", client.username);
         %>
         <td><button class="btn btn-success" <% out.print(viewPlanLink); %> >Ver plano</button></td>
-        <td><button class="btn btn-success">Adicionar Semana</button></td>
+        <form method="post" action="${pageContext.request.contextPath}\CreateWeek">
+            <input type="hidden" value="<%out.print(client.username);%>" name="clientUsername" />
+            <td><button class="btn btn-success">Adicionar Semana</button></td>
+        </form>
     </tr>
     <%}
     }else{%>
@@ -147,49 +151,60 @@
                 clientUsername: clientUsername
             }),
             success: function(jsonResponse) {
+
+                console.log(jsonResponse)
+
                 var message = " --- "
                 data = jsonResponse.data
                 $('#title-pop-up').html("Dados de " + data.name + " (@" + clientUsername + ")")
-                $("#date").html(data.date)
+
+                var bio = data.biometricData
 
                 if(data.email == "" || data.email == null) $("#email").html(message)
                 else $("#email").html(data.email)
 
-                if(data.BMI == 0 || data.BMI == null)$("#bmi").html(message)
-                else $("#bmi").html(data.BMI)
+                if(bio.BMI == 0 || bio.BMI == null)$("#bmi").html(message)
+                else $("#bmi").html(bio.BMI.toFixed(2))
 
                 if(data.sex == "" || data.sex == null)$("#sex").html(message)
-                else $("#sex").html(data.sex)
+                else {
+                    if(data.sex == "m")$("#sex").html("Masculino")
+                    else if(data.sex == "f")$("#sex").html("Feminino")
+                    else if(data.sex == "o")$("#sex").html("Masculino")
+                    else $("#sex").html("---")
+                }
 
                 if(data.age == 0 || data.age == null)$("#age").html(message)
-                else $("#age").html(data.age)
+                else $("#age").html(data.age + " anos")
 
-                if(data.height == 0 || data.height == null)$("#height").html(message)
-                else $("#height").html(data.height)
+                //  biometric data
 
-                if(data.weight == 0 || data.weight == null)$("#weight").html(message)
-                else $("#weight").html(data.weight)
+                if(bio.date == "" || bio.date == null) $("#date").html(message)
+                else $("#date").html(bio.date)
 
-                if(data.wrist == 0 || data.wrist == null)$("#wrist").html(message)
-                else $("#wrist").html(data.wrist)
+                if(bio.height == 0 || bio.height == null)$("#height").html(message)
+                else $("#height").html(bio.height + " cm")
 
-                if(data.chest == 0 || data.chest == null)$("#chest").html(message)
-                else $("#chest").html(data.chest)
+                if(bio.weight == 0 || bio.weight == null)$("#weight").html(message)
+                else $("#weight").html(bio.weight + " Kg")
 
-                if(data.tricep == 0 || data.tricep == null)$("#tricep").html(message)
-                else $("#tricep").html(data.tricep)
+                if(bio.wrist == 0 || bio.wrist == null)$("#wrist").html(message)
+                else $("#wrist").html(bio.wrist + " cm")
 
-                if(data.waist == 0 || data.waist == null)$("#waist").html(message)
-                else $("#waist").html(data.waist)
+                if(bio.chest == 0 || bio.chest == null)$("#chest").html(message)
+                else $("#chest").html(bio.chest + " cm")
 
-                if(data.quadricep == 0 || data.quadricep == null)$("#quadricep").html(message)
-                else $("#quadricep").html(data.quadricep)
+                if(bio.tricep == 0 || bio.tricep == null)$("#tricep").html(message)
+                else $("#tricep").html(bio.tricep + " cm")
 
-                if(data.twin == 0 || data.twin == null)$("#twin").html(message)
-                else $("#twin").html(data.twin)
+                if(bio.waist == 0 || bio.waist == null)$("#waist").html(message)
+                else $("#waist").html(bio.waist)
 
-                if(data.BMI == 0 || data.BMI == null)$("#bmi").html(message)
-                else $("#bmi").html(data.IMC)
+                if(bio.quadricep == 0 || bio.quadricep == null)$("#quadricep").html(message)
+                else $("#quadricep").html(bio.quadricep)
+
+                if(bio.twin == 0 || bio.twin == null)$("#twin").html(message)
+                else $("#twin").html(bio.twin)
             },
             error: function () {
                 $("#aceitar").css("display", "none")
