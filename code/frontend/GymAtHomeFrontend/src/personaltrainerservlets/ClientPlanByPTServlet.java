@@ -61,7 +61,12 @@ public class ClientPlanByPTServlet extends HttpServlet {
             }
         }
 
-        String clientUsername = (String) request.getAttribute("clientUsername");
+        String clientUsername = (String) session.getAttribute("clientUsername");
+        if (clientUsername == null) {
+            request.setAttribute("errorMessage", "clientUsername == NULL. " + Utils.UNEXPECTED_ERROR_MSG);
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+            return;
+        }
 
         boolean res = getWeek(request, response, selectedWeek, clientUsername);
         if (!res) return;
@@ -120,6 +125,7 @@ public class ClientPlanByPTServlet extends HttpServlet {
             String data = responseHttp.body().string();
             responseHttp.close();
             ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
+            System.out.println(rj);
             if (rj.status.equals("success")) {
                 Week week = gson.fromJson(rj.data.getAsJsonObject(), Week.class);
                 int numberOfWeeks = rj.data.getAsJsonObject().get("numberOfWeeks").getAsInt();

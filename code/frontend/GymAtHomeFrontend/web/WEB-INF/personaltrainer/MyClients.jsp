@@ -113,8 +113,12 @@
             <button onclick="getClient('<%out.print(Utils.PROTOCOL);%>', '<%out.print(Utils.SERVER_URL);%>', '<%out.print(Utils.SERVER_PORT);%>', '<%out.print(Utils.SERVER_CONTROLLER);%>','${sessionScope.username}', '${sessionScope.token}', '<% out.print((client.username));%>');" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">perfil</button>
         </td>
         <td>@<% out.print(client.username); %></td>
-        <td><button type="submit" class="btn btn-success" name="clientUsername" value="<% out.print(client.username);%>" formaction="${pageContext.request.contextPath}\ClientPlan">Ver plano</button></td>
-        <td><button type="submit" class="btn btn-success" name="clientUsername" value="<% out.print(client.username);%>" formaction="${pageContext.request.contextPath}\CreateWeek">Adicionar Semana</button></td>
+        <%
+            String viewPlanLink = "onclick=\"window.location.href='" + request.getContextPath() + "/ClientPlanByPT'\"";
+            session.setAttribute("clientUsername", client.username);
+        %>
+        <td><button class="btn btn-success" <% out.print(viewPlanLink); %> >Ver plano</button></td>
+        <td><button class="btn btn-success">Adicionar Semana</button></td>
     </tr>
     <%}
     }else{%>
