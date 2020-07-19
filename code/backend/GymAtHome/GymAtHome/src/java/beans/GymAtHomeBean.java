@@ -7,6 +7,7 @@ package beans;
 
 import utils.Http;
 import okhttp3.*;
+import parseJSON.ResponseJSON;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,7 +15,6 @@ import com.google.gson.JsonObject;
 import javax.ejb.Stateless;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
-import parseJSON.ResponseJSON;
 
 /**
  *
@@ -548,7 +548,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         jo.addProperty("username", username);
         jo.addProperty("token", token);
         jo.addProperty("personalTrainerUsername",personalTrainerUsername);
-        jo.addProperty("description","Client with username " + username + " submit a classification to you with value " + classification + ".");
+        jo.addProperty("description","Cliente com o username " + username + " submeteu uma avaliação com o valor " + classification + ".");
         
         String json = jo.toString();
         
@@ -595,7 +595,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         jo.addProperty("username", username);
         jo.addProperty("token", token);
         jo.addProperty("personalTrainerUsername", personalTrainerUsername);
-        jo.addProperty("description","Client with username " + username + " finished a workout.");
+        jo.addProperty("description","Cliente com o username " + username + " terminou um workout.");
         
         String json = jo.toString();
         
@@ -660,7 +660,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         jo.addProperty("username", username);
         jo.addProperty("token", token);
         jo.addProperty("personalTrainerUsername",personalTrainerUsername);
-        jo.addProperty("description","Client with username " + username + " submitted a request.");
+        jo.addProperty("description","Cliente com o username " + username + " submeteu um pedido.");
         
         String json = jo.toString();
         
@@ -705,7 +705,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         jo.addProperty("username", username);
         jo.addProperty("token", token);
         jo.addProperty("clientUsername",clientUsername);
-        jo.addProperty("description","Your Personal Trainer added a week of workouts to your plan.");
+        jo.addProperty("description","O seu Personal Trainer adicionou uma semana ao seu plano.");
         
         String json = jo.toString();
         
@@ -763,10 +763,10 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
                 return body;
             }
             responseHRPT.close();
-            jo.addProperty("description","Personal Trainer with username " + username + " accepted your request.");
+            jo.addProperty("description","Personal Trainer com o username " + username + " aceitou o teu pedido.");
         }
         else {
-            jo.addProperty("description","Personal Trainer with username " + username + " declined your request.");
+            jo.addProperty("description","Personal Trainer com o username " + username + " recusou o teu pedido.");
         }
             
         
@@ -948,6 +948,13 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         return "\"Databases were created with success.\"";
     }
     
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException
+     */
+    @Override
     public String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException{
         String url = requests + "listRequestsOfPersonalTrainer";
         Response response = Http.post(url,usernameAsJSON);
@@ -956,6 +963,13 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         return data;
     }
     
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException
+     */
+    @Override
     public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
         String url = requests + "listRequestsOfClient";
         Response response = Http.post(url,usernameAsJSON);
@@ -964,6 +978,13 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         return data;
     }
     
+    /**
+     * 
+     * @param requestIdAsJson
+     * @return
+     * @throws IOException
+     */
+    @Override
     public String getUsernameByRequestId(String requestIdAsJson) throws IOException{
         String url = requests + "getUsernameByRequestId";
         Response response = Http.post(url,requestIdAsJson);
@@ -972,6 +993,13 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
         return data;
     }
     
+    /**
+     * 
+     * @param json
+     * @return
+     * @throws IOException
+     */
+    @Override
     public String hasSubmittedClassification(String json) throws IOException{
         String url = pts + "hasSubmittedClassification";
         Response response = Http.post(url, json);

@@ -245,11 +245,35 @@ public interface GymAtHomeBeanLocal {
      */
     String dropdbs(String tokenAsJson) throws IOException, Exception;
     
+    /**
+     * 
+     * @param usernameAsJson
+     * @return
+     * @throws IOException
+     */
     String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException;
     
+    /**
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException
+     */
     String listClientRequestsByClient(String usernameAsJSON) throws IOException;
     
+    /**
+     * 
+     * @param requestIdAsJson
+     * @return
+     * @throws IOException
+     */
     String getUsernameByRequestId(String requestIdAsJson) throws IOException;
 
+    /**
+     * 
+     * @param data
+     * @return
+     * @throws IOException
+     */
     String hasSubmittedClassification(String data) throws IOException;
 }
