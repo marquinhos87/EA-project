@@ -148,6 +148,9 @@
                 <c:when test="${requestScope.page=='RequestsClient'}">
                     <jsp:include page="client/MyRequestsClient.jsp" />
                 </c:when>
+                <c:when test="${requestScope.page=='MyClients'}">
+                    <jsp:include page="personaltrainer/MyClients.jsp" />
+                </c:when>
             </c:choose>
 
         </div>
