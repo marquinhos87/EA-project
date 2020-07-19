@@ -338,18 +338,46 @@ public class GymAtHome {
         return gymAtHomeBean.createdbs(data);
     }
     
+    /**
+     * 
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException
+     */
     public String listClientRequestsByPersonalTrainer(String usernameAsJSON) throws IOException{
         return gymAtHomeBean.listClientRequestsByPersonalTrainer(usernameAsJSON);
     }
     
+    /**
+     * 
+     * 
+     * @param usernameAsJSON
+     * @return
+     * @throws IOException
+     */
     public String listClientRequestsByClient(String usernameAsJSON) throws IOException{
         return gymAtHomeBean.listClientRequestsByClient(usernameAsJSON);
     }
     
+    /**
+     * 
+     * 
+     * @param requestIdAsJson
+     * @return
+     * @throws IOException
+     */
     public String getUsernameByRequestId(String requestIdAsJson) throws IOException{
         return gymAtHomeBean.getUsernameByRequestId(requestIdAsJson);
     }
 
+    /**
+     * 
+     * 
+     * @param data
+     * @return
+     * @throws IOException
+     */
     public String hasSubmittedClassification(String data) throws IOException {
         return gymAtHomeBean.hasSubmittedClassification(data);
     }
