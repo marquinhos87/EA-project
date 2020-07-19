@@ -35,6 +35,16 @@ public class Request {
 	
 	public boolean accepted;
 
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public int state;
+
 
 	public int getID() {
 		return ID;

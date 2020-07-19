@@ -21,6 +21,8 @@ public class Utils {
     //public static final String SERVER_URL = "192.168.1.53";
     public static final String SERVER_URL = "37.189.223.35";
 
+    //public static final String SERVER_URL = "188.250.42.55";
+
     //public static final String SERVER_URL = "192.168.1.70";
 
     public static final String SERVER_PORT = "8081";

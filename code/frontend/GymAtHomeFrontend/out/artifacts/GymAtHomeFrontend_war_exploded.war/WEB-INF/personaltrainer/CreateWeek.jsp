@@ -276,9 +276,8 @@
     var index = 2;
 
     function clearWorkoutsTable() {
-        index = 2;
-        $("#workoutTableBody").empty();
-        addRow();
+        // index = 2;
+        //TODO falta fazer isto
     }
 
     function addRow() {
