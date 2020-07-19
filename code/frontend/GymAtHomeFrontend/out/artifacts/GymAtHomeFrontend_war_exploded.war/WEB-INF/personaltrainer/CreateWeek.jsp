@@ -4,7 +4,8 @@
 <%@ page import="core.Week" %>
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="core.Task" %><%--
   Created by IntelliJ IDEA.
   User: joaomarques
   Date: 06/07/2020
@@ -15,12 +16,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- Remove Workout Modal -->
+<div class="modal fade" id="modalRemoveWorkout" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Aviso</h5>
+                <h5 class="modal-title">Aviso</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -39,6 +40,54 @@
 </div>
 
 
+<!-- Cancel Week Modal -->
+<div class="modal fade" id="modalCancelWeek" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aviso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem a certeza que deseja cancelar toda a Semana? Não poderá reverter esta ação.
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="${pageContext.request.contextPath}/CreateWeek">
+                    <button type="button" class="btn btn-danger mr-2" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-success" value="cancelWeek" name="action">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Save Week Modal -->
+<div class="modal fade" id="modalSaveWeek" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aviso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem a certeza que deseja guardar a Semana? Não poderá editar a mesma após esta ação.
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="${pageContext.request.contextPath}/CreateWeek">
+                    <button type="button" class="btn btn-danger mr-2" data-dismiss="modal">Não</button>
+                    <button type="submit" class="btn btn-success" value="saveWeek" name="action">Sim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <%
     Request r = (Request) session.getAttribute("request");
     Week week = (Week) session.getAttribute("newWeek");
@@ -48,11 +97,12 @@
     }
 %>
 
-<div class="row mt-5 position-relative">
-    <h4 class="mt-4">Semana 1: @${sessionScope.request.clientUsername}
+<div class="row mt-3 position-relative">
+    <h4>Semana 1: @${sessionScope.request.clientUsername}
     <%
-        out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" style=\"right: 0; transform: translateX(-110%);\">Cancelar Semana</button>");
-        out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" disabled>Guardar Semana</button>");
+        out.print("<button type=\"button\" data-toggle=\"modal\" data-target=\"#modalCancelWeek\" class=\"btn btn-danger position-absolute\" style=\"right: 0; transform: translateX(-110%);\">Cancelar Semana</button>");
+        if (week == null || week.workouts.isEmpty()) out.print("<button type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\" disabled>Guardar Semana</button>");
+        else out.print("<button type=\"submit\" data-toggle=\"modal\" data-target=\"#modalSaveWeek\" class=\"btn btn-success position-absolute\" style=\"right: 0\">Guardar Semana</button>");
     %>
     </h4>
 </div>
@@ -66,6 +116,7 @@
                         <th scope="col"></th>
                         <th scope="col">Dia</th>
                         <th scope="col">Workout</th>
+                        <th scope="col"><i style='font-size:24px' class='far'>&#xf017;</i></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,12 +126,13 @@
                             <td><button disabled class="btn btn-danger text-white">X</button></td>
                             <td>---</td>
                             <td>---</td>
+                            <td>---</td>
                         </tr>
                     </c:when>
                     <c:when test="true">
                         <%
                             for(Workout workout : ((Week) session.getAttribute("newWeek")).workouts.values()) {
-                                out.print("<tr><td><button data-toggle=\"modal\" data-target=\"#exampleModalCenter\" class=\"btn btn-danger text-white\" onclick=\"document.getElementById('removeWorkoutButton').value='" + workout.id + "'\">X</button></td><td>" + Utils.prettyPrintWeekDay(workout.weekDay) + "</td><td>" + workout.designation + "</td></tr>");
+                                out.print("<tr><td><button data-toggle=\"modal\" data-target=\"#modalRemoveWorkout\" class=\"btn btn-danger text-white\" onclick=\"document.getElementById('removeWorkoutButton').value='" + workout.id + "'\">X</button></td><td>" + Utils.prettyPrintWeekDay(workout.weekDay) + "</td><td>" + workout.designation + "</td><td>" + String.format("%.01f", (float)workout.totalTime / (float)60) + " minuto(s)</td></tr>");
                             }
                         %>
                     </c:when>
@@ -119,7 +171,11 @@
                 </tr>
                 <tr>
                     <td scope="row">Dificuldade do plano:</td>
-                    <td>Normal</td>
+                    <td>
+                        <%
+                            out.print(Utils.prettyPrintLevel(r.level));
+                        %>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -196,24 +252,18 @@
             </div>
         </div>
     </div>
-
-    <div class="col-4">
-        <%
-            out.print("<button onclick=\"addRow();\" type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 4%; bottom: 0\">Adicionar Linha</button>");
-        %>
-    </div>
 </div>
 
     <table class="mt-4 table table-striped table-bordered" id="workoutTable">
         <thead>
         <tr>
             <th scope="col" style="width: 1%;"></th>
-            <th scope="col" style="width: 21.5%;">Tarefa</th>
-            <th scope="col" style="width: 10%;">Peso (Kg)</th>
+            <th scope="col" style="width: 20%;">Tarefa</th>
             <th scope="col" style="width: 10%;">Séries</th>
             <th scope="col" style="width: 17.5%;">Repetições ou Tempo</th>
-            <th scope="col" style="width: 17.5%;">Tempo entre Séries</th>
-            <th scope="col" style="width: 22.5%;">Equipamento</th>
+            <th scope="col" style="width: 17.5%;">Descanso entre Séries</th>
+            <th scope="col" style="width: 17.5%;">Descanso entre Tarefas</th>
+            <th scope="col" style="width: 16.5%;">Equipamento</th>
         </tr>
         </thead>
         <tbody id="workoutTableBody">
@@ -226,14 +276,13 @@
                     <option value="abdominais">Abdominais</option>
                 </select>
             </td>
-            <td><input type="number" pattern="[0-9]+(\.)*[0-9]*" min="0" class="form-control" name="weight1" placeholder="Ex: 5" required></td>
             <td><input type="number" pattern="[0-9]+" min="0" class="form-control" name="nSerie1" placeholder="Ex: 3" required></td>
             <td>
                 <div class="d-inline-flex">
                     <input type="number" pattern="[0-9]+" min="0" class="form-control" name="duration1" placeholder="Ex: 5" required>
-                    <select class="ml-1 custom-select" name="durationType" required>
-                        <option value="seg">seg</option>
-                        <option value="min">min</option>
+                    <select class="ml-1 custom-select" name="durationType1" required>
+                        <option value="segundos">seg</option>
+                        <option value="minuto(s)">min</option>
                         <option value="vezes">vezes</option>
                     </select>
                 </div>
@@ -241,9 +290,18 @@
             <td>
                 <div class="d-inline-flex">
                     <input type="number" pattern="[0-9]+" min="0" class="form-control" name="rest1" placeholder="Ex: 5" required>
-                    <select class="ml-1 custom-select" name="restType" required>
-                        <option value="seg">seg</option>
-                        <option value="min">min</option>
+                    <select class="ml-1 custom-select" name="restType1" required>
+                        <option value="segundos">seg</option>
+                        <option value="minuto(s)">min</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <div class="d-inline-flex">
+                    <input type="number" pattern="[0-9]+" min="0" class="form-control" name="taskRest1" placeholder="Ex: 5" required>
+                    <select class="ml-1 custom-select" name="taskRestType1" required>
+                        <option value="segundos">seg</option>
+                        <option value="minuto(s)">min</option>
                     </select>
                 </div>
             </td>
@@ -252,10 +310,14 @@
         </tbody>
     </table>
 
+        <div class="row position-relative">
+        <button onclick="addRow();" type="button" class="mb-4 btn btn-success text-white position-absolute" style="right: 1.2%;">+</button>
+    </div>
+
     <div class="row mt-5 position-relative">
         <input id="tableSize" type="hidden" value="1" name="tableSize" />
             <%
-                out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" onclick=\"clearWorkoutsTable()\" style=\"right: 0; transform: translateX(-115%);\">Cancelar Workout</button>");
+                out.print("<button type=\"button\" class=\"btn btn-danger position-absolute\" onclick=\"clearWorkoutsTable()\" style=\"right: 0; transform: translateX(-90%);\">Cancelar Workout Atual</button>");
                 if (week != null && week.workouts.size() == r.workoutPerWeek)  out.print("<button disabled type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\">Adicionar Workout</button>");
                 else out.print("<button name=\"action\" value=\"addWorkout\" type=\"submit\" class=\"btn btn-success position-absolute\" style=\"right: 0\">Adicionar Workout</button>");
             %>
@@ -276,14 +338,15 @@
     var index = 2;
 
     function clearWorkoutsTable() {
-        // index = 2;
-        //TODO falta fazer isto
+        index = 2;
+        $("#workoutTableBody").empty();
+        addRow();
     }
 
     function addRow() {
-        var table = document.getElementById("workoutTable");
-        var len = table.tBodies[0].rows.length + 1;
-        var row = table.insertRow(len);
+        var tbody = document.getElementById("workoutTableBody");
+        var len = tbody.rows.length;
+        var row = tbody.insertRow(len);
 
         //  max id to get params in controller
         var tableSize = document.getElementById("tableSize")
@@ -300,31 +363,39 @@
             "                <option value=\"levantarPesos\">Levantar Pesos</option>\n" +
             "                <option value=\"abdominais\">Abdominais</option>\n" +
             "            </select>";
-        
-        var cellWeight = row.insertCell(2);
-        cellWeight.innerHTML = "<input type=\"number\" pattern=\"[0-9]+(\\.)*[0-9]*\" min=\"0\" class=\"form-control\" name=\"weight" + index + "\" placeholder=\"Ex: 5\" required>";
 
-        var cellNserie = row.insertCell(3);
+        var cellNserie = row.insertCell(2);
         cellNserie.innerHTML = "<input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"nSerie" + index + "\"placeholder=\"Ex: 3\" required>";
 
-        var cellDuration = row.insertCell(4);
+        var cellDuration = row.insertCell(3);
         cellDuration.innerHTML = "<div class=\"d-inline-flex\">\n" +
             "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"duration" + index + "\"placeholder=\"Ex: 5\" required>\n" +
-            "                <select class=\"ml-1 custom-select\" name=\"durationType\" required>\n" +
-            "                    <option value=\"seg\">seg</option>\n" +
-            "                    <option value=\"min\">min</option>\n" +
+            "                <select class=\"ml-1 custom-select\" name=\"durationType" + index + "\" required>\n" +
+            "                    <option value=\"segundos\">seg</option>\n" +
+            "                    <option value=\"minuto(s)\">min</option>\n" +
             "                    <option value=\"vezes\">vezes</option>\n" +
             "                </select>\n" +
             "            </div>";
 
-        var cellRest = row.insertCell(5);
+        var cellRest = row.insertCell(4);
         cellRest.innerHTML = "<div class=\"d-inline-flex\">\n" +
             "                <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"rest" + index + "\" placeholder=\"Ex: 5\" required>\n" +
-            "                <select class=\"ml-1 custom-select\" name=\"restType\" required>\n" +
-            "                    <option value=\"seg\">seg</option>\n" +
-            "                    <option value=\"min\">min</option>\n" +
+            "                <select class=\"ml-1 custom-select\" name=\"restType" + index + "\" required>\n" +
+            "                    <option value=\"segundos\">seg</option>\n" +
+            "                    <option value=\"minuto(s)\">min</option>\n" +
             "                </select>\n" +
             "            </div>";
+
+        var cellTaskRest = row.insertCell(5);
+        cellTaskRest.innerHTML = "<td>\n" +
+            "                <div class=\"d-inline-flex\">\n" +
+            "                    <input type=\"number\" pattern=\"[0-9]+\" min=\"0\" class=\"form-control\" name=\"taskRest" + index + "\" placeholder=\"Ex: 5\" required>\n" +
+            "                    <select class=\"ml-1 custom-select\" name=\"taskRestType" + index + "\" required>\n" +
+            "                        <option value=\"segundos\">seg</option>\n" +
+            "                        <option value=\"minuto(s)\">min</option>\n" +
+            "                    </select>\n" +
+            "                </div>\n" +
+            "            </td>";
 
         var cellEquipment = row.insertCell(6);
         cellEquipment.innerHTML = "<input type=\"text\" class=\"form-control\" name=\"equipment" + index + "\" placeholder=\"Ex: passadeira\">";

@@ -101,8 +101,7 @@ public class WorkThread extends Thread {
             
             
             
-            
-            
+         
             
             String request = "{" +
                     "\"username\": \"" + clientUsername + "\", " +
@@ -124,12 +123,18 @@ public class WorkThread extends Thread {
                 System.exit(1);
             }
             
+           
+            
+            if (i>0) return;
+            
+           
             String reply = "{" +
                     "\"username\": \"" + ptUsername + "\", " +
                     "\"token\": \"" + ptToken + "\", " +
                     "\"clientUsername\": \"" + clientUsername + "\", " +
                     "\"requestId\": " + (i+1) + ", " +
-                    "\"accepted\": true " +
+                    "\"accepted\": true, " +
+                     "\"state\": 1 " +
                     "}";
             
             
@@ -145,8 +150,7 @@ public class WorkThread extends Thread {
             
             
             
-            
-            
+   
             
             
             

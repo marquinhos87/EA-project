@@ -26,6 +26,7 @@ public class Workout {
 	public Date date;
 	public boolean done;
 	public List<Task> tasks = new ArrayList<>();
+	public int totalTime;
 
 	public int getWeekDay() {
 		return weekDay;

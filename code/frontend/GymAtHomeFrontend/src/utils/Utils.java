@@ -126,7 +126,22 @@ public class Utils {
             case 7:
                 return "Domingo";
             default:
-                return "Dia desconhecido";
+                return "---";
+        }
+    }
+
+    public static String prettyPrintLevel(int level) {
+        switch(level){
+            case 0:
+                return "Fácil";
+            case 1:
+                return "Normal";
+            case 2:
+                return "Díficil";
+            case 3:
+                return "Extremo";
+            default:
+                return "---";
         }
     }
 }
