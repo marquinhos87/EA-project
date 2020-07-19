@@ -19,7 +19,7 @@ public class Utils {
     //public static final String SERVER_URL = "192.168.1.3";
 
     //public static final String SERVER_URL = "192.168.1.53";
-    public static final String SERVER_URL = "37.189.223.35";
+    public static final String SERVER_URL = "188.250.66.163";
 
     //public static final String SERVER_URL = "188.250.42.55";
 

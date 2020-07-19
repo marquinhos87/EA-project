@@ -175,9 +175,9 @@
 
                     if(data.sex == "" || data.sex == null)$("#sex").html(message)
                     else {
-                        if(data.sex == m)$("#sex").html("Masculino")
-                        else if(data.sex == f)$("#sex").html("Feminino")
-                        else if(data.sex == m)$("#sex").html("Masculino")
+                        if(data.sex == "m")$("#sex").html("Masculino")
+                        else if(data.sex == "f")$("#sex").html("Feminino")
+                        else if(data.sex == "m")$("#sex").html("Masculino")
                         else $("#sex").html("---")
                     }
 
