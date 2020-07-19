@@ -78,7 +78,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="modal-footer justify-content-center row">
+                <div class="modal-footer justify-content-center">
                     <form method="POST" action="${pageContext.request.contextPath}/MyRequestsPT">
                         <input id="modal-requestId" type="hidden" value="" name="requestId" />
                         <input id="modal-clientUsername" type="hidden" value="" name="clientUsername" />
