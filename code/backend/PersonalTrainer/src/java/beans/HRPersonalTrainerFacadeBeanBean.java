@@ -242,6 +242,8 @@ public class HRPersonalTrainerFacadeBeanBean implements HRPersonalTrainerFacadeB
             PersonalTrainer pt;
             if ( (pt = PersonalTrainerDAO.getPersonalTrainerByORMID(HRPersonalTrainerFacade.getSession(), personalTrainerUsername)) == null) throw new PersonalTrainerNotExistsException(personalTrainerUsername);
             pt.clients.add(client);
+            pt.setNumberOfCreatedPlans(pt.getNumberOfCreatedPlans()+1);
+            pt.setNumberOfClients(pt.getNumberOfClients()+1);
             PersonalTrainerDAO.save(pt);
             System.err.println(client);
             System.err.println("Client saved to database...");

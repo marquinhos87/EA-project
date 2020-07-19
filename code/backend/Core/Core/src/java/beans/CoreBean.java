@@ -178,6 +178,7 @@ public class CoreBean implements CoreBeanLocal {
         JsonElement je = gson.toJsonTree(weeks.get(0), Week.class);
         je.getAsJsonObject().addProperty("numberOfWeeks", plan.weeks.size());
         je.getAsJsonObject().addProperty("currentWeek", plan.getCurrentWeek());
+        je.getAsJsonObject().addProperty("personalTrainerUsername", plan.getPersonalTrainer().getUsername());
         
         return gson.toJson(je);
     }

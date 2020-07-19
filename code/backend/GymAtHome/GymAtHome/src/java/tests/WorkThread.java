@@ -102,25 +102,26 @@ public class WorkThread extends Thread {
             
             
          
-            
-            String request = "{" +
-                    "\"username\": \"" + clientUsername + "\", " +
-                    "\"token\": \"" + clientToken + "\" ," +
-                    "\"personalTrainerUsername\": \"" + ptUsername + "\", " +
-                    "\"numberOfWeeks\": 10, " +
-                    "\"objective\": \"ficar bicho\", " +
-                    "\"workoutPerWeek\": 2, " +
-                    "\"weekDays\": \"1;3;5\", " +
-                    "\"level\": 3 " +
-                    "}";
-            
-            response = Http.post(url + "submitRequest", request);
-            data = response.body().string();
-            response.close();
-            if (gson.fromJson(data, ResponseJSON.class).status.equals("success") == false) {
-                System.err.println("Could not submit request from client - " + clientUsername + " - HTTP status code != 200");
-                System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
-                System.exit(1);
+            for(int k=0; k<25; k++) {
+                String request = "{" +
+                        "\"username\": \"" + clientUsername + "\", " +
+                        "\"token\": \"" + clientToken + "\" ," +
+                        "\"personalTrainerUsername\": \"" + ptUsername + "\", " +
+                        "\"numberOfWeeks\": 10, " +
+                        "\"objective\": \"ficar bicho\", " +
+                        "\"workoutPerWeek\": 2, " +
+                        "\"weekDays\": \"1;3;5\", " +
+                        "\"level\": 3 " +
+                        "}";
+
+                response = Http.post(url + "submitRequest", request);
+                data = response.body().string();
+                response.close();
+                if (gson.fromJson(data, ResponseJSON.class).status.equals("success") == false) {
+                    System.err.println("Could not submit request from client - " + clientUsername + " - HTTP status code != 200");
+                    System.err.println(gson.fromJson(data, ResponseJSON.class).msg.toString());
+                    System.exit(1);
+                }
             }
             
            

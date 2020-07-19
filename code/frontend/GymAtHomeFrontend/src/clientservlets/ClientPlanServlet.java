@@ -39,12 +39,14 @@ public class ClientPlanServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
+
         /*
         session.setAttribute("username", "c0");
-        session.setAttribute("token", "c0LCiPfPXPlsK4dXymOuw1WRUGBAozRg");
+        session.setAttribute("token", "c0AGrvLD8ox972NKtsikaqNcz55oR7lo");
         session.setAttribute("userType", "client");
         // ----------------------------------------------------------------------------
-         */
+        */
+
         username = (String) session.getAttribute("username");
         token = (String) session.getAttribute("token");
         if (username == null || token == null) { // NOT logged in
@@ -61,6 +63,84 @@ public class ClientPlanServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
+
+
+
+
+
+
+
+        String submitClassificationStr = request.getParameter("submitClassification");
+        if (submitClassificationStr != null) {
+
+            String[] arr = submitClassificationStr.split(";");
+
+            int classification = Integer.parseInt(arr[0]);
+            String personalTrainerUsername = arr[1];
+
+            JsonObject jo = new JsonObject();
+            jo.addProperty("username", username);
+            jo.addProperty("token", token);
+            jo.addProperty("personalTrainerUsername", personalTrainerUsername);
+            jo.addProperty("classification", classification);
+
+            Response responseHttp;
+            try {
+                responseHttp = Http.post(Utils.SERVER + "submitClassification", jo.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
+                request.setAttribute("title", "Conexão perdida");
+                Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+                return;
+            }
+            String data = responseHttp.body().string();
+            responseHttp.close();
+            ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
+            System.out.println(rj);
+            if (rj.status.equals("success")) {
+                request.setAttribute("successMessage", "A classificação foi submetida com sucesso.");
+            } else {
+                request.setAttribute("warningMessage", "Neste momento não foi possível submeter a classificação. Tente mais tarde.");
+            }
+        }
+
+
+
+
+
+        request.setAttribute("canSubmitClassification", false);
+
+        JsonObject jo = new JsonObject();
+        jo.addProperty("username", username);
+        jo.addProperty("token", token);
+
+        Response responseHttp;
+        try {
+            responseHttp = Http.post(Utils.SERVER + "hasSubmittedClassification", jo.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
+            request.setAttribute("title", "Conexão perdida");
+            Utils.forward(request, response, "/WEB-INF/Template.jsp", "-", null);
+            return;
+        }
+        String data = responseHttp.body().string();
+        responseHttp.close();
+        ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
+        if (rj.status.equals("success")) {
+            boolean hasSubmittedClassification = rj.data.getAsJsonObject().get("hasSubmittedClassification").getAsBoolean();
+            request.setAttribute("canSubmitClassification", !hasSubmittedClassification);
+        }
+
+
+
+
+
+
+
+
 
         boolean res = getWeek(request, response, selectedWeek);
         if (!res) return;
@@ -122,8 +202,10 @@ public class ClientPlanServlet extends HttpServlet {
                 Week week = gson.fromJson(rj.data.getAsJsonObject(), Week.class);
                 int numberOfWeeks = rj.data.getAsJsonObject().get("numberOfWeeks").getAsInt();
                 int currentWeek = rj.data.getAsJsonObject().get("currentWeek").getAsInt();
+                String personalTrainerUsername = rj.data.getAsJsonObject().get("personalTrainerUsername").getAsString();
                 session.setAttribute("week", week);
                 request.setAttribute("numberOfWeeks", numberOfWeeks);
+                request.setAttribute("personalTrainerUsername", personalTrainerUsername);
                 if (selectedWeek == -1 || currentWeek == selectedWeek) {
                     request.setAttribute("isCurrentWeek", true);
                     request.setAttribute("title", "Semana " + week.number + " (atual)");
@@ -175,7 +257,7 @@ public class ClientPlanServlet extends HttpServlet {
             String data = responseHttp.body().string();
             responseHttp.close();
             ResponseJSON rj = gson.fromJson(data, ResponseJSON.class);
-            System.out.println(rj);
+            //System.out.println(rj);
             if (rj.status.equals("success")) {
                 BiometricData biometricData = gson.fromJson(rj.data, BiometricData.class);
                 request.setAttribute("biometricData", biometricData);

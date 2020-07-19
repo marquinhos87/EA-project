@@ -7,6 +7,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
+
+<!-- Classification Modal -->
+<div class="modal fade" id="modalClassification" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Classificação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span id="star1" class="fa fa-star fa-3x checked" onmouseover="colorStar(1 , <% out.print("'" + (String) request.getAttribute("personalTrainerUsername") + "'"); %>)"></span>
+                <span id="star2" class="fa fa-star fa-3x" onmouseover="colorStar(2,  <% out.print("'" +(String) request.getAttribute("personalTrainerUsername")+ "'"); %>)"></span>
+                <span id="star3" class="fa fa-star fa-3x" onmouseover="colorStar(3, <% out.print("'" +(String) request.getAttribute("personalTrainerUsername")+ "'"); %>)"></span>
+                <span id="star4" class="fa fa-star fa-3x" onmouseover="colorStar(4, <% out.print("'" +(String) request.getAttribute("personalTrainerUsername")+ "'"); %>)"></span>
+                <span id="star5" class="fa fa-star fa-3x" onmouseover="colorStar(5, <% out.print("'" +(String) request.getAttribute("personalTrainerUsername")+ "'"); %>)"></span>
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="${pageContext.request.contextPath}/ClientPlan">
+                    <button type="button" class="btn btn-danger mr-2" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="submitClassification" class="btn btn-success" name="submitClassification" value="1;<% out.print((String) request.getAttribute("personalTrainerUsername")); %>">Submeter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <% if (session.getAttribute("week") != null) { %>
 
 <h4 class="mt-4">Semana ${sessionScope.week.number}
@@ -230,9 +260,12 @@
 
 <% } // end if (biometricData exists) %>
 
+
 <div class="row mt-5">
-    <button type="button" class="p-3 btn btn-primary" disabled>Avaliar Personal Trainer</button>
-    <span class="ml-4 mt-3">*Poderá avaliar o Personal Trainer após a semana X.</span>
+    <% if ( (boolean) request.getAttribute("canSubmitClassification")) {
+        out.print("<button type=\"button\" data-toggle=\"modal\" data-target=\"#modalClassification\" name=\"action\" value=\"submitClassification\" class=\"p-3 btn btn-primary\">Avaliar Personal Trainer</button>\n");
+    }
+    %>
 </div>
 
 <%
@@ -240,3 +273,21 @@
         out.print("<div class=\"justify-content-center my-5\"><h4 class=\"text-center\">Ainda sem plano de treino.</h4></div>");
     }
 %>
+
+<script>
+
+    function colorStar(k, personalTrainerUsername) {
+        for (var i=1; i<=k; i++) {
+            var element = document.getElementById("star" + i);
+            element.classList.add("checked");
+        }
+        for (var i=k+1; i<=5; i++) {
+            var element = document.getElementById("star" + i);
+            element.classList.remove("checked");
+        }
+        var element = document.getElementById("submitClassification");
+        element.setAttribute("value", k + ";" + personalTrainerUsername);
+    }
+
+
+</script>
