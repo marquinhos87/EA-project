@@ -139,6 +139,7 @@ public class LoginServlet extends HttpServlet {
                     message = Utils.UNEXPECTED_ERROR_MSG;
                     break;
             }
+            request.setAttribute("userType", null);
             request.setAttribute("errorMessage", message);
             request.setAttribute("title","Login");
             Utils.forward(request, response, "/WEB-INF/Template.jsp", "Login", null);
