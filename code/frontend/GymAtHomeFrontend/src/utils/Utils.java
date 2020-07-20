@@ -15,8 +15,10 @@ import java.util.Collection;
 public class Utils {
     public static final String PROTOCOL = "http";
 
-    public static final String SERVER_URL = "gymathome";
+    //public static final String SERVER_URL = "gymathome";
+    public static final String SERVER_URL = "localhost";
 
+    //public static final String SERVER_PORT = "8080";
     public static final String SERVER_PORT = "8081";
     public static final String SERVER_CONTROLLER = "GymAtHome";
     public static final String SERVER = PROTOCOL + "://" + SERVER_URL + ":" + SERVER_PORT + "/" + SERVER_CONTROLLER + "/api/";

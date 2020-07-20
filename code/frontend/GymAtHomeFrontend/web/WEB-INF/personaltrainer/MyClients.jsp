@@ -95,7 +95,6 @@
         <th scope="col">Username</th>
         <th scope="col">Avaliações</th>
         <th scope="col">Ver plano atual</th>
-        <th scope="col">Adicionar nova semana</th>
     </tr>
     </thead>
     <tbody>
@@ -119,10 +118,6 @@
             session.setAttribute("clientUsername", client.username);
         %>
         <td><button class="btn btn-success" <% out.print(viewPlanLink); %> >Ver plano</button></td>
-        <form method="post" action="${pageContext.request.contextPath}\CreateWeek">
-            <input type="hidden" value="<%out.print(client.username);%>" name="clientUsername" />
-            <td><button class="btn btn-success">Adicionar Semana</button></td>
-        </form>
     </tr>
     <%}
     }else{%>

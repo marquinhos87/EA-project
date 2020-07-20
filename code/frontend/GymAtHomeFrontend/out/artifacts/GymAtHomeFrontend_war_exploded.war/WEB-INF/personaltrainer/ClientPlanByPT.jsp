@@ -4,6 +4,7 @@
 <%@ page import="javax.resource.spi.work.Work" %>
 <%@ page import="core.WorkoutComparatorByDate" %>
 <%@ page import="core.BiometricData" %>
+<%@ page import="utils.Utils" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
@@ -11,12 +12,25 @@
 
 <h4 class="mt-4">Cliente: @${sessionScope.clientUsername}</h4>
 
-<h4 class="mt-4">Semana ${sessionScope.week.number}
-<%
-    boolean isCurrentWeek = (boolean) request.getAttribute("isCurrentWeek");
-    if (isCurrentWeek) out.print(" (atual)");
-%>
-</h4>
+<div class="row">
+
+    <div class="col-10">
+        <h4 class="mt-4">Semana ${sessionScope.week.number}
+        <%
+            boolean isCurrentWeek = (boolean) request.getAttribute("isCurrentWeek");
+            if (isCurrentWeek) out.print(" (atual)");
+        %>
+        </h4>
+    </div>
+
+    <div class="col-2">
+        <form method="post" action="${pageContext.request.contextPath}\CreateWeek">
+            <button class="btn btn-success">Adicionar Semana</button>
+        </form>
+    </div>
+</div>
+
+
 
 <table class="mt-5 table table-bordered">
     <thead>
@@ -31,7 +45,7 @@
                 for(int i=0, k=0; i<7; i++) {
                     int month = cal.get(Calendar.MONTH);
                     int day = cal.get(Calendar.DAY_OF_MONTH);
-                    out.print("<th class=\"text-center\">Dia " + ((week.number-1) * 7 + (i+1)) + " - " + day + "/" + month + "</th>");
+                    out.print("<th class=\"text-center\"><p>" + Utils.prettyPrintWeekDay(i+1) + "<br>Dia " + ((week.number-1) * 7 + (i+1)) + " - " + day + "/" + month + "</p></th>");
 
                     /* this code creates an array of workouts with each workout in the right index position related to it's week day
                      * this makes the next step (printing table body) much easier */

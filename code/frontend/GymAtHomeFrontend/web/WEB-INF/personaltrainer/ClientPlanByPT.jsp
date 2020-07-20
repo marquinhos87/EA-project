@@ -12,12 +12,25 @@
 
 <h4 class="mt-4">Cliente: @${sessionScope.clientUsername}</h4>
 
-<h4 class="mt-4">Semana ${sessionScope.week.number}
-<%
-    boolean isCurrentWeek = (boolean) request.getAttribute("isCurrentWeek");
-    if (isCurrentWeek) out.print(" (atual)");
-%>
-</h4>
+<div class="row">
+
+    <div class="col-10">
+        <h4 class="mt-4">Semana ${sessionScope.week.number}
+        <%
+            boolean isCurrentWeek = (boolean) request.getAttribute("isCurrentWeek");
+            if (isCurrentWeek) out.print(" (atual)");
+        %>
+        </h4>
+    </div>
+
+    <div class="col-2">
+        <form method="post" action="${pageContext.request.contextPath}\CreateWeek">
+            <button class="btn btn-success">Adicionar Semana</button>
+        </form>
+    </div>
+</div>
+
+
 
 <table class="mt-5 table table-bordered">
     <thead>

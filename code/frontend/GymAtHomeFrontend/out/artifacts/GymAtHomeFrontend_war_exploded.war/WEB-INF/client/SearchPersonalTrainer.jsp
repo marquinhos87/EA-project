@@ -24,26 +24,45 @@
                 <p id="message"></p>
                 <table id="bio" class="table table-striped">
                     <tr>
-                        <th>email</th>
+                        <th>Email</th>
                         <td id="email"></td>
                     </tr>
                     <tr>
-                        <th>sex</th>
+                        <th>Género</th>
                         <td id="sex"></td>
                     </tr>
                     <tr>
-                        <th>skill</th>
+                        <th>Especialidade</th>
                         <td id="skill"></td>
                     </tr>
                     <tr>
-                        <th>price</th>
+                        <th>Preço</th>
                         <td id="price"></td>
+                    </tr>
+                    <tr>
+                        <th>Classificação</th>
+                        <td id="classification"></td>
+                    </tr>
+                    <tr>
+                        <th>Nº de Classificações</th>
+                        <td id="nClassifications"></td>
+                    </tr>
+                    <tr>
+                        <th>Nº de Clientes</th>
+                        <td id="nClients"></td>
+                    </tr>
+                    <tr>
+                        <th>Nº de Planos</th>
+                        <td id="nPlans"></td>
                     </tr>
 
                 </table>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+                <form class="d-inline-flex" method="get" action="${pageContext.request.contextPath}\MakeRequest">
+                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Voltar</button>
+                    <button type="submit" id="personalTrainerUsername" name="PTUsername" value="" class="btn btn-primary text-white font-weight-normal border-0">Requisitar Plano</button>
+                </form>
             </div>
         </div>
     </div>
@@ -108,30 +127,33 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <td style="width: 15%">Perfil do PersonalTrainer</td>
-                        <td style="width: 15%">Username</td>
-                        <td style="width: 35%">Nome</td>
-                        <td style="width: 10%">Categoria</td>
-                        <td style="width: 10%">Género</td>
-                        <td style="width: 10%">Idade</td>
-                        <td style="width: 10%">Classificação</td>
-                        <td style="width: 10%">Preço</td>
+                        <td style="width: 12.5%">Perfil do PersonalTrainer</td>
+                        <td style="width: 10%">Username</td>
+                        <td style="width: 18.5%">Nome</td>
+                        <td style="width: 9%">Categoria</td>
+                        <td style="width: 9%">Género</td>
+                        <td style="width: 8%">Idade</td>
+                        <td style="width: 9%">Classificação</td>
+                        <td style="width: 8%">Preço</td>
+                        <td style="width: 16%">Requisitar Plano</td>
                     </tr>
                 </thead>
                 <tbody>
                     <%
                         Collection<PersonalTrainer> pts = (Collection<PersonalTrainer>) request.getAttribute("personalTrainers");
                         for(PersonalTrainer pt: pts) {
-                            String url = request.getContextPath() + "/PersonalTrainerProfile?personalTrainerUsername=" + pt.username;
-                            out.print("<td><button onclick=\"getPT('" + Utils.PROTOCOL + "', '" + Utils.SERVER_URL + "', '" + Utils.SERVER_PORT + "', '" + Utils.SERVER_CONTROLLER + "','" + session.getAttribute("username") + "', '" + session.getAttribute("token") + "', " + pt.username +");\" type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">perfil</button></td>");
-                            out.print("<tr onclick=\"document.location='" + url + "';\">");
+                            out.print("<tr>");
+                            out.print("<td><button onclick=\"getPT('" + Utils.PROTOCOL + "', '" + Utils.SERVER_URL + "', '" + Utils.SERVER_PORT + "', '" + Utils.SERVER_CONTROLLER + "','" + session.getAttribute("username") + "', '" + session.getAttribute("token") + "', '" + pt.username +"');\" type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">Perfil</button></td>");
                             out.print("<td>@" + pt.username + "</td>");
                             out.print("<td>" + pt.name + "</td>");
                             out.print("<td>" + pt.skill + "</td>");
-                            out.print("<td>" + pt.sex + "</td>");
+                            out.print("<td>" + Utils.prettyPrintGenre(pt.sex) + "</td>");
                             out.print("<td>" + pt.age + "</td>");
                             out.print("<td>" + pt.classification + "</td>");
-                            out.print("<td>" + pt.price + "</td>");
+                            out.print("<td>" + pt.price + "€</td>");
+                            out.print("<td><form class=\"d-inline-flex\" method=\"get\" action=\"" + request.getContextPath() + "\\MakeRequest\">\n" +
+                                    "                    <button type=\"submit\" id=\"personalTrainerUsername\" name=\"PTUsername\" value=\"" + pt.username + "\" class=\"btn btn-primary text-white font-weight-normal border-0\">Requisitar Plano</button>\n" +
+                                    "                </form></td>");
                             out.print("</tr>");
                         }
                     %>
@@ -148,7 +170,7 @@
 
 <script type="text/javascript">
 
-    function getPT(protocol, ip, port, controller, username, token, id, personalTrainerUsername) {
+    function getPT(protocol, ip, port, controller, username, token, personalTrainerUsername) {
 
         var path = "/" + controller + "/api/"
 
@@ -178,7 +200,22 @@
                 else $("#skill").html(data.skill)
 
                 if(data.price == 0 || data.price == null)$("#price").html(message)
-                else $("#price").html(data.price + " euros")
+                else $("#price").html(data.price + "€")
+
+                if(data.classification == null)$("#classifications").html(message)
+                else $("#classification").html(data.classification)
+
+                if(data.nClassifications == null)$("#nClassifications").html(message)
+                else $("#nClassifications").html(data.nClassifications)
+
+                if(data.nClients == null)$("#nClients").html(message)
+                else $("#nClients").html(data.nClients)
+
+                if(data.nPlans == null)$("#nPlans").html(message)
+                else $("#nPlans").html(data.nPlans)
+
+                var PTUsername = document.getElementById("personalTrainerUsername")
+                PTUsername.value = personalTrainerUsername
             },
             error: function () {
                 $("#aceitar").css("display", "none")
