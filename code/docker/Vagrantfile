@@ -1,0 +1,60 @@
+PUBLIC_KEY = File.read(File.expand_path("~/.ssh/id_rsa.pub")).strip
+
+Vagrant.configure("2") do |config|
+
+  # variaveis de ambiente
+  config.env.enable
+
+  # sistema operativo
+  config.vm.box = "ubuntu/xenial64"
+
+  # recursos das máquinas
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+    vb.cpus = "1"
+    # vb.memory = "4096"
+    # vb.cpus = "4"
+  end
+
+  config.vm.define "vm2" do |vm2|
+    vm2.vm.network "private_network", ip: "10.0.0.102"
+    vm2.vm.hostname = "vm2"
+  end
+
+  config.vm.define "vm3" do |vm3|
+    vm3.vm.network "private_network", ip: "10.0.0.103"
+    vm3.vm.hostname = "vm3"
+  end
+
+  config.vm.define "vm1" do |vm1|
+    vm1.vm.network "private_network", ip: "10.0.0.101"
+    vm1.vm.hostname = "vm1"
+
+    # apenas fazemos port foward na VM1 pois o MASTER automaticamente faz o balanceamento para as restantes VMs
+    vm1.vm.network "forwarded_port", guest: 2377, host: 2377 # docker swarm management port (para que as máquinas Slaves possam juntar-se ao cluster)
+    vm1.vm.network "forwarded_port", guest: 7946, host: 7946, protocol: "udp" # for container network discovery
+    vm1.vm.network "forwarded_port", guest: 7946, host: 7946, protocol: "tcp" # for container network discovery
+    vm1.vm.network "forwarded_port", guest: 4789, host: 4789, protocol: "udp" # for the container ingress network
+    vm1.vm.network "forwarded_port", guest: ENV['FRONTEND_PORT'], host: ENV['FRONTEND_PORT'] # GymAtHomeFrontend
+    vm1.vm.network "forwarded_port", guest: ENV['BACKEND_PORT'], host: ENV['BACKEND_PORT'] # GymAtHome
+    vm1.vm.network "forwarded_port", guest: ENV['ADMINER_PORT'], host: ENV['ADMINER_PORT'] # Adminer
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get -y update
+  	apt-get -y upgrade 
+  	apt-get -y autoremove 
+  	apt-get install -y vim
+    echo "#{PUBLIC_KEY}" >> /home/vagrant/.ssh/authorized_keys
+
+    sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo apt-key fingerprint 0EBFCD88
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    sudo apt-get -y update
+    sudo apt-get -y install docker-ce
+    sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-` uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+  SHELL
+
+end
