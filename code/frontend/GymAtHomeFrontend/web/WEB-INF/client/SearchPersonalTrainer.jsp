@@ -1,5 +1,6 @@
 <%@ page import="core.PersonalTrainer" %>
 <%@ page import="java.util.Collection" %>
+<%@ page import="utils.Utils" %>
 <%--
   Created by IntelliJ IDEA.
   User: joaomarques
@@ -8,6 +9,46 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title-pop-up"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="message"></p>
+                <table id="bio" class="table table-striped">
+                    <tr>
+                        <th>email</th>
+                        <td id="email"></td>
+                    </tr>
+                    <tr>
+                        <th>sex</th>
+                        <td id="sex"></td>
+                    </tr>
+                    <tr>
+                        <th>skill</th>
+                        <td id="skill"></td>
+                    </tr>
+                    <tr>
+                        <th>price</th>
+                        <td id="price"></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
         <form class="mt-2" method="post" action="${pageContext.request.contextPath}\SearchPersonalTrainer">
@@ -67,6 +108,7 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
+                        <td style="width: 15%">Perfil do PersonalTrainer</td>
                         <td style="width: 15%">Username</td>
                         <td style="width: 35%">Nome</td>
                         <td style="width: 10%">Categoria</td>
@@ -82,6 +124,7 @@
                         for(PersonalTrainer pt: pts) {
                             String url = request.getContextPath() + "/PersonalTrainerProfile?personalTrainerUsername=" + pt.username;
                             out.print("<tr onclick=\"document.location='" + url + "';\">");
+                            out.print("<td><button onclick=\"getPT('" + Utils.PROTOCOL + "', '" + Utils.SERVER_URL + "', '" + Utils.SERVER_PORT + "', '" + Utils.SERVER_CONTROLLER + "','" + session.getAttribute("username") + "', '" + session.getAttribute("token") + "', " + pt.username +");\" type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">perfil</button></td>");
                             out.print("<td>@" + pt.username + "</td>");
                             out.print("<td>" + pt.name + "</td>");
                             out.print("<td>" + pt.skill + "</td>");
@@ -102,3 +145,48 @@
         <%}%>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    function getPT(protocol, ip, port, controller, username, token, id, personalTrainerUsername) {
+
+        var path = "/" + controller + "/api/"
+
+        $.ajax({
+            url: protocol + '://' + ip + ':' + port + path + 'getPersonalTrainerProfileByClient',
+            cache: false,
+            async: false,
+            method: 'POST',
+            dataType: 'json',
+            data: JSON.stringify({
+                username: username,
+                token: token,
+                personalTrainerUsername: personalTrainerUsername
+            }),
+            success: function(jsonResponse) {
+                var message = " --- "
+                data = jsonResponse.data
+                $('#title-pop-up').html("Dados de " + data.name + " (@" + personalTrainerUsername + ")")
+
+                if(data.email == 0 || data.email == null)$("#email").html(message)
+                else $("#email").html(data.email)
+
+                if(data.sex == "" || data.sex == null)$("#sex").html(message)
+                else $("#sex").html(data.sex)
+
+                if(data.skill == 0 || data.skill == null)$("#skill").html(message)
+                else $("#skill").html(data.skill)
+
+                if(data.price == 0 || data.price == null)$("#price").html(message)
+                else $("#price").html(data.price + " euros")
+            },
+            error: function () {
+                $("#aceitar").css("display", "none")
+                $("#rejeitar").css("display", "none")
+                $("#bio").css("display", "none")
+                $("#title-pop-up").html("Erro interno do sistema")
+                $("#message").html("Não foi possível obter o perfil do personal trainer. Tente mais tarde ou contacte o suporte.")
+            }
+        })
+    }
+</script>
