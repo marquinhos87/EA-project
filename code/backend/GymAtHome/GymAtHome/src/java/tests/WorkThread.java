@@ -21,7 +21,7 @@ import utils.Http;
  */
 public class WorkThread extends Thread { 
     
-    private static final String url = "http://37.189.223.35:8081/GymAtHome/api/";
+    private static final String url = JMeter.url;
     private final int i;
     private final Gson gson;
     private final FileWriter cf;
@@ -102,7 +102,7 @@ public class WorkThread extends Thread {
             
             
          
-            for(int k=0; k<25; k++) {
+            for(int k=0; k<5; k++) {
                 String request = "{" +
                         "\"username\": \"" + clientUsername + "\", " +
                         "\"token\": \"" + clientToken + "\" ," +

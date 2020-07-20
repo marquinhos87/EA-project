@@ -25,7 +25,7 @@ public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
     private final Gson gson;
     
-    private final static String IP = "37.189.223.35";
+    private final static String IP = "188.250.66.163";
     
     private static String IPclients = "188.250.39.126"; // "188.250.39.126";
     private static String IPpts = "188.250.39.126";
