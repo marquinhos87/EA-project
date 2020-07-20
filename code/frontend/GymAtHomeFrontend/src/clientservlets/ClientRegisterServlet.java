@@ -96,7 +96,7 @@ public class ClientRegisterServlet extends HttpServlet {
                         responseHttp = Http.post(Utils.SERVER + "createClient",jo.toString());
                     } catch (Exception e){
                         e.printStackTrace();
-                        request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                        request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
                         request.getSession().setAttribute("username", null);
                         request.getSession().setAttribute("token", null);
                         request.getSession().setAttribute("userType",null);
@@ -121,20 +121,20 @@ public class ClientRegisterServlet extends HttpServlet {
                         Utils.redirect(request,response,"/MyProfileClient");
                     }
                     else {
-                        request.setAttribute("errorMessage", "Erro interno.");
+                        request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                         request.setAttribute("title","Registar Cliente");
                         Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                    request.setAttribute("errorMessage", "Erro interno no sistema.");
+                    request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                     request.setAttribute("title","Registar Cliente");
                     Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
                 }
             }
             else {
-                request.setAttribute("errorMessage","Passwords não iguais.");
+                request.setAttribute("errorMessage","Passwords não coincidem.");
                 request.setAttribute("title","Registar Cliente");
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientRegister",null);
             }

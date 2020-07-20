@@ -73,7 +73,7 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                     }
                     catch (IOException e) {
                         e.printStackTrace();
-                        request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                        request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
                         request.getSession().setAttribute("username", null);
                         request.getSession().setAttribute("token", null);
                         request.getSession().setAttribute("userType", null);
@@ -97,14 +97,14 @@ public class PersonalTrainerRegisterServlet extends HttpServlet {
                         Utils.redirect(request,response,"/MyProfilePersonalTrainer");
                     }
                     else {
-                        request.setAttribute("errorMessage", "Erro interno.");
+                        request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                         request.setAttribute("title","Registar PT");
                         Utils.forward(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
                     }
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                    request.setAttribute("errorMessage", "Erro interno.");
+                    request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                     request.setAttribute("title","Registar PT");
                     Utils.forward(request,response,"/WEB-INF/Template.jsp","PersonalTrainerRegister",null);
                 }

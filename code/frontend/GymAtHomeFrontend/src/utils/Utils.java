@@ -30,7 +30,7 @@ public class Utils {
     public static final String SERVER = PROTOCOL + "://" + SERVER_URL + ":" + SERVER_PORT + "/" + SERVER_CONTROLLER + "/api/";
 
     public static final String CONNECTION_LOST_MSG = "A ligação ao servidor foi perdida! Por favor tente recarregar a página. Caso não funcione, contacte o apio ao cliente.";
-    public static final String UNEXPECTED_ERROR_MSG = "Erro interno! Por favor tente recarregar a página. Caso não funcione, contacte o apio ao cliente.";
+    public static final String UNEXPECTED_ERROR_MSG = "Erro interno! Por favor tente recarregar a página. Caso o erro persista contacte o apoio ao cliente.";
 
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
         byte[] arr = password.getBytes();

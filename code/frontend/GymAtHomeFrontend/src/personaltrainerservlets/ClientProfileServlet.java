@@ -45,7 +45,7 @@ public class ClientProfileServlet extends HttpServlet {
             }
             catch (IOException e) {
                 e.printStackTrace();
-                request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
                 request.getSession().setAttribute("userType", null);
@@ -82,7 +82,7 @@ public class ClientProfileServlet extends HttpServlet {
                 Utils.forward(request,response,"/WEB-INF/Template.jsp","ClientProfile",null);
             }
             else {
-                request.setAttribute("errorMessage","Erro interno.");
+                request.setAttribute("errorMessage",Utils.UNEXPECTED_ERROR_MSG);
                 request.getSession().setAttribute("username", null);
                 request.getSession().setAttribute("token", null);
                 request.getSession().setAttribute("userType", null);

@@ -109,7 +109,7 @@ public class MyProfileClientServlet extends HttpServlet {
                 }
                 catch (IOException e) {
                     e.printStackTrace();
-                    request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                    request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
                     session.setAttribute("username",null);
                     session.setAttribute("token",null);
                     session.setAttribute("userType",null);
@@ -128,7 +128,7 @@ public class MyProfileClientServlet extends HttpServlet {
                     Utils.redirect(request, response, "/MyProfileClient");
                 } else {
                     // TODO improve by checking the error (if it's a invalid token we have to send the client to login page)
-                    request.setAttribute("errorMessage", "Erro interno.");
+                    request.setAttribute("errorMessage", Utils.UNEXPECTED_ERROR_MSG);
                     Utils.forward(request, response, "/WEB-INF/Template.jsp", "MyProfileClient", null);
                 }
             }
@@ -150,7 +150,7 @@ public class MyProfileClientServlet extends HttpServlet {
             responseHttp = Http.post(Utils.SERVER + "getClientProfileByClient",jo.toString());
         } catch (IOException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+            request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
             session.setAttribute("username",null);
             session.setAttribute("token",null);
             session.setAttribute("userType",null);

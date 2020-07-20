@@ -90,7 +90,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
                 }
                 catch (IOException e) {
                     e.printStackTrace();
-                    request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+                    request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
                     session.setAttribute("username", null);
                     session.setAttribute("token", null);
                     session.setAttribute("userType", null);
@@ -132,7 +132,7 @@ public class MyProfilePersonalTrainerServlet extends HttpServlet {
             responseHttp = Http.post(Utils.SERVER + "getPersonalTrainerProfileByPersonalTrainer",jo.toString());
         } catch (IOException e) {
             e.printStackTrace();
-            request.setAttribute("errorMessage", "Não foi possível conectar ao servidor.");
+            request.setAttribute("errorMessage", Utils.CONNECTION_LOST_MSG);
             session.setAttribute("username", null);
             session.setAttribute("token", null);
             session.setAttribute("userType", null);
