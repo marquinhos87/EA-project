@@ -9,11 +9,11 @@ services:
     ports:
       - "8000:8080"
 
-  #frontend:
-    #image: frontend
-    #build: frontend/
-    #ports:
-      #- "8080:8080"
+  frontend:
+    image: frontend
+    build: frontend/
+    ports:
+      - "8080:8080"
 
   gymathome:
       image: gymathome
@@ -28,13 +28,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: core
-    ports: 
-      - "5002:3306"
   core:
     image: core
     build: core/
-    ports:
-      - "8082:8080"
 
   clientdb:
     image: mysql
@@ -43,13 +39,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: clients
-    ports: 
-      - "5003:3306"
   client:
     image: client
     build: client/
-    ports:
-      - "8083:8080"
 
   ptdb:
     image: mysql
@@ -58,13 +50,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: personaltrainer
-    ports: 
-      - "5004:3306"
   pt:
     image: pt
     build: pt/
-    ports:
-      - "8084:8080"
 
   requestdb:
     image: mysql
@@ -73,13 +61,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: requests
-    ports: 
-      - "5005:3306"
   request:
     image: request
     build: request/
-    ports:
-      - "8085:8080"
       
   notificationdb:
     image: mysql
@@ -88,10 +72,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: notification
-    ports: 
-      - "5006:3306"
   notification:
     image: notification
     build: notification/
-    ports:
-      - "8086:8080"
