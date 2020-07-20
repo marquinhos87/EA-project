@@ -21,7 +21,7 @@ import utils.Http;
 public class JMeter {
     
     public static final String url = "http://188.250.66.163:8081/GymAtHome/api/";
-    public static final int N = 10;   
+    public static final int N = 1000;   
     private static final Gson gson = new Gson();
     
     public static void main(String[] args) throws IOException {
@@ -35,22 +35,39 @@ public class JMeter {
             System.exit(1);
         } 
        
-        File clientsFile = new File("../../../docker/jmeter/clients-data.csv");
-        if (clientsFile.delete());
-        FileWriter cf = new FileWriter(clientsFile);
         
-        File ptsFile = new File("../../../docker/jmeter/pts-data.csv");
-        if (ptsFile.delete());
-        FileWriter ptf = new FileWriter(ptsFile);
+        
+        File f = new File("../../../docker/jmeter/login/clients-data.csv");
+        if (f.delete());
+        FileWriter cf_login = new FileWriter(f);
+        
+        f = new File("../../../docker/jmeter/register/clients-data.csv");
+        if (f.delete());
+        FileWriter cf_register = new FileWriter(f);
+        
+        
+        
+        f = new File("../../../docker/jmeter/login/pts-data.csv");
+        if (f.delete());
+        FileWriter ptf_login = new FileWriter(f);
+        
+        f = new File("../../../docker/jmeter/register/pts-data.csv");
+        if (f.delete());
+        FileWriter ptf_register = new FileWriter(f);
+        
+        
        
         for(int i=0; i<N; i++) {
-            WorkThread wh = new WorkThread(i, gson, cf, ptf);
+            WorkThread wh = new WorkThread(i, gson, cf_login, cf_register, ptf_login, ptf_register);
             wh.run(); // eu sei que aqui está o run() que é diferente do start() - foi propositado (eu quero sequencial aqui)...
+            if (i%50 == 0) System.out.println("written " + i + " clients/ pts");
         } 
         
 
-        cf.close();
-        ptf.close();
+        cf_login.close();
+        cf_register.close();
+        ptf_login.close();
+        ptf_register.close();
         System.out.println("DONE!!!");
     
     }

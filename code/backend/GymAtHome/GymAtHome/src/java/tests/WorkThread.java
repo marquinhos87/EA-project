@@ -24,14 +24,18 @@ public class WorkThread extends Thread {
     private static final String url = JMeter.url;
     private final int i;
     private final Gson gson;
-    private final FileWriter cf;
-    private final FileWriter ptf;
+    private final FileWriter cf_login;
+    private final FileWriter ptf_login;
+    private final FileWriter cf_register;
+    private final FileWriter ptf_register;
 
-    public WorkThread(int i, Gson gson, FileWriter cf, FileWriter ptf) {
+    public WorkThread(int i, Gson gson, FileWriter cf_login, FileWriter cf_register, FileWriter ptf_login, FileWriter ptf_register) {
         this.i = i;
         this.gson = gson;
-        this.cf = cf;
-        this.ptf = ptf;
+        this.cf_login = cf_login;
+        this.ptf_login = ptf_login;
+        this.cf_register = cf_register;
+        this.ptf_register = ptf_register;
     }
         
     @Override
@@ -60,7 +64,8 @@ public class WorkThread extends Thread {
             }
             String clientToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
             //System.out.println("client token = " + clientToken);
-            cf.write("{ \"username\": \"" + clientUsername + "\", \"password\": \"password\" }\n");
+            cf_login.write("{ \"username\": \"" + clientUsername + "\", \"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\" }\n");
+            cf_register.write(clientJSON + "\n");
             
             
             
@@ -92,7 +97,8 @@ public class WorkThread extends Thread {
             }
             String ptToken = gson.fromJson(data, ResponseJSON.class).data.getAsJsonObject().get("token").getAsString();
             //System.out.println("pt token = " + ptToken);
-            ptf.write("{ \"username\": \"" + ptUsername + "\", \"password\": \"password\" }\n");
+            ptf_login.write("{ \"username\": \"" + ptUsername + "\", \"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\" }\n");
+            ptf_register.write(ptJSON + "\n");
             
             
             

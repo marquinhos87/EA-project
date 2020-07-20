@@ -114,10 +114,9 @@ public class HRClientFacadeBean implements HRClientFacadeBeanLocal {
         if((user = UserDAO.getUserByORMID(username)) == null)
             throw new ClientDoesNotExistException(username);
         oldToken = user.getToken();
-        String newToken = Utils.tokenGenerate(client.getUsername());
+        String newToken = Utils.tokenGenerate(username);
         user.setToken(newToken);
         UserDAO.save(user);                     //  update token
-        session.merge(client);                 //  update username of client
         session.flush();
         return "{ \"oldToken\": \"" + oldToken + "\", " +
                         "\"newToken\": \"" + newToken + "\" }";
