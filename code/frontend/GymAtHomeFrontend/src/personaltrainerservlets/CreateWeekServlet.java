@@ -2,7 +2,6 @@ package personaltrainerservlets;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import core.*;
 import okhttp3.Response;
@@ -16,8 +15,6 @@ import parseJSON.serializer.WorkoutSerializer;
 import utils.Http;
 import utils.Utils;
 
-import javax.resource.spi.work.Work;
-import javax.rmi.CORBA.Util;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @WebServlet(name = "CreateWeekServlet", urlPatterns = "/CreateWeek")

@@ -144,4 +144,17 @@ public class Utils {
                 return "---";
         }
     }
+
+    public static String prettyPrintGenre(String sex) {
+        switch(sex){
+            case "m":
+                return "Masculino";
+            case "f":
+                return "Feminino";
+            case "o":
+                return "Outro";
+            default:
+                return "---";
+        }
+    }
 }

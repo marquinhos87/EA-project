@@ -25,20 +25,36 @@
                 <p id="message"></p>
                 <table id="bio" class="table table-striped">
                     <tr>
-                        <th>email</th>
+                        <th>Email</th>
                         <td id="email"></td>
                     </tr>
                     <tr>
-                        <th>sex</th>
+                        <th>Género</th>
                         <td id="sex"></td>
                     </tr>
                     <tr>
-                        <th>skill</th>
+                        <th>Especialidade</th>
                         <td id="skill"></td>
                     </tr>
                     <tr>
-                        <th>price</th>
+                        <th>Preço</th>
                         <td id="price"></td>
+                    </tr>
+                    <tr>
+                        <th>Classificação</th>
+                        <td id="classification"></td>
+                    </tr>
+                    <tr>
+                        <th>Nº de Classificações</th>
+                        <td id="nClassifications"></td>
+                    </tr>
+                    <tr>
+                        <th>Nº de Clientes</th>
+                        <td id="nClients"></td>
+                    </tr>
+                    <tr>
+                        <th>Nº de Planos</th>
+                        <td id="nPlans"></td>
                     </tr>
 
                 </table>
@@ -147,7 +163,19 @@
                 else $("#skill").html(data.skill)
 
                 if(data.price == 0 || data.price == null)$("#price").html(message)
-                else $("#price").html(data.price + " euros")
+                else $("#price").html(data.price + "€")
+
+                if(data.classification == null)$("#classifications").html(message)
+                else $("#classification").html(data.classification)
+
+                if(data.nClassifications == null)$("#nClassifications").html(message)
+                else $("#nClassifications").html(data.nClassifications)
+
+                if(data.nClients == null)$("#nClients").html(message)
+                else $("#nClients").html(data.nClients)
+
+                if(data.nPlans == null)$("#nPlans").html(message)
+                else $("#nPlans").html(data.nPlans)
             },
             error: function () {
                 $("#aceitar").css("display", "none")

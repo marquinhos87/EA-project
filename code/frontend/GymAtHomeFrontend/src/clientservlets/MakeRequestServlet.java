@@ -60,6 +60,8 @@ public class MakeRequestServlet extends HttpServlet {
 
                 Response responseHttp;
 
+                System.err.println(jo.toString());
+
                 try {
                     responseHttp = Http.post(Utils.SERVER + "submitRequest",jo.toString());
                 }
@@ -79,8 +81,10 @@ public class MakeRequestServlet extends HttpServlet {
 
                 responseHttp.close();
 
+                System.err.println(responseObject);
+
                 if(responseObject.status.equals("success")) {
-                    Utils.redirect(request,response,"/MyProfileClient");
+                    Utils.redirect(request,response,"/RequestsClient");
                 }
                 else {
                     request.setAttribute("personalTrainerUsername",personalTrainerUsername);
@@ -91,7 +95,7 @@ public class MakeRequestServlet extends HttpServlet {
             }
             else {
                 request.setAttribute("personalTrainerUsername",personalTrainerUsername);
-                request.setAttribute("warningMessage","Tem de selecionar pelo menos um dia da semana.");
+                request.setAttribute("warningMessage","Neste momento não foi possível carregar os dados biométricos. Tente recarregar a página.");
                 request.setAttribute("title","Formulário");
                 Utils.forward(request, response, "/WEB-INF/Template.jsp", "MakeRequest", null);
             }
@@ -118,9 +122,10 @@ public class MakeRequestServlet extends HttpServlet {
             Utils.forward(request,response,"/WEB-INF/Template.jsp","Login",null);
         }
         else {
-            String personalTrainerUsername = request.getParameter("personalTrainerUsername");
+            String personalTrainerUsername = request.getParameter("PTUsername");
+            System.err.println(personalTrainerUsername);
             if(personalTrainerUsername==null)
-                Utils.redirect(request,response,"MyProfileClient");
+                Utils.redirect(request,response,"/MyProfileClient");
             else {
                 request.setAttribute("personalTrainerUsername",personalTrainerUsername);
                 request.setAttribute("title", "Formulário");

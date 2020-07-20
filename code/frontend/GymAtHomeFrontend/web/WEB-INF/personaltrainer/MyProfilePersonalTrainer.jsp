@@ -94,10 +94,11 @@
                     </div>
                 </div>
                 <div class="col-md-6 d-inline-flex">
-                    <label class="col-md-5 col-form-label">Data de Nascimento:</label>
-                    <div class="col-md-7">
-                        <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
-                            <input type="date" class="form-control" name="birthday" value="${requestScope.birthday!=null ? requestScope.birthday : ""}" placeholder="${requestScope.birthday!=null ? requestScope.birthday : "Selecione a data"}">
+                    <label class="col-md-5 col-form-label">Preço:</label>
+                    <div class="col-md-7 d-inline-flex">
+                        <input type="text" pattern="[0-9]+[.]?[0-9]?[0-9]?" class="form-control" name="price" value="${requestScope.price!=null ? requestScope.price : ""}" placeholder="${requestScope.price!=null ? requestScope.price : "Ex: 9.99"}">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">€</div>
                         </div>
                     </div>
                 </div>
@@ -110,11 +111,10 @@
                     </div>
                 </div>
                 <div class="col-md-6 d-inline-flex">
-                    <label class="col-md-5 col-form-label">Preço:</label>
-                    <div class="col-md-7 d-inline-flex">
-                        <input type="text" pattern="[0-9]+[.]?[0-9]?[0-9]?" class="form-control" name="price" value="${requestScope.price!=null ? requestScope.price : ""}" placeholder="${requestScope.price!=null ? requestScope.price : "Ex: 9.99"}">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">€</div>
+                    <label class="col-md-5 col-form-label">Data de Nascimento:</label>
+                    <div class="col-md-7">
+                        <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker" inline="true">
+                            <input type="date" class="form-control" name="birthday" value="${requestScope.birthday!=null ? requestScope.birthday : ""}" placeholder="${requestScope.birthday!=null ? requestScope.birthday : "Selecione a data"}">
                         </div>
                     </div>
                 </div>
