@@ -38,12 +38,13 @@ public class ClientPlanByPTServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         session = request.getSession();
-        /*
-        session.setAttribute("username", "c0");
-        session.setAttribute("token", "c0LCiPfPXPlsK4dXymOuw1WRUGBAozRg");
-        session.setAttribute("userType", "client");
+
+        session.setAttribute("username", "pt0");
+        session.setAttribute("token", "pt0nQvbeY1nIxZwxzuoUzmhG6odaK9vi");
+        session.setAttribute("userType", "pt");
+        session.setAttribute("clientUsername", "c0");
         // ----------------------------------------------------------------------------
-         */
+
         username = (String) session.getAttribute("username");
         token = (String) session.getAttribute("token");
         if (username == null || token == null) { // NOT logged in
@@ -130,8 +131,10 @@ public class ClientPlanByPTServlet extends HttpServlet {
                 Week week = gson.fromJson(rj.data.getAsJsonObject(), Week.class);
                 int numberOfWeeks = rj.data.getAsJsonObject().get("numberOfWeeks").getAsInt();
                 int currentWeek = rj.data.getAsJsonObject().get("currentWeek").getAsInt();
+                int planId = rj.data.getAsJsonObject().get("planId").getAsInt();
                 session.setAttribute("week", week);
                 request.setAttribute("numberOfWeeks", numberOfWeeks);
+                session.setAttribute("planId", planId);
                 if (selectedWeek == -1 || currentWeek == selectedWeek) {
                     request.setAttribute("isCurrentWeek", true);
                     request.setAttribute("title", "Semana " + week.number + " (atual)");

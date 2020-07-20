@@ -24,36 +24,16 @@ import javax.servlet.http.HttpServletResponse;
 public class GymAtHomeBean implements GymAtHomeBeanLocal {
 
     private final Gson gson;
-    
-    private final static String IP = "188.250.66.163";
-    
-    private static String IPclients = "188.250.39.126"; // "188.250.39.126";
-    private static String IPpts = "188.250.39.126";
-    private static String IPcore = "192.168.1.139"; //"192.168.1.139"; 
-    private static String IPrequests = "188.250.39.126"; // "188.250.39.126";
-    private static String IPnotifications = "188.250.39.126";
-    
-    public static String clients;
-    public static String pts;
-    public static String core;
-    public static String requests;
-    public static String notifications;
+
+    public static final String clients = "http://client:8080/Clients/api/";
+    public static final String pts = "http://pt:8080/PersonalTrainer/api/";
+    public static final String core = "http://core:8080/Core/api/";
+    public static final String requests = "http://request:8080/Request/api/";
+    public static final String notifications = "http://notification:8080/Notification/api/";
     
     
     public GymAtHomeBean() {
         gson = new GsonBuilder().create();
-        if(!IP.equals("")) {
-            IPclients = IP;
-            IPpts = IP;
-            IPcore = IP;
-            IPrequests = IP;
-            IPnotifications = IP;
-        }
-        clients = "http://" + IPclients + ":8083/Clients/api/";
-        pts = "http://" + IPpts + ":8084/PersonalTrainer/api/";
-        core = "http://" + IPcore + ":8082/Core/api/";
-        requests = "http://" + IPrequests + ":8085/Request/api/";
-        notifications = "http://" + IPnotifications + ":8086/Notification/api/";
     }
 
     /**

@@ -20,8 +20,8 @@ import utils.Http;
  */
 public class JMeter {
     
-    public static final String url = "http://188.250.66.163:8081/GymAtHome/api/";
-    public static final int N = 1000;   
+    public static final String url = "http://localhost:8081/GymAtHome/api/";
+    public static final int N = 10;   
     private static final Gson gson = new Gson();
     
     public static void main(String[] args) throws IOException {

@@ -80,7 +80,7 @@ public class CreateWeekServlet extends HttpServlet {
 
         //TODO fix Request not available after fst week
         String clientUsername = (String) session.getAttribute("clientUsername");
-        // fst week
+        // NOT fst week
         if (r == null) {
             r = new Request();
             r.setID(-1);
@@ -232,6 +232,9 @@ public class CreateWeekServlet extends HttpServlet {
                 jo.addProperty("username", username);
                 jo.addProperty("token", token);
                 jo.addProperty("clientUsername", r.clientUsername);
+                if (session.getAttribute("planId") != null) {
+                    jo.addProperty("planId", (int) session.getAttribute("planId"));
+                }
 
                 Response responseHttp;
                 try {
