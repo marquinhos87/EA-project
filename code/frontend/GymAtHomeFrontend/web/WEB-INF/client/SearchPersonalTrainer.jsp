@@ -123,8 +123,8 @@
                         Collection<PersonalTrainer> pts = (Collection<PersonalTrainer>) request.getAttribute("personalTrainers");
                         for(PersonalTrainer pt: pts) {
                             String url = request.getContextPath() + "/PersonalTrainerProfile?personalTrainerUsername=" + pt.username;
-                            out.print("<td><button onclick=\"getPT('" + Utils.PROTOCOL + "', '" + Utils.SERVER_URL + "', '" + Utils.SERVER_PORT + "', '" + Utils.SERVER_CONTROLLER + "','" + session.getAttribute("username") + "', '" + session.getAttribute("token") + "', " + pt.username +");\" type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">perfil</button></td>");
                             out.print("<tr onclick=\"document.location='" + url + "';\">");
+                            out.print("<td><button onclick=\"getPT('" + Utils.PROTOCOL + "', '" + Utils.SERVER_URL + "', '" + Utils.SERVER_PORT + "', '" + Utils.SERVER_CONTROLLER + "','" + session.getAttribute("username") + "', '" + session.getAttribute("token") + "', " + pt.username +");\" type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModalCenter\">perfil</button></td>");
                             out.print("<td>@" + pt.username + "</td>");
                             out.print("<td>" + pt.name + "</td>");
                             out.print("<td>" + pt.skill + "</td>");

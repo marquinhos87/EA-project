@@ -15,9 +15,7 @@ import core.Workout;
 import core.WorkoutComparatorByDate;
 
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 /**
